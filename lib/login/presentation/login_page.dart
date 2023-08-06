@@ -10,8 +10,9 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController emailController = ref.watch(correoProvider);
-    final TextEditingController passwordController = ref.watch(contrasenaProvider);
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final loginControllerIns = ref.read(loginController.notifier);
     final bool isDarkmode = ref.watch(isDarkmodeProvider);
     return Scaffold(
       body: SingleChildScrollView(
@@ -48,7 +49,7 @@ class LoginPage extends ConsumerWidget {
                         ),
                         TextField(
                           keyboardType: TextInputType.emailAddress,
-                          controller: emailController,
+                          controller: loginControllerIns.emailController,
                           decoration: const InputDecoration(
                             hintText: "Correo electrónico",
                             focusedBorder: UnderlineInputBorder(
@@ -58,7 +59,7 @@ class LoginPage extends ConsumerWidget {
                         ),
                         const SizedBox(height: 20),
                         TextField(
-                          controller: passwordController,
+                          controller: loginControllerIns.passwordController,
                           decoration: const InputDecoration(
                             hintText: "Contraseña",
                             focusedBorder: UnderlineInputBorder(
@@ -70,9 +71,10 @@ class LoginPage extends ConsumerWidget {
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () async {
-                            var isLoggedIn = await loginOk(emailController, passwordController);
-                            if (isLoggedIn != UserRol.lock) {
-                              goToHome(context, isLoggedIn);
+                            var isLoggedIn =
+                                await loginControllerIns.login(emailController.text, passwordController.text);
+                            if ((isLoggedIn.hash ?? '').isNotEmpty) {
+                              goToHome(context, isLoggedIn.rol!);
                             }
                           },
                           style: ButtonStyle(
@@ -105,13 +107,10 @@ class LoginPage extends ConsumerWidget {
     );
   }
 
-  void goToHome(BuildContext context, UserRol rol) {
+  void goToHome(BuildContext context, String rol) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => HomePage(
-                rol: rol,
-              )),
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 }

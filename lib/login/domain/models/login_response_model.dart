@@ -5,12 +5,14 @@ class LoginResponseModel {
   String? token;
   String? message;
   String? rol;
+  String? error;
 
   LoginResponseModel({
     this.hash,
     this.token,
     this.message,
     this.rol,
+    this.error,
   });
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
@@ -20,12 +22,12 @@ class LoginResponseModel {
     rol = json["rol"];
   }
 
-  String toJson() {
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data["hash"] = hash;
     data["token"] = token;
     data["message"] = message;
     data["rol"] = rol;
-    return jsonEncode(data);
+    return data;
   }
 }

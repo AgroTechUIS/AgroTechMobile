@@ -12,10 +12,10 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   const HomePage({
     super.key,
-    required this.rol,
+    //required this.rol,
   });
 
-  final UserRol rol;
+  //final UserRol rol;
 
   @override
   Widget build(BuildContext context) {
@@ -99,10 +99,10 @@ class HomePage extends StatelessWidget {
                       const SubtitleWidget('Agrotech:'),
                       SectionWidget(
                         background: colors.white,
-                        children: [
-                          if (rol == UserRol.financiero) const FinancieroOptions(),
-                          if (rol == UserRol.capataz) const CapatazOptions(),
-                          if (rol == UserRol.obrero) const ObreroOptions(),
+                        children: const [
+                          FinancieroOptions(),
+                          CapatazOptions(),
+                          ObreroOptions(),
                         ],
                       ),
                     ],

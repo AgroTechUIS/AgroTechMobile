@@ -1,36 +1,31 @@
-import 'package:agrotech/home/presentation/home_page.dart';
 import 'package:agrotech/login/data/network/login_service.dart';
+import 'package:agrotech/login/domain/models/login_model.dart';
 import 'package:agrotech/login/domain/models/login_response_model.dart';
-import 'package:http/http.dart';
 import 'package:secure_shared_preferences/secure_shared_pref.dart';
 
-class LoginUseCase {
+abstract class LoginUseCase {
+  Future<LoginResponseModel> login({required LoginModel loginModel});
+}
+
+class LoginUseCaseImpl extends LoginUseCase {
   final LoginService loginService;
 
-  LoginUseCase({
-    required this.loginService,
-  });
+  LoginUseCaseImpl(
+    this.loginService,
+  );
 
-  Future<UserRol> login({required String correo, required String contrasena}) async {
-    var response = await loginService.login(correo: correo, contrasena: contrasena);
+  @override
+  Future<LoginResponseModel> login({required LoginModel loginModel}) async {
+    var response = await loginService.login(loginModel: loginModel);
 
-    LoginResponseModel login = response;
-    if (response.message == "ok") {
+    if (response.success) {
+      var login = LoginResponseModel.fromJson(response.body ?? {});
       var pref = await SecureSharedPref.getInstance();
       pref.putString("hash", login.hash!);
       pref.putString("token", login.token!);
-      switch (login.rol) {
-        case 'financiero':
-          return UserRol.financiero;
-        case 'capataz':
-          return UserRol.capataz;
-        case 'obrero':
-          return UserRol.obrero;
-        default:
-          return UserRol.lock;
-      }
+      return login;
     } else {
-      return UserRol.lock;
+      return LoginResponseModel(error: 'login:success:false');
     }
   }
 }
