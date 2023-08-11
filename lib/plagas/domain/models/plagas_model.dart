@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Plaga {
-  int idPlaga = 0;
+  int idPlaga;
   String? nombrePlaga;
   String? descripcionPlaga;
   String? estadoPlaga;
