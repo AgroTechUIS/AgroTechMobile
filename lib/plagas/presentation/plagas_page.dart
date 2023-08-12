@@ -37,29 +37,29 @@ class _PlagaFormState extends State<PlagaForm> {
       children: [
         TextField(
             controller: nombreController,
-            decoration: InputDecoration(labelText: 'Nombre')),
+            decoration: const InputDecoration(labelText: 'Nombre')),
         TextField(
             controller: descripcionController,
-            decoration: InputDecoration(labelText: 'Descripción')),
+            decoration: const InputDecoration(labelText: 'Descripción')),
         TextField(
             controller: estadoController,
-            decoration: InputDecoration(labelText: 'Estado')),
+            decoration: const InputDecoration(labelText: 'Estado')),
         TextField(
             controller: observacionController,
-            decoration: InputDecoration(labelText: 'Observación')),
+            decoration: const InputDecoration(labelText: 'Observación')),
         TextField(
             controller: fechaPlagaController,
-            decoration: InputDecoration(labelText: 'Fecha de aparición')),
+            decoration: const InputDecoration(labelText: 'Fecha de aparición')),
         TextField(
             controller: familiaPlagaController,
-            decoration: InputDecoration(labelText: 'Familia')),
+            decoration: const InputDecoration(labelText: 'Familia')),
         TextField(
             controller: tratamientoPlagaController,
-            decoration: InputDecoration(labelText: 'Tratamiento')),
+            decoration: const InputDecoration(labelText: 'Tratamiento')),
         TextField(
             controller: cropPlagaController,
-            decoration: InputDecoration(labelText: 'CROP')),
-        SizedBox(height: 15),
+            decoration: const InputDecoration(labelText: 'CROP')),
+        const SizedBox(height: 15),
         Row(
           children: [
             ElevatedButton(
@@ -76,9 +76,7 @@ class _PlagaFormState extends State<PlagaForm> {
                   cropPlaga: cropPlagaController.text,
                 );
 
-                lastPlagaId++;
-
-                widget.onGuardar(nuevaPlaga); // Llamar a la función de guardar
+                widget.onGuardar(nuevaPlaga);
                 Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
               },
               child: Text('Guardar'),
@@ -86,7 +84,7 @@ class _PlagaFormState extends State<PlagaForm> {
             SizedBox(width: 15),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                Navigator.of(context).pop();
               },
               child: Text('Cancelar'),
             ),
@@ -201,7 +199,7 @@ class _PlagasPageState extends State<PlagasPage> {
                       child: const Icon(Icons.cancel),
                       onPressed: () {},
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -287,7 +285,7 @@ class _PlagasPageState extends State<PlagasPage> {
                   ),
                 )
               ],
-            )), // Puedes agregar campos de edición aquí
+            )),
           )
         ]),
         actions: [
@@ -302,6 +300,7 @@ class _PlagasPageState extends State<PlagasPage> {
               setState(() {
                 Plaga plagaEncontrada = plagas.firstWhere(
                     (plaga) => plaga.idPlaga == plagaEditar.idPlaga);
+                plagaEncontrada.idPlaga++;
                 plagaEncontrada.nombrePlaga = nombreController.text;
                 plagaEncontrada.descripcionPlaga = descripcionController.text;
                 plagaEncontrada.estadoPlaga = estadoController.text;
@@ -395,7 +394,6 @@ class _PlagasPageState extends State<PlagasPage> {
                       backgroundColor: Colors.lightBlue[100],
                       child: const Icon(Icons.edit),
                       onPressed: () {
-                        print('ID: ${plaga.idPlaga}');
                         _editarCampos(plaga.idPlaga);
                       },
                     ),
@@ -418,13 +416,10 @@ class _PlagasPageState extends State<PlagasPage> {
 
   @override
   Widget build(BuildContext context) {
-    String subtitleText = 'Plaga';
-// Genera los widgets a partir de los objetos Plaga en la lista plagas
     List<Widget> plagasWidgets =
         plagas.map((plaga) => _buildPlagaWidget(plaga)).toList();
     return Scaffold(
       appBar: AppBar(
-        // const iconTheme: IconThemeData(color: Colors.green),
         title: const Center(
           child: Text(
             'Plagas',
@@ -437,7 +432,7 @@ class _PlagasPageState extends State<PlagasPage> {
           Column(
             children: [
               widgetPlaga,
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             ],
           ),
       ]),
