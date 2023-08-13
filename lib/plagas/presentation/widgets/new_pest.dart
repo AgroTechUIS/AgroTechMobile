@@ -10,6 +10,7 @@ import 'my_buttom.dart';
 class NewPest extends StatefulWidget {
   void Function(Plaga)? onSave;
   VoidCallback? onCancel;
+  
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
   final TextEditingController observacionesController = TextEditingController();
