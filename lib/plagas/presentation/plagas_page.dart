@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrotech/config/colors_theme.dart';
 import 'package:flutter/services.dart';
 
+
 class PlagasPage extends StatefulWidget {
   const PlagasPage({super.key});
 
@@ -130,8 +131,7 @@ class _PlagasPageState extends State<PlagasPage> {
                  
               ),
             ),
-            
-          ),
+           ),
           
         ],
       ),
