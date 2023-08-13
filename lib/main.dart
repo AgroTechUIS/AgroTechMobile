@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'AgroTech',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       initialRoute: 'login',
       routes: {
-        'login': (_) => const LoginPage(),
+        'login': (_) => const PlagasPage(),
         'signup': (_) => const SignUpPage(),
         'inadmin': (_) => InAdminPage(),
         'plagas': (_) => PlagasPage()
