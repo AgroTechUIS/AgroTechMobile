@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-
+import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -70,21 +70,44 @@ class PestWidget extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                     onTap: () async {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                  title: Text('Imagen'),
-                                  content: Image.memory(plaga
-                                      .image!), // Mostrar la imagen usando Image.memory
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pop(); // Cerrar el cuadro de diálogo
-                                      },
-                                      child: Text('Cerrar'),
+                      if (plaga.image != null) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                    title: Text('Imagen'),
+                                    content: Container(
+                                      width: 200,
+                                      height: 230,
+                                      child: PhotoView(
+                                        imageProvider:
+                                            MemoryImage(plaga.image!),
+                                      ),
                                     ),
-                                  ]));
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop(); // Cerrar el cuadro de diálogo
+                                        },
+                                        child: Text('Cerrar'),
+                                      ),
+                                    ]));
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                    title: Text('No hay imagen'),
+                                    content: Text('SIN IMAGEN'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop(); // Cerrar el cuadro de diálogo
+                                        },
+                                        child: Text('Cerrar'),
+                                      ),
+                                    ]));
+                      }
                     },
                     child: plaga.image != null
                         ? CircleAvatar(
