@@ -35,7 +35,7 @@ class ClientHttp {
     try {
       var response = await http.post(
         Uri.parse(url),
-        headers: {},
+        headers: {"Content-Type": "application/json"},
         body: jsonEncode(body),
       );
 

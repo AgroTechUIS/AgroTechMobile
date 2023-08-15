@@ -1,6 +1,3 @@
-import 'package:agrotech/gestion_financiera/gestion_financiera_page.dart';
-import 'package:flutter/cupertino.dart';
-
 String getStatusMessage(int statusCode) {
   switch (statusCode) {
     case 100:
