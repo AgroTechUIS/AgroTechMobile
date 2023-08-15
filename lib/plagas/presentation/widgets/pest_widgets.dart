@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../domain/models/plagas_model.dart';
 
@@ -6,8 +9,26 @@ class PestWidget extends StatelessWidget {
   final Plaga plaga;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  const PestWidget(
+  PestWidget(
       {required this.plaga, required this.onEdit, required this.onDelete});
+
+  pickImage(ImageSource source) async {
+    final ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: source);
+
+    if (file != null) {
+      return await file.readAsBytes();
+    }
+    print('No has seleccionado imagenes');
+  }
+
+  Uint8List? image;
+  selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+
+    image = img;
+    plaga.image = image;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,25 +45,62 @@ class PestWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text(
-                'Nombre: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  plaga.name ?? '',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
+            Row(
+              children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Text(
+                    'Nombre: ',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ),
-            ]),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                    child: Text(
+                      plaga.name ?? '',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ),
+                ]),
+                Spacer(),
+                GestureDetector(
+                    onTap: () async {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                  title: Text('Imagen'),
+                                  content: Image.memory(plaga
+                                      .image!), // Mostrar la imagen usando Image.memory
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Cerrar el cuadro de diálogo
+                                      },
+                                      child: Text('Cerrar'),
+                                    ),
+                                  ]));
+                    },
+                    child: plaga.image != null
+                        ? CircleAvatar(
+                            radius: 40,
+                            backgroundImage: MemoryImage(plaga.image!))
+                        : CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Colors.grey[300],
+                            child: Icon(
+                              Icons.camera_alt,
+                              size: 30,
+                              color: Colors.black,
+                            ),
+                          )),
+              ],
+            ),
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
@@ -164,6 +222,7 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
             ]),
+
             SizedBox(height: 8.0),
 
             Row(
