@@ -1,4 +1,6 @@
-import 'package:agrotech/login/presentation/login_page.dart';
+import 'package:agrotech/features/1.login/presentation/login_page.dart';
+import 'package:agrotech/features/3.opciones_supervisor/presentation/actividad_cultivo_page/actividad_cultivo_page.dart';
+import 'package:agrotech/features/3.opciones_supervisor/presentation/asignacion_cultivos/asignacion_cultivos_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'login',
       routes: {
-        'login': (_) => const LoginPage(),
+        'login': (_) => AsigCultivoPage(),
         //'miapp': (_) => const MyPage(),
       },
     );
