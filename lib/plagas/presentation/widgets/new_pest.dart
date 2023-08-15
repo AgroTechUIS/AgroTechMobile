@@ -118,6 +118,7 @@ class _NewPestState extends State<NewPest> {
             SizedBox(height: 12),
             Container(
               width: double.infinity,
+              alignment: Alignment.centerLeft,
               child: InputDecorator(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -125,6 +126,7 @@ class _NewPestState extends State<NewPest> {
                 )),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton2<String>(
+
                     isExpanded: true,
                     hint: Text(
                       'Estado de la plaga',
@@ -197,23 +199,58 @@ class _NewPestState extends State<NewPest> {
               ),
             ),
             SizedBox(height: 12),
-            ElevatedButton(
-                onPressed: () async {
-                  fecha = showDatePicker(
-                      fieldLabelText: 'Selecciona una fecha',
-                      context: context,
-                      initialDate: date as DateTime,
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2100));
-                  final selectedDate = await fecha;
-                  if (selectedDate != null) {
-                    setState(() {
-                      date = selectedDate;
-                    });
-                  }
-                },
-                child: Text(
-                    'Selecciona una fecha. Fecha elegida: ${date!.day} / ${date!.month} / ${date!.year} ')),
+          InkWell(
+            onTap: () async {
+              fecha = showDatePicker(
+                context: context,
+                initialDate: date as DateTime,
+                firstDate: DateTime(1900),
+                lastDate: DateTime(2100),
+              );
+              final selectedDate = await fecha;
+              if (selectedDate != null) {
+                setState(() {
+                  date = selectedDate;
+                });
+              }
+            },
+            child:Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Cuando aparecio la plaga:',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+                Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey, // Puedes personalizar el color del borde aquí
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: InputDecorator(
+                decoration: InputDecoration(
+                  border: InputBorder.none, // Elimina el borde de InputDecorator
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '${date!.day} / ${date!.month} / ${date!.year}',
+                    style: TextStyle(
+                      color: colors.black, // Puedes personalizar el color del texto aquí
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+            ),
+          ),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
