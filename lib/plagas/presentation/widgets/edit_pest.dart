@@ -204,6 +204,7 @@ class _editPestState extends State<EditPest> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MyButton(
+                  
                     text: "Guardar",
                     onPressed: () {
                       Plaga nuevaPlaga = Plaga(
