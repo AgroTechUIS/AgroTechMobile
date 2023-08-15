@@ -25,7 +25,7 @@ class PestWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Nombre: ',
                 style: TextStyle(
                   fontSize: 15.0,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 class Plaga {
   int id;
@@ -10,7 +11,8 @@ class Plaga {
   String? pestFamily;
   String? state_tratment;
   String? crop;
-   
+  Uint8List? image;
+
   Plaga(
       {required this.id,
       this.name,
@@ -21,5 +23,5 @@ class Plaga {
       this.pestFamily,
       this.state_tratment,
       this.crop,
-      });
+      this.image});
 }
