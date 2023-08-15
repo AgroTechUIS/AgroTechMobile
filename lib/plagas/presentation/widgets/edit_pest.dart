@@ -42,6 +42,7 @@ class _editPestState extends State<EditPest> {
         ?.state; // Asigna el valor inicial de initialPlaga.state a selectedValue
   }
 
+  late Future<DateTime?> fecha;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -181,23 +182,23 @@ class _editPestState extends State<EditPest> {
               ),
             ),
             SizedBox(height: 12),
-            /* ElevatedButton(
+            ElevatedButton(
                 onPressed: () async {
-                  widget. fecha = showDatePicker(
+                  fecha = showDatePicker(
                       fieldLabelText: 'Selecciona una fecha',
                       context: context,
-                      initialDate: date as DateTime,
+                      initialDate: widget.initialPlaga!.appareceDate!,
                       firstDate: DateTime(1900),
                       lastDate: DateTime(2100));
                   final selectedDate = await fecha;
                   if (selectedDate != null) {
                     setState(() {
-                      date = selectedDate;
+                      widget.initialPlaga!.appareceDate = selectedDate;
                     });
                   }
                 },
                 child: Text(
-                    'Selecciona una fecha. Fecha elegida: ${date!.day} / ${date!.month} / ${date!.year} ')),*/
+                    'Selecciona una fecha. Fecha elegida: ${widget.initialPlaga!.appareceDate!.day} / ${widget.initialPlaga!.appareceDate!.month} / ${widget.initialPlaga!.appareceDate!.year} ')),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,13 +207,13 @@ class _editPestState extends State<EditPest> {
                     text: "Guardar",
                     onPressed: () {
                       Plaga nuevaPlaga = Plaga(
-                        id: 0, // Asigna el ID adecuado
-                        name: widget.nombreController.text,
-                        description: widget.descripcionController.text,
-                        state: selectedValue,
-                        observation: widget.observacionesController.text,
-                        pestFamily: widget.familiaController.text,
-                      );
+                          id: 0, // Asigna el ID adecuado
+                          name: widget.nombreController.text,
+                          description: widget.descripcionController.text,
+                          state: selectedValue,
+                          observation: widget.observacionesController.text,
+                          pestFamily: widget.familiaController.text,
+                          appareceDate: widget.initialPlaga!.appareceDate);
                       widget.onSave!(nuevaPlaga);
                     },
                     color: colors.green2,
