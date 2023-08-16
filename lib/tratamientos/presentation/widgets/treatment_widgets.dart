@@ -81,7 +81,8 @@ class TreatmentWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            SizedBox(height: 8.0),
+            // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 'Estado del tratamiento: ',
@@ -94,6 +95,26 @@ class TreatmentWidget extends StatelessWidget {
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   tratamiento.state ?? '',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
+            ]),
+            SizedBox(height: 8.0),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Instrucciones: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  tratamiento.instructions ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
