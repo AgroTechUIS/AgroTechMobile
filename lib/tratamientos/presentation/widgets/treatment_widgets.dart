@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../domain/models/tratamientos_model.dart';
+import 'package:flutter/src/widgets/spacer.dart';
 
 class TreatmentWidget extends StatelessWidget {
   final Tratamiento tratamiento;
@@ -29,25 +30,36 @@ class TreatmentWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text(
-                'Nombre: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  tratamiento.name ?? '',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
+            Row(
+              children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Text(
+                    'Nombre: ',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ),
-            ]),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                    child: Text(
+                      tratamiento.name ?? '',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ),
+                ]),
+                Spacer(),
+                CircleAvatar(
+                  radius: 40,
+                  backgroundImage:
+                      AssetImage('../../../assets/treatmentCircle.png'),
+                )
+              ],
+            ),
 
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
