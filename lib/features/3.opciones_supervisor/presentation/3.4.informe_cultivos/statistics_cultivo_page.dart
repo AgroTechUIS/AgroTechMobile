@@ -1,7 +1,6 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:agrotech/features/3.opciones_supervisor/models/cosecha_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/models/point_chart_model.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/bar_chart_widget.dart';
+import 'package:agrotech/common_utilities/widgets/bar_chart_widget.dart';
 import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/infobox_wiget.dart';
 import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/section_widget.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +33,7 @@ class StadisticCultivoPage extends ConsumerWidget {
       PointChartModel(x: 2023, y: 15, z: 4),
     ];
 
-    String ventas = '300';
     String ganacias = '\$5.000.000';
-    String compras = '13';
     String gastos = '\$1.200.000';
 
     return Scaffold(

@@ -1,6 +1,6 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/common_utilities/config/network_images.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/custom_card_widget.dart';
+import 'package:agrotech/common_utilities/widgets/custom_card_widget.dart';
 import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/header_page_widget.dart';
 import 'package:agrotech/common_utilities/widgets/section_scroll_widget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_controller.dart';

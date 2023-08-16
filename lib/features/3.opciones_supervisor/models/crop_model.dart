@@ -1,5 +1,5 @@
 class CropModel {
-  int? idCiltivo;
+  int? idCultivo;
   String? planta;
   String? finca;
   String? direccion;
@@ -8,7 +8,7 @@ class CropModel {
   String? fechaFin;
 
   CropModel({
-    this.idCiltivo,
+    this.idCultivo,
     this.planta,
     this.finca,
     this.direccion,
@@ -18,7 +18,7 @@ class CropModel {
   });
 
   CropModel.fromJson(Map<String, dynamic> json) {
-    idCiltivo = json["idCiltivo"];
+    idCultivo = json["idCultivo"];
     planta = json["planta"];
     finca = json["finca"];
     direccion = json["direccion"];
@@ -28,7 +28,7 @@ class CropModel {
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data["idCiltivo"] = idCiltivo;
+    data["idCultivo"] = idCultivo;
     data["planta"] = planta;
     data["finca"] = finca;
     data["direccion"] = direccion;

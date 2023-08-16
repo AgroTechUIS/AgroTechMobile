@@ -1,8 +1,8 @@
-import 'package:agrotech/features/3.opciones_supervisor/presentation/Informe_diario_page.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/informe_cultivos_page.dart';
+import 'package:agrotech/features/3.opciones_supervisor/presentation/3.1.informe_diario/Informe_diario_page.dart';
+import 'package:agrotech/features/3.opciones_supervisor/presentation/3.4.informe_cultivos/informe_cultivos_page.dart';
 import 'package:agrotech/features/3.opciones_supervisor/presentation/informe_financiero_page.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/informe_historico_page.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/mini_option_widget.dart';
+import 'package:agrotech/features/3.opciones_supervisor/presentation/3.2.informe_historico/informe_historico_page.dart';
+import 'package:agrotech/common_utilities/widgets/mini_option_widget.dart';
 import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/subtitleWidget.dart';
 import 'package:flutter/material.dart';
 
