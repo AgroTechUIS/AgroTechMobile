@@ -6,7 +6,6 @@ import 'package:agrotech/config/colors_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
-import 'package:agrotech/plagas/presentation/widgets/camara.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../domain/models/tratamientos_model.dart';
 
@@ -49,7 +48,7 @@ class _editTreatmentState extends State<EditTreatment> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Text("Edita la plaga"),
+      title: Text("Edita el tratamiento"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -267,23 +266,6 @@ class _editTreatmentState extends State<EditTreatment> {
                 ],
               ),
             ),
-            /*ElevatedButton(
-                onPressed: () async {
-                  fecha = showDatePicker(
-                      fieldLabelText: 'Selecciona una fecha',
-                      context: context,
-                      initialDate: widget.initialPlaga!.appareceDate!,
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2100));
-                  final selectedDate = await fecha;
-                  if (selectedDate != null) {
-                    setState(() {
-                      widget.initialPlaga!.appareceDate = selectedDate;
-                    });
-                  }
-                },
-                child: Text(
-                    'Selecciona una fecha. Fecha elegida: ${widget.initialPlaga!.appareceDate!.day} / ${widget.initialPlaga!.appareceDate!.month} / ${widget.initialPlaga!.appareceDate!.year} ')),*/
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

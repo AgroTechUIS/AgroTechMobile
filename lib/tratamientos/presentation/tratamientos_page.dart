@@ -16,7 +16,7 @@ class TratamientosPage extends StatefulWidget {
 
 class _TratamientosPageState extends State<TratamientosPage> {
   List<Tratamiento> listTreatments = [];
-  Tratamiento? selectedPlagaForEdit;
+  Tratamiento? selectedTreatmentForEdit;
 
   void saveNewTreatment(Tratamiento tratamiento) {
     setState(() {
@@ -25,22 +25,21 @@ class _TratamientosPageState extends State<TratamientosPage> {
   }
 
   void editTreatment(Tratamiento tratamiento) {
-    selectedPlagaForEdit = tratamiento;
+    selectedTreatmentForEdit = tratamiento;
     showDialog(
       context: context,
       builder: (context) {
         return EditTreatment(
-          initialTratamiento: selectedPlagaForEdit,
+          initialTratamiento: selectedTreatmentForEdit,
           onSave: (EditTreatment) {
-            // Actualizar la lista de plagas
             setState(() {
-              listTreatments.remove(selectedPlagaForEdit);
+              listTreatments.remove(selectedTreatmentForEdit);
               listTreatments.add(EditTreatment);
             });
             Navigator.of(context).pop();
           },
           onCancel: () {
-            selectedPlagaForEdit =
+            selectedTreatmentForEdit =
                 null; // Limpiar la variable temporal si se cancela
             Navigator.of(context).pop();
           },

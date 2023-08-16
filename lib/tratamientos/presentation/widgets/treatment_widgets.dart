@@ -56,7 +56,7 @@ class TreatmentWidget extends StatelessWidget {
                 CircleAvatar(
                   radius: 40,
                   backgroundImage:
-                      AssetImage('../../../assets/treatmentCircle.png'),
+                      AssetImage('../../../assets/plagaCircle.png'),
                 )
               ],
             ),
