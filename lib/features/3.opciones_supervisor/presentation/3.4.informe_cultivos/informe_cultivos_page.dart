@@ -1,13 +1,13 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/common_utilities/config/network_images.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/statistics_cultivo_page.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/custom_card_widget.dart';
+import 'package:agrotech/features/3.opciones_supervisor/presentation/3.4.informe_cultivos/statistics_cultivo_page.dart';
+import 'package:agrotech/common_utilities/widgets/custom_card_widget.dart';
 import 'package:agrotech/common_utilities/widgets/section_scroll_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GestionFinancieraIngresos extends ConsumerWidget {
-  const GestionFinancieraIngresos({super.key});
+class InformeCultivosPage extends ConsumerWidget {
+  const InformeCultivosPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,12 +34,11 @@ class GestionFinancieraIngresos extends ConsumerWidget {
             const Padding(
               padding: EdgeInsets.all(10.0),
               child: Text(
-                'Gestion Ingresos',
+                'Informe cultivos',
                 style: TextStyle(fontSize: 25),
               ),
             ),
             SectionScrollWidget(
-              showSearch: false,
               children: [
                 CustomCardWidget(
                   title: 'Cultivo de Naranja',
