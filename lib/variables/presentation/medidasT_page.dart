@@ -144,7 +144,7 @@ class _VariablesTPageState extends State<VariablesTPage> {
                               DataCell(Text('${e.value}')),
                               DataCell(Text(e.description ?? '')),
                               DataCell(Text(
-                                  '${e.date!.year}-${e.date!.month}-${e.date!.day}' ??
+                                  '${e.date!.year}-${e.date!.month}-${e.date!.day} | ${e.date!.hour}:${e.date!.minute}' ??
                                       '')),
                               DataCell(Text(e.unit ?? '')),
                               DataCell(

@@ -32,6 +32,9 @@ class EditMedida extends StatefulWidget {
 class _editMedidaState extends State<EditMedida> {
   String? selectedValue;
   int intValue = 0;
+
+  DateTime? selectedTime;
+  DateTime date = DateTime.now();
   late Future<DateTime?> fecha;
   @override
   Widget build(BuildContext context) {
@@ -83,17 +86,31 @@ class _editMedidaState extends State<EditMedida> {
             SizedBox(height: 12),
             InkWell(
               onTap: () async {
-                fecha = showDatePicker(
+                final currentDate = DateTime.now();
+                final selectedDate = await showDatePicker(
                   context: context,
                   initialDate: widget.initialMedida!.date as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
-                final selectedDate = await fecha;
+
                 if (selectedDate != null) {
-                  setState(() {
-                    widget.initialMedida!.date = selectedDate;
-                  });
+                  final selectedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(date),
+                  );
+
+                  if (selectedTime != null) {
+                    setState(() {
+                      widget.initialMedida!.date = DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
+                        selectedTime.hour,
+                        selectedTime.minute,
+                      );
+                    });
+                  }
                 }
               },
               child: Column(
@@ -124,7 +141,7 @@ class _editMedidaState extends State<EditMedida> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${widget.initialMedida!.date!.day} / ${widget.initialMedida!.date!.month} / ${widget.initialMedida!.date!.year}',
+                          '${widget.initialMedida!.date!.day} / ${widget.initialMedida!.date!.month} / ${widget.initialMedida!.date!.year} | ${widget.initialMedida!.date!.hour}:${widget.initialMedida!.date!.minute} ',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí

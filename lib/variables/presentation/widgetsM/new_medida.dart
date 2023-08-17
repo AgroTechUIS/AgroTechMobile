@@ -26,8 +26,9 @@ class NewMedida extends StatefulWidget {
 
 class _NewMedidaState extends State<NewMedida> {
   String? selectedValue;
+  DateTime? selectedTime;
+  DateTime date = DateTime.now();
 
-  DateTime? date = DateTime.now();
   late Future<DateTime?> fecha;
   int intValue = 0;
   @override
@@ -80,17 +81,30 @@ class _NewMedidaState extends State<NewMedida> {
             SizedBox(height: 12),
             InkWell(
               onTap: () async {
-                fecha = showDatePicker(
+                final currentDate = DateTime.now();
+                final selectedDate = await showDatePicker(
                   context: context,
-                  initialDate: date as DateTime,
+                  initialDate: date,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
-                final selectedDate = await fecha;
                 if (selectedDate != null) {
-                  setState(() {
-                    date = selectedDate;
-                  });
+                  final selectedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(date),
+                  );
+
+                  if (selectedTime != null) {
+                    setState(() {
+                      date = DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
+                        selectedTime.hour,
+                        selectedTime.minute,
+                      );
+                    });
+                  }
                 }
               },
               child: Column(
@@ -121,7 +135,7 @@ class _NewMedidaState extends State<NewMedida> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${date!.day} / ${date!.month} / ${date!.year}',
+                          '${date!.day} / ${date!.month} / ${date!.year} | ${date.hour}:${date.minute}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
