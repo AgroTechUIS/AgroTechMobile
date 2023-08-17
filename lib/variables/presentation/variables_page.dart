@@ -6,7 +6,7 @@ import 'package:agrotech/variables/domain/models/variables_model.dart';
 import 'package:agrotech/variables/presentation/widgets/edit_variable.dart';
 import 'package:agrotech/variables/presentation/widgets/new_variable.dart';
 import 'package:agrotech/variables/presentation/widgets/variable_widgets.dart';
-import 'package:agrotech/variables/presentation/widgets/variablesT_widget.dart';
+import 'package:agrotech/variables/presentation/widgets/variablesTablas_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

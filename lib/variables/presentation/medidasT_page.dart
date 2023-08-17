@@ -130,7 +130,6 @@ class _VariablesTPageState extends State<VariablesTPage> {
                     children: [
                       DataTable(
                         columns: [
-                          DataColumn(label: Text('ID')),
                           DataColumn(label: Text('Valor')),
                           DataColumn(label: Text('Descripción')),
                           DataColumn(label: Text('Fecha')),
@@ -142,7 +141,6 @@ class _VariablesTPageState extends State<VariablesTPage> {
                         rows: listMedidas.map((e) {
                           return DataRow(
                             cells: [
-                              DataCell(Text('${e.id}')),
                               DataCell(Text('${e.value}')),
                               DataCell(Text(e.description ?? '')),
                               DataCell(Text(
