@@ -5,11 +5,11 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../domain/models/variables_model.dart';
 
-class VariablesTWidget extends StatelessWidget {
+class VariablesTablasWidget extends StatelessWidget {
   final Variables variable;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  VariablesTWidget(
+  VariablesTablasWidget(
       {required this.variable, required this.onEdit, required this.onDelete});
 
   @override
