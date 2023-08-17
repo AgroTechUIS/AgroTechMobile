@@ -11,7 +11,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrotech/config/colors_theme.dart';
 import 'package:flutter/services.dart';
 
-
 class PlagasPage extends StatefulWidget {
   const PlagasPage({super.key});
 
@@ -22,63 +21,67 @@ class PlagasPage extends StatefulWidget {
 
 class _PlagasPageState extends State<PlagasPage> {
   List<Plaga> listPest = [];
-  Plaga? selectedPlagaForEdit; 
-  void saveNewPest(Plaga plaga){
+  Plaga? selectedPlagaForEdit;
+  void saveNewPest(Plaga plaga) {
     setState(() {
       listPest.add(plaga);
     });
   }
 
-  void editPest(Plaga plaga){
-    selectedPlagaForEdit=plaga;
-      showDialog(
-    context: context,
-    builder: (context) {
-      return EditPest(
-        initialPlaga: selectedPlagaForEdit,
-        onSave: (EditPest) {
-          // Actualizar la lista de plagas
-          setState(() {
-            listPest.remove(selectedPlagaForEdit);
-            listPest.add(EditPest);
-          });
-          Navigator.of(context).pop();
-        },
-        onCancel: () {
-          selectedPlagaForEdit = null; // Limpiar la variable temporal si se cancela
-          Navigator.of(context).pop();
-        },
-        // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
-      );
-    },
-  );
+  void editPest(Plaga plaga) {
+    selectedPlagaForEdit = plaga;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return EditPest(
+          initialPlaga: selectedPlagaForEdit,
+          onSave: (EditPest) {
+            // Actualizar la lista de plagas
+            setState(() {
+              listPest.remove(selectedPlagaForEdit);
+              listPest.add(EditPest);
+            });
+            Navigator.of(context).pop();
+          },
+          onCancel: () {
+            selectedPlagaForEdit =
+                null; // Limpiar la variable temporal si se cancela
+            Navigator.of(context).pop();
+          },
+          // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
+        );
+      },
+    );
   }
-  void deletePest(Plaga plaga){
+
+  void deletePest(Plaga plaga) {
     setState(() {
       listPest.remove(plaga);
     });
   }
-  void createNewPest(){
-    showDialog(context: context,
-     builder: (context){
-      return NewPest(
-        onSave: (nuevaPlaga){
-          saveNewPest(nuevaPlaga);
-          Navigator.of(context).pop();
-        },
-        onCancel: () => Navigator.of(context).pop(),
-      );
-    },
+
+  void createNewPest() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return NewPest(
+          onSave: (nuevaPlaga) {
+            saveNewPest(nuevaPlaga);
+            Navigator.of(context).pop();
+          },
+          onCancel: () => Navigator.of(context).pop(),
+        );
+      },
     );
-    
   }
 
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
+    return Scaffold(
       backgroundColor: colors.appbar,
-      floatingActionButton: FloatingActionButton(onPressed: createNewPest,
-      child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton(
+        onPressed: createNewPest,
+        child: Icon(Icons.add),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +95,7 @@ class _PlagasPageState extends State<PlagasPage> {
                   icon: Icon(
                     Icons.arrow_back,
                     color: Colors.white,
-                      size: 30.0,
+                    size: 30.0,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -100,14 +103,14 @@ class _PlagasPageState extends State<PlagasPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 15.0),
-                child:Text(
-                  'Plagas y Enfermedades',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w700,
+                  child: Text(
+                    'Plagas y Enfermedades',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
                 ),
               ],
             ),
@@ -123,22 +126,22 @@ class _PlagasPageState extends State<PlagasPage> {
                 ),
               ),
               child: ListView(
-                children: listPest.map((e) => PestWidget(plaga: e,onEdit: (){
-                  editPest(e);
-                },onDelete: () {
-                  deletePest(e);
-                },)).toList(),
-                 
+                children: listPest
+                    .map((e) => PestWidget(
+                          plaga: e,
+                          onEdit: () {
+                            editPest(e);
+                          },
+                          onDelete: () {
+                            deletePest(e);
+                          },
+                        ))
+                    .toList(),
               ),
             ),
-           ),
-          
+          ),
         ],
       ),
     );
-  
   }
 }
-
-
-

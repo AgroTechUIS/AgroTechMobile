@@ -3,6 +3,7 @@ import 'package:agrotech/login/presentation/login_page.dart';
 import 'package:agrotech/plagas/presentation/plagas_page.dart';
 import 'package:agrotech/signup/presentation/signup_page.dart';
 import 'package:agrotech/tratamientos/presentation/tratamientos_page.dart';
+import 'package:agrotech/variables/presentation/variables_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,11 +24,12 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'login',
       routes: {
-        'login': (_) => const TratamientosPage(),
+        'login': (_) => const VariablesPage(),
         'signup': (_) => const SignUpPage(),
         'inadmin': (_) => InAdminPage(),
         'plagas': (_) => PlagasPage(),
-        'tratamientos': (_) => TratamientosPage()
+        'tratamientos': (_) => TratamientosPage(),
+        'variables': (_) => VariablesPage()
         //'miapp': (_) => const MyPage(),
       },
     );

@@ -3,17 +3,14 @@ import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../domain/models/tratamientos_model.dart';
-import 'package:flutter/src/widgets/spacer.dart';
+import '../../domain/models/variables_model.dart';
 
-class TreatmentWidget extends StatelessWidget {
-  final Tratamiento tratamiento;
+class VariablesWidget extends StatelessWidget {
+  final Variables variable;
   final VoidCallback onEdit; // Agrega este parámetro
-  final VoidCallback onDelete;
-  TreatmentWidget(
-      {required this.tratamiento,
-      required this.onEdit,
-      required this.onDelete});
+  final VoidCallback onDelete; // Agrega este parámetro
+  VariablesWidget(
+      {required this.variable, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -30,35 +27,25 @@ class TreatmentWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  const Text(
-                    'Nombre: ',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text(
+                'Nombre: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  variable.name ?? '',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                    child: Text(
-                      tratamiento.name ?? '',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ),
-                ]),
-                Spacer(),
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/treatmentCircle.png'),
-                )
-              ],
-            ),
+                ),
+              ),
+            ]),
 
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -72,48 +59,7 @@ class TreatmentWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  tratamiento.description ?? '',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
-            SizedBox(height: 8.0),
-            // Espacio entre el nombre y la descripción
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Estado del tratamiento: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  tratamiento.state ?? '',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
-            SizedBox(height: 8.0),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Instrucciones: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  tratamiento.instructions ?? '',
+                  variable.description ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -124,7 +70,7 @@ class TreatmentWidget extends StatelessWidget {
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Fecha inicial del tratamiento: ',
+                'Metodo de la variable: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -133,7 +79,7 @@ class TreatmentWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${tratamiento.initialDate!.year}-${tratamiento.initialDate!.month}-${tratamiento.initialDate!.day}',
+                  variable.method ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -144,7 +90,7 @@ class TreatmentWidget extends StatelessWidget {
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Fecha final del tratamiento: ',
+                'Fecha de toma: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -153,7 +99,7 @@ class TreatmentWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${tratamiento.finalDate!.year}-${tratamiento.finalDate!.month}-${tratamiento.finalDate!.day}',
+                  '${variable.date!.year}-${variable.date!.month}-${variable.date!.day}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -161,7 +107,27 @@ class TreatmentWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0),
+            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Instrumento: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  variable.instrumento ?? '',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
+            ]),
+            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
