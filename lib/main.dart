@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'login',
       routes: {
-        'login': (_) => const VariablesPage(),
+        'login': (_) => const VariablesTPage(),
         'signup': (_) => const SignUpPage(),
         'inadmin': (_) => InAdminPage(),
         'plagas': (_) => PlagasPage(),
