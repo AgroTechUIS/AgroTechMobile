@@ -2,11 +2,10 @@ import 'package:agrotech/config/theme_provider.dart';
 import 'package:agrotech/gestion_informes/presentation/widgets/section_widget.dart';
 import 'package:agrotech/gestion_informes/presentation/widgets/subtitleWidget.dart';
 import 'package:agrotech/variables/presentation/providers/variables_provider.dart';
-import 'package:agrotech/variables/domain/models/variables_model.dart';
-import 'package:agrotech/variables/presentation/widgets/edit_variable.dart';
-import 'package:agrotech/variables/presentation/widgets/new_variable.dart';
-import 'package:agrotech/variables/presentation/widgets/variable_widgets.dart';
-import 'package:agrotech/variables/presentation/widgets/variablesT_widget.dart';
+import 'package:agrotech/variables/domain/models/medidas_model.dart';
+import 'package:agrotech/variables/presentation/widgetsM/edit_medida.dart';
+import 'package:agrotech/variables/presentation/widgetsM/new_medida.dart';
+import 'package:agrotech/variables/presentation/widgetsM/medidasT_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,53 +20,51 @@ class VariablesTPage extends StatefulWidget {
 }
 
 class _VariablesTPageState extends State<VariablesTPage> {
-  List<Variables> listVariables = [];
-  Variables? selectedVariableForEdit;
-  void saveNewVariable(Variables variable) {
+  List<Medidas> listMedidas = [];
+  Medidas? selectedMedidaForEdit;
+  void saveNewMedida(Medidas medida) {
     setState(() {
-      listVariables.add(variable);
+      listMedidas.add(medida);
     });
   }
 
-  void editVariable(Variables variable) {
-    selectedVariableForEdit = variable;
+  void editMedida(Medidas medida) {
+    selectedMedidaForEdit = medida;
     showDialog(
       context: context,
       builder: (context) {
-        return EditVariable(
-          initialVariable: selectedVariableForEdit,
-          onSave: (EditVariable) {
+        return EditMedida(
+          initialMedida: selectedMedidaForEdit,
+          onSave: (EditMedida) {
             // Actualizar la lista de plagas
             setState(() {
-              listVariables.remove(selectedVariableForEdit);
-              listVariables.add(EditVariable);
+              listMedidas.remove(selectedMedidaForEdit);
+              listMedidas.add(EditMedida);
             });
             Navigator.of(context).pop();
           },
           onCancel: () {
-            selectedVariableForEdit =
-                null; // Limpiar la variable temporal si se cancela
+            selectedMedidaForEdit = null;
             Navigator.of(context).pop();
           },
-          // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
         );
       },
     );
   }
 
-  void deleteVariable(Variables variable) {
+  void deleteMedida(Medidas medida) {
     setState(() {
-      listVariables.remove(variable);
+      listMedidas.remove(medida);
     });
   }
 
-  void createNewVariable() {
+  void createNewMedida() {
     showDialog(
       context: context,
       builder: (context) {
-        return NewVariable(
-          onSave: (nuevaVariable) {
-            saveNewVariable(nuevaVariable);
+        return NewMedida(
+          onSave: (nuevaMedida) {
+            saveNewMedida(nuevaMedida);
             Navigator.of(context).pop();
           },
           onCancel: () => Navigator.of(context).pop(),
@@ -81,7 +78,7 @@ class _VariablesTPageState extends State<VariablesTPage> {
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: createNewVariable,
+        onPressed: createNewMedida,
         child: Icon(Icons.add),
       ),
       body: Column(
@@ -134,36 +131,32 @@ class _VariablesTPageState extends State<VariablesTPage> {
                       DataTable(
                         columns: [
                           DataColumn(label: Text('ID')),
-                          DataColumn(label: Text('Nombres')),
+                          DataColumn(label: Text('Valor')),
                           DataColumn(label: Text('Descripción')),
-                          DataColumn(label: Text('Método')),
                           DataColumn(label: Text('Fecha')),
-                          DataColumn(label: Text('Instrumento')),
+                          DataColumn(label: Text('Unidad')),
 
                           DataColumn(
                               label: Text('Acciones')), // Columna para botones
                         ],
-                        rows: listVariables.map((e) {
+                        rows: listMedidas.map((e) {
                           return DataRow(
                             cells: [
                               DataCell(Text('${e.id}')),
-                              DataCell(Text(e.name ??
-                                  '')), // Cambia "valorColumna1" al nombre real de la propiedad
-                              DataCell(Text(e.description ??
-                                  '')), // Cambia "valorColumna2" al nombre real de la propiedad
-                              DataCell(Text(e.method ?? '')),
+                              DataCell(Text('${e.value}')),
+                              DataCell(Text(e.description ?? '')),
                               DataCell(Text(
                                   '${e.date!.year}-${e.date!.month}-${e.date!.day}' ??
                                       '')),
-                              DataCell(Text(e.instrumento ?? '')),
+                              DataCell(Text(e.unit ?? '')),
                               DataCell(
                                 VariablesTWidget(
-                                  variable: e,
+                                  medida: e,
                                   onEdit: () {
-                                    editVariable(e);
+                                    editMedida(e);
                                   },
                                   onDelete: () {
-                                    deleteVariable(e);
+                                    deleteMedida(e);
                                   },
                                 ),
                               )
