@@ -2,6 +2,7 @@ import 'package:agrotech/config/colors_theme.dart';
 import 'package:agrotech/variables/domain/models/medidas_model.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
@@ -30,7 +31,7 @@ class _NewMedidaState extends State<NewMedida> {
   DateTime date = DateTime.now();
 
   late Future<DateTime?> fecha;
-  int intValue = 0;
+  int? intValue;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -42,7 +43,10 @@ class _NewMedidaState extends State<NewMedida> {
           children: [
             TextField(
               controller: widget.valueController,
-              keyboardType: TextInputType.name,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              ],
               decoration: InputDecoration(
                 label: const Text("Valor "),
                 border: OutlineInputBorder(
@@ -57,7 +61,11 @@ class _NewMedidaState extends State<NewMedida> {
               ),
               onChanged: (text) {
                 setState(() {
-                  intValue = int.tryParse(text) ?? 0;
+                  if (text.isNotEmpty) {
+                    intValue = int.tryParse(text);
+                  } else {
+                    intValue = null;
+                  }
                 });
               },
             ),

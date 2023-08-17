@@ -141,7 +141,7 @@ class _VariablesTPageState extends State<VariablesTPage> {
                         rows: listMedidas.map((e) {
                           return DataRow(
                             cells: [
-                              DataCell(Text('${e.value}')),
+                              DataCell(Text('${e.value ?? ''}')),
                               DataCell(Text(e.description ?? '')),
                               DataCell(Text(
                                   '${e.date!.year}-${e.date!.month}-${e.date!.day} | ${e.date!.hour}:${e.date!.minute}' ??
