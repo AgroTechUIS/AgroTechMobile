@@ -128,51 +128,53 @@ class _VariablesPageState extends State<VariablesPage> {
                 ),
               ),
               child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Column(
-                  children: [
-                    DataTable(
-                      columns: [
-                        DataColumn(label: Text('ID')),
-                        DataColumn(label: Text('Nombres')),
-                        DataColumn(label: Text('Descripción')),
-                        DataColumn(label: Text('Método')),
-                        DataColumn(label: Text('Fecha')),
-                        DataColumn(label: Text('Instrumento')),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      DataTable(
+                        columns: [
+                          DataColumn(label: Text('ID')),
+                          DataColumn(label: Text('Nombres')),
+                          DataColumn(label: Text('Descripción')),
+                          DataColumn(label: Text('Método')),
+                          DataColumn(label: Text('Fecha')),
+                          DataColumn(label: Text('Instrumento')),
 
-                        DataColumn(
-                            label: Text('Acciones')), // Columna para botones
-                      ],
-                      rows: listVariables.map((e) {
-                        return DataRow(
-                          cells: [
-                            DataCell(Text('${e.id}')),
-                            DataCell(Text(e.name ??
-                                '')), // Cambia "valorColumna1" al nombre real de la propiedad
-                            DataCell(Text(e.description ??
-                                '')), // Cambia "valorColumna2" al nombre real de la propiedad
-                            DataCell(Text(e.method ?? '')),
-                            DataCell(Text(
-                                '${e.date!.year}-${e.date!.month}-${e.date!.day}' ??
-                                    '')),
-                            DataCell(Text(e.instrumento ?? '')),
-                            DataCell(
-                              VariablesTWidget(
-                                variable: e,
-                                onEdit: () {
-                                  editVariable(e);
-                                },
-                                onDelete: () {
-                                  deleteVariable(e);
-                                },
-                              ),
-                            )
-                            // Agrega más DataCell según sea necesario
-                          ],
-                        );
-                      }).toList(),
-                    ),
-                  ],
+                          DataColumn(
+                              label: Text('Acciones')), // Columna para botones
+                        ],
+                        rows: listVariables.map((e) {
+                          return DataRow(
+                            cells: [
+                              DataCell(Text('${e.id}')),
+                              DataCell(Text(e.name ??
+                                  '')), // Cambia "valorColumna1" al nombre real de la propiedad
+                              DataCell(Text(e.description ??
+                                  '')), // Cambia "valorColumna2" al nombre real de la propiedad
+                              DataCell(Text(e.method ?? '')),
+                              DataCell(Text(
+                                  '${e.date!.year}-${e.date!.month}-${e.date!.day}' ??
+                                      '')),
+                              DataCell(Text(e.instrumento ?? '')),
+                              DataCell(
+                                VariablesTWidget(
+                                  variable: e,
+                                  onEdit: () {
+                                    editVariable(e);
+                                  },
+                                  onDelete: () {
+                                    deleteVariable(e);
+                                  },
+                                ),
+                              )
+                              // Agrega más DataCell según sea necesario
+                            ],
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               /* child: ListView(
