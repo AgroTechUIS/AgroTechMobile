@@ -12,15 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrotech/config/colors_theme.dart';
 
-class VariablesPage extends StatefulWidget {
-  const VariablesPage({super.key});
+class VariablesTPage extends StatefulWidget {
+  const VariablesTPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _VariablesPageState createState() => _VariablesPageState();
+  _VariablesTPageState createState() => _VariablesTPageState();
 }
 
-class _VariablesPageState extends State<VariablesPage> {
+class _VariablesTPageState extends State<VariablesTPage> {
   List<Variables> listVariables = [];
   Variables? selectedVariableForEdit;
   void saveNewVariable(Variables variable) {
@@ -126,19 +126,69 @@ class _VariablesPageState extends State<VariablesPage> {
                   topRight: Radius.circular(30.0),
                 ),
               ),
-              child: ListView(
-                children: listVariables
-                    .map((e) => VariablesWidget(
-                          variable: e,
-                          onEdit: () {
-                            editVariable(e);
-                          },
-                          onDelete: () {
-                            deleteVariable(e);
-                          },
-                        ))
-                    .toList(),
+              child: SingleChildScrollView(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      DataTable(
+                        columns: [
+                          DataColumn(label: Text('ID')),
+                          DataColumn(label: Text('Nombres')),
+                          DataColumn(label: Text('Descripción')),
+                          DataColumn(label: Text('Método')),
+                          DataColumn(label: Text('Fecha')),
+                          DataColumn(label: Text('Instrumento')),
+
+                          DataColumn(
+                              label: Text('Acciones')), // Columna para botones
+                        ],
+                        rows: listVariables.map((e) {
+                          return DataRow(
+                            cells: [
+                              DataCell(Text('${e.id}')),
+                              DataCell(Text(e.name ??
+                                  '')), // Cambia "valorColumna1" al nombre real de la propiedad
+                              DataCell(Text(e.description ??
+                                  '')), // Cambia "valorColumna2" al nombre real de la propiedad
+                              DataCell(Text(e.method ?? '')),
+                              DataCell(Text(
+                                  '${e.date!.year}-${e.date!.month}-${e.date!.day}' ??
+                                      '')),
+                              DataCell(Text(e.instrumento ?? '')),
+                              DataCell(
+                                VariablesTWidget(
+                                  variable: e,
+                                  onEdit: () {
+                                    editVariable(e);
+                                  },
+                                  onDelete: () {
+                                    deleteVariable(e);
+                                  },
+                                ),
+                              )
+                              // Agrega más DataCell según sea necesario
+                            ],
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ),
               ),
+              /* child: ListView(
+                      children: listVariables
+                          .map((e) => VariablesWidget(
+                                variable: e,
+                                onEdit: () {
+                                  editVariable(e);
+                                },
+                                onDelete: () {
+                                  deleteVariable(e);
+                                },
+                              ))
+                          .toList(),
+                    ),*/
             ),
           ),
         ],
