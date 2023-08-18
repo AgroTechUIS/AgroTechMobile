@@ -7,6 +7,7 @@ class LoginResponseModel {
   String? rol;
   String? ingreso;
   String? token;
+  String? idEmpresa;
   String? error;
 
   LoginResponseModel({
@@ -18,6 +19,7 @@ class LoginResponseModel {
     this.rol,
     this.ingreso,
     this.token,
+    this.idEmpresa,
     this.error,
   });
 
@@ -30,6 +32,7 @@ class LoginResponseModel {
     rol = json["rol"];
     ingreso = json["ingreso"];
     token = json["token"];
+    idEmpresa = json["idEmpresa"];
     error = json["error"];
   }
 
@@ -43,6 +46,7 @@ class LoginResponseModel {
     data["rol"] = rol;
     data["ingreso"] = ingreso;
     data["token"] = token;
+    data["idEmpresa"] = idEmpresa;
     data["error"] = error;
     return data;
   }

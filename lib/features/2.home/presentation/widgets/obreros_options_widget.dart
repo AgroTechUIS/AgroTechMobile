@@ -1,5 +1,5 @@
 import 'package:agrotech/common_utilities/widgets/mini_option_widget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/subtitleWidget.dart';
+import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

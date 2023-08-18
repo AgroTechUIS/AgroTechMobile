@@ -3,7 +3,7 @@ import 'package:agrotech/features/3.opciones_supervisor/models/point_chart_model
 import 'package:agrotech/common_utilities/widgets/bar_chart_hora.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_balance.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_utilidad.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/title_widget.dart';
+import 'package:agrotech/common_utilities/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class BarChartWidget extends StatelessWidget {

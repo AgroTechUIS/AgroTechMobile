@@ -6,8 +6,8 @@ import 'package:agrotech/common_utilities/widgets/section_scroll_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GestionFinancieraIngresos extends ConsumerWidget {
-  const GestionFinancieraIngresos({super.key});
+class GestionIngresos extends ConsumerWidget {
+  const GestionIngresos({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

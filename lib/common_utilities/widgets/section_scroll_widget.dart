@@ -1,4 +1,4 @@
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/search_bar_widget.dart';
+import 'package:agrotech/common_utilities/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class SectionScrollWidget extends StatelessWidget {

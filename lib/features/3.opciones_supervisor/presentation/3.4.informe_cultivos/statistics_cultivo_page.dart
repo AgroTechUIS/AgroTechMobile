@@ -1,8 +1,8 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/features/3.opciones_supervisor/models/point_chart_model.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_widget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/infobox_wiget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/section_widget.dart';
+import 'package:agrotech/common_utilities/widgets/infobox_wiget.dart';
+import 'package:agrotech/common_utilities/widgets/section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
