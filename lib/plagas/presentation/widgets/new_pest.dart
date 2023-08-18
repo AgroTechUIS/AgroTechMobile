@@ -1,6 +1,6 @@
 import 'package:agrotech/config/colors_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
 import 'package:agrotech/plagas/presentation/widgets/camara.dart';
 import '../../domain/models/plagas_model.dart';
@@ -125,31 +125,36 @@ class _NewPestState extends State<NewPest> {
                 )),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: Text(
-                      'Estado de la plaga',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(context).hintColor,
+                      isExpanded: true,
+                      hint: Text(
+                        'Estado de la plaga',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Theme.of(context).hintColor,
+                        ),
                       ),
-                    ),
-                    items: items
-                        .map((String item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 14,
+                      items: items
+                          .map((String item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
-                            ))
-                        .toList(),
-                    value: selectedValue,
-                    onChanged: (String? value) {
-                      setState(() {
-                        selectedValue = value;
-                      });
-                    },
+                              ))
+                          .toList(),
+                      value: selectedValue,
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      },
+                      buttonHeight: 20,
+                      buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                      buttonWidth: 140,
+                      itemHeight: 40
+                      /*
                     buttonStyleData: const ButtonStyleData(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       height: 20,
@@ -157,8 +162,8 @@ class _NewPestState extends State<NewPest> {
                     ),
                     menuItemStyleData: const MenuItemStyleData(
                       height: 40,
-                    ),
-                  ),
+                    ),*/
+                      ),
                 ),
               ),
             ),

@@ -1,5 +1,5 @@
 import 'package:agrotech/tratamientos/presentation/widgets/my_buttom.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -111,14 +111,18 @@ class _NewTreatmentState extends State<NewTreatment> {
                         selectedValue = value;
                       });
                     },
-                    buttonStyleData: const ButtonStyleData(
+                    buttonHeight: 20,
+                    buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                    buttonWidth: 140,
+                    itemHeight: 40,
+                    /*buttonStyleData: const ButtonStyle(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       height: 20,
                       width: 140,
                     ),
                     menuItemStyleData: const MenuItemStyleData(
                       height: 40,
-                    ),
+                    ),*/
                   ),
                 ),
               ),

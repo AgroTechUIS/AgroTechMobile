@@ -1,8 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:agrotech/config/colors_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
 import 'package:agrotech/plagas/presentation/widgets/camara.dart';
 import 'package:image_picker/image_picker.dart';
@@ -161,6 +160,11 @@ class _editPestState extends State<EditPest> {
                         selectedValue = value;
                       });
                     },
+                    buttonHeight: 20,
+                    buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                    buttonWidth: 140,
+                    itemHeight: 40,
+                    /*
                     buttonStyleData: const ButtonStyleData(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       height: 20,
@@ -168,7 +172,7 @@ class _editPestState extends State<EditPest> {
                     ),
                     menuItemStyleData: const MenuItemStyleData(
                       height: 40,
-                    ),
+                    ),*/
                   ),
                 ),
               ),
