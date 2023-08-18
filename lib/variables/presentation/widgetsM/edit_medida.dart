@@ -31,7 +31,7 @@ class EditMedida extends StatefulWidget {
 
 class _editMedidaState extends State<EditMedida> {
   String? selectedValue;
-  int intValue = 0;
+  int? intValue;
 
   DateTime? selectedTime;
   DateTime date = DateTime.now();
@@ -45,7 +45,7 @@ class _editMedidaState extends State<EditMedida> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(
+            TextFormField(
               controller: widget.valueController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -60,9 +60,18 @@ class _editMedidaState extends State<EditMedida> {
                   ),
                 ),
               ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Por favor, ingresa un valor";
+                }
+                if (int.tryParse(value) == null) {
+                  return "Ingresa un número válido";
+                }
+                return null; // La validación pasó
+              },
               onChanged: (text) {
                 setState(() {
-                  intValue = int.tryParse(text) ?? 0;
+                  intValue = int.tryParse(text);
                 });
               },
             ),
