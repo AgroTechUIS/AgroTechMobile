@@ -1,3 +1,4 @@
+import 'package:agrotech/cuidados/presentation/cuidados_page.dart';
 import 'package:agrotech/in_admin/presentation/in_admin_page.dart';
 import 'package:agrotech/login/presentation/login_page.dart';
 import 'package:agrotech/plagas/presentation/plagas_page.dart';
@@ -25,14 +26,14 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'login',
       routes: {
-        'login': (_) => const VariablesTPage(),
+        'login': (_) => const CuidadosPage(),
         'signup': (_) => const SignUpPage(),
         'inadmin': (_) => InAdminPage(),
         'plagas': (_) => PlagasPage(),
         'tratamientos': (_) => TratamientosPage(),
         'variables': (_) => VariablesPage(),
-        'medidas': (_) => VariablesTPage()
-
+        'medidas': (_) => VariablesTPage(),
+        'cuidados': (_) => CuidadosPage()
         //'miapp': (_) => const MyPage(),
       },
     );

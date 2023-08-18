@@ -10,7 +10,7 @@ import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import 'my_buttom.dart';
+import '../../../my_buttom.dart';
 
 class NewMedida extends StatefulWidget {
   void Function(Medidas)? onSave;

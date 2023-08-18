@@ -6,7 +6,7 @@ import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
 import 'package:agrotech/plagas/presentation/widgets/camara.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../domain/models/plagas_model.dart';
-import 'my_buttom.dart';
+import '../../../my_buttom.dart';
 
 class EditPest extends StatefulWidget {
   void Function(Plaga)? onSave;

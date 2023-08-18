@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
-import 'my_buttom.dart';
+import '../../../my_buttom.dart';
 
 class NewPest extends StatefulWidget {
   void Function(Plaga)? onSave;

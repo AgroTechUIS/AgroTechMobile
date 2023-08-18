@@ -1,4 +1,4 @@
-import 'package:agrotech/tratamientos/presentation/widgets/my_buttom.dart';
+import '../../../my_buttom.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 

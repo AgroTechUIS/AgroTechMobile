@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
 import '../../domain/models/medidas_model.dart';
-import 'my_buttom.dart';
+import '../../../my_buttom.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class EditMedida extends StatefulWidget {

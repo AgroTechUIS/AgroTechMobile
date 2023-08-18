@@ -1,29 +1,32 @@
+import 'package:agrotech/cuidados/domain/models/cuidados_model.dart';
 import '../../../my_buttom.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/colors_theme.dart';
-import '../../domain/models/tratamientos_model.dart';
 
-class NewTreatment extends StatefulWidget {
-  void Function(Tratamiento)? onSave;
+class NewCare extends StatefulWidget {
+  void Function(Cuidados)? onSave;
   VoidCallback? onCancel;
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController instruccionesController = TextEditingController();
+  final TextEditingController insumoController = TextEditingController();
 
-  NewTreatment({super.key, this.onSave, this.onCancel});
+  NewCare({super.key, this.onSave, this.onCancel});
   @override
-  _NewTreatmentState createState() => _NewTreatmentState();
+  _NewCareState createState() => _NewCareState();
 }
 
-class _NewTreatmentState extends State<NewTreatment> {
-  final List<String> itemsTreatment = [
-    'En progreso',
-    'Fallo',
-    'Exito',
+class _NewCareState extends State<NewCare> {
+  final List<String> itemsCare = [
+    'Preparación del suelo',
+    'Riego',
+    'Control de malezas',
+    'Fertilización',
+    'Poda',
+    'Recolecion de frutos',
+    'Otros'
   ];
   String? selectedValue;
 
@@ -37,7 +40,7 @@ class _NewTreatmentState extends State<NewTreatment> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Text("Crea un nuevo tratamiento"),
+      title: Text("Crea un nuevo cuidado"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -86,61 +89,35 @@ class _NewTreatmentState extends State<NewTreatment> {
                 )),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: Text(
-                      'Estado del tratamiento',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(context).hintColor,
+                      isExpanded: true,
+                      hint: Text(
+                        'Tipo del cuidado',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Theme.of(context).hintColor,
+                        ),
                       ),
-                    ),
-                    items: itemsTreatment
-                        .map((String item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 14,
+                      items: itemsCare
+                          .map((String item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
-                            ))
-                        .toList(),
-                    value: selectedValue,
-                    onChanged: (String? value) {
-                      setState(() {
-                        selectedValue = value;
-                      });
-                    },
-                    buttonHeight: 20,
-                    buttonPadding: EdgeInsets.symmetric(horizontal: 16),
-                    buttonWidth: 140,
-                    itemHeight: 40,
-                    /*buttonStyleData: const ButtonStyle(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      height: 20,
-                      width: 140,
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                    ),*/
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 12),
-            TextField(
-              controller: widget.instruccionesController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: const Text("Instrucciones"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
+                              ))
+                          .toList(),
+                      value: selectedValue,
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      },
+                      buttonHeight: 20,
+                      buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                      buttonWidth: 140,
+                      itemHeight: 40),
                 ),
               ),
             ),
@@ -164,7 +141,7 @@ class _NewTreatmentState extends State<NewTreatment> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Cuando inició el tratamiento',
+                    'Cuando inicia el cuidado:',
                     style: TextStyle(
                       fontSize: 15,
                       color: Theme.of(context).hintColor,
@@ -212,7 +189,7 @@ class _NewTreatmentState extends State<NewTreatment> {
                 final selectedDate2 = await fecha2;
                 if (selectedDate2 != null) {
                   setState(() {
-                    date2 = selectedDate2;
+                    date1 = selectedDate2;
                   });
                 }
               },
@@ -220,7 +197,7 @@ class _NewTreatmentState extends State<NewTreatment> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Cuando terminó el tratamiento',
+                    'Cuando termina el cuidado:',
                     style: TextStyle(
                       fontSize: 15,
                       color: Theme.of(context).hintColor,
@@ -256,24 +233,40 @@ class _NewTreatmentState extends State<NewTreatment> {
                 ],
               ),
             ),
-            Divider(),
+            SizedBox(height: 12),
+            TextField(
+              controller: widget.insumoController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: const Text("Insumo"),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      Tratamiento nuevoTratamiento = Tratamiento(
-                          id: 0, // Asigna el ID adecuado
-                          name: widget.nombreController.text,
-                          description: widget.descripcionController.text,
-                          state: selectedValue,
-                          instructions: widget.instruccionesController.text,
-                          initialDate: DateUtils.dateOnly(date1 as DateTime),
-                          finalDate: DateUtils.dateOnly(date2 as DateTime)
-                          //appareceDate: DateUtils.dateOnly(date as DateTime),
-                          );
-                      widget.onSave!(nuevoTratamiento);
+                      Cuidados nuevoCuidado = Cuidados(
+                        id: 0, // Asigna el ID adecuado
+                        name: widget.nombreController.text,
+                        description: widget.descripcionController.text,
+                        type: selectedValue,
+                        initialDate: DateUtils.dateOnly(date1 as DateTime),
+                        finalDate: DateUtils.dateOnly(date2 as DateTime),
+                        insumo: widget.insumoController.text,
+                      );
+                      widget.onSave!(nuevoCuidado);
                     },
                     color: colors.green2,
                     textColor: colors.white),
