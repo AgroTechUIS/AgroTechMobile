@@ -1,7 +1,7 @@
 import 'package:agrotech/common_utilities/widgets/background_body_widget.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/section_widget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/subtitleWidget.dart';
+import 'package:agrotech/common_utilities/widgets/section_widget.dart';
+import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/dni_widget.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/supervisor_options_widget.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/obreros_options_widget.dart';

@@ -1,7 +1,7 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/common_utilities/config/network_images.dart';
 import 'package:agrotech/features/3.opciones_supervisor/presentation/1.asignacion_cultivos/actividad_cultivo_page/card_activity_widget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/header_page_widget.dart';
+import 'package:agrotech/common_utilities/widgets/header_page_widget.dart';
 import 'package:agrotech/common_utilities/widgets/section_scroll_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

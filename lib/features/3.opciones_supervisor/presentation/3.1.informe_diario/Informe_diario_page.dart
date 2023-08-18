@@ -1,13 +1,12 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:agrotech/features/3.opciones_supervisor/models/actividad_cultivo.dart';
 import 'package:agrotech/features/3.opciones_supervisor/models/point_chart_model.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_widget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/header_page_widget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/infobox_wiget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/progress_bar_widget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/section_widget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/subtitleWidget.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/title_widget.dart';
+import 'package:agrotech/common_utilities/widgets/header_page_widget.dart';
+import 'package:agrotech/common_utilities/widgets/infobox_wiget.dart';
+import 'package:agrotech/common_utilities/widgets/progress_bar_widget.dart';
+import 'package:agrotech/common_utilities/widgets/section_widget.dart';
+import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
+import 'package:agrotech/common_utilities/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -51,24 +50,6 @@ class InformeDiarioPage extends ConsumerWidget {
       PointChartModel(x: 22, y: 10, z: 3),
       PointChartModel(x: 23, y: 10, z: 3),
       PointChartModel(x: 24, y: 10, z: 3),
-    ];
-
-    final List<ActividadCultivoModel> labranzasList = [
-      ActividadCultivoModel(123, 'Labranza', '20/05/2023', 'Maiz', 'Zona A', 'Finca del Sol', 100000, true, false),
-      ActividadCultivoModel(124, 'Labranza', '20/05/2023', 'Mora', 'Zona B', 'El Paraíso Verde', 100000, true, true),
-      ActividadCultivoModel(125, 'Labranza', '20/05/2023', 'Trigo', 'Zona A', 'Oasis Verde', 100000, false, true),
-      ActividadCultivoModel(123, 'Siembra', '20/05/2023', 'Maiz', 'Zona A', 'Finca del Sol', 100000, true, false),
-      ActividadCultivoModel(124, 'Siembra', '20/05/2023', 'Mora', 'Zona B', 'El Paraíso Verde', 100000, true, true),
-      ActividadCultivoModel(125, 'Siembra', '20/05/2023', 'Trigo', 'Zona A', 'Oasis Verde', 100000, false, true),
-      ActividadCultivoModel(123, 'Riegos', '20/05/2023', 'Maiz', 'Zona A', 'Finca del Sol', 100000, true, false),
-      ActividadCultivoModel(124, 'Riegos', '20/05/2023', 'Mora', 'Zona B', 'El Paraíso Verde', 100000, true, true),
-      ActividadCultivoModel(125, 'Riegos', '20/05/2023', 'Trigo', 'Zona A', 'Oasis Verde', 100000, false, true),
-      ActividadCultivoModel(123, 'Podas', '20/05/2023', 'Maiz', 'Zona A', 'Finca del Sol', 100000, true, false),
-      ActividadCultivoModel(124, 'Podas', '20/05/2023', 'Mora', 'Zona B', 'El Paraíso Verde', 100000, true, true),
-      ActividadCultivoModel(125, 'Podas', '20/05/2023', 'Trigo', 'Zona A', 'Oasis Verde', 100000, false, true),
-      ActividadCultivoModel(123, 'Cosechas', '20/05/2023', 'Maiz', 'Zona A', 'Finca del Sol', 100000, true, false),
-      ActividadCultivoModel(124, 'Cosechas', '20/05/2023', 'Mora', 'Zona B', 'El Paraíso Verde', 100000, true, true),
-      ActividadCultivoModel(125, 'Cosechas', '20/05/2023', 'Trigo', 'Zona A', 'Oasis Verde', 100000, false, true),
     ];
 
     return Scaffold(

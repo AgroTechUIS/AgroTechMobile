@@ -1,5 +1,5 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:agrotech/features/3.opciones_supervisor/presentation/widgets/section_widget.dart';
+import 'package:agrotech/common_utilities/widgets/section_widget.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/text_item_widget.dart';
 import 'package:agrotech/features/1.login/presentation/login_state.dart';
 import 'package:flutter/material.dart';
