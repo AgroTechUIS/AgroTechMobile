@@ -1,43 +1,62 @@
-import '../../../my_buttom.dart';
+import 'dart:ui';
 import 'package:dropdown_button3/dropdown_button3.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:agrotech/cuidados/domain/models/cuidados_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/colors_theme.dart';
-import '../../domain/models/tratamientos_model.dart';
+import '../../../my_buttom.dart';
 
-class NewTreatment extends StatefulWidget {
-  void Function(Tratamiento)? onSave;
+class EditCare extends StatefulWidget {
+  void Function(Cuidados)? onSave;
   VoidCallback? onCancel;
+  Cuidados? initialCuidado;
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController instruccionesController = TextEditingController();
+  final TextEditingController insumoController = TextEditingController();
+  String? selectedValue;
+  EditCare(
+      {super.key, this.onSave, this.onCancel, required this.initialCuidado}) {
+    nombreController.text = initialCuidado?.name ?? '';
+    descripcionController.text = initialCuidado?.description ?? '';
+    insumoController.text = initialCuidado?.insumo ?? '';
+  }
 
-  NewTreatment({super.key, this.onSave, this.onCancel});
   @override
-  _NewTreatmentState createState() => _NewTreatmentState();
+  _editCareState createState() => _editCareState();
 }
 
-class _NewTreatmentState extends State<NewTreatment> {
-  final List<String> itemsTreatment = [
-    'En progreso',
-    'Fallo',
-    'Exito',
+class _editCareState extends State<EditCare> {
+  final List<String> itemsCare = [
+    'Preparación del suelo',
+    'Riego',
+    'Control de malezas',
+    'Fertilización',
+    'Poda',
+    'Recolecion de frutos',
+    'Otros'
   ];
-  String? selectedValue;
 
-  DateTime? date1 = DateTime.now();
-  DateTime? date2 = DateTime.now();
+  String? selectedValue;
+  @override
+  void initState() {
+    super.initState();
+    selectedValue = widget.initialCuidado
+        ?.type; // Asigna el valor inicial de initialPlaga.state a selectedValue
+  }
 
   late Future<DateTime?> fecha1;
   late Future<DateTime?> fecha2;
+
+  DateTime? date1;
+  DateTime? date2;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Text("Crea un nuevo tratamiento"),
+      title: Text("Edita el cuidado"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -78,7 +97,6 @@ class _NewTreatmentState extends State<NewTreatment> {
             SizedBox(height: 12),
             Container(
               width: double.infinity,
-              alignment: Alignment.centerLeft,
               child: InputDecorator(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -88,13 +106,13 @@ class _NewTreatmentState extends State<NewTreatment> {
                   child: DropdownButton2<String>(
                     isExpanded: true,
                     hint: Text(
-                      'Estado del tratamiento',
+                      'Tipo del cuidado',
                       style: TextStyle(
                         fontSize: 14,
                         color: Theme.of(context).hintColor,
                       ),
                     ),
-                    items: itemsTreatment
+                    items: itemsCare
                         .map((String item) => DropdownMenuItem<String>(
                               value: item,
                               child: Text(
@@ -115,31 +133,6 @@ class _NewTreatmentState extends State<NewTreatment> {
                     buttonPadding: EdgeInsets.symmetric(horizontal: 16),
                     buttonWidth: 140,
                     itemHeight: 40,
-                    /*buttonStyleData: const ButtonStyle(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      height: 20,
-                      width: 140,
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                    ),*/
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 12),
-            TextField(
-              controller: widget.instruccionesController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: const Text("Instrucciones"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
                   ),
                 ),
               ),
@@ -149,14 +142,14 @@ class _NewTreatmentState extends State<NewTreatment> {
               onTap: () async {
                 fecha1 = showDatePicker(
                   context: context,
-                  initialDate: date1 as DateTime,
+                  initialDate: widget.initialCuidado!.initialDate as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
                 final selectedDate1 = await fecha1;
                 if (selectedDate1 != null) {
                   setState(() {
-                    date1 = selectedDate1;
+                    widget.initialCuidado!.initialDate = selectedDate1;
                   });
                 }
               },
@@ -164,7 +157,7 @@ class _NewTreatmentState extends State<NewTreatment> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Cuando inició el tratamiento',
+                    'Cuando empieza el cuidado:',
                     style: TextStyle(
                       fontSize: 15,
                       color: Theme.of(context).hintColor,
@@ -181,14 +174,14 @@ class _NewTreatmentState extends State<NewTreatment> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder
                             .none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${date1!.day} / ${date1!.month} / ${date1!.year}',
+                          '${widget.initialCuidado!.initialDate!.day} / ${widget.initialCuidado!.initialDate!.month} / ${widget.initialCuidado!.initialDate!.year}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
@@ -205,14 +198,14 @@ class _NewTreatmentState extends State<NewTreatment> {
               onTap: () async {
                 fecha2 = showDatePicker(
                   context: context,
-                  initialDate: date2 as DateTime,
+                  initialDate: widget.initialCuidado!.finalDate as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
                 final selectedDate2 = await fecha2;
                 if (selectedDate2 != null) {
                   setState(() {
-                    date2 = selectedDate2;
+                    widget.initialCuidado!.finalDate = selectedDate2;
                   });
                 }
               },
@@ -220,7 +213,7 @@ class _NewTreatmentState extends State<NewTreatment> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Cuando terminó el tratamiento',
+                    'Cuando termina el cuidado:',
                     style: TextStyle(
                       fontSize: 15,
                       color: Theme.of(context).hintColor,
@@ -237,14 +230,14 @@ class _NewTreatmentState extends State<NewTreatment> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder
                             .none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${date2!.day} / ${date2!.month} / ${date2!.year}',
+                          '${widget.initialCuidado!.finalDate!.day} / ${widget.initialCuidado!.finalDate!.month} / ${widget.initialCuidado!.finalDate!.year}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
@@ -256,6 +249,25 @@ class _NewTreatmentState extends State<NewTreatment> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 8,
+            ),
+            TextField(
+              controller: widget.insumoController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: const Text("Insumo:"),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -263,17 +275,16 @@ class _NewTreatmentState extends State<NewTreatment> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      Tratamiento nuevoTratamiento = Tratamiento(
-                          id: 0, // Asigna el ID adecuado
-                          name: widget.nombreController.text,
-                          description: widget.descripcionController.text,
-                          state: selectedValue,
-                          instructions: widget.instruccionesController.text,
-                          initialDate: DateUtils.dateOnly(date1 as DateTime),
-                          finalDate: DateUtils.dateOnly(date2 as DateTime)
-                          //appareceDate: DateUtils.dateOnly(date as DateTime),
-                          );
-                      widget.onSave!(nuevoTratamiento);
+                      Cuidados nuevoCuidado = Cuidados(
+                        id: 0, // Asigna el ID adecuado
+                        name: widget.nombreController.text,
+                        description: widget.descripcionController.text,
+                        type: selectedValue,
+                        initialDate: widget.initialCuidado!.initialDate,
+                        finalDate: widget.initialCuidado!.finalDate,
+                        insumo: widget.insumoController.text,
+                      );
+                      widget.onSave!(nuevoCuidado);
                     },
                     color: colors.green2,
                     textColor: colors.white),

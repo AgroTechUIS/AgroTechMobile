@@ -81,14 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  dropdown_button2:
+  dropdown_button3:
     dependency: "direct main"
     description:
-      name: dropdown_button2
-      sha256: bee4103caa1517fcc623bd5efbe1743956a276b3db3738aa9342afe23be48b48
+      name: dropdown_button3
+      sha256: "42af90c31deb237ce635dee9bcb5054c2655f185bbad8498cbc7c6745ab8f0f6"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.8"
+    version: "3.0.0"
   equatable:
     dependency: transitive
     description:
