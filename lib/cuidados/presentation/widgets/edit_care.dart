@@ -133,15 +133,6 @@ class _editCareState extends State<EditCare> {
                     buttonPadding: EdgeInsets.symmetric(horizontal: 16),
                     buttonWidth: 140,
                     itemHeight: 40,
-                    /*
-                    buttonStyleData: const ButtonStyleData(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      height: 20,
-                      width: 140,
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                    ),*/
                   ),
                 ),
               ),
