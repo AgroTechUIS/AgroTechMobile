@@ -204,28 +204,7 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Tratamiento: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  plaga.state_tratment ??
-                      'No se ha iniciado ningun tratamiento.',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+                        SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 'Familia de la plaga: ',
@@ -246,8 +225,41 @@ class PestWidget extends StatelessWidget {
               ),
             ]),
 
-            SizedBox(height: 8.0),
+            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Tratamiento: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child:  GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed('tratamientos');
+            },
+            child: Container(
+              width:50, // Ocupar 50px el ancho
+              padding: EdgeInsets.all(1.0), // Espacio alrededor del botón
+              decoration: BoxDecoration(
+                color: Colors.yellow, // Fondo amarillo
+                borderRadius: BorderRadius.circular(20.0), // Borde redondeado
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.remove_red_eye, // Icono de un ojo
+                  color: Colors.white, // Color blanco
+                  size: 25.0, // Tamaño del icono
+                ),
+              ),
+            ),
+          ),
+             )]),
 
+            SizedBox(height: 8.0),
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -262,7 +274,8 @@ class PestWidget extends StatelessWidget {
                   backgroundColor: Colors.red,
                   child: Icon(Icons.delete),
                 ),
-              ],
+
+                    ],
             ),
           ],
         ),
