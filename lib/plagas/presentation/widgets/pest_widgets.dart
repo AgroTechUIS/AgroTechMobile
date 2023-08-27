@@ -109,11 +109,11 @@ class PestWidget extends StatelessWidget {
                                     ]));
                       }
                     },
-                    child: plaga.image != null
+                    child: plaga.adjuntoDto != null 
                         ? CircleAvatar(
                             radius: 40,
-                            backgroundImage: MemoryImage(plaga.image!))
-                        : CircleAvatar(
+                            backgroundImage: NetworkImage(plaga.adjuntoDto!.url))
+                            : CircleAvatar(
                             radius: 40,
                             backgroundColor: Colors.grey[300],
                             child: Icon(

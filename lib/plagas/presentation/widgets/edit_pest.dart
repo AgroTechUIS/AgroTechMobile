@@ -59,7 +59,7 @@ class _editPestState extends State<EditPest> {
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
       image = img;
-      widget.initialPlaga!.image = image;
+
     });
   }
 
@@ -216,7 +216,7 @@ class _editPestState extends State<EditPest> {
               onTap: () async {
                 fecha = showDatePicker(
                   context: context,
-                  initialDate: widget.initialPlaga!.appareceDate as DateTime,
+                  initialDate:  widget.initialPlaga!.appareceDate as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );

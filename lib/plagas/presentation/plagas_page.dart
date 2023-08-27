@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:agrotech/config/theme_provider.dart';
 import 'package:agrotech/gestion_informes/presentation/widgets/section_widget.dart';
@@ -24,77 +25,39 @@ class PlagasPage extends StatefulWidget {
 }
 
 class _PlagasPageState extends State<PlagasPage> {
-  List<Plaga> listPest = [];
+    final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+  List<dynamic> listPest = [];
+  Plaga? pests;
   Plaga? selectedPlagaForEdit;
 
-  late Future<List<Plaga>> _listadoPlagas;
 
-  Future<Uint8List> _getImageBytes(String imageUrl) async {
-    final response = await http.get(Uri.parse(imageUrl));
-
-    if (response.statusCode == 200) {
-      return response.bodyBytes;
-    } else {
-      throw Exception("Error al obtener los bytes de la imagen");
-    }
-  }
-
-  Future<void> _getPlagas() async {
-    try {
-      final response =
-          await http.get(Uri.parse("http://3.81.168.53:8080/api/pest/1"));
-      List<Plaga> lPlagas = [];
-
-      if (response.statusCode == 200) {
-        String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
-
-        for (var item in jsonData) {
-          final adjuntoDto = item["adjuntoDto"];
-
-          if (adjuntoDto != null) {
-            final imageUrl = adjuntoDto["url"];
-            final imageBytes = await _getImageBytes(imageUrl);
-
-            lPlagas.add(Plaga(
-                id: item["id"],
-                name: item["name"],
-                description: item["description"],
-                state: item["state"],
-                observation: item["observation"],
-                appareceDate: DateTime.parse(item["appareceDate"]),
-                pestFamily: item["pestFamily"],
-                state_tratment: item["state_tratment"],
-                crop: item["crop"],
-                image: imageBytes));
-          } else {
-            lPlagas.add(Plaga(
-                id: item["id"],
-                name: item["name"],
-                description: item["description"],
-                state: item["state"],
-                observation: item["observation"],
-                appareceDate: DateTime.parse(item["appareceDate"]),
-                pestFamily: item["pestFamily"],
-                state_tratment: item["state_tratment"],
-                crop: item["crop"],
-                image: null)); // Opcionalmente asignar null si no hay imagen
-          }
-        }
-      } else {
-        throw Exception("Falló la conexión (get)");
-      }
-    } catch (e) {
-      // Manejar la excepción
-      print("Ocurrió un error: $e");
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    _getPlagas();
+    getAllPestByCrop();
   }
+
+  Future<void>getAllPestByCrop() async{
+
+      final url = 'http://3.81.168.53:8080/api/pest/1';
+      
+      final response= await Dio().get(url);
+      print("response");
+      print(response);
+      final data = response.data;
+      data.forEach((element) {
+        final pest = Plaga.fromJson(element);
+        listPest.add(pest);
+      });
+      setState(() {
+        
+      });
+
+
+  }
+
 
   void saveNewPest(Plaga plaga) {
     setState(() {
@@ -199,9 +162,14 @@ class _PlagasPageState extends State<PlagasPage> {
                   topRight: Radius.circular(30.0),
                 ),
               ),
+                child: RefreshIndicator(
+                key: _refreshIndicatorKey,
+                onRefresh: () async {
+                  await getAllPestByCrop();
+                  setState(() {});
+                },
               child: ListView(
-                children: listPest
-                    .map((e) => PestWidget(
+                children: listPest.map((e) => PestWidget(
                           plaga: e,
                           onEdit: () {
                             editPest(e);
@@ -212,6 +180,7 @@ class _PlagasPageState extends State<PlagasPage> {
                         ))
                     .toList(),
               ),
+            ),
             ),
           ),
         ],
