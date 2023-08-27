@@ -80,7 +80,6 @@ class _PlagasPageState extends State<PlagasPage> {
                 crop: item["crop"],
                 image: null)); // Opcionalmente asignar null si no hay imagen
           }
-          print(lPlagas[5]);
         }
       } else {
         throw Exception("Falló la conexión (get)");
