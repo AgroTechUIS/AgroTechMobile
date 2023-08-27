@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:agrotech/config/theme_provider.dart';
 import 'package:agrotech/gestion_informes/presentation/widgets/section_widget.dart';
 import 'package:agrotech/gestion_informes/presentation/widgets/subtitleWidget.dart';
@@ -6,10 +8,12 @@ import 'package:agrotech/plagas/domain/models/plagas_model.dart';
 import 'package:agrotech/plagas/presentation/widgets/edit_pest.dart';
 import 'package:agrotech/plagas/presentation/widgets/new_pest.dart';
 import 'package:agrotech/plagas/presentation/widgets/pest_widgets.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrotech/config/colors_theme.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class PlagasPage extends StatefulWidget {
   const PlagasPage({super.key});
@@ -22,6 +26,77 @@ class PlagasPage extends StatefulWidget {
 class _PlagasPageState extends State<PlagasPage> {
   List<Plaga> listPest = [];
   Plaga? selectedPlagaForEdit;
+
+  late Future<List<Plaga>> _listadoPlagas;
+
+  Future<Uint8List> _getImageBytes(String imageUrl) async {
+    final response = await http.get(Uri.parse(imageUrl));
+
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      throw Exception("Error al obtener los bytes de la imagen");
+    }
+  }
+
+  Future<void> _getPlagas() async {
+    try {
+      final response =
+          await http.get(Uri.parse("http://3.81.168.53:8080/api/pest/1"));
+      List<Plaga> lPlagas = [];
+
+      if (response.statusCode == 200) {
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
+
+        for (var item in jsonData) {
+          final adjuntoDto = item["adjuntoDto"];
+
+          if (adjuntoDto != null) {
+            final imageUrl = adjuntoDto["url"];
+            final imageBytes = await _getImageBytes(imageUrl);
+
+            lPlagas.add(Plaga(
+                id: item["id"],
+                name: item["name"],
+                description: item["description"],
+                state: item["state"],
+                observation: item["observation"],
+                appareceDate: DateTime.parse(item["appareceDate"]),
+                pestFamily: item["pestFamily"],
+                state_tratment: item["state_tratment"],
+                crop: item["crop"],
+                image: imageBytes));
+          } else {
+            lPlagas.add(Plaga(
+                id: item["id"],
+                name: item["name"],
+                description: item["description"],
+                state: item["state"],
+                observation: item["observation"],
+                appareceDate: DateTime.parse(item["appareceDate"]),
+                pestFamily: item["pestFamily"],
+                state_tratment: item["state_tratment"],
+                crop: item["crop"],
+                image: null)); // Opcionalmente asignar null si no hay imagen
+          }
+          print(lPlagas[5]);
+        }
+      } else {
+        throw Exception("Falló la conexión (get)");
+      }
+    } catch (e) {
+      // Manejar la excepción
+      print("Ocurrió un error: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getPlagas();
+  }
+
   void saveNewPest(Plaga plaga) {
     setState(() {
       listPest.add(plaga);
