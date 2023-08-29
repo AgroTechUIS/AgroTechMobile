@@ -3,7 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
   file_selector_windows
+=======
+  connectivity_plus
+>>>>>>> master
   flutter_secure_storage_windows
 )
 

@@ -7,16 +7,19 @@ class LoginState {
   final String rol;
   final String ingreso;
   final int idEmpresa;
+  final String errorEmail;
 
-  LoginState(
-      {this.idusuario = "",
-      this.nombre = "",
-      this.cedula = "",
-      this.correo = "",
-      this.telefono = "",
-      this.rol = "",
-      this.ingreso = "",
-      this.idEmpresa = 0});
+  LoginState({
+    this.idusuario = "",
+    this.nombre = "",
+    this.cedula = "",
+    this.correo = "",
+    this.telefono = "",
+    this.rol = "",
+    this.ingreso = "",
+    this.idEmpresa = 0,
+    this.errorEmail = "",
+  });
 
   LoginState copyWith({
     String? idusuario,
@@ -27,6 +30,7 @@ class LoginState {
     String? rol,
     String? ingreso,
     int? idEmpresa,
+    String? errorEmail,
   }) {
     return LoginState(
       idusuario: idusuario ?? this.idusuario,
@@ -37,6 +41,7 @@ class LoginState {
       rol: rol ?? this.rol,
       ingreso: ingreso ?? this.ingreso,
       idEmpresa: idEmpresa ?? this.idEmpresa,
+      errorEmail: errorEmail ?? this.errorEmail,
     );
   }
 }

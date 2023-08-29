@@ -46,7 +46,7 @@ class CustomCardWidget extends StatelessWidget {
                         topRight: Radius.circular(20.0),
                       ),
                       image: DecorationImage(
-                        image: NetworkImage(imagenUrl),
+                        image: AssetImage(imagenUrl),
                         fit: BoxFit.cover,
                       ),
                     ),

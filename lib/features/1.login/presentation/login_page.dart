@@ -1,9 +1,17 @@
-import 'package:agrotech/common_utilities/config/theme_provider.dart';
+import 'package:agrotech/common_utilities/controllers/connection_controller.dart';
+import 'package:agrotech/common_utilities/widgets/agrotech_button_widget.dart';
 import 'package:agrotech/features/2.home/presentation/home_page.dart';
 import 'package:agrotech/features/1.login/presentation/login_controller.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:agrotech/common_utilities/config/colors_theme.dart';
+
+/*final randomNumberProvider = StreamProvider<int>((ref) {
+  final random = Random();
+  return Stream.periodic(const Duration(seconds: 30), (index) {
+    return random.nextInt(100);
+  });
+});*/
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
@@ -11,7 +19,9 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginControllerIns = ref.read(loginController.notifier);
-    final bool isDarkmode = ref.watch(isDarkmodeProvider);
+    final loginState = ref.watch(loginController);
+    final connectivityResult = ref.watch(connectivityProvider);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -19,14 +29,13 @@ class LoginPage extends ConsumerWidget {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(
-                'https://i.ibb.co/mJ6Td3C/retrato-trabajador-agricola-sosteniendo-saco-lleno-manzanas.jpg',
-              ),
+              image: AssetImage('assets/login-bakground.jpg'),
               fit: BoxFit.cover,
             ),
           ),
           child: Center(
             child: Container(
+              width: double.infinity,
               padding: const EdgeInsets.all(16),
               color: Colors.white.withOpacity(0.4),
               child: Column(
@@ -45,46 +54,82 @@ class LoginPage extends ConsumerWidget {
                           "Login",
                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
                         ),
-                        TextField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: loginControllerIns.emailController,
-                          decoration: const InputDecoration(
-                            hintText: "Correo electrónico",
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green, width: 3),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: loginControllerIns.passwordController,
-                          decoration: const InputDecoration(
-                            hintText: "Contraseña",
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green, width: 3),
-                            ),
-                          ),
-                          obscureText: true,
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () async {
-                            var isLoggedIn = await loginControllerIns.login();
-                            if (isLoggedIn.error == null) {
-                              goToHome(context, isLoggedIn.rol!);
+                        connectivityResult.when(
+                          data: (value) {
+                            if (value == ConnectivityResult.none) {
+                              return Column(
+                                children: [
+                                  const SizedBox(height: 10),
+                                  const Text("Atencion no hay internet"),
+                                  AgrotechButton(
+                                    text: "Ingresar Offline",
+                                    onPressed: () async {
+                                      goToHome(context, 'obrero');
+                                    },
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Column(
+                                children: [
+                                  TextField(
+                                    keyboardType: TextInputType.emailAddress,
+                                    controller: loginControllerIns.emailController,
+                                    decoration: const InputDecoration(
+                                      hintText: "Correo electrónico",
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.green, width: 3),
+                                      ),
+                                    ),
+                                  ),
+                                  loginState.errorEmail.isNotEmpty
+                                      ? Row(
+                                          children: [
+                                            Text(
+                                              loginState.errorEmail,
+                                              style: TextStyle(color: Colors.orange, fontSize: 18),
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox(),
+                                  const SizedBox(height: 20),
+                                  TextField(
+                                    controller: loginControllerIns.passwordController,
+                                    decoration: const InputDecoration(
+                                      hintText: "Contraseña",
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.green, width: 3),
+                                      ),
+                                    ),
+                                    obscureText: true,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  AgrotechButton(
+                                    text: "Iniciar Sesión",
+                                    onPressed: () async {
+                                      var isLoggedIn = await loginControllerIns.login();
+                                      if (isLoggedIn.error == null) {
+                                        goToHome(context, isLoggedIn.rol!);
+                                      } else {}
+                                    },
+                                  ),
+                                ],
+                              );
                             }
                           },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              colors.appbar,
-                            ),
+                          loading: () => Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              const Text("Atencion no hay internet"),
+                              AgrotechButton(
+                                text: "Ingresar Offline",
+                                onPressed: () async {
+                                  goToHome(context, 'obrero');
+                                },
+                              ),
+                            ],
                           ),
-                          child: const Text(
-                            "Iniciar Sesión",
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                       ],
                     ),
@@ -95,12 +140,6 @@ class LoginPage extends ConsumerWidget {
           ),
         ),
       ),
-      floatingActionButton: InkWell(
-          onTap: () => ref.watch(isDarkmodeProvider.notifier).update((state) => !state),
-          child: Container(
-              margin: const EdgeInsets.all(10),
-              color: Colors.white,
-              child: Icon(isDarkmode ? Icons.dark_mode_outlined : Icons.light_mode_outlined))),
     );
   }
 
@@ -113,10 +152,12 @@ class LoginPage extends ConsumerWidget {
       case 'obrero':
         rolType = UserRol.obrero;
         break;
+      case 'gestion_agricola':
+        rolType = UserRol.gestor;
+        break;
       default:
         rolType = UserRol.lock;
     }
-
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomePage(rol: rolType)),

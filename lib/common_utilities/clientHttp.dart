@@ -33,11 +33,16 @@ class ClientHttp {
     required Map<String, dynamic> body,
   }) async {
     try {
-      var response = await http.post(
-        Uri.parse(url),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(body),
-      );
+      var response = await http
+          .post(
+            Uri.parse(url),
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode(body),
+          )
+          .timeout(
+            const Duration(seconds: 5),
+            onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
+          );
 
       return response.validateResponse();
     } on TimeoutException catch (e) {

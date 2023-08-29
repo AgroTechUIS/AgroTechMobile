@@ -25,8 +25,14 @@ class LoginController extends StateNotifier<LoginState> {
   }
 
   Future<LoginResponseModel> login() async {
+    /*final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    if (!emailRegExp.hasMatch(emailController.text)) {
+      state = state.copyWith(errorEmail: "El email debe ser valido");
+    }*/
+
     var resp = await loginUseCaseImpl.login(
         loginModel: LoginModel(email: emailController.text, password: passwordController.text));
+
     state = state.copyWith(
       idusuario: resp.idusuario,
       nombre: resp.nombre,
@@ -35,6 +41,7 @@ class LoginController extends StateNotifier<LoginState> {
       telefono: resp.telefono,
       rol: resp.rol,
       ingreso: resp.ingreso,
+      idEmpresa: resp.idEmpresa,
     );
     return resp;
   }

@@ -7,7 +7,7 @@ class LoginResponseModel {
   String? rol;
   String? ingreso;
   String? token;
-  String? idEmpresa;
+  int? idEmpresa;
   String? error;
 
   LoginResponseModel({

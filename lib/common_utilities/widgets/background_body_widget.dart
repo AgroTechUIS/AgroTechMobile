@@ -15,7 +15,7 @@ class BackgroundBodyWidget extends StatelessWidget {
       height: MediaQuery.of(context).size.height + 100,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage('https://img.freepik.com/free-vector/abstract-gray-stripes-background_1035-19089.jpg'),
+          image: AssetImage('assets/background-page.png'),
           fit: BoxFit.fill,
         ),
       ),
