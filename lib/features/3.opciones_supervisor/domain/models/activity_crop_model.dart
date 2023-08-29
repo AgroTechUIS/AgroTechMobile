@@ -3,6 +3,7 @@ class ActivityCropModel {
   String? nombre;
   String? finca;
   String? zona;
+  String? fecha;
   String? estado;
   String? obrero;
 
@@ -11,6 +12,7 @@ class ActivityCropModel {
     this.nombre,
     this.finca,
     this.zona,
+    this.fecha,
     this.estado,
     this.obrero,
   });
@@ -20,6 +22,7 @@ class ActivityCropModel {
     nombre = json["nombre"];
     finca = json["finca"];
     zona = json["zona"];
+    fecha = json["fecha"];
     estado = json["estado"];
     obrero = json["obrero"];
   }
@@ -30,6 +33,7 @@ class ActivityCropModel {
     data["nombre"] = nombre;
     data["finca"] = finca;
     data["zona"] = zona;
+    data["fecha"] = fecha;
     data["estado"] = estado;
     data["obrero"] = obrero;
     return data;
