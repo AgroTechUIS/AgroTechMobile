@@ -32,7 +32,7 @@ class CropsUseCaseImpl extends CropsUseCase {
     if (response.success) {
       return ActivityCropsResponseModel.fromJson(response.body ?? {});
     } else {
-      return ActivityCropsResponseModel(error: 'loadCrops:success:false');
+      return ActivityCropsResponseModel(error: 'loadActivitiesCrop:success:false');
     }
   }
 }
