@@ -1,4 +1,4 @@
-import 'package:agrotech/features/3.opciones_supervisor/models/crop_model.dart';
+import 'package:agrotech/features/3.opciones_supervisor/domain/models/crop_model.dart';
 
 class CropsResponseModel {
   int? idEmpresa;
