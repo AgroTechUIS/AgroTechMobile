@@ -93,5 +93,6 @@ class HomePage extends ConsumerWidget {
 enum UserRol {
   supervisor,
   obrero,
+  gestor,
   lock,
 }

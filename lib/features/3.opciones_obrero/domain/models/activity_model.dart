@@ -1,5 +1,5 @@
 class ActivityModel {
-  String? id;
+  int? id;
   String? nombre;
   String? finca;
   String? zona;
