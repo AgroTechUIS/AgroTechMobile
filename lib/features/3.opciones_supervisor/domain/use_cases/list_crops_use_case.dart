@@ -1,12 +1,13 @@
 import 'package:agrotech/features/3.opciones_supervisor/data/List_crops_data_source.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/activity_crop_response_model.dart';
-import 'package:agrotech/features/3.opciones_supervisor/domain/models/company_model.dart';
+import 'package:agrotech/features/3.opciones_supervisor/models/company_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/crop_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/crops_response_model.dart';
 
 abstract class CropsUseCase {
   Future<CropsResponseModel> loadCrops({required CompanyModel companyModel});
-  Future<ActivityCropsResponseModel> loadActivitiesCrop({required CropModel cropModel});
+  Future<ActivityCropsResponseModel> loadActivitiesCrop(
+      {required CropModel cropModel});
 }
 
 class CropsUseCaseImpl extends CropsUseCase {
@@ -17,8 +18,10 @@ class CropsUseCaseImpl extends CropsUseCase {
   );
 
   @override
-  Future<CropsResponseModel> loadCrops({required CompanyModel companyModel}) async {
-    var response = await listCropsDataSource.loadCrops(companyModel: companyModel);
+  Future<CropsResponseModel> loadCrops(
+      {required CompanyModel companyModel}) async {
+    var response =
+        await listCropsDataSource.loadCrops(companyModel: companyModel);
     if (response.success) {
       return CropsResponseModel.fromJson(response.body ?? {});
     } else {
@@ -27,12 +30,15 @@ class CropsUseCaseImpl extends CropsUseCase {
   }
 
   @override
-  Future<ActivityCropsResponseModel> loadActivitiesCrop({required CropModel cropModel}) async {
-    var response = await listCropsDataSource.loadActivitiesCrop(cropModel: cropModel);
+  Future<ActivityCropsResponseModel> loadActivitiesCrop(
+      {required CropModel cropModel}) async {
+    var response =
+        await listCropsDataSource.loadActivitiesCrop(cropModel: cropModel);
     if (response.success) {
       return ActivityCropsResponseModel.fromJson(response.body ?? {});
     } else {
-      return ActivityCropsResponseModel(error: 'loadActivitiesCrop:success:false');
+      return ActivityCropsResponseModel(
+          error: 'loadActivitiesCrop:success:false');
     }
   }
 }

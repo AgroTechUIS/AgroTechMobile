@@ -1,8 +1,12 @@
 import 'package:agrotech/common_utilities/widgets/mini_option_widget.dart';
 import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
+import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../5.tratamientos/presentation/treatment_page.dart';
 
 class ObreroOptions extends ConsumerWidget {
   const ObreroOptions({
@@ -11,17 +15,27 @@ class ObreroOptions extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
+    return const Column(
       children: [
-        const SubtitleWidget('Mis actividades:'),
+        SubtitleWidget('Mis actividades:'),
         Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: EdgeInsets.all(5.0),
           child: Row(
-            children: const [
+            children: [
               MiniOptionWidget(
                 title: 'Actividades asignadas',
                 iconRoute: 'assets/lista.svg',
                 goPage: GestionPersonalPage(),
+              ),
+              MiniOptionWidget(
+                title: 'Gestión agrícola',
+                iconRoute: 'assets/agronomy.svg',
+                goPage: CropPage(),
+              ),
+              MiniOptionWidget(
+                title: 'Tratamientos',
+                iconRoute: 'assets/agronomy.svg',
+                goPage: TratamientosPage(),
               ),
             ],
           ),

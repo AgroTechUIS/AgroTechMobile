@@ -3,7 +3,7 @@ import 'package:agrotech/features/3.opciones_supervisor/data/List_crops_data_sou
 import 'package:agrotech/features/3.opciones_supervisor/data/bills_data_source.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/activity_crop_response_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/bills_response%20model.dart';
-import 'package:agrotech/features/3.opciones_supervisor/domain/models/company_model.dart';
+import 'package:agrotech/features/3.opciones_supervisor/models/company_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/crop_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/crops_response_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/use_cases/bills_use_case.dart';
@@ -26,12 +26,14 @@ class SupervisorController extends StateNotifier<SupervisorState> {
   final int idEmpresa;
 
   Future<CropsResponseModel> loadCrops() async {
-    var resp = await listCropsUseCase.loadCrops(companyModel: CompanyModel(idEmpresa: idEmpresa));
+    var resp = await listCropsUseCase.loadCrops(
+        companyModel: CompanyModel(idEmpresa: idEmpresa));
     state = state.copyWith(cultivos: resp.cultivos);
     return resp;
   }
 
-  Future<ActivityCropsResponseModel> loadActivitiesCrop({required CropModel cropModel}) async {
+  Future<ActivityCropsResponseModel> loadActivitiesCrop(
+      {required CropModel cropModel}) async {
     var resp = await listCropsUseCase.loadActivitiesCrop(cropModel: cropModel);
     state = state.copyWith(actividades: resp.actividades);
     return resp;
@@ -44,7 +46,8 @@ class SupervisorController extends StateNotifier<SupervisorState> {
   }*/
 }
 
-final supervisorController = StateNotifierProvider<SupervisorController, SupervisorState>(
+final supervisorController =
+    StateNotifierProvider<SupervisorController, SupervisorState>(
   (ref) => SupervisorController(
     CropsUseCaseImpl(CropsDataSource()),
     BillsUseCaseImpl(BillsDataSource()),

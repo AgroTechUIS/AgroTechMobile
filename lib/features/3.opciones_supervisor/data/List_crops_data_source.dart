@@ -2,7 +2,7 @@ import 'package:agrotech/common_utilities/clientHttp.dart';
 import 'package:agrotech/common_utilities/httpResponseModel.dart';
 import 'package:agrotech/common_utilities/route_service.dart';
 import '../models/company_model.dart';
-import '../models/crop_model.dart';
+import '../domain/models/crop_model.dart';
 
 class CropsDataSource {
   final ClientHttp clienthttp = ClientHttp();
