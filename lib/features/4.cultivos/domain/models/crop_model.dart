@@ -9,6 +9,11 @@ class CropModel {
   });
 
   Map<String, dynamic> toJson() => {"id": id};
+
+  factory CropModel.fromJson(Map<String, dynamic> json) => CropModel(
+        id: json["id"],
+      );
+
   /*
   factory PlagaModel.fromJson(Map<String, dynamic> json) => PlagaModel(
         id: json["id"],
