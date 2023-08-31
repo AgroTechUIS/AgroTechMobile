@@ -1,6 +1,6 @@
-import '../../../../common_utilities/config/colors_theme.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class MyButton extends StatelessWidget {
   final String text;
   final Color color;

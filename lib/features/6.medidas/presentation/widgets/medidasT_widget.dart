@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:typed_data';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';

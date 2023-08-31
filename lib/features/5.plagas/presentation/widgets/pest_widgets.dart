@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
 
+// ignore: must_be_immutable
 class PestWidget extends StatelessWidget {
   final PlagaModel plaga;
   final VoidCallback onEdit; // Agrega este parámetro

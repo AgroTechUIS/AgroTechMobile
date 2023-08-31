@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 List<VariableModel> variableFromJson(String str) => List<VariableModel>.from(
     json.decode(str).map((x) => VariableModel.fromJson(x)));

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 List<MeasureModel> measureFromJson(String str) => List<MeasureModel>.from(
     json.decode(str).map((x) => MeasureModel.fromJson(x)));

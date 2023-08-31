@@ -1,16 +1,13 @@
 import 'package:agrotech/features/5.variables/domain/models/variable_model.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
-import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
-import 'package:intl/intl.dart';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
 import 'my_buttom.dart';
 
+// ignore: must_be_immutable
 class NewVariable extends StatefulWidget {
   void Function(VariableModel)? onSave;
   VoidCallback? onCancel;

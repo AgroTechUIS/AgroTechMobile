@@ -1,15 +1,12 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
-import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
-import 'camara.dart';
 import '../../domain/models/pest_model.dart';
-import 'package:intl/intl.dart';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'my_buttom.dart';
 
+// ignore: must_be_immutable
 class NewPest extends StatefulWidget {
   void Function(PlagaModel)? onSave;
   VoidCallback? onCancel;

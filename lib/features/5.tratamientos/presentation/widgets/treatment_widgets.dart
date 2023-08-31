@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/src/widgets/spacer.dart';
 
 import '../../domain/models/treatment_model.dart';

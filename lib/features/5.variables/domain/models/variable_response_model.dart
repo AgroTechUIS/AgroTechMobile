@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 List<VariableResponseModel> variableFromJson(String str) =>
     List<VariableResponseModel>.from(

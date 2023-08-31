@@ -1,5 +1,4 @@
 import '../../data/network/pest_repository.dart';
-import '../../data/network/pest_service.dart';
 import '../models/pest_response_model.dart';
 import 'get_pest_use_case.dart';
 

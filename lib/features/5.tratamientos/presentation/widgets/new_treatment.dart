@@ -5,6 +5,7 @@ import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class NewTreatment extends StatefulWidget {
   void Function(TreatmentModel)? onSave;
   VoidCallback? onCancel;

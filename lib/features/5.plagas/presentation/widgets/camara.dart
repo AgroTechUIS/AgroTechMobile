@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -20,6 +19,7 @@ class _ImageCameraGalleryState extends State<ImageCameraGallery> {
     print('No has seleccionado imagenes');
   }
 
+  // ignore: unused_field
   Uint8List? _image;
 
   selectImage() async {

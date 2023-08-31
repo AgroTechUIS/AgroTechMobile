@@ -2,13 +2,10 @@ import '../../../../common_utilities/config/colors_theme.dart';
 import '../../domain/models/treatment_model.dart';
 import 'my_buttom.dart';
 import 'package:flutter/material.dart';
-import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
-import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
-import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class EditTreatment extends StatefulWidget {
   void Function(TreatmentModel)? onSave;
   VoidCallback? onCancel;

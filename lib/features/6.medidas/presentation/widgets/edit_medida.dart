@@ -1,11 +1,10 @@
 import 'package:agrotech/features/6.medidas/domain/models/measure_model.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_button3/dropdown_button3.dart';
-import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
 import '../../../../common_utilities/config/colors_theme.dart';
 import 'my_buttom.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+// ignore: must_be_immutable
 class EditMedida extends StatefulWidget {
   void Function(MeasureModel)? onSave;
   VoidCallback? onCancel;
@@ -95,6 +94,7 @@ class _editMedidaState extends State<EditMedida> {
             SizedBox(height: 12),
             InkWell(
               onTap: () async {
+                // ignore: unused_local_variable
                 final currentDate = DateTime.now();
                 final selectedDate = await showDatePicker(
                   context: context,

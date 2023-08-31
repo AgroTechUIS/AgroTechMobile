@@ -4,7 +4,6 @@ import 'package:agrotech/features/5.variables/presentation/widgets/new_variable.
 import 'package:agrotech/features/5.variables/presentation/widgets/variable_widgets.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
 

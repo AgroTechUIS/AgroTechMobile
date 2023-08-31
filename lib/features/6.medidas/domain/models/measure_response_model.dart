@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 List<MeasureResponseModel> measureFromJson(String str) =>
     List<MeasureResponseModel>.from(

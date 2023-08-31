@@ -1,12 +1,17 @@
-import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class MyButton extends StatelessWidget {
   final String text;
   final Color color;
   final Color textColor;
-    VoidCallback? onPressed;
-  MyButton({Key? key, required this.text,required this.onPressed,required this.color,required this.textColor})
+  VoidCallback? onPressed;
+  MyButton(
+      {Key? key,
+      required this.text,
+      required this.onPressed,
+      required this.color,
+      required this.textColor})
       : super(key: key);
 
   @override

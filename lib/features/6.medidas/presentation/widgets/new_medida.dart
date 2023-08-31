@@ -1,11 +1,8 @@
+// ignore_for_file: unused_local_variable, must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
-import 'package:intl/intl.dart';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
@@ -143,7 +140,7 @@ class _NewMedidaState extends State<NewMedida> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${date!.day} / ${date!.month} / ${date!.year} | ${date.hour}:${date.minute}',
+                          '${date.day} / ${date.month} / ${date.year} | ${date.hour}:${date.minute}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí

@@ -3,7 +3,6 @@ import 'package:agrotech/features/6.medidas/presentation/widgets/edit_medida.dar
 import 'package:agrotech/features/6.medidas/presentation/widgets/medidasT_widget.dart';
 import 'package:agrotech/features/6.medidas/presentation/widgets/new_medida.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
 
@@ -140,8 +139,7 @@ class _VariablesTPageState extends State<VariablesTPage> {
                               DataCell(Text('${e.value ?? ''}')),
                               DataCell(Text(e.description ?? '')),
                               DataCell(Text(
-                                  '${e.date!.year}-${e.date!.month}-${e.date!.day} | ${e.date!.hour}:${e.date!.minute}' ??
-                                      '')),
+                                  '${e.date!.year}-${e.date!.month}-${e.date!.day} | ${e.date!.hour}:${e.date!.minute}')),
                               DataCell(Text(e.unit ?? '')),
                               DataCell(
                                 VariablesTWidget(
