@@ -3,6 +3,7 @@ import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
 import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
+import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
 import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class ObreroOptions extends ConsumerWidget {
               MiniOptionWidget(
                 title: 'Gestión agrícola',
                 iconRoute: 'assets/agronomy.svg',
-                goPage: CropPage(),
+                goPage: PlagasPage(),
               ),
               MiniOptionWidget(
                 title: 'Tratamientos',

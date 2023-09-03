@@ -1,9 +1,15 @@
+import 'package:agrotech/features/5.plagas/data/network/pest_repository_impl.dart';
+import 'package:agrotech/features/5.plagas/data/network/pest_service.dart';
+import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
+import 'package:agrotech/features/5.plagas/domain/use_cases/get_pest_use_case_impl.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/edit_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/new_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/pest_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/services.dart';
+
+import 'package:agrotech/features/5.plagas/domain/use_cases/get_pest_use_case.dart';
 
 import '../domain/models/pest_model.dart';
 
@@ -22,9 +28,26 @@ class _PlagasPageState extends State<PlagasPage> {
   PlagaModel? pests;
   PlagaModel? selectedPlagaForEdit;
 
+  List<dynamic> lista = [];
+
+  final ccase = GetPestUseCaseImpl(
+      PestRepositoryImpl(PestService('http://3.81.168.53:8080')));
+
+  Future<List<PlagaResponseModel>> obtenerLista() async {
+    try {
+      List<PlagaResponseModel> dynamicList = await ccase.getListPest(idCrop: 1);
+
+      return dynamicList;
+    } catch (e) {
+      // Maneja las excepciones aquí según sea necesario
+      throw e;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    obtenerLista();
   }
 
   void saveNewPest(PlagaModel plaga) {
@@ -137,7 +160,7 @@ class _PlagasPageState extends State<PlagasPage> {
                   setState(() {});
                 },
                 child: ListView(
-                  children: listPest
+                  children: lista
                       .map((e) => PestWidget(
                             plaga: e,
                             onEdit: () {

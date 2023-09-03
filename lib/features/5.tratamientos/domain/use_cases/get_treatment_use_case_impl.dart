@@ -11,7 +11,7 @@ class GetPestUseCaseImpl extends GetTreatmentUseCase {
   );
 
   @override
-  Future<List<TreatmentResponseModel>?> getListPest({required int idCrop}) {
+  getListTreatment({required int idCrop}) {
     // TODO: implement getListPest
     throw UnimplementedError();
   }
