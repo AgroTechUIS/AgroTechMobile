@@ -19,7 +19,7 @@ class ObreroOptions extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Column(
+    return Column(
       children: [
         SubtitleWidget('Mis actividades:'),
         Padding(
