@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,11 +8,10 @@ import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
 
 // ignore: must_be_immutable
 class PestWidget extends StatelessWidget {
-  final PlagaModel plaga;
+  final PlagaResponseModel plaga;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  PestWidget(
-      {required this.plaga, required this.onEdit, required this.onDelete});
+  PestWidget({required this.plaga, required this.onEdit, required this.onDelete});
 
   pickImage(ImageSource source) async {
     final ImagePicker imagePicker = ImagePicker();
@@ -35,8 +35,7 @@ class PestWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5, // Elevación de la tarjeta
-      margin: EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
+      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
       shape: RoundedRectangleBorder(
         // Agrega el radio de borde
         borderRadius: BorderRadius.circular(20.0),
@@ -57,8 +56,7 @@ class PestWidget extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                    padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                     child: Text(
                       plaga.name ?? '',
                       style: TextStyle(
@@ -80,15 +78,13 @@ class PestWidget extends StatelessWidget {
                                       width: 200,
                                       height: 230,
                                       child: PhotoView(
-                                        imageProvider:
-                                            MemoryImage(plaga.image!),
+                                        imageProvider: MemoryImage(plaga.image!),
                                       ),
                                     ),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.of(context)
-                                              .pop(); // Cerrar el cuadro de diálogo
+                                          Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
                                         },
                                         child: Text('Cerrar'),
                                       ),
@@ -96,25 +92,19 @@ class PestWidget extends StatelessWidget {
                       } else {
                         showDialog(
                             context: context,
-                            builder: (context) => AlertDialog(
-                                    title: Text('No hay imagen'),
-                                    content: Text('SIN IMAGEN'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .pop(); // Cerrar el cuadro de diálogo
-                                        },
-                                        child: Text('Cerrar'),
-                                      ),
-                                    ]));
+                            builder: (context) =>
+                                AlertDialog(title: Text('No hay imagen'), content: Text('SIN IMAGEN'), actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                                    },
+                                    child: Text('Cerrar'),
+                                  ),
+                                ]));
                       }
                     },
                     child: plaga.adjuntoDto != null
-                        ? CircleAvatar(
-                            radius: 40,
-                            backgroundImage:
-                                NetworkImage(plaga.adjuntoDto!.url))
+                        ? CircleAvatar(radius: 40, backgroundImage: NetworkImage(plaga.adjuntoDto!.url ?? ''))
                         : CircleAvatar(
                             radius: 40,
                             backgroundColor: Colors.grey[300],
@@ -247,8 +237,7 @@ class PestWidget extends StatelessWidget {
                     padding: EdgeInsets.all(1.0), // Espacio alrededor del botón
                     decoration: BoxDecoration(
                       color: Colors.yellow, // Fondo amarillo
-                      borderRadius:
-                          BorderRadius.circular(20.0), // Borde redondeado
+                      borderRadius: BorderRadius.circular(20.0), // Borde redondeado
                     ),
                     child: Center(
                       child: Icon(

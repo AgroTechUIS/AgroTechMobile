@@ -1,46 +1,45 @@
-import 'package:agrotech/features/1.login/data/network/login_service.dart';
-import 'package:agrotech/features/1.login/domain/models/login_model.dart';
-import 'package:agrotech/features/1.login/domain/models/login_response_model.dart';
-import 'package:agrotech/features/1.login/domain/use_cases/login_use_case.dart';
-import 'package:agrotech/features/1.login/presentation/login_state.dart';
-import 'package:flutter/material.dart';
+import 'package:agrotech/features/5.plagas/data/network/pest_repository_impl.dart';
+import 'package:agrotech/features/5.plagas/data/network/pest_service.dart';
+import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
+import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
+import 'package:agrotech/features/5.plagas/domain/use_cases/get_pest_use_case_impl.dart';
+import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
 import 'package:riverpod/riverpod.dart';
 
-class LoginController extends StateNotifier<LoginState> {
-  LoginController(this.loginUseCaseImpl) : super(LoginState());
+class PestController extends StateNotifier<PestState> {
+  PestController(this.getPestUseCaseImpl) : super(PestState()) {
+    getListPest(1);
+  }
 
   // Use cases
-  final LoginUseCaseImpl loginUseCaseImpl;
+  final GetPestUseCaseImpl getPestUseCaseImpl;
 
-  // Textfields
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  Future<List<PlagaResponseModel>> getListPest(int crop) async {
+    // condicion: si hay internet consulte el servicio
 
-  TextEditingController getEmailController() {
-    return emailController;
-  }
-
-  TextEditingController getPasswordController() {
-    return passwordController;
-  }
-
-  Future<LoginResponseModel> login() async {
-    var resp = await loginUseCaseImpl.login(
-        loginModel: LoginModel(
-            email: emailController.text, password: passwordController.text));
-    state = state.copyWith(
-      idusuario: resp.idusuario,
-      nombre: resp.nombre,
-      cedula: resp.cedula,
-      correo: resp.correo,
-      telefono: resp.telefono,
-      rol: resp.rol,
-      ingreso: resp.ingreso,
-    );
+    var resp = await getPestUseCaseImpl.getListPest(idCrop: 1);
+    state = state.copyWith(plagas: resp);
     return resp;
+  }
+
+  void saveNewPest(PlagaModel plaga) {
+    var temp = state.plagas;
+    temp.add(plaga);
+    state = state.copyWith(plagas: temp);
+  }
+
+  void updatePest(PlagaModel plaga) {
+    state = state.copyWith(selectedPlagaForEdit: plaga);
+  }
+
+  void edit(PlagaModel plaga) {
+    var temp = state.plagas;
+    temp.remove(state.selectedPlagaForEdit);
+    temp.add(plaga);
+    state = state.copyWith(plagas: temp);
   }
 }
 
-final loginController = StateNotifierProvider<LoginController, LoginState>(
-  (ref) => LoginController(LoginUseCaseImpl(LoginService())),
+final pestController = StateNotifierProvider<PestController, PestState>(
+  (ref) => PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))),
 );

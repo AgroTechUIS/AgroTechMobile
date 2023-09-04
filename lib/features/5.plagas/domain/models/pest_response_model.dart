@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 List<PlagaResponseModel> plagaFromJson(String str) =>
-    List<PlagaResponseModel>.from(
-        json.decode(str).map((x) => PlagaResponseModel.fromJson(x)));
+    List<PlagaResponseModel>.from(json.decode(str).map((x) => PlagaResponseModel.fromJson(x)));
 
-String plagaToJson(List<PlagaResponseModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String plagaToJson(List<PlagaResponseModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 List<PlagaResponseModel> listplagaFromJson(List<dynamic> datos) =>
     datos.map((e) => PlagaResponseModel.fromJson(e)).toList();
@@ -36,8 +34,7 @@ class PlagaResponseModel {
     this.image,
   });
 
-  factory PlagaResponseModel.fromJson(Map<String, dynamic> json) =>
-      PlagaResponseModel(
+  factory PlagaResponseModel.fromJson(Map<String, dynamic> json) => PlagaResponseModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],
@@ -46,9 +43,7 @@ class PlagaResponseModel {
         appareceDate: DateTime.parse(json["appareceDate"]),
         pestFamily: json["pestFamily"],
         stateTratment: json["state_tratment"],
-        adjuntoDto: json["adjuntoDto"] == null
-            ? null
-            : AdjuntoDto.fromJson(json["adjuntoDto"]),
+        adjuntoDto: json["adjuntoDto"] == null ? null : AdjuntoDto.fromJson(json["adjuntoDto"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -66,8 +61,8 @@ class PlagaResponseModel {
 }
 
 class AdjuntoDto {
-  final int id;
-  final String url;
+  final int? id;
+  final String? url;
 
   AdjuntoDto({
     required this.id,

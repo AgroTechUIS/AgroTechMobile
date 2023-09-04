@@ -1,7 +1,8 @@
-import 'package:agrotech/features/5.plagas/data/network/pest_repository.dart';
 import 'package:agrotech/features/5.plagas/data/network/pest_service.dart';
 
-import '../../domain/models/pest_response_model.dart';
+abstract class PestRepository {
+  Future<Map<String, dynamic>> getPestsByCrop(int idCrop);
+}
 
 class PestRepositoryImpl implements PestRepository {
   final PestService pestService;

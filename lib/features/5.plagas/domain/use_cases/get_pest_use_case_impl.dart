@@ -1,8 +1,9 @@
-import '../../data/network/pest_repository.dart';
-import '../../data/network/pest_repository_impl.dart';
-import '../models/pest_response_model.dart';
-import 'get_pest_use_case.dart';
-import '../models/pest_response_model.dart';
+import 'package:agrotech/features/5.plagas/data/network/pest_repository_impl.dart';
+import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
+
+abstract class GetPestUseCase {
+  Future<List<PlagaResponseModel>> getListPest({required int idCrop});
+}
 
 class GetPestUseCaseImpl extends GetPestUseCase {
   final PestRepositoryImpl pestRepository;
@@ -18,7 +19,7 @@ class GetPestUseCaseImpl extends GetPestUseCase {
       List<PlagaResponseModel> listPlagas = [];
 
       for (var entry in pestData['pests']) {
-        listPlagas.add(PlagaResponseModel.fromJson(entry.value));
+        listPlagas.add(PlagaResponseModel.fromJson(entry));
       }
       return listPlagas;
     } catch (e) {

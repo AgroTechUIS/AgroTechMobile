@@ -3,12 +3,15 @@ import 'package:secure_shared_preferences/secure_shared_preferences.dart';
 class RouteService {
   static const String protocol = "http";
 
-  static const String domain = "3.81.168.53";
-  static const String port = "8080";
-  /*
+  /// Ambiente Web
+  //static const String domain = "3.81.168.53";
+  //static const String port = "8080";
+
+  /// Ambiente Mockoon
   static const String domain = "192.168.1.52";
   static const String port = "3000";
-*/
+
+  /// Ruta
   static const String routeService = "$protocol://$domain:$port";
 
   Future<String> getToken(String token) async {

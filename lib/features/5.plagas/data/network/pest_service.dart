@@ -1,23 +1,14 @@
-import 'dart:convert';
-
 import 'package:agrotech/common_utilities/clientHttp.dart';
-
 import 'package:agrotech/common_utilities/httpResponseModel.dart';
-
 import 'package:agrotech/common_utilities/route_service.dart';
-
-import '../../../../enviroment/enviroment.dart';
-import '../../domain/models/pest_response_model.dart';
 
 class PestService {
   final ClientHttp clienthttp = ClientHttp();
 
-  final String baseUrl;
-
-  PestService(this.baseUrl);
+  PestService();
 
   Future<HttpResponseModel> getPestData(int cropId) async {
-    final response = await clienthttp.get(url: '$url/pests');
+    final response = await clienthttp.get(url: '${RouteService.routeService}/api/pests/$cropId');
 
     return response;
   }
