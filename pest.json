@@ -1,0 +1,87 @@
+{
+    "pests": {"pests":[
+        {
+            "id": 53,
+            "name": "Hola",
+            "description": "a",
+            "state": "Controlada",
+            "observation": "sakfañsfasf,\n\nla plaga volvio a aparecer el martes 24 de septiembre",
+            "appareceDate": "2023-08-10",
+            "pestFamily": "a",
+            "state_tratment": "Fallo",
+            "adjuntoDto": null
+        },
+        {
+            "id": 58,
+            "name": "mosca",
+            "description": "mosca",
+            "state": "Baja presencia",
+            "observation": "jlliug",
+            "appareceDate": "2023-08-11",
+            "pestFamily": null,
+            "state_tratment": "En progreso",
+            "adjuntoDto": null
+        },
+        {
+            "id": 59,
+            "name": "Alejadro",
+            "description": "alejandro lochupa",
+            "state": "Baja presencia",
+            "observation": "alejandro lo chupa",
+            "appareceDate": "2023-08-11",
+            "pestFamily": "sarna",
+            "state_tratment": "Exito",
+            "adjuntoDto": null
+        },
+        {
+            "id": 76,
+            "name": "a",
+            "description": "a",
+            "state": "Presencia moderada",
+            "observation": "a",
+            "appareceDate": "2023-08-26",
+            "pestFamily": "a",
+            "state_tratment": null,
+            "adjuntoDto": null
+        },
+        {
+            "id": 77,
+            "name": "s",
+            "description": "s",
+            "state": "Alta presencia",
+            "observation": "s",
+            "appareceDate": "2023-08-18",
+            "pestFamily": "s",
+            "state_tratment": null,
+            "adjuntoDto": null
+        },
+        {
+            "id": 78,
+            "name": "s",
+            "description": "s",
+            "state": "Controlada",
+            "observation": "s",
+            "appareceDate": "2023-08-10",
+            "pestFamily": "s",
+            "state_tratment": null,
+            "adjuntoDto": {
+                "id": 1,
+                "url": ""
+            }
+        },
+        {
+            "id": 83,
+            "name": "Gusano del cafe",
+            "description": "Plaga que afecta los tomates en la plantación.",
+            "state": "Activa",
+            "observation": "Se ha detectado la presencia del gusano en algunas plantas.",
+            "appareceDate": "2023-07-31",
+            "pestFamily": "Solanáceas",
+            "state_tratment": null,
+            "adjuntoDto": {
+                "id": 12,
+                "url": null
+            }
+        }
+    ]}
+}

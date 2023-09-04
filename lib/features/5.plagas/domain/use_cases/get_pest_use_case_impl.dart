@@ -17,7 +17,7 @@ class GetPestUseCaseImpl extends GetPestUseCase {
       final pestData = await pestRepository.getPestsByCrop(idCrop);
       List<PlagaResponseModel> listPlagas = [];
 
-      for (var entry in pestData.entries) {
+      for (var entry in pestData['pests']) {
         listPlagas.add(PlagaResponseModel.fromJson(entry.value));
       }
       return listPlagas;

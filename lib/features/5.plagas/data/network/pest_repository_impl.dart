@@ -10,11 +10,13 @@ class PestRepositoryImpl implements PestRepository {
 
   @override
   Future<Map<String, dynamic>> getPestsByCrop(int idCrop) async {
-    final apiService = PestService('http://3.81.168.53:8080');
-
     try {
-      final pestData = await apiService.getPestData(idCrop);
-      return pestData;
+      final pestData = await pestService.getPestData(idCrop);
+      if (pestData.success) {
+        return pestData.body ?? {};
+      } else {
+        throw ('Error: Mal status');
+      }
     } catch (e) {
       throw ('Error al obtener datos de las plagas: $e');
     }
