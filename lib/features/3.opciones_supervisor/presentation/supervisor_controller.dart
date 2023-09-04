@@ -37,11 +37,11 @@ class SupervisorController extends StateNotifier<SupervisorState> {
     return resp;
   }
 
-  /*Future<BillsResponseModel> loadBillsClient() async {
+  Future<BillsResponseModel> loadBillsClient() async {
     var resp = await billsUseCase.loadBillsClient(companyModel: CompanyModel(idEmpresa: idEmpresa));
-    state = state.copyWith(actividades: resp.actividades);
+    state = state.copyWith(ingresos: resp.facturas);
     return resp;
-  }*/
+  }
 }
 
 final supervisorController = StateNotifierProvider<SupervisorController, SupervisorState>(
@@ -51,3 +51,8 @@ final supervisorController = StateNotifierProvider<SupervisorController, Supervi
     ref.watch(loginController).idEmpresa,
   ),
 );
+
+final fetchDataFutureProvider = FutureProvider.autoDispose<BillsResponseModel>((ref) async {
+  var billsUseCase = BillsUseCaseImpl(BillsDataSource());
+  return billsUseCase.loadBillsClient(companyModel: CompanyModel(idEmpresa: ref.watch(loginController).idEmpresa));
+});

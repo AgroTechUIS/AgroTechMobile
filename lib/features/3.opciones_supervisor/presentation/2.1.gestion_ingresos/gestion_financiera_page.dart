@@ -12,6 +12,7 @@ class GestionIngresos extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var supervisorState = ref.watch(supervisorController);
+    var dataState = ref.watch(fetchDataFutureProvider);
     return Scaffold(
       backgroundColor: colors.backgroundwhite,
       appBar: AppBar(
@@ -39,14 +40,18 @@ class GestionIngresos extends ConsumerWidget {
                 style: TextStyle(fontSize: 25),
               ),
             ),
-            SectionScrollWidget(
-              showSearch: false,
-              children: supervisorState.actividades.map((actividad) {
-                return CardIngresoWidget(
-                  numeroFactura: actividad.nombre ?? 'Error',
-                  valor: 0,
-                );
-              }).toList(),
+            dataState.when(
+              data: (data) => SectionScrollWidget(
+                showSearch: false,
+                children: data.facturas!.map((actividad) {
+                  return CardIngresoWidget(
+                    numeroFactura: actividad.numeroFactura ?? 'Error',
+                    valor: actividad.total ?? 0,
+                  );
+                }).toList(),
+              ),
+              loading: () => SizedBox(),
+              error: (error, stackTrace) => SizedBox(),
             ),
           ],
         ),

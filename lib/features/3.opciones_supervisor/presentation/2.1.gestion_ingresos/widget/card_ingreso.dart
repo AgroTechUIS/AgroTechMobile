@@ -9,7 +9,7 @@ class CardIngresoWidget extends StatelessWidget {
   });
 
   final String numeroFactura;
-  final int valor;
+  final double valor;
 
   @override
   Widget build(BuildContext context) {

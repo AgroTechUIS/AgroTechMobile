@@ -12,8 +12,8 @@ class BillsResponseModel {
   });
 
   BillsResponseModel.fromJson(Map<String, dynamic> json) {
-    idEmpresa = json["idCultivo"];
-    var mapList = json["facturas_cliente"] ?? json["facturas_proveedor"] ?? json["facturas_obreros"] as List<dynamic>;
+    idEmpresa = json["idEmpresa"];
+    List mapList = json["facturasCliente"] ?? json["facturasProveedor"] ?? json["facturasObreros"];
     facturas = mapList.map((actividadJson) {
       return BillModel.fromJson(actividadJson);
     }).toList();
