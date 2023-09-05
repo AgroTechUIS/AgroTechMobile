@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../domain/models/pest_model.dart';
+import '../../domain/models/pest_response_model.dart';
 import 'my_buttom.dart';
 
 // ignore: must_be_immutable
 class EditPest extends StatefulWidget {
-  void Function(PlagaModel)? onSave;
+  void Function(PlagaResponseModel)? onSave;
   VoidCallback? onCancel;
-  PlagaModel? initialPlaga;
+  PlagaResponseModel? initialPlaga;
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
@@ -289,7 +290,7 @@ class _editPestState extends State<EditPest> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      PlagaModel nuevaPlaga = PlagaModel(
+                      PlagaResponseModel nuevaPlaga = PlagaResponseModel(
                           id: 0, // Asigna el ID adecuado
                           name: widget.nombreController.text,
                           description: widget.descripcionController.text,

@@ -47,13 +47,14 @@ class PlagasPage extends ConsumerWidget {
     });
   }*/
 
-  void editPest(context, PlagaModel plaga, PestController controller, PestState state) {
+  void editPest(context, PlagaResponseModel plaga, PestController controller,
+      PestState state) {
     controller.updatePest(plaga);
     showDialog(
       context: context,
       builder: (context) {
         return EditPest(
-          initialPlaga: state.selectedPlagaForEdit,
+          initialPlaga: plaga,
           onSave: (plaga) {},
         );
         // Actualizar la lista de plagas
@@ -111,7 +112,8 @@ class PlagasPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: const EdgeInsets.only(
+                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(

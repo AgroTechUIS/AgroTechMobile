@@ -28,7 +28,7 @@ class PestController extends StateNotifier<PestState> {
     state = state.copyWith(plagas: temp);
   }
 
-  void updatePest(PlagaModel plaga) {
+  void updatePest(PlagaResponseModel plaga) {
     state = state.copyWith(selectedPlagaForEdit: plaga);
   }
 
@@ -41,5 +41,6 @@ class PestController extends StateNotifier<PestState> {
 }
 
 final pestController = StateNotifierProvider<PestController, PestState>(
-  (ref) => PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))),
+  (ref) =>
+      PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))),
 );
