@@ -8,7 +8,8 @@ class PestService {
   PestService();
 
   Future<HttpResponseModel> getPestData(int cropId) async {
-    final response = await clienthttp.get(url: '${RouteService.routeService}/api/pests/$cropId');
+    final response = await clienthttp.get(
+        url: '${RouteService.routeService}/api/pest/$cropId');
 
     return response;
   }

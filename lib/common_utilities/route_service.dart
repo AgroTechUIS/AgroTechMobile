@@ -8,8 +8,8 @@ class RouteService {
   //static const String port = "8080";
 
   /// Ambiente Mockoon
-  static const String domain = "192.168.1.52";
-  static const String port = "3000";
+  static const String domain = "34.31.94.160";
+  static const String port = "8080";
 
   /// Ruta
   static const String routeService = "$protocol://$domain:$port";
