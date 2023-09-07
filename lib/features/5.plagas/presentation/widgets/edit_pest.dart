@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../domain/models/pest_model.dart';
 import '../../domain/models/pest_response_model.dart';
 import 'my_buttom.dart';
 
@@ -17,8 +16,12 @@ class EditPest extends StatefulWidget {
   final TextEditingController observacionesController = TextEditingController();
   final TextEditingController familiaController = TextEditingController();
   String? selectedValue;
-  EditPest(
-      {super.key, this.onSave, this.onCancel, required this.initialPlaga}) {
+  EditPest({
+    super.key,
+    this.onSave,
+    this.onCancel,
+    required this.initialPlaga,
+  }) {
     nombreController.text = initialPlaga?.name ?? '';
     descripcionController.text = initialPlaga?.description ?? '';
     observacionesController.text = initialPlaga?.observation ?? '';
@@ -40,8 +43,7 @@ class _editPestState extends State<EditPest> {
   @override
   void initState() {
     super.initState();
-    selectedValue = widget.initialPlaga
-        ?.state; // Asigna el valor inicial de initialPlaga.state a selectedValue
+    selectedValue = widget.initialPlaga?.state; // Asigna el valor inicial de initialPlaga.state a selectedValue
   }
 
   pickImage(ImageSource source) async {
@@ -76,11 +78,8 @@ class _editPestState extends State<EditPest> {
                 onTap: () async {
                   return selectImage();
                 },
-                child: widget.initialPlaga!.image != null
-                    ? CircleAvatar(
-                        radius: 40,
-                        backgroundImage:
-                            MemoryImage(widget.initialPlaga!.image!))
+                child: (widget.initialPlaga ?? PlagaResponseModel()).image != null
+                    ? CircleAvatar(radius: 40, backgroundImage: MemoryImage(widget.initialPlaga!.image!))
                     : CircleAvatar(
                         radius: 40,
                         backgroundColor: Colors.grey[300],
@@ -155,9 +154,11 @@ class _editPestState extends State<EditPest> {
                     }).toList(),
                     value: selectedValue,
                     onChanged: (String? value) {
-                      setState(() {
-                        selectedValue = value;
-                      });
+                      if (items.contains(value)) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      }
                     },
                     /*
                     buttonHeight: 20,
@@ -241,24 +242,21 @@ class _editPestState extends State<EditPest> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${widget.initialPlaga!.appareceDate!.day} / ${widget.initialPlaga!.appareceDate!.month} / ${widget.initialPlaga!.appareceDate!.year}',
+                          '${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).day} / ${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).month} / ${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -305,10 +303,11 @@ class _editPestState extends State<EditPest> {
                     color: colors.green2,
                     textColor: colors.white),
                 MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                  text: "Cerrar",
+                  onPressed: widget.onCancel,
+                  color: colors.white,
+                  textColor: colors.textColor,
+                ),
               ],
             )
           ],
