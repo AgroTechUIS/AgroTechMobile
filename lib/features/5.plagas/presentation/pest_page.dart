@@ -54,7 +54,7 @@ class PlagasPage extends ConsumerWidget {
       context: context,
       builder: (context) {
         return EditPest(
-          initialPlaga: plaga,
+          initialPlaga: state.selectedPlagaForEdit,
           onSave: (plaga) {},
         );
         // Actualizar la lista de plagas

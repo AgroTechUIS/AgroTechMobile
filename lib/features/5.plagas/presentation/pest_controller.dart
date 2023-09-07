@@ -22,13 +22,13 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
-  void saveNewPest(PlagaModel plaga) {
+  void saveNewPest(PlagaResponseModel plaga) {
     var temp = state.plagas;
     temp.add(plaga);
     state = state.copyWith(plagas: temp);
   }
 
-  void updatePest(PlagaResponseModel plaga) {
+  void updatePest(PlagaResponseModel? plaga) {
     state = state.copyWith(selectedPlagaForEdit: plaga);
   }
 

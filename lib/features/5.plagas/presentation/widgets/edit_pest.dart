@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../domain/models/pest_model.dart';
 import '../../domain/models/pest_response_model.dart';
@@ -36,6 +35,7 @@ class _editPestState extends State<EditPest> {
     'Alta precencia',
     'Controlada',
   ];
+
   String? selectedValue;
   @override
   void initState() {
@@ -133,7 +133,7 @@ class _editPestState extends State<EditPest> {
                   borderRadius: BorderRadius.circular(8),
                 )),
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
+                  child: DropdownButton<String>(
                     isExpanded: true,
                     hint: Text(
                       'Estado de la plaga',
@@ -142,27 +142,28 @@ class _editPestState extends State<EditPest> {
                         color: Theme.of(context).hintColor,
                       ),
                     ),
-                    items: items
-                        .map((String item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ))
-                        .toList(),
+                    items: items.map<DropdownMenuItem<String>>((String item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      );
+                    }).toList(),
                     value: selectedValue,
                     onChanged: (String? value) {
                       setState(() {
                         selectedValue = value;
                       });
                     },
+                    /*
                     buttonHeight: 20,
                     buttonPadding: EdgeInsets.symmetric(horizontal: 16),
                     buttonWidth: 140,
-                    itemHeight: 40,
+                    itemHeight: 40,*/
                     /*
                     buttonStyleData: const ButtonStyleData(
                       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -294,7 +295,7 @@ class _editPestState extends State<EditPest> {
                           id: 0, // Asigna el ID adecuado
                           name: widget.nombreController.text,
                           description: widget.descripcionController.text,
-                          state: selectedValue,
+                          state: widget.selectedValue,
                           observation: widget.observacionesController.text,
                           pestFamily: widget.familiaController.text,
                           appareceDate: widget.initialPlaga!.appareceDate,

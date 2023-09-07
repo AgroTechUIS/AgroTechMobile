@@ -1,4 +1,6 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
+import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
+import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
 import '../../domain/models/pest_model.dart';
@@ -8,7 +10,7 @@ import 'my_buttom.dart';
 
 // ignore: must_be_immutable
 class NewPest extends StatefulWidget {
-  void Function(PlagaModel)? onSave;
+  void Function(PlagaResponseModel)? onSave;
   VoidCallback? onCancel;
 
   final TextEditingController nombreController = TextEditingController();
@@ -261,7 +263,7 @@ class _NewPestState extends State<NewPest> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      PlagaModel nuevaPlaga = PlagaModel(
+                      PlagaResponseModel nuevaPlaga = PlagaResponseModel(
                         id: 0, // Asigna el ID adecuado
                         name: widget.nombreController.text,
                         description: widget.descripcionController.text,
