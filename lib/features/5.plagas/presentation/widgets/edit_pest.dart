@@ -43,10 +43,9 @@ class _editPestState extends State<EditPest> {
   @override
   void initState() {
     super.initState();
-    selectedValue = widget.initialPlaga?.state; // Asigna el valor inicial de initialPlaga.state a selectedValue
   }
 
-  pickImage(ImageSource source) async {
+  /*pickImage(ImageSource source) async {
     final ImagePicker imagePicker = ImagePicker();
     XFile? file = await imagePicker.pickImage(source: source);
 
@@ -62,7 +61,7 @@ class _editPestState extends State<EditPest> {
     setState(() {
       image = img;
     });
-  }
+  }*/
 
   late Future<DateTime?> fecha;
   @override
@@ -74,21 +73,6 @@ class _editPestState extends State<EditPest> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            GestureDetector(
-                onTap: () async {
-                  return selectImage();
-                },
-                child: (widget.initialPlaga ?? PlagaResponseModel()).image != null
-                    ? CircleAvatar(radius: 40, backgroundImage: MemoryImage(widget.initialPlaga!.image!))
-                    : CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.grey[300],
-                        child: Icon(
-                          Icons.camera_alt,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                      )),
             SizedBox(height: 12),
             TextField(
               controller: widget.nombreController,
@@ -242,21 +226,24 @@ class _editPestState extends State<EditPest> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey, // Puedes personalizar el color del borde aquí
+                        color: Colors
+                            .grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder.none, // Elimina el borde de InputDecorator
+                        border: InputBorder
+                            .none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).day} / ${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).month} / ${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).year}',
                           style: TextStyle(
-                            color: colors.black, // Puedes personalizar el color del texto aquí
+                            color: colors
+                                .black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -290,14 +277,15 @@ class _editPestState extends State<EditPest> {
                     text: "Guardar",
                     onPressed: () {
                       PlagaResponseModel nuevaPlaga = PlagaResponseModel(
-                          id: 0, // Asigna el ID adecuado
-                          name: widget.nombreController.text,
-                          description: widget.descripcionController.text,
-                          state: widget.selectedValue,
-                          observation: widget.observacionesController.text,
-                          pestFamily: widget.familiaController.text,
-                          appareceDate: widget.initialPlaga!.appareceDate,
-                          image: widget.initialPlaga!.image);
+                        id: widget.initialPlaga?.id, // Asigna el ID adecuado
+                        name: widget.nombreController.text,
+                        description: widget.descripcionController.text,
+                        state: widget.selectedValue,
+                        observation: widget.observacionesController.text,
+                        pestFamily: widget.familiaController.text,
+                        appareceDate: widget.initialPlaga!.appareceDate,
+                        adjuntoDto: widget.initialPlaga!.adjuntoDto,
+                      );
                       widget.onSave!(nuevaPlaga);
                     },
                     color: colors.green2,

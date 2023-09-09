@@ -3,6 +3,8 @@ import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dar
 
 abstract class GetPestUseCase {
   Future<List<PlagaResponseModel>> getListPest({required int idCrop});
+  /*Future<Map<String, dynamic>> updatePest(
+      List<PlagaResponseModel> updatedPlagas);*/
 }
 
 class GetPestUseCaseImpl extends GetPestUseCase {
@@ -35,5 +37,18 @@ class GetPestUseCaseImpl extends GetPestUseCase {
     } else {
       return null;
     }*/
+  }
+
+  @override
+  Future<Map<String, dynamic>> updatePest(
+      PlagaResponseModel? updatedPlagas) async {
+    try {
+      final pestData = {'pests': updatedPlagas!.toJson()};
+      return await pestRepository.updatePestDataRep(pestData);
+
+      // Aquí puedes manejar la respuesta del servidor si es necesario
+    } catch (e) {
+      throw ('Error al actualizar la lista de plagas: $e');
+    }
   }
 }

@@ -42,14 +42,14 @@ class _NewPestState extends State<NewPest> {
     print('No has seleccionado imagenes');
   }
 
-  Uint8List? image;
-  void selectImage() async {
+  String? image;
+  /*void selectImage() async {
     Uint8List img = await pickImage(ImageSource.gallery);
 
     setState(() {
       image = img;
     });
-  }
+  }*/
 
   DateTime? date = DateTime.now();
   late Future<DateTime?> fecha;
@@ -62,23 +62,6 @@ class _NewPestState extends State<NewPest> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            GestureDetector(
-              onTap: () async {
-                return selectImage();
-              },
-              child: image != null
-                  ? CircleAvatar(
-                      radius: 40, backgroundImage: MemoryImage(image!))
-                  : CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.grey[300],
-                      child: const Icon(
-                        Icons.camera_alt,
-                        size: 30,
-                        color: Colors.black,
-                      ),
-                    ),
-            ),
             SizedBox(height: 12),
             TextField(
               controller: widget.nombreController,
@@ -271,7 +254,7 @@ class _NewPestState extends State<NewPest> {
                         observation: widget.observacionesController.text,
                         pestFamily: widget.familiaController.text,
                         appareceDate: DateUtils.dateOnly(date as DateTime),
-                        image: image,
+                        adjuntoDto: null,
                       );
                       widget.onSave!(nuevaPlaga);
                     },

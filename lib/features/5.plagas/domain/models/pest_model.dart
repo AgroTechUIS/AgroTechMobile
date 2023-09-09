@@ -17,7 +17,6 @@ class PlagaModel {
   final String? pestFamily;
   final String? stateTratment;
   final AdjuntoDto? adjuntoDto;
-  late final Uint8List? image;
 
   PlagaModel({
     this.id,
@@ -29,7 +28,6 @@ class PlagaModel {
     this.pestFamily,
     this.stateTratment,
     this.adjuntoDto,
-    this.image,
   });
 
   factory PlagaModel.fromJson(Map<String, dynamic> json) => PlagaModel(

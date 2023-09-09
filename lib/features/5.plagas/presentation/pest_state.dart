@@ -4,7 +4,7 @@ import '../domain/models/pest_response_model.dart';
 
 class PestState {
   final List<dynamic> plagas;
-  final PlagaResponseModel? selectedPlagaForEdit;
+  PlagaResponseModel? selectedPlagaForEdit;
 
   PestState({
     this.plagas = const [],

@@ -9,6 +9,7 @@ import 'package:riverpod/riverpod.dart';
 class PestController extends StateNotifier<PestState> {
   PestController(this.getPestUseCaseImpl) : super(PestState()) {
     getListPest(1);
+    //updatesPests(state.plagas);
   }
 
   // Use cases
@@ -22,6 +23,15 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
+  Future<Map<String, dynamic>> updatesPests(
+      PlagaResponseModel? updatedPlagas) async {
+    var resp = await getPestUseCaseImpl.updatePest(updatedPlagas);
+    final selectedPest = PlagaResponseModel.fromJson(resp);
+
+    state = state.copyWith(selectedPlagaForEdit: selectedPest);
+    return resp;
+  }
+
   void saveNewPest(PlagaResponseModel plaga) {
     var temp = state.plagas;
     temp.add(plaga);
@@ -30,9 +40,10 @@ class PestController extends StateNotifier<PestState> {
 
   void updatePest(PlagaResponseModel? plaga) {
     state = state.copyWith(selectedPlagaForEdit: plaga);
+    state.selectedPlagaForEdit = plaga;
   }
 
-  void edit(PlagaModel plaga) {
+  void edit(PlagaResponseModel? plaga) {
     var temp = state.plagas;
     temp.remove(state.selectedPlagaForEdit);
     temp.add(plaga);
@@ -40,7 +51,5 @@ class PestController extends StateNotifier<PestState> {
   }
 }
 
-final pestController = StateNotifierProvider<PestController, PestState>(
-  (ref) =>
-      PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))),
-);
+final pestController = StateNotifierProvider<PestController, PestState>((ref) =>
+    PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))));

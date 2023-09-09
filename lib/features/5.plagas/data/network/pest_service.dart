@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:agrotech/common_utilities/clientHttp.dart';
 import 'package:agrotech/common_utilities/httpResponseModel.dart';
 import 'package:agrotech/common_utilities/route_service.dart';
@@ -11,6 +14,17 @@ class PestService {
     final response = await clienthttp.get(
         url: '${RouteService.routeService}/api/pest/$cropId');
 
+    return response;
+  }
+
+  Future<http.Response> updatePestData(Map<String, dynamic> pestData) async {
+    final response = await http.put(
+      Uri.parse('$RouteService.routeService/api/pest'), // Ruta sin el cropId
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(pestData),
+    );
     return response;
   }
 
