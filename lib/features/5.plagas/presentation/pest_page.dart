@@ -54,10 +54,15 @@ class PlagasPage extends ConsumerWidget {
       builder: (context) {
         return EditPest(
           initialPlaga: plaga,
-          onSave: (np) {
-            controller.updatePest(np);
-            controller.updatesPests(
-                plaga); // Llamar al método en el controlador para actualizar la plaga
+          onSave: (np) async {
+            final npa = await controller.updatesPests(np, plaga);
+
+            if (npa != null) {
+              PlagaResponseModel plagaModel = PlagaResponseModel.fromJson(npa);
+              state.selectedPlagaForEdit = plagaModel;
+            } else {
+              print('Error en método edit');
+            }
             Navigator.of(context).pop();
           },
           onCancel: () {

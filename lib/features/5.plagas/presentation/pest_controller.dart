@@ -23,12 +23,45 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
-  Future<Map<String, dynamic>> updatesPests(
-      PlagaResponseModel? updatedPlagas) async {
-    var resp = await getPestUseCaseImpl.updatePest(updatedPlagas);
-    final selectedPest = PlagaResponseModel.fromJson(resp);
+  Future<Map<String, dynamic>> updatesPests(PlagaResponseModel? updatedPlagas,
+      PlagaResponseModel? initialPlaga) async {
+    if (updatedPlagas == null || initialPlaga == null) {
+      // Manejar el caso en el que los argumentos sean nulos o inválidos.
+      throw Exception("Los argumentos no pueden ser nulos.");
+    }
+    PlagaResponseModel updatedInitialPlaga = PlagaResponseModel(
+      id: updatedPlagas.id ?? initialPlaga.id,
+      name: updatedPlagas.name ?? initialPlaga.name,
+      description: updatedPlagas.description ?? initialPlaga.description,
+      state: updatedPlagas.state ?? initialPlaga.state,
+      observation: updatedPlagas.observation ?? initialPlaga.observation,
+      appareceDate: updatedPlagas.appareceDate ?? initialPlaga.appareceDate,
+      pestFamily: updatedPlagas.pestFamily ?? initialPlaga.pestFamily,
+      stateTratment: updatedPlagas.stateTratment ?? initialPlaga.stateTratment,
+      adjuntoDto: updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto,
+    );
 
+    /* updatedInitialPlaga.name = updatedPlagas.name ?? initialPlaga.name;
+    updatedInitialPlaga.description =
+        updatedPlagas.description ?? initialPlaga.description;
+    updatedInitialPlaga.state = updatedPlagas.state ?? initialPlaga.state;
+    updatedInitialPlaga.observation =
+        updatedPlagas.observation ?? initialPlaga.observation;
+    updatedInitialPlaga.appareceDate =
+        updatedPlagas.appareceDate ?? initialPlaga.appareceDate;
+    updatedInitialPlaga.pestFamily =
+        updatedPlagas.pestFamily ?? initialPlaga.pestFamily;
+    updatedInitialPlaga.stateTratment =
+        updatedPlagas.stateTratment ?? initialPlaga.stateTratment;
+    updatedInitialPlaga.adjuntoDto =
+        updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto;
+*/
+
+    var resp = await getPestUseCaseImpl.updatePest(updatedInitialPlaga);
+
+    final selectedPest = PlagaResponseModel.fromJson(resp);
     state = state.copyWith(selectedPlagaForEdit: selectedPest);
+
     return resp;
   }
 

@@ -30,13 +30,11 @@ class PestRepositoryImpl implements PestRepository {
     try {
       final response = await pestService.updatePestData(pestData);
 
-      if (response.statusCode == 200) {
-        // Aquí puedes procesar la respuesta del servidor si es necesario
-        // Por ejemplo, si el servidor devuelve datos actualizados, puedes extraerlos del cuerpo de la respuesta.
-        final responseData = jsonDecode(response.body);
-        return responseData;
+      if (response.success) {
+        final responseData = response.body;
+        return responseData!;
       } else {
-        throw ('Error: Mal status - ${response.statusCode}');
+        throw ('Error: Mal status - ${response.success}');
       }
     } catch (e) {
       throw ('Error al actualizar datos de la plaga: $e');

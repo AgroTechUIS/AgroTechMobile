@@ -20,11 +20,14 @@ class ClientHttp {
 
       return response.validateResponse();
     } on TimeoutException catch (e) {
-      return HttpResponseModel(success: false, body: {"error": "$e"}, message: timeoutMessage);
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: timeoutMessage);
     } on SocketException catch (e) {
-      return HttpResponseModel(success: false, body: {"error": "$e"}, message: errorInternet);
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: errorInternet);
     } catch (e) {
-      return HttpResponseModel(success: false, body: {"error": "$e"}, message: serviceError);
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: serviceError);
     }
   }
 
@@ -46,11 +49,43 @@ class ClientHttp {
 
       return response.validateResponse();
     } on TimeoutException catch (e) {
-      return HttpResponseModel(success: false, body: {"error": "$e"}, message: timeoutMessage);
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: timeoutMessage);
     } on SocketException catch (e) {
-      return HttpResponseModel(success: false, body: {"error": "$e"}, message: errorInternet);
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: errorInternet);
     } catch (e) {
-      return HttpResponseModel(success: false, body: {"error": "$e"}, message: serviceError);
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: serviceError);
+    }
+  }
+
+  Future<HttpResponseModel> put({
+    required String url,
+    required Map<String, dynamic> body,
+  }) async {
+    try {
+      var response = await http
+          .put(
+            Uri.parse(url),
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode(body),
+          )
+          .timeout(
+            const Duration(seconds: 5),
+            onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
+          );
+
+      return response.validateResponse();
+    } on TimeoutException catch (e) {
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: timeoutMessage);
+    } on SocketException catch (e) {
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: errorInternet);
+    } catch (e) {
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: serviceError);
     }
   }
 }
@@ -70,6 +105,7 @@ extension HttpUtils on Response {
         body = json.decode(utf8.decode(bodyBytes));
         break;
     }
-    return HttpResponseModel(success: success, message: "$message $statusCode", body: body);
+    return HttpResponseModel(
+        success: success, message: "$message $statusCode", body: body);
   }
 }

@@ -13,14 +13,14 @@ List<PlagaResponseModel> listplagaFromJson(List<dynamic> datos) =>
 
 class PlagaResponseModel {
   final int? id;
-  final String? name;
-  final String? description;
-  final String? state;
-  final String? observation;
+  late final String? name;
+  late final String? description;
+  late final String? state;
+  late final String? observation;
   late final DateTime? appareceDate;
-  final String? pestFamily;
-  final String? stateTratment;
-  final AdjuntoDto? adjuntoDto;
+  late final String? pestFamily;
+  late final String? stateTratment;
+  late final AdjuntoDto? adjuntoDto;
 
   PlagaResponseModel({
     this.id,
