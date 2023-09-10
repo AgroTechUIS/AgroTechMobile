@@ -23,8 +23,7 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
-  Future<Map<String, dynamic>> updatesPests(PlagaResponseModel? updatedPlagas,
-      PlagaResponseModel? initialPlaga) async {
+  Future<Map<String, dynamic>> updatesPests(PlagaResponseModel? updatedPlagas, PlagaResponseModel? initialPlaga) async {
     if (updatedPlagas == null || initialPlaga == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -40,22 +39,6 @@ class PestController extends StateNotifier<PestState> {
       stateTratment: updatedPlagas.stateTratment ?? initialPlaga.stateTratment,
       adjuntoDto: updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto,
     );
-
-    /* updatedInitialPlaga.name = updatedPlagas.name ?? initialPlaga.name;
-    updatedInitialPlaga.description =
-        updatedPlagas.description ?? initialPlaga.description;
-    updatedInitialPlaga.state = updatedPlagas.state ?? initialPlaga.state;
-    updatedInitialPlaga.observation =
-        updatedPlagas.observation ?? initialPlaga.observation;
-    updatedInitialPlaga.appareceDate =
-        updatedPlagas.appareceDate ?? initialPlaga.appareceDate;
-    updatedInitialPlaga.pestFamily =
-        updatedPlagas.pestFamily ?? initialPlaga.pestFamily;
-    updatedInitialPlaga.stateTratment =
-        updatedPlagas.stateTratment ?? initialPlaga.stateTratment;
-    updatedInitialPlaga.adjuntoDto =
-        updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto;
-*/
 
     var resp = await getPestUseCaseImpl.updatePest(updatedInitialPlaga);
 
@@ -84,5 +67,5 @@ class PestController extends StateNotifier<PestState> {
   }
 }
 
-final pestController = StateNotifierProvider<PestController, PestState>((ref) =>
-    PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))));
+final pestController = StateNotifierProvider<PestController, PestState>(
+    (ref) => PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))));

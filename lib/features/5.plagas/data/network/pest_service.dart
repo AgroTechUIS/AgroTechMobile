@@ -11,16 +11,14 @@ class PestService {
   PestService();
 
   Future<HttpResponseModel> getPestData(int cropId) async {
-    final response = await clienthttp.get(
-        url: '${RouteService.routeService}/api/pest/$cropId');
+    final response = await clienthttp.get(url: '${RouteService.routeService}/api/pest/$cropId');
 
     return response;
   }
 
-  Future<HttpResponseModel> updatePestData(
-      Map<String, dynamic> pestData) async {
+  Future<HttpResponseModel> updatePestData(Map<String, dynamic> pestData) async {
     final response = await clienthttp.put(
-      url: '$RouteService.routeService/api/pest', // Ruta sin el cropId
+      url: '${RouteService.routeService}/api/pest', // Ruta sin el cropId
       body: pestData,
     );
     return response;

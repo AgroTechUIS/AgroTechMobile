@@ -39,10 +39,9 @@ class GetPestUseCaseImpl extends GetPestUseCase {
   }
 
   @override
-  Future<Map<String, dynamic>> updatePest(
-      PlagaResponseModel? updatedPlagas) async {
+  Future<Map<String, dynamic>> updatePest(PlagaResponseModel? updatedPlagas) async {
     try {
-      final pestData = {'pests': updatedPlagas!.toJson()};
+      final pestData = updatedPlagas!.toJson();
       var r = await pestRepository.updatePestDataRep(pestData);
       return r;
     } catch (e) {
