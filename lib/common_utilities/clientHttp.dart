@@ -88,6 +88,31 @@ class ClientHttp {
           success: false, body: {"error": "$e"}, message: serviceError);
     }
   }
+
+  Future<HttpResponseModel> delete({
+    required String url,
+  }) async {
+    try {
+      var response = await http.delete(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+      ).timeout(
+        const Duration(seconds: 5),
+        onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
+      );
+
+      return response.validateResponse();
+    } on TimeoutException catch (e) {
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: timeoutMessage);
+    } on SocketException catch (e) {
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: errorInternet);
+    } catch (e) {
+      return HttpResponseModel(
+          success: false, body: {"error": "$e"}, message: serviceError);
+    }
+  }
 }
 
 extension HttpUtils on Response {
