@@ -39,13 +39,24 @@ class GetPestUseCaseImpl extends GetPestUseCase {
   }
 
   @override
-  Future<Map<String, dynamic>> updatePest(PlagaResponseModel? updatedPlagas) async {
+  Future<Map<String, dynamic>> updatePest(
+      PlagaResponseModel? updatedPlagas) async {
     try {
       final pestData = updatedPlagas!.toJson();
       var r = await pestRepository.updatePestDataRep(pestData);
       return r;
     } catch (e) {
       throw ('Error al actualizar la lista de plagas: $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> savePest(PlagaResponseModel? savedPlagas) async {
+    try {
+      final pestData = savedPlagas!.toJson();
+      var s = await pestRepository.savePestDataRep(pestData);
+      return s;
+    } catch (e) {
+      throw ('Error al guardar la plaga: $e');
     }
   }
 }

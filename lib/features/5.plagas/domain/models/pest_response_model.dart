@@ -21,18 +21,18 @@ class PlagaResponseModel {
   late final String? pestFamily;
   late final String? stateTratment;
   late final AdjuntoDto? adjuntoDto;
-
-  PlagaResponseModel({
-    this.id,
-    this.name,
-    this.description,
-    this.state,
-    this.observation,
-    this.appareceDate,
-    this.pestFamily,
-    this.stateTratment,
-    this.adjuntoDto,
-  });
+  late final int? crop;
+  PlagaResponseModel(
+      {this.id,
+      this.name,
+      this.description,
+      this.state,
+      this.observation,
+      this.appareceDate,
+      this.pestFamily,
+      this.stateTratment,
+      this.adjuntoDto,
+      this.crop});
 
   factory PlagaResponseModel.fromJson(Map<String, dynamic> json) =>
       PlagaResponseModel(
@@ -47,6 +47,7 @@ class PlagaResponseModel {
         adjuntoDto: json["adjuntoDto"] == null
             ? null
             : AdjuntoDto.fromJson(json["adjuntoDto"]),
+        crop: json["crop"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,6 +61,7 @@ class PlagaResponseModel {
         "pestFamily": pestFamily,
         "state_tratment": stateTratment,
         "adjuntoDto": adjuntoDto?.toJson(),
+        "crop": crop
       };
 }
 

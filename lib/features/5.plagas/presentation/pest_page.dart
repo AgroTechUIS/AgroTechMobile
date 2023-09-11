@@ -46,20 +46,22 @@ class PlagasPage extends ConsumerWidget {
       listPest.add(plaga);
     });
   }*/
-
   void editPest(context, PlagaResponseModel plaga, PestController controller,
       PestState state) {
+    state.selectedPlagaForEdit = plaga;
     showDialog(
       context: context,
       builder: (context) {
         return EditPest(
-          initialPlaga: plaga,
+          initialPlaga: state.selectedPlagaForEdit,
           onSave: (np) async {
             final npa = await controller.updatesPests(np, plaga);
 
+            // Actualiza la lista de plagas en el controller después de guardar
             if (npa != null) {
               PlagaResponseModel plagaModel = PlagaResponseModel.fromJson(npa);
-              state.selectedPlagaForEdit = plagaModel;
+              controller.updatePest(plagaModel);
+              controller.getListPest(1);
             } else {
               print('Error en método edit');
             }
@@ -69,19 +71,6 @@ class PlagasPage extends ConsumerWidget {
             Navigator.of(context).pop();
           },
         );
-        // Actualizar la lista de plagas
-        /*setState(() {
-              listPest.remove(selectedPlagaForEdit);
-              listPest.add(EditPest);
-            });
-            Navigator.of(context).pop();
-          },
-          onCancel: () {
-            selectedPlagaForEdit = null; // Limpiar la variable temporal si se cancela
-            Navigator.of(context).pop();
-          },
-          // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
-        );*/
       },
     );
   }
@@ -98,7 +87,8 @@ class PlagasPage extends ConsumerWidget {
       builder: (context) {
         return NewPest(
           onSave: (nuevaPlaga) {
-            controller.saveNewPest(nuevaPlaga);
+            controller.savePests(nuevaPlaga);
+            controller.getListPest(1);
             Navigator.of(context).pop();
           },
           onCancel: () => Navigator.of(context).pop(),

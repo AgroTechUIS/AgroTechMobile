@@ -23,7 +23,8 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
-  Future<Map<String, dynamic>> updatesPests(PlagaResponseModel? updatedPlagas, PlagaResponseModel? initialPlaga) async {
+  Future<Map<String, dynamic>> updatesPests(PlagaResponseModel? updatedPlagas,
+      PlagaResponseModel? initialPlaga) async {
     if (updatedPlagas == null || initialPlaga == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -48,6 +49,30 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
+  Future<Map<String, dynamic>> savePests(
+      PlagaResponseModel? savedPlagas) async {
+    PlagaResponseModel savedPlaga = PlagaResponseModel(
+      id: savedPlagas!.id,
+      name: savedPlagas.name ?? '',
+      description: savedPlagas.description ?? '',
+      state: savedPlagas.state ?? '',
+      observation: savedPlagas.observation ?? '',
+      appareceDate: savedPlagas.appareceDate ?? DateTime.now(),
+      pestFamily: savedPlagas.pestFamily ?? '',
+      stateTratment: savedPlagas.stateTratment ?? '',
+      crop: savedPlagas.crop ?? null,
+    );
+
+    var resp = await getPestUseCaseImpl.savePest(savedPlaga);
+    var temp = state.plagas;
+
+    final selectedPest = PlagaResponseModel.fromJson(resp);
+    temp.add(selectedPest);
+    state = state.copyWith(plagas: temp);
+
+    return resp;
+  }
+
   void saveNewPest(PlagaResponseModel plaga) {
     var temp = state.plagas;
     temp.add(plaga);
@@ -55,8 +80,9 @@ class PestController extends StateNotifier<PestState> {
   }
 
   void updatePest(PlagaResponseModel? plaga) {
-    state = state.copyWith(selectedPlagaForEdit: plaga);
+    var temp = state.plagas;
     state.selectedPlagaForEdit = plaga;
+    state = state.copyWith(plagas: temp, selectedPlagaForEdit: plaga);
   }
 
   void edit(PlagaResponseModel? plaga) {
@@ -67,5 +93,5 @@ class PestController extends StateNotifier<PestState> {
   }
 }
 
-final pestController = StateNotifierProvider<PestController, PestState>(
-    (ref) => PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))));
+final pestController = StateNotifierProvider<PestController, PestState>((ref) =>
+    PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))));

@@ -40,4 +40,20 @@ class PestRepositoryImpl implements PestRepository {
       throw ('Error al actualizar datos de la plaga: $e');
     }
   }
+
+  Future<Map<String, dynamic>> savePestDataRep(
+      Map<String, dynamic> pestData) async {
+    try {
+      final response = await pestService.savePestData(pestData);
+
+      if (response.success) {
+        final responseData = response.body;
+        return responseData!;
+      } else {
+        throw ('Error: Mal status - ${response.success}');
+      }
+    } catch (e) {
+      throw ('Error al guardar datos de la plaga: $e');
+    }
+  }
 }

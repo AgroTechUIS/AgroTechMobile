@@ -10,7 +10,6 @@ class EditPest extends StatefulWidget {
   void Function(PlagaResponseModel)? onSave;
   VoidCallback? onCancel;
   PlagaResponseModel? initialPlaga;
-
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
   final TextEditingController observacionesController = TextEditingController();
@@ -38,11 +37,15 @@ class _editPestState extends State<EditPest> {
     'Alta precencia',
     'Controlada',
   ];
+  late DateTime appareceDate;
 
   String? selectedValue;
+
   @override
   void initState() {
     super.initState();
+
+    appareceDate = widget.initialPlaga!.appareceDate ?? DateTime.now();
   }
 
   /*pickImage(ImageSource source) async {
@@ -199,16 +202,16 @@ class _editPestState extends State<EditPest> {
             SizedBox(height: 12),
             InkWell(
               onTap: () async {
-                fecha = showDatePicker(
+                var selectedDate = await showDatePicker(
                   context: context,
-                  initialDate: widget.initialPlaga!.appareceDate as DateTime,
+                  initialDate: appareceDate,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
-                final selectedDate = await fecha;
+
                 if (selectedDate != null) {
                   setState(() {
-                    widget.initialPlaga!.appareceDate = selectedDate;
+                    appareceDate = selectedDate;
                   });
                 }
               },
@@ -240,7 +243,7 @@ class _editPestState extends State<EditPest> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).day} / ${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).month} / ${((widget.initialPlaga ?? PlagaResponseModel()).appareceDate ?? DateTime(0)).year}',
+                          '${appareceDate.day} / ${appareceDate.month} / ${appareceDate.year}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
@@ -280,12 +283,13 @@ class _editPestState extends State<EditPest> {
                         id: widget.initialPlaga?.id, // Asigna el ID adecuado
                         name: widget.nombreController.text,
                         description: widget.descripcionController.text,
-                        state: widget.selectedValue,
+                        state: selectedValue ?? '',
                         observation: widget.observacionesController.text,
                         pestFamily: widget.familiaController.text,
-                        appareceDate: widget.initialPlaga!.appareceDate,
+                        appareceDate: appareceDate,
                         adjuntoDto: widget.initialPlaga!.adjuntoDto,
                       );
+
                       widget.onSave!(nuevaPlaga);
                     },
                     color: colors.green2,

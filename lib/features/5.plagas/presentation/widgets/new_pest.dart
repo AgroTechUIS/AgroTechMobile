@@ -247,14 +247,14 @@ class _NewPestState extends State<NewPest> {
                     text: "Guardar",
                     onPressed: () {
                       PlagaResponseModel nuevaPlaga = PlagaResponseModel(
-                        id: 0, // Asigna el ID adecuado
                         name: widget.nombreController.text,
                         description: widget.descripcionController.text,
                         state: selectedValue,
                         observation: widget.observacionesController.text,
+                        appareceDate: DateTime.now(),
                         pestFamily: widget.familiaController.text,
-                        appareceDate: DateUtils.dateOnly(date as DateTime),
-                        adjuntoDto: null,
+                        stateTratment: null,
+                        crop: 1,
                       );
                       widget.onSave!(nuevaPlaga);
                     },
