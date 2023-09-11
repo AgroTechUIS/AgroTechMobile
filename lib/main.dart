@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'login',
+      initialRoute: 'plagas',
       routes: {
         'login': (_) => LoginPage(),
         'plagas': (_) => PlagasPage(),
