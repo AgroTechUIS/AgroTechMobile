@@ -31,6 +31,12 @@ class PestService {
         url: '${RouteService.routeService}/api/pest', body: pestData);
     return response;
   }
+
+  Future<HttpResponseModel> deletePestData(int? idPest) async {
+    final response = await clienthttp.delete(
+        url: '${RouteService.routeService}/api/pest/$idPest');
+    return response;
+  }
 /*
   Future<HttpResponseModel> getPestByCrop({required int idCrop}) async {
     return clienthttp.get(url: '${RouteService.routeService}/plagas/$idCrop');

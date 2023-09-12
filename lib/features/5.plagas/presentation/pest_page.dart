@@ -75,11 +75,10 @@ class PlagasPage extends ConsumerWidget {
     );
   }
 
-  /*void deletePest(PlagaModel plaga) {
-    setState(() {
-      listPest.remove(plaga);
-    });
-  }*/
+  void deletePest(PlagaResponseModel plaga, PestController controller) {
+    controller.deletePest(plaga);
+    controller.getListPest(1);
+  }
 
   void createNewPest(context, PestController controller) {
     showDialog(
@@ -161,7 +160,7 @@ class PlagasPage extends ConsumerWidget {
                             editPest(context, e, controller, state);
                           },
                           onDelete: () {
-                            //deletePest(e);
+                            deletePest(e, controller);
                           },
                         ))
                     .toList(),

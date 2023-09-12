@@ -73,6 +73,26 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
+  void deletePest(PlagaResponseModel plaga) async {
+    var resp = await getPestUseCaseImpl.deletePest(plaga.id);
+    state.selectedPlagaForEdit = PlagaResponseModel(
+      id: resp["id"],
+      name: resp["name"],
+      description: resp["description"],
+      state: resp["state"],
+      observation: resp["observation"],
+      appareceDate: DateTime.parse(resp["appareceDate"]),
+      pestFamily: resp["pestFamily"],
+      stateTratment: resp["state_tratment"],
+      adjuntoDto: resp["adjuntoDto"],
+      crop: resp["crop"],
+    );
+
+    var temp = state.plagas;
+    temp.remove(state.selectedPlagaForEdit);
+    state = state.copyWith(plagas: temp);
+  }
+
   void saveNewPest(PlagaResponseModel plaga) {
     var temp = state.plagas;
     temp.add(plaga);

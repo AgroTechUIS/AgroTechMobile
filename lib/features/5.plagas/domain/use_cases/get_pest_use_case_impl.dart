@@ -59,4 +59,13 @@ class GetPestUseCaseImpl extends GetPestUseCase {
       throw ('Error al guardar la plaga: $e');
     }
   }
+
+  Future<Map<String, dynamic>> deletePest(int? idPest) async {
+    try {
+      var d = await pestRepository.deletePestsById(idPest);
+      return d;
+    } catch (e) {
+      throw ('Error al borrar la plaga: $e');
+    }
+  }
 }

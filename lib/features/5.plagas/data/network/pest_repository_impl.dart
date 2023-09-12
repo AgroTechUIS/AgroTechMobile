@@ -56,4 +56,17 @@ class PestRepositoryImpl implements PestRepository {
       throw ('Error al guardar datos de la plaga: $e');
     }
   }
+
+  Future<Map<String, dynamic>> deletePestsById(int? idPest) async {
+    try {
+      final pestData = await pestService.deletePestData(idPest);
+      if (pestData.success) {
+        return pestData.body ?? {};
+      } else {
+        throw ('Error: Mal status');
+      }
+    } catch (e) {
+      throw ('Error al borrar datos de la plaga: $e');
+    }
+  }
 }
