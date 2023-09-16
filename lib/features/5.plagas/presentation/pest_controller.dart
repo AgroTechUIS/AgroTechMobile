@@ -49,8 +49,7 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
-  Future<Map<String, dynamic>> savePests(
-      PlagaResponseModel? savedPlagas) async {
+  void savePests(PlagaResponseModel? savedPlagas) async {
     PlagaResponseModel savedPlaga = PlagaResponseModel(
       id: savedPlagas!.id,
       name: savedPlagas.name ?? '',
@@ -60,17 +59,14 @@ class PestController extends StateNotifier<PestState> {
       appareceDate: savedPlagas.appareceDate ?? DateTime.now(),
       pestFamily: savedPlagas.pestFamily ?? '',
       stateTratment: savedPlagas.stateTratment ?? '',
-      crop: savedPlagas.crop ?? null,
+      crop: savedPlagas.crop,
     );
 
     var resp = await getPestUseCaseImpl.savePest(savedPlaga);
-    var temp = state.plagas;
 
     final selectedPest = PlagaResponseModel.fromJson(resp);
-    temp.add(selectedPest);
-    state = state.copyWith(plagas: temp);
-
-    return resp;
+    state.plagas.add(selectedPest);
+    state = state.copyWith(plagas: state.plagas);
   }
 
   void deletePest(PlagaResponseModel plaga) async {

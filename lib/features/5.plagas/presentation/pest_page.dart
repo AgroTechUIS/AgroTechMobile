@@ -61,7 +61,6 @@ class PlagasPage extends ConsumerWidget {
             if (npa != null) {
               PlagaResponseModel plagaModel = PlagaResponseModel.fromJson(npa);
               controller.updatePest(plagaModel);
-              controller.getListPest(1);
             } else {
               print('Error en método edit');
             }
@@ -87,7 +86,7 @@ class PlagasPage extends ConsumerWidget {
         return NewPest(
           onSave: (nuevaPlaga) {
             controller.savePests(nuevaPlaga);
-            controller.getListPest(1);
+            controller.saveNewPest(nuevaPlaga);
             Navigator.of(context).pop();
           },
           onCancel: () => Navigator.of(context).pop(),
