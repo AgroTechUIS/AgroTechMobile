@@ -60,7 +60,7 @@ class GetPestUseCaseImpl extends GetPestUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> deletePest(int? idPest) async {
+  Future<String> deletePest(int? idPest) async {
     try {
       var d = await pestRepository.deletePestsById(idPest);
       return d;

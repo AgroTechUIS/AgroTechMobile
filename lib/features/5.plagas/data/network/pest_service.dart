@@ -5,6 +5,8 @@ import 'package:agrotech/common_utilities/clientHttp.dart';
 import 'package:agrotech/common_utilities/httpResponseModel.dart';
 import 'package:agrotech/common_utilities/route_service.dart';
 
+import '../../../../common_utilities/httpDeleteModel.dart';
+
 class PestService {
   final ClientHttp clienthttp = ClientHttp();
 
@@ -32,7 +34,7 @@ class PestService {
     return response;
   }
 
-  Future<HttpResponseModel> deletePestData(int? idPest) async {
+  Future<HttpDeleteModel> deletePestData(int? idPest) async {
     final response = await clienthttp.delete(
         url: '${RouteService.routeService}/api/pest/$idPest');
     return response;

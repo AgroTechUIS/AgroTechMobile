@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:agrotech/common_utilities/httpResponseModel.dart';
 import 'package:http/http.dart';
 
+import 'httpDeleteModel.dart';
+
 class ClientHttp {
   Client http = Client();
   String timeoutMessage = 'Latencia';
@@ -89,7 +91,7 @@ class ClientHttp {
     }
   }
 
-  Future<HttpResponseModel> delete({
+  Future<HttpDeleteModel> delete({
     required String url,
   }) async {
     try {
@@ -101,16 +103,41 @@ class ClientHttp {
         onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
       );
 
-      return response.validateResponse();
+      if (response.statusCode == 200) {
+        // Procesa el cuerpo de la respuesta si es necesario
+        // Puedes llamar a validateResponse aquí si es necesario
+        return HttpDeleteModel(
+          success: true,
+          body: response.body,
+          // Otros campos de HttpResponseModel si es necesario
+        );
+      } else {
+        // Devuelve un HttpResponseModel con información de error en caso de un estado de respuesta no válido
+        return HttpDeleteModel(
+          success: false,
+          body: "error: HTTP Error ${response.statusCode}",
+          // Otros campos de HttpResponseModel si es necesario
+        );
+      }
     } on TimeoutException catch (e) {
-      return HttpResponseModel(
-          success: false, body: {"error": "$e"}, message: timeoutMessage);
+      return HttpDeleteModel(
+        success: false,
+        body: "error $e",
+        message: timeoutMessage,
+      );
     } on SocketException catch (e) {
-      return HttpResponseModel(
-          success: false, body: {"error": "$e"}, message: errorInternet);
+      return HttpDeleteModel(
+        success: false,
+        body: "error $e",
+        message: errorInternet,
+      );
     } catch (e) {
-      return HttpResponseModel(
-          success: false, body: {"error": "$e"}, message: serviceError);
+      // Maneja otros errores aquí o permite que se propaguen
+      return HttpDeleteModel(
+        success: false,
+        body: "error $e",
+        message: serviceError,
+      );
     }
   }
 }

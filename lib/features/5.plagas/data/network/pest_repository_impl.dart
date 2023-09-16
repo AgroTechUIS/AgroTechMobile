@@ -57,11 +57,11 @@ class PestRepositoryImpl implements PestRepository {
     }
   }
 
-  Future<Map<String, dynamic>> deletePestsById(int? idPest) async {
+  Future<String> deletePestsById(int? idPest) async {
     try {
       final pestData = await pestService.deletePestData(idPest);
       if (pestData.success) {
-        return pestData.body ?? {};
+        return pestData.message ?? 'Plaga borrada';
       } else {
         throw ('Error: Mal status');
       }

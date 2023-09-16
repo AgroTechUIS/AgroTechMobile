@@ -76,7 +76,7 @@ class PlagasPage extends ConsumerWidget {
 
   void deletePest(PlagaResponseModel plaga, PestController controller) {
     controller.deletePest(plaga);
-    controller.getListPest(1);
+    controller.updatePest(plaga);
   }
 
   void createNewPest(context, PestController controller) {
@@ -86,7 +86,7 @@ class PlagasPage extends ConsumerWidget {
         return NewPest(
           onSave: (nuevaPlaga) {
             controller.savePests(nuevaPlaga);
-            controller.saveNewPest(nuevaPlaga);
+            //controller.saveNewPest(nuevaPlaga);
             Navigator.of(context).pop();
           },
           onCancel: () => Navigator.of(context).pop(),
