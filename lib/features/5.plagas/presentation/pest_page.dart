@@ -85,9 +85,21 @@ class PlagasPage extends ConsumerWidget {
       builder: (context) {
         return NewPest(
           onSave: (nuevaPlaga) {
-            controller.savePests(nuevaPlaga);
-            //controller.saveNewPest(nuevaPlaga);
-            Navigator.of(context).pop();
+            bool existePlaga =
+                controller.existePlagaConNombre(nuevaPlaga.name!);
+
+            if (existePlaga) {
+              // Mostrar un mensaje de error o tomar alguna otra acción apropiada
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Ya existe una plaga con el mismo nombre.'),
+                ),
+              );
+            } else {
+              // Si no existe, guardar la nueva plaga
+              controller.savePests(nuevaPlaga);
+              Navigator.of(context).pop();
+            }
           },
           onCancel: () => Navigator.of(context).pop(),
         );

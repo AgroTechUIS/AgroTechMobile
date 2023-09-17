@@ -49,6 +49,11 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
+  bool existePlagaConNombre(String nombre) {
+    // Recorre la lista de plagas y verifica si existe una con el mismo nombre
+    return state.plagas.any((plaga) => plaga.name == nombre);
+  }
+
   void savePests(PlagaResponseModel? savedPlagas) async {
     PlagaResponseModel savedPlaga = PlagaResponseModel(
       id: savedPlagas!.id,
