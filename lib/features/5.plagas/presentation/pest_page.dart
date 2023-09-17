@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../domain/models/pest_model.dart';
 
@@ -80,27 +81,6 @@ class PlagasPage extends ConsumerWidget {
   }
 
   void createNewPest(BuildContext context, PestController controller) {
-    OverlayState overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry;
-
-    overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        top: 90,
-        right: 20,
-        child: Material(
-          elevation: 5.0,
-          child: Container(
-            padding: EdgeInsets.all(10.0), // Ajusta el tamaño del padding
-            color: Colors.white,
-            child: Text(
-              'Ya existe una plaga con el mismo nombre.',
-              style: TextStyle(fontSize: 14), // Ajusta el tamaño del texto
-            ),
-          ),
-        ),
-      ),
-    );
-
     showDialog(
       context: context,
       builder: (context) {
@@ -110,10 +90,14 @@ class PlagasPage extends ConsumerWidget {
                 controller.existePlagaConNombre(nuevaPlaga.name!);
 
             if (existePlaga) {
-              overlayState.insert(overlayEntry);
-              Future.delayed(Duration(seconds: 3), () {
-                overlayEntry.remove();
-              });
+              Fluttertoast.showToast(
+                msg: 'Ya existe una plaga con el mismo nombre.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity
+                    .TOP_RIGHT, // Posición en la parte superior derecha
+                backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                textColor: Colors.black,
+              );
             } else {
               controller.savePests(nuevaPlaga);
               Navigator.of(context).pop();
