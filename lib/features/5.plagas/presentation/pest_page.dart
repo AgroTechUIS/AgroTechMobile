@@ -85,7 +85,7 @@ class PlagasPage extends ConsumerWidget {
 
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        top: 40,
+        top: 90,
         right: 20,
         child: Material(
           elevation: 5.0,
@@ -120,7 +120,6 @@ class PlagasPage extends ConsumerWidget {
             }
           },
           onCancel: () {
-            overlayEntry.remove();
             Navigator.of(context).pop();
           },
         );
