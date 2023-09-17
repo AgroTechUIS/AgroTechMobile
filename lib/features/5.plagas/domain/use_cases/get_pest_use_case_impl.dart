@@ -42,7 +42,7 @@ class GetPestUseCaseImpl extends GetPestUseCase {
   Future<Map<String, dynamic>> updatePest(
       PlagaResponseModel? updatedPlagas) async {
     try {
-      final pestData = updatedPlagas!.toJson();
+      final pestData = updatedPlagas!.toJsonEdit();
       var r = await pestRepository.updatePestDataRep(pestData);
       return r;
     } catch (e) {

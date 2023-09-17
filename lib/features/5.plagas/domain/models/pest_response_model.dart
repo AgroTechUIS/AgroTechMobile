@@ -63,6 +63,18 @@ class PlagaResponseModel {
         "adjuntoDto": adjuntoDto?.toJson(),
         "crop": crop
       };
+  Map<String, dynamic> toJsonEdit() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "state": state,
+        "observation": observation,
+        "appareceDate":
+            "${appareceDate?.year.toString().padLeft(4, '0')}-${appareceDate?.month.toString().padLeft(2, '0')}-${appareceDate?.day.toString().padLeft(2, '0')}",
+        "pestFamily": pestFamily,
+        "state_tratment": stateTratment ?? "",
+        "url": adjuntoDto?.url ?? "",
+      };
 }
 
 class AdjuntoDto {

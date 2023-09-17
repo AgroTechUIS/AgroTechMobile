@@ -50,7 +50,6 @@ class PestController extends StateNotifier<PestState> {
   }
 
   bool existePlagaConNombre(String nombre) {
-    // Recorre la lista de plagas y verifica si existe una con el mismo nombre
     return state.plagas.any((plaga) => plaga.name == nombre);
   }
 
@@ -93,6 +92,11 @@ class PestController extends StateNotifier<PestState> {
     var temp = state.plagas;
     state.selectedPlagaForEdit = plaga;
     state = state.copyWith(plagas: temp, selectedPlagaForEdit: plaga);
+  }
+
+  Future<void> updatePestList(int crop) async {
+    var resp = await getListPest(crop);
+    state = state.copyWith(plagas: resp);
   }
 
   void edit(PlagaResponseModel? plaga) {
