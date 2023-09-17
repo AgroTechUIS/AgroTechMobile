@@ -79,7 +79,29 @@ class PlagasPage extends ConsumerWidget {
     controller.updatePest(plaga);
   }
 
-  void createNewPest(context, PestController controller) {
+  void createNewPest(BuildContext context, PestController controller) {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: MediaQuery.of(context).size.height - 100,
+        left: 20,
+        right: 20,
+        child: Material(
+          elevation: 5.0,
+          child: Container(
+            padding: EdgeInsets.all(20.0),
+            color: Colors.white,
+            child: Text(
+              'Ya existe una plaga con el mismo nombre.',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        ),
+      ),
+    );
+
     showDialog(
       context: context,
       builder: (context) {
@@ -89,19 +111,19 @@ class PlagasPage extends ConsumerWidget {
                 controller.existePlagaConNombre(nuevaPlaga.name!);
 
             if (existePlaga) {
-              // Mostrar un mensaje de error o tomar alguna otra acción apropiada
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Ya existe una plaga con el mismo nombre.'),
-                ),
-              );
+              overlayState.insert(overlayEntry);
+              Future.delayed(Duration(seconds: 3), () {
+                overlayEntry.remove();
+              });
             } else {
-              // Si no existe, guardar la nueva plaga
               controller.savePests(nuevaPlaga);
               Navigator.of(context).pop();
             }
           },
-          onCancel: () => Navigator.of(context).pop(),
+          onCancel: () {
+            overlayEntry.remove();
+            Navigator.of(context).pop();
+          },
         );
       },
     );
