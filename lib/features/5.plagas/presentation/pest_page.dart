@@ -85,7 +85,7 @@ class PlagasPage extends ConsumerWidget {
 
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        top: 20,
+        top: 40,
         right: 20,
         child: Material(
           elevation: 5.0,
