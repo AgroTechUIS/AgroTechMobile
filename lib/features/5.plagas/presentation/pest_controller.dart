@@ -88,10 +88,12 @@ class PestController extends StateNotifier<PestState> {
     state = state.copyWith(plagas: temp);
   }
 
-  void updatePest(PlagaResponseModel? plaga) {
+  void updatePest(PlagaResponseModel? plaga) async {
     var temp = state.plagas;
-    state.selectedPlagaForEdit = plaga;
-    state = state.copyWith(plagas: temp, selectedPlagaForEdit: plaga);
+    temp.remove(state.selectedPlagaForEdit);
+    temp.add(plaga);
+    final selectedPest = plaga;
+    state = state.copyWith(plagas: temp, selectedPlagaForEdit: selectedPest);
   }
 
   Future<void> updatePestList(int crop) async {

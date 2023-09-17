@@ -61,7 +61,7 @@ class PlagasPage extends ConsumerWidget {
             // Actualiza la lista de plagas en el controller después de guardar
             if (npa != null) {
               PlagaResponseModel plagaModel = PlagaResponseModel.fromJson(npa);
-              controller.updatePestList(1);
+              controller.updatePest(plagaModel);
             } else {
               print('Error en método edit');
             }
