@@ -93,10 +93,9 @@ class PlagasPage extends ConsumerWidget {
               Fluttertoast.showToast(
                 msg: 'Ya existe una plaga con el mismo nombre.',
                 toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity
-                    .TOP_RIGHT, // Posición en la parte superior derecha
-                backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                textColor: Colors.black,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor: Colors.red, // Fondo rojo
+                textColor: Colors.white,
               );
             } else {
               controller.savePests(nuevaPlaga);
