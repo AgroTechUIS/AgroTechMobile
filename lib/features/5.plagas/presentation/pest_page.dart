@@ -85,17 +85,16 @@ class PlagasPage extends ConsumerWidget {
 
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        top: MediaQuery.of(context).size.height - 100,
-        left: 20,
+        top: 20,
         right: 20,
         child: Material(
           elevation: 5.0,
           child: Container(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(10.0), // Ajusta el tamaño del padding
             color: Colors.white,
             child: Text(
               'Ya existe una plaga con el mismo nombre.',
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 14), // Ajusta el tamaño del texto
             ),
           ),
         ),
