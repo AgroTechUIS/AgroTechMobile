@@ -53,6 +53,14 @@ class PestController extends StateNotifier<PestState> {
     return state.plagas.any((plaga) => plaga.name == nombre);
   }
 
+  bool existePlagaEConNombre(String nombre, PlagaResponseModel plagaEditar) {
+    return state.plagas
+        .where((plaga) =>
+            plaga.id !=
+            plagaEditar.id) // Excluir la plaga que estás editando por su ID
+        .any((plaga) => plaga.name == nombre);
+  }
+
   void savePests(PlagaResponseModel? savedPlagas) async {
     PlagaResponseModel savedPlaga = PlagaResponseModel(
       id: savedPlagas!.id,
@@ -88,17 +96,10 @@ class PestController extends StateNotifier<PestState> {
     state = state.copyWith(plagas: temp);
   }
 
-  void updatePest(PlagaResponseModel? plaga) async {
+  void updatePest(PlagaResponseModel? plaga) {
     var temp = state.plagas;
-    temp.remove(state.selectedPlagaForEdit);
-    temp.add(plaga);
-    final selectedPest = plaga;
-    state = state.copyWith(plagas: temp, selectedPlagaForEdit: selectedPest);
-  }
-
-  Future<void> updatePestList(int crop) async {
-    var resp = await getListPest(crop);
-    state = state.copyWith(plagas: resp);
+    state.selectedPlagaForEdit = plaga;
+    state = state.copyWith(plagas: temp, selectedPlagaForEdit: plaga);
   }
 
   void edit(PlagaResponseModel? plaga) {

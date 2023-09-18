@@ -58,14 +58,30 @@ class PlagasPage extends ConsumerWidget {
           onSave: (np) async {
             final npa = await controller.updatesPests(np, plaga);
 
-            // Actualiza la lista de plagas en el controller después de guardar
-            if (npa != null) {
-              PlagaResponseModel plagaModel = PlagaResponseModel.fromJson(npa);
-              controller.updatePest(plagaModel);
+            PlagaResponseModel plagaModel = PlagaResponseModel.fromJson(npa);
+            bool existePlaga =
+                controller.existePlagaEConNombre(plagaModel.name!, plagaModel);
+
+            if (existePlaga) {
+              Fluttertoast.showToast(
+                msg: 'Ya existe una plaga con el mismo nombre.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor: Colors.red, // Fondo rojo
+                textColor: Colors.white,
+              );
             } else {
-              print('Error en método edit');
+              controller.getListPest(1);
+              Fluttertoast.showToast(
+                msg: 'Plaga actualizada correctamente.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor:
+                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                textColor: Colors.white,
+              );
+              Navigator.of(context).pop();
             }
-            Navigator.of(context).pop();
           },
           onCancel: () {
             Navigator.of(context).pop();
@@ -78,6 +94,13 @@ class PlagasPage extends ConsumerWidget {
   void deletePest(PlagaResponseModel plaga, PestController controller) {
     controller.deletePest(plaga);
     controller.updatePest(plaga);
+    Fluttertoast.showToast(
+      msg: 'Plaga eliminada correctamente.',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP_RIGHT,
+      backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+      textColor: Colors.white,
+    );
   }
 
   void createNewPest(BuildContext context, PestController controller) {
@@ -99,6 +122,14 @@ class PlagasPage extends ConsumerWidget {
               );
             } else {
               controller.savePests(nuevaPlaga);
+              Fluttertoast.showToast(
+                msg: 'Plaga creada correctamente.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor:
+                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                textColor: Colors.white,
+              );
               Navigator.of(context).pop();
             }
           },
