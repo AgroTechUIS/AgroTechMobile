@@ -50,15 +50,20 @@ class PestController extends StateNotifier<PestState> {
   }
 
   bool existePlagaConNombre(String nombre) {
-    return state.plagas.any((plaga) => plaga.name == nombre);
+    final nombreLowerCase =
+        nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    return state.plagas
+        .any((plaga) => plaga.name.toLowerCase() == nombreLowerCase);
   }
 
   bool existePlagaEConNombre(String nombre, PlagaResponseModel plagaEditar) {
+    final nombreLowerCase =
+        nombre.toLowerCase(); // Convertir el nombre a minúsculas
     return state.plagas
         .where((plaga) =>
             plaga.id !=
             plagaEditar.id) // Excluir la plaga que estás editando por su ID
-        .any((plaga) => plaga.name == nombre);
+        .any((plaga) => plaga.name.toLowerCase() == nombreLowerCase);
   }
 
   void savePests(PlagaResponseModel? savedPlagas) async {
