@@ -3,6 +3,8 @@ import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'features/4.cultivos/presentation/crop_page.dart';
+
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -18,10 +20,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'plagas',
+      initialRoute: 'login',
       routes: {
         'login': (_) => LoginPage(),
         'plagas': (_) => PlagasPage(),
+        'crops': (_) => CropPage()
       },
     );
   }

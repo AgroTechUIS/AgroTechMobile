@@ -34,7 +34,7 @@ class ObreroOptions extends ConsumerWidget {
               MiniOptionWidget(
                 title: 'Gestión agrícola',
                 iconRoute: 'assets/agronomy.svg',
-                goPage: PlagasPage(),
+                goPage: CropPage(),
               ),
               MiniOptionWidget(
                 title: 'Tratamientos',

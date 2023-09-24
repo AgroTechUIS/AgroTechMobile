@@ -251,7 +251,7 @@ class _NewPestState extends State<NewPest> {
                         description: widget.descripcionController.text,
                         state: selectedValue,
                         observation: widget.observacionesController.text,
-                        appareceDate: DateTime.now(),
+                        appareceDate: date,
                         pestFamily: widget.familiaController.text,
                         stateTratment: null,
                         adjuntoDto: null,

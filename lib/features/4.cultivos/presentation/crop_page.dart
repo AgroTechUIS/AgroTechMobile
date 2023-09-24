@@ -1,27 +1,133 @@
+import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
+import 'package:agrotech/features/4.cultivos/domain/use_cases/get_crop_use_case_impl.dart';
+import 'package:agrotech/features/4.cultivos/presentation/crop_controller.dart';
+import 'package:agrotech/features/4.cultivos/presentation/crop_state.dart';
+import 'package:agrotech/features/4.cultivos/presentation/widgets/crop_widgets.dart';
+import 'package:agrotech/features/4.cultivos/presentation/widgets/edit_crop.dart';
+import 'package:agrotech/features/4.cultivos/presentation/widgets/new_crop.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
+import '../../5.plagas/presentation/pest_page.dart';
+import '../data/network/crop_repository_impl.dart';
+import '../data/network/crop_service.dart';
 
 final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
     GlobalKey<RefreshIndicatorState>();
 
-class CropPage extends StatefulWidget {
-  const CropPage({super.key});
+class CropPage extends ConsumerWidget {
+  final ccase = GetCropUseCaseImpl(CropRepositoryImpl(CropService()));
+
+  void deleteCrop(CropResponseModel cultivo, CropController controller) {
+    controller.deleteCrop(cultivo);
+    controller.updateCrop(cultivo);
+    Fluttertoast.showToast(
+      msg: 'Cultivo eliminado correctamente.',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP_RIGHT,
+      backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+      textColor: Colors.white,
+    );
+  }
+
+  void createNewCrop(BuildContext context, CropController controller) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return NewCrop(
+          onSave: (nuevoCultivo) {
+            bool existeCultivo =
+                controller.existeCultivoConNombre(nuevoCultivo.name!);
+
+            if (existeCultivo) {
+              Fluttertoast.showToast(
+                msg: 'Ya existe un cultivo con el mismo nombre.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor: Colors.red, // Fondo rojo
+                textColor: Colors.white,
+              );
+            } else {
+              controller.saveCrops(nuevoCultivo);
+              Fluttertoast.showToast(
+                msg: 'Cultivo creado correctamente.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor:
+                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                textColor: Colors.white,
+              );
+              Navigator.of(context).pop();
+            }
+          },
+          onCancel: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
+  }
+
+  void editCrop(context, CropResponseModel cultivo, CropController controller,
+      CropState state) {
+    state.selectedCropForEdit = cultivo;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return EditCrop(
+          initialCrop: state.selectedCropForEdit,
+          onSave: (nc) async {
+            final nca = await controller.updatesCrops(nc, cultivo);
+
+            CropResponseModel cultivoModel = CropResponseModel.fromJson(nca);
+            bool existeCultivo = controller.existeCultivoEConNombre(
+                cultivoModel.name!, cultivoModel);
+
+            if (existeCultivo) {
+              Fluttertoast.showToast(
+                msg: 'Ya existe un cultivo con el mismo nombre.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor: Colors.red, // Fondo rojo
+                textColor: Colors.white,
+              );
+            } else {
+              controller.getListCrop("jorgesandoval529@gmail.com");
+              Fluttertoast.showToast(
+                msg: 'Cultivo actualizado correctamente.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor:
+                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                textColor: Colors.white,
+              );
+              Navigator.of(context).pop();
+            }
+          },
+          onCancel: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
+  }
+
+  void playCrop() {
+    PlagasPage();
+  }
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CropPageState createState() => _CropPageState();
-}
-
-class _CropPageState extends State<CropPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var state = ref.watch(cropController);
+    var controller = ref.read(cropController.notifier);
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: null, //createNewPest,
-        child: Icon(Icons.add),
+        onPressed: () => createNewCrop(context, controller),
+        child: const Icon(Icons.add),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,27 +171,21 @@ class _CropPageState extends State<CropPage> {
                   topRight: Radius.circular(30.0),
                 ),
               ),
-              child: RefreshIndicator(
-                key: _refreshIndicatorKey,
-                onRefresh: () async {
-                  //await getAllPestByCrop();
-                  setState(() {});
-                },
-                child: Text('Hola'),
-
-                /*child: ListView(
-                  children: listPest
-                      .map((e) => PestWidget(
-                            plaga: e,
-                            onEdit: () {
-                              editPest(e);
-                            },
-                            onDelete: () {
-                              deletePest(e);
-                            },
-                          ))
-                      .toList(),
-                ),*/
+              child: ListView(
+                children: state.cultivos
+                    .map((e) => CropWidget(
+                          cultivo: e,
+                          onPlay: () {
+                            playCrop();
+                          },
+                          onEdit: () {
+                            editCrop(context, e, controller, state);
+                          },
+                          onDelete: () {
+                            deleteCrop(e, controller);
+                          },
+                        ))
+                    .toList(),
               ),
             ),
           ),
