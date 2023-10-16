@@ -255,7 +255,7 @@ class _NewPestState extends State<NewPest> {
                         pestFamily: widget.familiaController.text,
                         stateTratment: null,
                         adjuntoDto: null,
-                        crop: 1,
+                        crop: 18,
                       );
                       widget.onSave!(nuevaPlaga);
                     },
