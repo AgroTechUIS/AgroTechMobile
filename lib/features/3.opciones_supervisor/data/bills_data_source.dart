@@ -7,15 +7,44 @@ class BillsDataSource {
   final ClientHttp clienthttp = ClientHttp();
 
   Future<HttpResponseModel> loadBillsClient({required CompanyModel companyModel}) async {
-    return clienthttp.post(url: '${RouteService.routeService}/facturas-cliente-empresa', body: companyModel.toJson());
+    return clienthttp.post(
+      url: '${RouteService.routeService}/facturas-cliente-empresa',
+      body: companyModel.toJson(),
+    );
   }
 
   Future<HttpResponseModel> loadBillsSupplier({required CompanyModel companyModel}) async {
-    return clienthttp.post(url: '${RouteService.routeService}/facturas-proveedor-empresa', body: companyModel.toJson());
+    return clienthttp.post(
+      url: '${RouteService.routeService}/facturas-proveedor-empresa',
+      body: companyModel.toJson(),
+    );
   }
 
   Future<HttpResponseModel> loadBillsActivities({required CompanyModel companyModel}) async {
     return clienthttp.post(
-        url: '${RouteService.routeService}/facturas-actividades-empresa', body: companyModel.toJson());
+      url: '${RouteService.routeService}/facturas-actividades-empresa',
+      body: companyModel.toJson(),
+    );
+  }
+
+  Future<HttpResponseModel> loadBillsClientCrop({required CompanyModel companyModel}) async {
+    return clienthttp.post(
+      url: '${RouteService.routeService}/facturas-cliente-cultivo',
+      body: companyModel.toJson(),
+    );
+  }
+
+  Future<HttpResponseModel> loadBillsSupplierCrop({required CompanyModel companyModel}) async {
+    return clienthttp.post(
+      url: '${RouteService.routeService}/facturas-proveedor-cultivo',
+      body: companyModel.toJson(),
+    );
+  }
+
+  Future<HttpResponseModel> loadBillsActivitiesCrop({required CompanyModel companyModel}) async {
+    return clienthttp.post(
+      url: '${RouteService.routeService}/facturas-proveedor-cultivo',
+      body: companyModel.toJson(),
+    );
   }
 }

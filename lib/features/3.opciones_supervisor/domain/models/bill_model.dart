@@ -4,7 +4,7 @@ import 'package:agrotech/features/3.opciones_supervisor/domain/models/buy_client
 class BillModel {
   int? idFactura;
   String? numeroFactura;
-  String? fecha;
+  DateTime? fecha;
   String? tipo;
   double? total;
   ActivityCropModel? actividadObrero;
@@ -23,10 +23,13 @@ class BillModel {
   BillModel.fromJson(Map<String, dynamic> json) {
     idFactura = json["idFactura"];
     numeroFactura = json["numeroFactura"];
-    fecha = json["fecha"];
+    fecha = DateTime.parse(json["fecha"]);
     tipo = json["tipo"];
     total = json["total"];
-    actividadObrero = json["actividadObrero"];
+    actividadObrero = ActivityCropModel.fromJson(json["actividadObrero"] ?? {});
+    compras = json["ventaProveedor"] != null
+        ? (json["ventaProveedor"] as List).map((e) => BuyClientModel.fromJson(e)).toList()
+        : null;
   }
 
   Map<String, dynamic> toJson() {

@@ -6,6 +6,9 @@ abstract class BillsUseCase {
   Future<BillsResponseModel> loadBillsClient({required CompanyModel companyModel});
   Future<BillsResponseModel> loadBillsSupplier({required CompanyModel companyModel});
   Future<BillsResponseModel> loadBillsActivities({required CompanyModel companyModel});
+  Future<BillsResponseModel> loadBillsClientCrop({required CompanyModel companyModel});
+  Future<BillsResponseModel> loadBillsSupplierCrop({required CompanyModel companyModel});
+  Future<BillsResponseModel> loadBillsActivitiesCrop({required CompanyModel companyModel});
 }
 
 class BillsUseCaseImpl extends BillsUseCase {
@@ -38,6 +41,36 @@ class BillsUseCaseImpl extends BillsUseCase {
   @override
   Future<BillsResponseModel> loadBillsActivities({required CompanyModel companyModel}) async {
     var response = await billsDataSource.loadBillsActivities(companyModel: companyModel);
+    if (response.success) {
+      return BillsResponseModel.fromJson(response.body ?? {});
+    } else {
+      return BillsResponseModel(error: 'loadBillsActivities:success:false');
+    }
+  }
+
+  @override
+  Future<BillsResponseModel> loadBillsClientCrop({required CompanyModel companyModel}) async {
+    var response = await billsDataSource.loadBillsClientCrop(companyModel: companyModel);
+    if (response.success) {
+      return BillsResponseModel.fromJson(response.body ?? {});
+    } else {
+      return BillsResponseModel(error: 'loadBillsActivities:success:false');
+    }
+  }
+
+  @override
+  Future<BillsResponseModel> loadBillsSupplierCrop({required CompanyModel companyModel}) async {
+    var response = await billsDataSource.loadBillsSupplierCrop(companyModel: companyModel);
+    if (response.success) {
+      return BillsResponseModel.fromJson(response.body ?? {});
+    } else {
+      return BillsResponseModel(error: 'loadBillsActivities:success:false');
+    }
+  }
+
+  @override
+  Future<BillsResponseModel> loadBillsActivitiesCrop({required CompanyModel companyModel}) async {
+    var response = await billsDataSource.loadBillsActivitiesCrop(companyModel: companyModel);
     if (response.success) {
       return BillsResponseModel.fromJson(response.body ?? {});
     } else {
