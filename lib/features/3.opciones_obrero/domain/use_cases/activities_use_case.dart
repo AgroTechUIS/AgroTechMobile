@@ -19,7 +19,7 @@ class ActivitiesUseCaseImpl extends ActivitiesUseCase {
     if (response.success) {
       return ActivitiesResponseModel.fromJson(response.body ?? {});
     } else {
-      return ActivitiesResponseModel(error: 'loadActivities:success:false');
+      return ActivitiesResponseModel(error: response.message);
     }
   }
 }
