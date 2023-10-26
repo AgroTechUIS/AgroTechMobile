@@ -94,5 +94,7 @@ enum UserRol {
   supervisor,
   obrero,
   gestor,
+  obreroOffline,
+  supervisorOffline,
   lock,
 }
