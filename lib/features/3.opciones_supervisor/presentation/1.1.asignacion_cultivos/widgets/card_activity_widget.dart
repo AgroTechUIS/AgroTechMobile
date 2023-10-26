@@ -6,10 +6,12 @@ class CardActivityWidget extends StatelessWidget {
     super.key,
     required this.nombre,
     required this.obrero,
+    required this.estado,
   });
 
   final String nombre;
   final String obrero;
+  final String estado;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,20 @@ class CardActivityWidget extends StatelessWidget {
                     ),
                     Text(
                       obrero,
-                      style: TextStyle(fontSize: 16.0),
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
+                    const Text(
+                      'Estado:',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      estado,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                      ),
                     ),
                     const Text(
                       'Plazo:',
