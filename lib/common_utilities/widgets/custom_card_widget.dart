@@ -9,6 +9,7 @@ class CustomCardWidget extends StatelessWidget {
   final void Function()? onPressed;
   final double? imageHeight;
   final String? buttonText;
+  final Color? subtitleColor;
 
   const CustomCardWidget({
     super.key,
@@ -19,6 +20,7 @@ class CustomCardWidget extends StatelessWidget {
     this.onPressed,
     this.imageHeight,
     this.buttonText,
+    this.subtitleColor,
   });
 
   @override
@@ -82,9 +84,10 @@ class CustomCardWidget extends StatelessWidget {
                     subtitle.isNotEmpty
                         ? Text(
                             subtitle,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
+                              color: subtitleColor ?? Colors.black,
                             ),
                           )
                         : const SizedBox(),

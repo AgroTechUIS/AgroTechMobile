@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class InfoBox extends StatelessWidget {
   const InfoBox({
     Key? key,
-    required this.screenSize,
     required this.title,
     required this.value,
     this.backgroundColor,
@@ -12,7 +11,6 @@ class InfoBox extends StatelessWidget {
     this.textColorSecond,
   }) : super(key: key);
 
-  final Size screenSize;
   final String title;
   final String value;
   final Color? backgroundColor;
@@ -21,6 +19,7 @@ class InfoBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.all(10),

@@ -17,11 +17,16 @@ class ObreroOptions extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: Row(
-            children: const [
+            children: [
               MiniOptionWidget(
                 title: 'Actividades asignadas',
                 iconRoute: 'assets/lista.svg',
-                goPage: GestionPersonalPage(),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const GestionPersonalPage()),
+                  );
+                },
               ),
             ],
           ),
