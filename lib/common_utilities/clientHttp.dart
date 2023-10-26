@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:agrotech/common_utilities/httpResponseModel.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class ClientHttp {
@@ -14,7 +15,7 @@ class ClientHttp {
   Future<HttpResponseModel> get({required String url}) async {
     try {
       var response = await http.get(Uri.parse(url), headers: {}).timeout(
-        const Duration(seconds: 60),
+        const Duration(seconds: 5),
         onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
       );
 
@@ -40,7 +41,7 @@ class ClientHttp {
             body: jsonEncode(body),
           )
           .timeout(
-            const Duration(seconds: 5),
+            const Duration(seconds: 3),
             onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
           );
 
@@ -60,6 +61,8 @@ extension HttpUtils on Response {
     bool success = false;
     String message = "Unknown message";
     Map<String, dynamic> body = {};
+
+    debugPrint('$statusCode');
 
     switch (statusCode) {
       case 200:
