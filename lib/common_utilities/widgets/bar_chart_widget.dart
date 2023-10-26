@@ -1,5 +1,5 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:agrotech/features/3.opciones_supervisor/models/point_chart_model.dart';
+import 'package:agrotech/features/3.opciones_supervisor/domain/models/point_chart_model.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_hora.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_balance.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_utilidad.dart';
