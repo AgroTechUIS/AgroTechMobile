@@ -1,4 +1,4 @@
-import 'package:agrotech/features/3.opciones_supervisor/models/point_chart_model.dart';
+import 'package:agrotech/features/3.opciones_supervisor/domain/models/point_chart_model.dart';
 
 class TodayReportModel {
   List<PointChartModel> grafica;
@@ -11,6 +11,7 @@ class TodayReportModel {
   int riegos;
   int podas;
   int cosechas;
+  String? error;
 
   TodayReportModel({
     required this.grafica,
@@ -23,5 +24,6 @@ class TodayReportModel {
     required this.riegos,
     required this.podas,
     required this.cosechas,
+    this.error,
   });
 }
