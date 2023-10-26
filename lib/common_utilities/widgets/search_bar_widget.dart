@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key, this.searchText});
+  const SearchBarWidget({super.key, this.searchText, required this.onSend});
 
   final String? searchText;
+  final Function onSend;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class SearchBarWidget extends StatelessWidget {
                 hintText: searchText ?? 'Buscar',
                 border: InputBorder.none,
               ),
+              onSubmitted: (value) => onSend(value),
             ),
           ),
         ],
