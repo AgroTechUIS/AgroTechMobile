@@ -2,38 +2,35 @@ class LoginResponseModel {
   String? idusuario;
   String? nombre;
   String? cedula;
-  String? correo;
+  String? email;
   String? telefono;
   String? rol;
   String? ingreso;
   String? token;
   int? idEmpresa;
-  String? error;
 
   LoginResponseModel({
     this.idusuario,
     this.nombre,
     this.cedula,
-    this.correo,
+    this.email,
     this.telefono,
     this.rol,
     this.ingreso,
     this.token,
     this.idEmpresa,
-    this.error,
   });
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    idusuario = json["idusuario"];
+    idusuario = json["idUsuario"].toString();
     nombre = json["nombre"];
     cedula = json["cedula"];
-    correo = json["correo"];
+    email = json["email"];
     telefono = json["telefono"];
-    rol = json["rol"];
+    rol = json["roles"]["rol"];
     ingreso = json["ingreso"];
     token = json["token"];
     idEmpresa = json["idEmpresa"];
-    error = json["error"];
   }
 
   Map<String, dynamic> toJson() {
@@ -41,13 +38,12 @@ class LoginResponseModel {
     data["idusuario"] = idusuario;
     data["nombre"] = nombre;
     data["cedula"] = cedula;
-    data["correo"] = correo;
+    data["correo"] = email;
     data["telefono"] = telefono;
     data["rol"] = rol;
     data["ingreso"] = ingreso;
     data["token"] = token;
     data["idEmpresa"] = idEmpresa;
-    data["error"] = error;
     return data;
   }
 }

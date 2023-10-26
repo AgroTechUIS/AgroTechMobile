@@ -8,6 +8,7 @@ class LoginState {
   final String ingreso;
   final int idEmpresa;
   final String errorEmail;
+  final String errorPassword;
 
   LoginState({
     this.idusuario = "",
@@ -19,6 +20,7 @@ class LoginState {
     this.ingreso = "",
     this.idEmpresa = 0,
     this.errorEmail = "",
+    this.errorPassword = "",
   });
 
   LoginState copyWith({
@@ -31,6 +33,7 @@ class LoginState {
     String? ingreso,
     int? idEmpresa,
     String? errorEmail,
+    String? errorPassword,
   }) {
     return LoginState(
       idusuario: idusuario ?? this.idusuario,
@@ -42,6 +45,7 @@ class LoginState {
       ingreso: ingreso ?? this.ingreso,
       idEmpresa: idEmpresa ?? this.idEmpresa,
       errorEmail: errorEmail ?? this.errorEmail,
+      errorPassword: errorPassword ?? this.errorPassword,
     );
   }
 }
