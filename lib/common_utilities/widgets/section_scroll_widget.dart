@@ -7,11 +7,13 @@ class SectionScrollWidget extends StatelessWidget {
     required this.children,
     this.showSearch,
     this.onSend,
+    this.addWidget,
   }) : super(key: key);
 
   final List<Widget> children;
   final bool? showSearch;
   final Function? onSend;
+  final Widget? addWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class SectionScrollWidget extends StatelessWidget {
                     onSend: (value) => onSend!(value) ?? () {},
                   )
                 : const SizedBox(),
+            addWidget ?? const SizedBox(),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

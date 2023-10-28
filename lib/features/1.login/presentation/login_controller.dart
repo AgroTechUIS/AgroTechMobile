@@ -9,12 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
 class LoginController extends StateNotifier<LoginState> {
-  LoginController(this.loginUseCaseImpl, this.online, this.onlineController) : super(LoginState());
+  LoginController(
+    this.loginUseCaseImpl,
+    //this.online,
+    //this.onlineController,
+  ) : super(LoginState());
 
   // Use cases
   final LoginUseCaseImpl loginUseCaseImpl;
-  final bool online;
-  final StateController<bool> onlineController;
+  //final bool online;
+  //final StateController<bool> onlineController;
 
   // Textfields
   final TextEditingController emailController = TextEditingController();
@@ -67,7 +71,7 @@ class LoginController extends StateNotifier<LoginState> {
 final loginController = StateNotifierProvider<LoginController, LoginState>(
   (ref) => LoginController(
     LoginUseCaseImpl(LoginService()),
-    ref.watch(onlineProvider),
-    ref.read(onlineProvider.notifier),
+    //ref.watch(onlineProvider),
+    //ref.read(onlineProvider.notifier),
   ),
 );

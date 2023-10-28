@@ -1,9 +1,11 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
+import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/common_utilities/widgets/custom_card_widget.dart';
 import 'package:agrotech/common_utilities/widgets/error_screen.dart';
 import 'package:agrotech/common_utilities/widgets/header_page_widget.dart';
 import 'package:agrotech/common_utilities/widgets/section_scroll_widget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_controller.dart';
+import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_state.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/widgets/change_state_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +46,27 @@ class GestionPersonalPage extends ConsumerWidget {
                 ),
                 const HeaderPageWidget('Mis actividades'),
                 SectionScrollWidget(
+                  addWidget: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          _selectDate(context);
+                        },
+                        child: buttonTapWidget(
+                          stateActivities: stateActivities,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _selectDate(context);
+                        },
+                        child: buttonTapWidget(
+                          stateActivities: stateActivities,
+                        ),
+                      ),
+                    ],
+                  ),
                   children: stateActivities.actividadesFiltered.map((actividad) {
                     return CustomCardWidget(
                       title: '${actividad.nombre}  -  N°${actividad.id}',
@@ -69,6 +92,47 @@ class GestionPersonalPage extends ConsumerWidget {
       ),
       error: (error, stackTrace) => const ErrorScreen(),
       loading: () => const LoadingListWidget(),
+    );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2050),
+      locale: const Locale('es', 'ES'),
+    );
+    if (picked != null) {
+      print(picked);
+    }
+  }
+}
+
+class buttonTapWidget extends StatelessWidget {
+  const buttonTapWidget({
+    super.key,
+    required this.stateActivities,
+  });
+
+  final ActividadesState stateActivities;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: context.rp(150),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: colors.green3,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Fecha inicio'),
+          Text((stateActivities.dateStart ?? DateTime.now()).toString().split(' ').first),
+        ],
+      ),
     );
   }
 }

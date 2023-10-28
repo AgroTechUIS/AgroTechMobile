@@ -2,6 +2,7 @@ import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/features/1.login/presentation/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -19,7 +20,21 @@ class MyApp extends StatelessWidget {
         routes: {
           'login': (_) => const LoginPage(),
         },
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('es', 'ES'),
+        ],
         theme: ThemeData.light().copyWith(
+          colorScheme: const ColorScheme.light(
+            primary: Color.fromRGBO(128, 191, 33, 1),
+            onPrimary: Colors.white,
+            surface: Colors.grey,
+            onSurface: Colors.black,
+          ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(colors.green3),
