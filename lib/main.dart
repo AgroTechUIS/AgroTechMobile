@@ -1,5 +1,6 @@
 import 'package:agrotech/features/1.login/presentation/login_page.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
+import 'package:agrotech/features/5.products/presentation/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,11 +21,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'login',
+      initialRoute: 'products',
       routes: {
         'login': (_) => LoginPage(),
         'plagas': (_) => PlagasPage(),
-        'crops': (_) => CropPage()
+        'crops': (_) => CropPage(),
+        'products': (_) => ProductPage()
       },
     );
   }
