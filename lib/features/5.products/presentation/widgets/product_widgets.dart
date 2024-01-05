@@ -98,7 +98,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.amount.toString(),
+                  producto.stock.toString(),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -118,7 +118,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.categoryId.toString(),
+                  producto.category.toString(),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -128,28 +128,6 @@ class ProductWidget extends StatelessWidget {
             ]),
 
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
-
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Cultivo: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  producto.cropId.toString(),
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
-
-            SizedBox(height: 8.0),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
