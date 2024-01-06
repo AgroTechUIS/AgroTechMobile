@@ -1,8 +1,12 @@
+import 'package:agrotech/common_utilities/context_extension.dart';
+import 'package:agrotech/features/1.login/presentation/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class ErrorScreen extends StatelessWidget {
-  const ErrorScreen({super.key});
+  const ErrorScreen({super.key, required this.connectionError});
+
+  final String connectionError;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class ErrorScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Perdiste la conexion a internet',
+              'Perdiste la conexión a internet',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -32,9 +36,9 @@ class ErrorScreen extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                Navigator.popUntil(context, ModalRoute.withName('login'));
+                context.remplaceRoute(const LoginPage());
               },
-              child: Text('Volver a login'),
+              child: const Text('Volver a login'),
             ),
           ],
         ),
