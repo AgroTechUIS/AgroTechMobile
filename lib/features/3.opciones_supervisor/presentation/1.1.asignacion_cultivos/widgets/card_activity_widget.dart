@@ -16,8 +16,12 @@ class CardActivityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 1, 10, 1),
-      child: Card(
+      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+      child: Container(
+        decoration: BoxDecoration(
+          color: colors.white,
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: Row(
           children: [
             Container(

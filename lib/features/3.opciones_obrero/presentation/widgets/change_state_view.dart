@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/common_utilities/widgets/error_screen.dart';
 import 'package:agrotech/common_utilities/widgets/header_page_widget.dart';
@@ -24,7 +26,6 @@ class ChangeStatusScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var selectedState = ref.watch(selectedOption);
     var selectedController = ref.read(selectedOption.notifier);
-    //var obreroController = ref.read(activitiesController.notifier);
 
     return Scaffold(
       backgroundColor: colors.backgroundwhite,
@@ -53,10 +54,11 @@ class ChangeStatusScreen extends ConsumerWidget {
               ),
               const HeaderPageWidget('Actualizar actividad'),
               SectionWidget(
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 children: [
-                  const SubtitleWidget('Agrotech:'),
+                  const SubtitleWidget('Actividad:'),
                   SectionWidget(
-                    padding: 20,
+                    padding: const EdgeInsets.all(20),
                     background: colors.white,
                     children: [
                       Row(
@@ -167,7 +169,7 @@ class ChangeStatusScreen extends ConsumerWidget {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const ErrorScreen()),
+        MaterialPageRoute(builder: (context) => const ErrorScreen(connectionError: '')),
       );
     }
   }

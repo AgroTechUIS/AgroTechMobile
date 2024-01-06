@@ -1,14 +1,11 @@
+import 'package:agrotech/common_utilities/models/list_response_model.dart';
+import 'package:agrotech/common_utilities/models/response_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/data/bills_data_source.dart';
-import 'package:agrotech/features/3.opciones_supervisor/domain/models/bills_response%20model.dart';
-import 'package:agrotech/features/3.opciones_supervisor/domain/models/company_model.dart';
+import 'package:agrotech/features/3.opciones_supervisor/domain/models/bill_model.dart';
 
 abstract class BillsUseCase {
-  Future<BillsResponseModel> loadBillsClient({required CompanyModel companyModel});
-  Future<BillsResponseModel> loadBillsSupplier({required CompanyModel companyModel});
-  Future<BillsResponseModel> loadBillsActivities({required CompanyModel companyModel});
-  Future<BillsResponseModel> loadBillsClientCrop({required CompanyModel companyModel});
-  Future<BillsResponseModel> loadBillsSupplierCrop({required CompanyModel companyModel});
-  Future<BillsResponseModel> loadBillsActivitiesCrop({required CompanyModel companyModel});
+  Future<ResponseModel<List<BillModel>>> loadBillsByCrop({required String idCultivo, required bool isOnline});
+  Future<ResponseModel<List<BillModel>>> loadBillsByFactory({required String idEmpresa, required bool isOnline});
 }
 
 class BillsUseCaseImpl extends BillsUseCase {
@@ -19,62 +16,32 @@ class BillsUseCaseImpl extends BillsUseCase {
   );
 
   @override
-  Future<BillsResponseModel> loadBillsClient({required CompanyModel companyModel}) async {
-    var response = await billsDataSource.loadBillsClient(companyModel: companyModel);
+  Future<ResponseModel<List<BillModel>>> loadBillsByFactory({required String idEmpresa, required bool isOnline}) async {
+    var response = await billsDataSource.loadBillsByFactory(idEmpresa: idEmpresa, isOnline: isOnline);
     if (response.success) {
-      return BillsResponseModel.fromJson(response.body ?? {});
+      var respon = ListResponseModel.fromJson(
+        response.body ?? {},
+        (json) => BillModel.fromJson(json),
+        'facturas',
+      );
+      return ResponseModel(response: respon.list);
     } else {
-      return BillsResponseModel(error: 'loadBillsClient:success:false');
+      return ResponseModel(error: 'loadBillsActivities:success:false');
     }
   }
 
   @override
-  Future<BillsResponseModel> loadBillsSupplier({required CompanyModel companyModel}) async {
-    var response = await billsDataSource.loadBillsSupplier(companyModel: companyModel);
+  Future<ResponseModel<List<BillModel>>> loadBillsByCrop({required String idCultivo, required bool isOnline}) async {
+    var response = await billsDataSource.loadBillsByCrop(idCultivo: idCultivo, isOnline: isOnline);
     if (response.success) {
-      return BillsResponseModel.fromJson(response.body ?? {});
+      var respon = ListResponseModel.fromJson(
+        response.body ?? {},
+        (json) => BillModel.fromJson(json),
+        'facturas',
+      );
+      return ResponseModel(response: respon.list);
     } else {
-      return BillsResponseModel(error: 'loadBillsSupplier:success:false');
-    }
-  }
-
-  @override
-  Future<BillsResponseModel> loadBillsActivities({required CompanyModel companyModel}) async {
-    var response = await billsDataSource.loadBillsActivities(companyModel: companyModel);
-    if (response.success) {
-      return BillsResponseModel.fromJson(response.body ?? {});
-    } else {
-      return BillsResponseModel(error: 'loadBillsActivities:success:false');
-    }
-  }
-
-  @override
-  Future<BillsResponseModel> loadBillsClientCrop({required CompanyModel companyModel}) async {
-    var response = await billsDataSource.loadBillsClientCrop(companyModel: companyModel);
-    if (response.success) {
-      return BillsResponseModel.fromJson(response.body ?? {});
-    } else {
-      return BillsResponseModel(error: 'loadBillsActivities:success:false');
-    }
-  }
-
-  @override
-  Future<BillsResponseModel> loadBillsSupplierCrop({required CompanyModel companyModel}) async {
-    var response = await billsDataSource.loadBillsSupplierCrop(companyModel: companyModel);
-    if (response.success) {
-      return BillsResponseModel.fromJson(response.body ?? {});
-    } else {
-      return BillsResponseModel(error: 'loadBillsActivities:success:false');
-    }
-  }
-
-  @override
-  Future<BillsResponseModel> loadBillsActivitiesCrop({required CompanyModel companyModel}) async {
-    var response = await billsDataSource.loadBillsActivitiesCrop(companyModel: companyModel);
-    if (response.success) {
-      return BillsResponseModel.fromJson(response.body ?? {});
-    } else {
-      return BillsResponseModel(error: 'loadBillsActivities:success:false');
+      return ResponseModel(error: 'loadBillsActivities:success:false');
     }
   }
 }
