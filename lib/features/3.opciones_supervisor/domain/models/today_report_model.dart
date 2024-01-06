@@ -1,6 +1,6 @@
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/point_chart_model.dart';
 
-class TodayReportModel {
+class DayReportModel {
   List<PointChartModel> grafica;
   int ventaTotal;
   int compraTotal;
@@ -11,9 +11,14 @@ class TodayReportModel {
   int riegos;
   int podas;
   int cosechas;
+  final double costolabranzas;
+  final double costoSiembras;
+  final double costoRiegos;
+  final double costoPodas;
+  final double costoCosechas;
   String? error;
 
-  TodayReportModel({
+  DayReportModel({
     required this.grafica,
     required this.ventaTotal,
     required this.compraTotal,
@@ -24,6 +29,11 @@ class TodayReportModel {
     required this.riegos,
     required this.podas,
     required this.cosechas,
+    required this.costolabranzas,
+    required this.costoSiembras,
+    required this.costoRiegos,
+    required this.costoPodas,
+    required this.costoCosechas,
     this.error,
   });
 }
