@@ -47,7 +47,7 @@ class DataActivity extends StatelessWidget {
         TableRow(
           children: [
             const Text('Fecha:'),
-            Text(actividad.fecha ?? ''),
+            Text(actividad.fecha.toString().split(' ').first),
           ],
         ),
         spacerTable,

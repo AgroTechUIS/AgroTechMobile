@@ -6,7 +6,7 @@ import 'package:agrotech/common_utilities/widgets/header_page_widget.dart';
 import 'package:agrotech/common_utilities/widgets/section_widget.dart';
 import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/common_utilities/widgets/text_in_line_widget.dart';
-import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
+import 'package:agrotech/features/3.opciones_obrero/presentation/widgets/loading_list_widget.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/new_activity_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/worker_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/presentation/1.1.asignacion_cultivos/widgets/type_activity.dart';
@@ -21,7 +21,7 @@ class CrearActividadView extends ConsumerWidget {
   });
 
   final selectedOption = StateProvider<String>((ref) => '');
-  final selectedWorker = StateProvider<int>((ref) => -1);
+  final selectedWorker = StateProvider<int>((ref) => 0);
 
   final TextEditingController paragraphController = TextEditingController();
   final TextEditingController valueController = TextEditingController();
@@ -57,7 +57,7 @@ class CrearActividadView extends ConsumerWidget {
                     children: [
                       const SubtitleWidget('Agrotech:'),
                       SectionWidget(
-                        padding: 20,
+                        padding: const EdgeInsets.all(10),
                         background: colors.white,
                         children: [
                           Row(
@@ -101,8 +101,24 @@ class CrearActividadView extends ConsumerWidget {
                           const SizedBox(height: 10),
                           const TextInLineWidget('Responsable de la actividad (Opcional):'),
                           const SizedBox(height: 10),
-                          SelectObreroWidget(
-                              listObr: listObr, selectedWorkerS: selectedWorkerS, selectedWorkerC: selectedWorkerC),
+                          /*SelectObreroWidget(
+                              listObr: listObr, selectedWorkerS: selectedWorkerS, selectedWorkerC: selectedWorkerC),*/
+                          DropdownButton<int>(
+                            value: selectedWorkerS,
+                            items: listObr.map((WorkerModel item) {
+                              return DropdownMenuItem<int>(
+                                value: listObr.indexWhere((element) => element == item),
+                                child: Row(
+                                  children: [
+                                    Text('${item.nombre} CC${item.cedula}'),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (int? newValue) {
+                              selectedWorkerC.update((state) => newValue ?? 0);
+                            },
+                          ),
                           const SizedBox(height: 20),
                           const TextInLineWidget('Costo aproximado para esta actividad:'),
                           const SizedBox(height: 10),
@@ -133,7 +149,7 @@ class CrearActividadView extends ConsumerWidget {
           ),
         );
       },
-      error: (error, stackTrace) => const ErrorScreen(),
+      error: (error, stackTrace) => ErrorScreen(connectionError: error.toString()),
       loading: () => const LoadingListWidget(),
     );
   }
@@ -154,7 +170,7 @@ class CrearActividadView extends ConsumerWidget {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const ErrorScreen()),
+        MaterialPageRoute(builder: (context) => const ErrorScreen(connectionError: '')),
       );
     }
   }
