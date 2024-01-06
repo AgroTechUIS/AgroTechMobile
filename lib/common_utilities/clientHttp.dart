@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:agrotech/common_utilities/httpResponseModel.dart';
-import 'package:agrotech/common_utilities/responses_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -23,7 +22,16 @@ class ClientHttp {
         onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
       );
 
-      return response.validateResponse();
+      HttpResponseModel result = response.validateResponse();
+
+      debugPrint('''
+Agro:---------------------Service---------------------
+Agro:service:  GET $url
+Agro:result:   ${result.body}
+Agro:-------------------------------------------------
+      ''');
+
+      return result;
     } on TimeoutException catch (e) {
       return HttpResponseModel(success: false, body: {"error": "$e"}, message: timeoutMessage);
     } on SocketException catch (e) {
@@ -49,7 +57,17 @@ class ClientHttp {
             onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
           );
 
-      return response.validateResponse();
+      HttpResponseModel result = response.validateResponse();
+
+      debugPrint('''
+Agro:---------------------Service---------------------
+Agro:service:  POST $url
+Agro:body:     ${body.toString()}
+Agro:result:   ${result.body}
+Agro:-------------------------------------------------
+      ''');
+
+      return result;
     } on TimeoutException catch (e) {
       return HttpResponseModel(success: false, body: {"error": "$e"}, message: timeoutMessage);
     } on SocketException catch (e) {
@@ -75,7 +93,17 @@ class ClientHttp {
             onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
           );
 
-      return response.validateResponse();
+      HttpResponseModel result = response.validateResponse();
+
+      debugPrint('''
+Agro:---------------------Service---------------------
+Agro:service:  PUT $url
+Agro:body:     ${body.toString()}
+Agro:result:   ${result.body}
+Agro:-------------------------------------------------
+      ''');
+
+      return result;
     } on TimeoutException catch (e) {
       return HttpResponseModel(success: false, body: {"error": "$e"}, message: timeoutMessage);
     } on SocketException catch (e) {
@@ -84,35 +112,6 @@ class ClientHttp {
       return HttpResponseModel(success: false, body: {"error": "$e"}, message: serviceError);
     }
   }
-
-  /*Future<HttpResponseModel> put({
-    required String url,
-    required Map<String, dynamic> body,
-  }) async {
-    try {
-      var response = await http
-          .put(
-            Uri.parse(url),
-            headers: {"Content-Type": "application/json"},
-            body: jsonEncode(body),
-          )
-          .timeout(
-            const Duration(seconds: 5),
-            onTimeout: (() => throw TimeoutException("{'error': 'Timeout'}")),
-          );
-
-      return response.validateResponse();
-    } on TimeoutException catch (e) {
-      return HttpResponseModel(
-          success: false, body: {"error": "$e"}, message: timeoutMessage);
-    } on SocketException catch (e) {
-      return HttpResponseModel(
-          success: false, body: {"error": "$e"}, message: errorInternet);
-    } catch (e) {
-      return HttpResponseModel(
-          success: false, body: {"error": "$e"}, message: serviceError);
-    }
-  }*/
 
   Future<HttpDeleteModel> delete({
     required String url,
@@ -171,7 +170,7 @@ extension HttpUtils on Response {
     String message = "Unknown message";
     Map<String, dynamic> body = {};
 
-    debugPrint('$statusCode');
+    debugPrint('''Agro:$statusCode''');
 
     switch (statusCode) {
       case 200:
@@ -182,6 +181,7 @@ extension HttpUtils on Response {
         body = json.decode(utf8.decode(bodyBytes));
         break;
     }
+
     return HttpResponseModel(success: success, message: "$message $statusCode", body: body);
   }
 }
