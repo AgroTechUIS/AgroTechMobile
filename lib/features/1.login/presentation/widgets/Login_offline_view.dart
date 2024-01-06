@@ -1,14 +1,14 @@
+import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/common_utilities/widgets/agrotech_button_widget.dart';
-import 'package:agrotech/features/2.home/presentation/home_page.dart';
+import 'package:agrotech/features/1.login/presentation/widgets/Login_offline_rol_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
-class LoginOfflineView extends ConsumerWidget {
+class LoginOfflineView extends StatelessWidget {
   const LoginOfflineView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -55,9 +55,8 @@ class LoginOfflineView extends ConsumerWidget {
                         const SizedBox(height: 10),
                         AgrotechButton(
                           text: "Ingresar Offline",
-                          onPressed: () {},
+                          onPressed: () => context.pushRoute(const LoginOfflineRolView()),
                         ),
-                        //_OffLineAccessWidget(),
                       ],
                     ),
                   ),
@@ -67,40 +66,6 @@ class LoginOfflineView extends ConsumerWidget {
           ),
         ),
       ),
-    );
-  }
-
-  void goOffline(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage(rol: UserRol.obrero)),
-    );
-  }
-}
-
-class _OffLineAccessWidget extends StatelessWidget {
-  const _OffLineAccessWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        const Text(
-          "Puedes seguir navegando en la aplicacion de forma offline, elije tu rol:",
-          //textAlign: TextAlign.center,
-        ),
-        AgrotechButton(
-          text: "Ingresar como obrero",
-          onPressed: () {},
-        ),
-        AgrotechButton(
-          text: "Ingresar como supervisor",
-          onPressed: () {},
-        ),
-      ],
     );
   }
 }

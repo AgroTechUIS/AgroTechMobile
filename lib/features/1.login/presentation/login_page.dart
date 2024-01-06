@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/common_utilities/controllers/offline_controller.dart';
 import 'package:agrotech/common_utilities/widgets/agrotech_button_widget.dart';
 import 'package:agrotech/features/1.login/presentation/widgets/Login_offline_view.dart';
@@ -6,19 +9,11 @@ import 'package:agrotech/features/1.login/presentation/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/*final randomNumberProvider = StreamProvider<int>((ref) {
-  final random = Random();
-  return Stream.periodic(const Duration(seconds: 30), (index) {
-    return random.nextInt(100);
-  });
-});*/
-
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final offLine = ref.watch(onlineProvider);
     final loginControllerIns = ref.read(loginController.notifier);
     final loginState = ref.watch(loginController);
 
@@ -124,10 +119,7 @@ class LoginPage extends ConsumerWidget {
       offLineContr.update((state) => true);
       goToHome(context, isLoggedIn.response.rol!);
     } else if (isLoggedIn.error == 'Latencia' || isLoggedIn.error == 'Sin internet') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LoginOfflineView()),
-      );
+      context.pushRoute(const LoginOfflineView());
     } else {
       loginControllerIns.passwordErrorAdd();
     }
@@ -148,9 +140,6 @@ class LoginPage extends ConsumerWidget {
       default:
         rolType = UserRol.lock;
     }
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage(rol: rolType)),
-    );
+    context.remplaceRoute(HomePage(rol: rolType));
   }
 }
