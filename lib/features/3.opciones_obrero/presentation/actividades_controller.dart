@@ -1,4 +1,5 @@
 import 'package:agrotech/common_utilities/controllers/offline_controller.dart';
+import 'package:agrotech/common_utilities/models/list_response_model.dart';
 import 'package:agrotech/common_utilities/models/response_model.dart';
 import 'package:agrotech/common_utilities/tools.dart';
 import 'package:agrotech/features/3.opciones_obrero/data/network/activities_data_source.dart';
@@ -16,58 +17,73 @@ class ActividadesController extends StateNotifier<ActividadesState> {
     this.activitiesUseCaseImpl,
     this.idusuario,
     this.online,
-    this.onlineController,
   ) : super(ActividadesState());
 
   // Use cases
   final ActivitiesUseCaseImpl activitiesUseCaseImpl;
   final String idusuario;
   final bool online;
-  final StateController<bool> onlineController;
 
   /// Carga las actividades que debe hacer el obrero
   Future<ResponseModel<List<ActivityModel>>> loadActivities() async {
-    var pref = await SecureSharedPref.getInstance();
-    var resp = await activitiesUseCaseImpl.loadActivities(userModel: UserModel(idUsuario: idusuario));
-    if (resp.error == null && online) {
-      pref.putMap(
-        "Activities",
-        {"act": resp},
-      );
-      for (ActivityModel activity in resp.response!) {
-        var date = DateTime.parse(activity.fecha ?? "");
-        if (date.isAfter(DateTime.now())) {
-          scheduleNotification(date: date, id: activity.id ?? 0, name: activity.nombre ?? "Actividad");
-        }
+    ResponseModel<List<ActivityModel>> resp;
+
+    if (online) {
+      resp = await activitiesUseCaseImpl.loadActivities(userModel: UserModel(idUsuario: idusuario));
+      if (resp.error == null) {
+        saveLoadActivities(resp);
+      } else {
+        throw Exception(resp.error);
       }
-    } else if (resp.error != null && !online) {
-      var mapActivities = await pref.getMap("Activities") as Map<String, dynamic>;
-      resp = mapActivities["actividades"] != null ? mapActivities["actividades"]["act"] : ResponseModel();
-    } else if (resp.error != null && online) {
-      onlineController.update((state) => false);
-      throw Exception('Latencia');
     } else {
-      throw Exception('Conected');
+      resp = await searchLoadActivities();
     }
 
     state = state.copyWith(actividades: resp.response, actividadesFiltered: resp.response);
     return resp;
   }
 
+  /// Guarda la lista de actividades
+  void saveLoadActivities(ResponseModel<List<ActivityModel>> resp) async {
+    var pref = await SecureSharedPref.getInstance();
+    List<Map<String, dynamic>> listaDeMapas = resp.response!.map((obj) => obj.toJson()).toList();
+    pref.putMap("Activities", {"act": listaDeMapas});
+    for (ActivityModel activity in resp.response!) {
+      var date = activity.fecha ?? DateTime(0);
+      if (date.isAfter(DateTime.now())) {
+        scheduleNotification(date: date, id: activity.id ?? 0, name: activity.nombre ?? "Actividad");
+      }
+    }
+  }
+
+  /// Busca la lista de actividades en storage
+  Future<ResponseModel<List<ActivityModel>>> searchLoadActivities() async {
+    var pref = await SecureSharedPref.getInstance();
+    var mapActivities = await pref.getMap("Activities") as Map<String, dynamic>;
+    var savedList = ListResponseModel.fromJson(
+      mapActivities,
+      (json) => ActivityModel.fromJson(json),
+      'act',
+    );
+    return ResponseModel(response: savedList.list);
+  }
+
   /// Actualiza el estado de la actividad
   Future<bool> updateActivities(UpdateActivityModel updateActivityModel) async {
     var pref = await SecureSharedPref.getInstance();
-    var resp = await activitiesUseCaseImpl.updateActivities(updateActivityModel: updateActivityModel);
-    if (!online) {
-      pref.putMap(
-        "ActivitiesGuardadas",
-        updateActivityModel.toJson(),
-      );
+    ResponseModel<String> resp;
+
+    pref.putMap(
+      "SavedActivities",
+      updateActivityModel.toJson(),
+    );
+
+    if (online) {
+      resp = await activitiesUseCaseImpl.updateActivities(updateActivityModel: updateActivityModel);
+      return resp.response == 'actividad actualizada';
+    } else {
+      return true;
     }
-    if (resp.response != 'actividad actualizada') {
-      onlineController.update((state) => false);
-    }
-    return resp.response == 'actividad actualizada';
   }
 
   /// Filtro de actividades
@@ -78,7 +94,7 @@ class ActividadesController extends StateNotifier<ActividadesState> {
       var filtered = state.actividades
           .where((objeto) =>
               (objeto.nombre ?? '').toLowerCase().contains(search) ||
-              (objeto.fecha ?? '').contains(search) ||
+              (objeto.fecha.toString()).contains(search) ||
               (objeto.finca ?? '').contains(search) ||
               (objeto.estado ?? '').contains(search))
           .toList();
@@ -88,8 +104,18 @@ class ActividadesController extends StateNotifier<ActividadesState> {
     }
   }
 
-  /// Filtro de actividades por fecha
-  void filterActivitiesDate(DateTime dateStart, DateTime dateLast) {}
+  /// Cambio del filtro de fecha
+  void changeDate(DateTime? date1, DateTime? date2) {
+    var listAct = state.actividades.where((object) {
+      if (object.fecha != null && date1 != null && date2 != null) {
+        return object.fecha!.isAfter(date1) && object.fecha!.isBefore(date2);
+      } else {
+        return true;
+      }
+    }).toList();
+
+    state = state.copyWith(actividadesFiltered: listAct);
+  }
 }
 
 final activitiesController = StateNotifierProvider.autoDispose<ActividadesController, ActividadesState>(
@@ -97,7 +123,6 @@ final activitiesController = StateNotifierProvider.autoDispose<ActividadesContro
     ActivitiesUseCaseImpl(ActivitiesDataSource()),
     ref.watch(loginController).idusuario,
     ref.watch(onlineProvider),
-    ref.read(onlineProvider.notifier),
   ),
 );
 
