@@ -6,9 +6,9 @@ void main() {
   testWidgets('SectionScrollWidget widget test', (WidgetTester tester) async {
     // Define a list of children widgets to be displayed in the SectionScrollWidget.
     final List<Widget> children = [
-      Text('Child 1'),
-      Text('Child 2'),
-      Text('Child 3'),
+      const Text('Child 1'),
+      const Text('Child 2'),
+      const Text('Child 3'),
     ];
 
     // Build our widget and trigger a frame.
@@ -18,8 +18,8 @@ void main() {
           body: Column(
             children: [
               SectionScrollWidget(
-                children: children,
-                showSearch: true, // You can adjust this value as needed for testing.
+                addWidget: const SizedBox(),
+                children: children, // You can adjust this value as needed for testing.
               ),
             ],
           ),

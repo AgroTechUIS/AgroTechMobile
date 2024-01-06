@@ -1,9 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'dart:typed_data';
-import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../domain/models/measure_model.dart';
 
@@ -11,8 +9,7 @@ class VariablesTWidget extends StatelessWidget {
   final MeasureModel medida;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  VariablesTWidget(
-      {required this.medida, required this.onEdit, required this.onDelete});
+  VariablesTWidget({required this.medida, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {

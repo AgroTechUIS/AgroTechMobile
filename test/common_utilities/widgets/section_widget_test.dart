@@ -6,18 +6,18 @@ void main() {
   testWidgets('SectionWidget widget test', (WidgetTester tester) async {
     // Define a list of children widgets to be displayed in the SectionWidget.
     final List<Widget> children = [
-      Text('Child 1'),
-      Text('Child 2'),
-      Text('Child 3'),
+      const Text('Child 1'),
+      const Text('Child 2'),
+      const Text('Child 3'),
     ];
 
     // Build our widget and trigger a frame.
     await tester.pumpWidget(
       MaterialApp(
         home: SectionWidget(
-          children: children,
           background: Colors.blue, // You can adjust this value as needed for testing.
-          padding: 20.0, // You can adjust this value as needed for testing.
+          padding: const EdgeInsets.all(10),
+          children: children, // You can adjust this value as needed for testing.
         ),
       ),
     );

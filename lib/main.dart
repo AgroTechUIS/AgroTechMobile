@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           Locale('es', 'ES'),
         ],
         theme: ThemeData.light().copyWith(
-          primarySwatch: Colors.blue,
+          //primarySwatch: Colors.blue,
           colorScheme: const ColorScheme.light(
             primary: Color.fromRGBO(128, 191, 33, 1),
             onPrimary: Colors.white,

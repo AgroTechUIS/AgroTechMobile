@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
 import '../../domain/models/pest_model.dart';
 import 'dart:typed_data';
-import 'package:image_picker/image_picker.dart';
 import 'my_buttom.dart';
 
 // ignore: must_be_immutable
@@ -32,7 +31,7 @@ class _NewPestState extends State<NewPest> {
   ];
   String? selectedValue;
 
-  pickImage(ImageSource source) async {
+  /*pickImage(ImageSource source) async {
     final ImagePicker imagePicker = ImagePicker();
     XFile? file = await imagePicker.pickImage(source: source);
 
@@ -40,7 +39,7 @@ class _NewPestState extends State<NewPest> {
       return await file.readAsBytes();
     }
     print('No has seleccionado imagenes');
-  }
+  }*/
 
   String? image;
   /*void selectImage() async {
@@ -213,24 +212,21 @@ class _NewPestState extends State<NewPest> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${date!.day} / ${date!.month} / ${date!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -261,11 +257,7 @@ class _NewPestState extends State<NewPest> {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

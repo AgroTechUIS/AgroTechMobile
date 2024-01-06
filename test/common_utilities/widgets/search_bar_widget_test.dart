@@ -9,8 +9,12 @@ void main() {
 
     // Build our widget and trigger a frame.
     await tester.pumpWidget(
-      const MaterialApp(
-        home: Scaffold(body: SearchBarWidget(searchText: initialSearchText)),
+      MaterialApp(
+        home: Scaffold(
+            body: SearchBarWidget(
+          searchText: initialSearchText,
+          onSend: () {},
+        )),
       ),
     );
 

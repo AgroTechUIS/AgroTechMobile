@@ -7,7 +7,9 @@ void main() {
     // Build our widget and trigger a frame.
     await tester.pumpWidget(
       const MaterialApp(
-        home: ErrorScreen(),
+        home: ErrorScreen(
+          connectionError: '',
+        ),
       ),
     );
 

@@ -5,6 +5,7 @@ import 'package:agrotech/common_utilities/widgets/section_widget.dart';
 import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/1.login/presentation/login_page.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/dni_widget.dart';
+import 'package:agrotech/features/2.home/presentation/widgets/gestor_options_widget.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/supervisor_options_widget.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/obreros_options_widget.dart';
 import 'package:agrotech/features/1.login/presentation/login_controller.dart';
@@ -63,7 +64,7 @@ class HomePage extends ConsumerWidget {
                       children: [
                         if (rol == UserRol.supervisor) const SupervisorOptions(),
                         if (rol == UserRol.obrero) const ObreroOptions(),
-                        if (rol == UserRol.gestor) const ObreroOptions(),
+                        if (rol == UserRol.gestor) const GestorOptions(),
                       ],
                     ),
                   ],
