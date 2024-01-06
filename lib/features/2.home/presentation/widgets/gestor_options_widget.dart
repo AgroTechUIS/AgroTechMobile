@@ -21,63 +21,66 @@ class GestorOptions extends ConsumerWidget {
         const SubtitleWidget('Mis actividades:'),
         Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              MiniOptionWidget(
-                title: 'Gestión agrícola',
-                iconRoute: 'assets/agronomy.svg',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CropPage()),
-                  );
-                },
-              ),
-              MiniOptionWidget(
-                title: 'Tratamientos',
-                iconRoute: 'assets/agronomy.svg',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TratamientosPage()),
-                  );
-                },
-                //goPage: TratamientosPage(),
-              ),
-              MiniOptionWidget(
-                title: 'Variables',
-                iconRoute: 'assets/agronomy.svg',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const VariablesPage()),
-                  );
-                },
-                //goPage: VariablesPage(),
-              ),
-              MiniOptionWidget(
-                title: 'Cuidados',
-                iconRoute: 'assets/agronomy.svg',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const CuidadosPage()),
-                  );
-                },
-                //goPage: CuidadosPage(),
-              ),
-              MiniOptionWidget(
-                title: 'Medidas',
-                iconRoute: 'assets/agronomy.svg',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const VariablesTPage()),
-                  );
-                },
-                //goPage: VariablesTPage(),
-              ),
-            ],
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                MiniOptionWidget(
+                  title: 'Gestión agrícola',
+                  iconRoute: 'assets/agronomy.svg',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CropPage()),
+                    );
+                  },
+                ),
+                MiniOptionWidget(
+                  title: 'Tratamientos',
+                  iconRoute: 'assets/agronomy.svg',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TratamientosPage()),
+                    );
+                  },
+                  //goPage: TratamientosPage(),
+                ),
+                MiniOptionWidget(
+                  title: 'Variables',
+                  iconRoute: 'assets/agronomy.svg',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const VariablesPage()),
+                    );
+                  },
+                  //goPage: VariablesPage(),
+                ),
+                MiniOptionWidget(
+                  title: 'Cuidados',
+                  iconRoute: 'assets/agronomy.svg',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CuidadosPage()),
+                    );
+                  },
+                  //goPage: CuidadosPage(),
+                ),
+                MiniOptionWidget(
+                  title: 'Medidas',
+                  iconRoute: 'assets/agronomy.svg',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const VariablesTPage()),
+                    );
+                  },
+                  //goPage: VariablesTPage(),
+                ),
+              ],
+            ),
           ),
         ),
       ],

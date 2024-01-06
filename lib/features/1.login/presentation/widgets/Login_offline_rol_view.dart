@@ -58,7 +58,7 @@ class LoginOfflineRolView extends ConsumerWidget {
                         const SizedBox(height: 10),
                         AgrotechButton(
                           text: "Gestor",
-                          onPressed: () => goOffline(context, ref, UserRol.supervisor),
+                          onPressed: () => goOffline(context, ref, UserRol.gestor),
                         ),
                         const SizedBox(height: 10),
                         AgrotechButton(

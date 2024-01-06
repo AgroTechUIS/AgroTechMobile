@@ -134,7 +134,7 @@ class LoginPage extends ConsumerWidget {
       case 'obrero':
         rolType = UserRol.obrero;
         break;
-      case 'gestion_agricola':
+      case 'gestor':
         rolType = UserRol.gestor;
         break;
       default:
