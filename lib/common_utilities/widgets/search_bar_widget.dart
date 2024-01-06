@@ -1,7 +1,12 @@
+import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key, this.searchText, required this.onSend});
+  const SearchBarWidget({
+    super.key,
+    this.searchText,
+    required this.onSend,
+  });
 
   final String? searchText;
   final Function onSend;
@@ -9,18 +14,14 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(5),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: const Color.fromRGBO(255, 255, 255, 0.9),
+        color: colors.white,
       ),
       child: Row(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.search),
-          ),
           Expanded(
             child: TextField(
               decoration: InputDecoration(
@@ -29,6 +30,10 @@ class SearchBarWidget extends StatelessWidget {
               ),
               onSubmitted: (value) => onSend(value),
             ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Icon(Icons.search),
           ),
         ],
       ),

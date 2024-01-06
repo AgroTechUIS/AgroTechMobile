@@ -9,10 +9,10 @@ import 'package:agrotech/features/3.opciones_supervisor/domain/models/new_activi
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/worker_model.dart';
 
 abstract class CropsUseCase {
-  Future<CropsResponseModel> loadCrops({required CompanyModel companyModel});
-  Future<ActivityCropsResponseModel> loadActivitiesCrop({required CropModel cropModel});
-  Future<ResponseModel<List<WorkerModel>>> loadListWorkers({required String idEmpresa});
-  Future<ResponseModel<bool>> newActivity({required NewActivityModel newActivity});
+  Future<CropsResponseModel> loadCrops({required CompanyModel companyModel, required bool isOnline});
+  Future<ActivityCropsResponseModel> loadActivitiesCrop({required CropModel cropModel, required bool isOnline});
+  Future<ResponseModel<List<WorkerModel>>> loadListWorkers({required String idEmpresa, required bool isOnline});
+  Future<ResponseModel<bool>> newActivity({required NewActivityModel newActivity, required bool isOnline});
 }
 
 class CropsUseCaseImpl extends CropsUseCase {
@@ -23,8 +23,8 @@ class CropsUseCaseImpl extends CropsUseCase {
   );
 
   @override
-  Future<CropsResponseModel> loadCrops({required CompanyModel companyModel}) async {
-    var response = await listCropsDataSource.loadCrops(companyModel: companyModel);
+  Future<CropsResponseModel> loadCrops({required CompanyModel companyModel, required bool isOnline}) async {
+    var response = await listCropsDataSource.loadCrops(companyModel: companyModel, isOnline: isOnline);
     if (response.success) {
       return CropsResponseModel.fromJson(response.body ?? {});
     } else {
@@ -33,8 +33,8 @@ class CropsUseCaseImpl extends CropsUseCase {
   }
 
   @override
-  Future<ActivityCropsResponseModel> loadActivitiesCrop({required CropModel cropModel}) async {
-    var response = await listCropsDataSource.loadActivitiesCrop(cropModel: cropModel);
+  Future<ActivityCropsResponseModel> loadActivitiesCrop({required CropModel cropModel, required bool isOnline}) async {
+    var response = await listCropsDataSource.loadActivitiesCrop(cropModel: cropModel, isOnline: isOnline);
     if (response.success) {
       return ActivityCropsResponseModel.fromJson(response.body ?? {});
     } else {
@@ -43,8 +43,8 @@ class CropsUseCaseImpl extends CropsUseCase {
   }
 
   @override
-  Future<ResponseModel<List<WorkerModel>>> loadListWorkers({required String idEmpresa}) async {
-    var response = await listCropsDataSource.loadListWorkers(id: idEmpresa);
+  Future<ResponseModel<List<WorkerModel>>> loadListWorkers({required String idEmpresa, required bool isOnline}) async {
+    var response = await listCropsDataSource.loadListWorkers(id: idEmpresa, isOnline: isOnline);
     if (response.success) {
       var respon = ListResponseModel.fromJson(
         response.body ?? {},
@@ -58,8 +58,8 @@ class CropsUseCaseImpl extends CropsUseCase {
   }
 
   @override
-  Future<ResponseModel<bool>> newActivity({required NewActivityModel newActivity}) async {
-    var response = await listCropsDataSource.newActivity(newActivity: newActivity);
+  Future<ResponseModel<bool>> newActivity({required NewActivityModel newActivity, required bool isOnline}) async {
+    var response = await listCropsDataSource.newActivity(newActivity: newActivity, isOnline: isOnline);
     if (response.success) {
       return ResponseModel(response: response.success);
     } else {

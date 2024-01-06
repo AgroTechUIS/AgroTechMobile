@@ -17,7 +17,7 @@ class HistoryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+      margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
       elevation: 4.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
