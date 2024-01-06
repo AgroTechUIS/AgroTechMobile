@@ -17,6 +17,7 @@ class ColorsTheme {
   // Colors Pages
   final appbar = const Color.fromRGBO(128, 191, 33, 1);
   final backgroundwhite = const Color.fromRGBO(220, 220, 220, 1);
+  final grey = Color.fromRGBO(150, 150, 150, 1);
 
   // Barchart
   final backgroudBarChart = const Color.fromRGBO(255, 255, 255, 1);
