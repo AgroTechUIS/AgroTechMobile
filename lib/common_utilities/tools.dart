@@ -1,7 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:intl/intl.dart';
 
 /*String imagesByTable(String table) {
   switch (table) {
@@ -51,4 +54,30 @@ Future<void> scheduleNotification({required DateTime date, required int id, requ
     uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
     payload: 'payload',
   );
+}
+
+DateTime lastDayMonth() {
+  DateTime fechaActual = DateTime.now();
+
+  DateTime primerDiaDelSiguienteMes = DateTime(fechaActual.year, fechaActual.month + 1, 1);
+
+  DateTime ultimoDiaDelMesActual = primerDiaDelSiguienteMes
+      .subtract(const Duration(days: 1))
+      .add(const Duration(hours: 23, minutes: 59, seconds: 59));
+
+  return ultimoDiaDelMesActual;
+}
+
+DateTime firstDayMonth() {
+  DateTime fechaActual = DateTime.now();
+  return DateTime(fechaActual.year, fechaActual.month, 1, 0, 0, 0, 0, 0);
+}
+
+bool sameDateWithOutHour(DateTime d1, DateTime d2) {
+  return d1.day == d2.day && d1.month == d2.month && d1.year == d2.year;
+}
+
+String formatNumber(double number) {
+  final formatter = NumberFormat("#,###");
+  return formatter.format(number).replaceAll(',', '.');
 }
