@@ -30,7 +30,7 @@ class DniWidget extends StatelessWidget {
                     CircleAvatar(
                       radius: 40,
                       foregroundColor: colors.infoBox,
-                      backgroundImage: const NetworkImage('https://cdn-icons-png.flaticon.com/512/3135/3135768.png'),
+                      backgroundImage: const AssetImage('assets/image-user.png'),
                     ),
                     Expanded(
                       child: SectionWidget(
@@ -53,7 +53,7 @@ class DniWidget extends StatelessWidget {
                 TextItemWidget(title: 'Correo:', text: stateLogin.correo),
                 TextItemWidget(title: 'Teléfono:', text: stateLogin.telefono),
                 TextItemWidget(title: 'Rol:', text: stateLogin.rol),
-                TextItemWidget(title: 'Ingreso:', text: stateLogin.ingreso),
+                TextItemWidget(title: 'Ingreso:', text: stateLogin.ingreso.split('T').first),
               ],
             ),
           ),
