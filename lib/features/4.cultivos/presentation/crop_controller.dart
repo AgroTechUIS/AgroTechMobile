@@ -7,9 +7,7 @@ import '../domain/use_cases/get_crop_use_case_impl.dart';
 import 'crop_state.dart';
 
 class CropController extends StateNotifier<CropState> {
-  CropController(this.getCropUseCaseImpl) : super(CropState()) {
-    getListCrop('jorgesandoval529@gmail.com');
-  }
+  CropController(this.getCropUseCaseImpl) : super(CropState()) {}
 
   // Use cases
   final GetCropUseCaseImpl getCropUseCaseImpl;
@@ -27,7 +25,7 @@ class CropController extends StateNotifier<CropState> {
     final nombreLowerCase =
         nombre.toLowerCase(); // Convertir el nombre a minúsculas
     return state.cultivos
-        .any((cultivo) => cultivo.name.toLowerCase() == nombreLowerCase);
+        .any((cultivo) => cultivo.name!.toLowerCase() == nombreLowerCase);
   }
 
   bool existeCultivoEConNombre(String nombre, CropResponseModel cultivoEditar) {
@@ -37,7 +35,7 @@ class CropController extends StateNotifier<CropState> {
         .where((cultivo) =>
             cultivo.id !=
             cultivoEditar.id) // Excluir la plaga que estás editando por su ID
-        .any((cultivo) => cultivo.name.toLowerCase() == nombreLowerCase);
+        .any((cultivo) => cultivo.name!.toLowerCase() == nombreLowerCase);
   }
 
   void updateCrop(CropResponseModel? cultivo) {
@@ -51,10 +49,10 @@ class CropController extends StateNotifier<CropState> {
       id: savedCultivos!.id,
       name: savedCultivos.name ?? '',
       description: savedCultivos.description ?? '',
-      variety: savedCultivos.variety ?? '',
-      plantPlanted: savedCultivos.plantPlanted ?? 0,
-      plantingDate: savedCultivos.plantingDate ?? DateTime.now(),
-      usuario: savedCultivos.usuario ?? null,
+      cantidadSemillas: savedCultivos.cantidadSemillas ?? 0,
+      costoSemillas: savedCultivos.costoSemillas ?? 0,
+      //plantingDate: savedCultivos.plantingDate ?? DateTime.now(),
+      //usuario: savedCultivos.usuario ?? null,
     );
 
     var resp = await getCropUseCaseImpl.saveCrop(savedCultivo);
@@ -71,15 +69,16 @@ class CropController extends StateNotifier<CropState> {
       throw Exception("Los argumentos no pueden ser nulos.");
     }
     CropResponseModel updatedInitialCultivo = CropResponseModel(
-        id: updatedCultivos.id ?? initialCultivo.id,
-        name: updatedCultivos.name ?? initialCultivo.name,
-        description: updatedCultivos.description ?? initialCultivo.description,
-        variety: updatedCultivos.variety ?? initialCultivo.variety,
-        plantPlanted:
-            updatedCultivos.plantPlanted ?? initialCultivo.plantPlanted,
-        plantingDate:
-            updatedCultivos.plantingDate ?? initialCultivo.plantingDate,
-        usuario: updatedCultivos.usuario ?? initialCultivo.usuario);
+      id: updatedCultivos.id ?? initialCultivo.id,
+      name: updatedCultivos.name ?? initialCultivo.name,
+      description: updatedCultivos.description ?? initialCultivo.description,
+      cantidadSemillas:
+          updatedCultivos.cantidadSemillas ?? initialCultivo.cantidadSemillas,
+      costoSemillas:
+          updatedCultivos.costoSemillas ?? initialCultivo.costoSemillas,
+      //plantingDate: updatedCultivos.plantingDate ?? initialCultivo.plantingDate,
+      //usuario: updatedCultivos.usuario ?? initialCultivo.usuario
+    );
 
     var resp = await getCropUseCaseImpl.updateCrop(updatedInitialCultivo);
 
@@ -89,10 +88,10 @@ class CropController extends StateNotifier<CropState> {
     return resp;
   }
 
-  Future<List<CropResponseModel>?> getListCrop(String userEmail) async {
+  Future<List<CropResponseModel>?> getListCrop(int idEmpresa) async {
     // condicion: si hay internet consulte el servicio
 
-    var resp = await getCropUseCaseImpl.getListCrops(userEmail: userEmail);
+    var resp = await getCropUseCaseImpl.getListCrops(idEmpresa: idEmpresa);
     state = state.copyWith(cultivos: resp);
     return resp;
   }

@@ -2,7 +2,7 @@ import 'package:agrotech/features/4.cultivos/data/network/crop_service.dart';
 import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
 
 abstract class CropRepository {
-  Future<Map<String, dynamic>> getCropsByEmail(String userEmail); // ??
+  Future<Map<String, dynamic>> getCropsByEmail(int idEmpresa); // ??
 
   Future<String> deleteCropsById(int? idCrop);
 
@@ -16,9 +16,9 @@ class CropRepositoryImpl implements CropRepository {
   CropRepositoryImpl(this.cropService);
 
   @override
-  Future<Map<String, dynamic>> getCropsByEmail(String userEmail) async {
+  Future<Map<String, dynamic>> getCropsByEmail(int idEmpresa) async {
     try {
-      final cropData = await cropService.getCrops(userEmail: userEmail);
+      final cropData = await cropService.getCrops(idEmpresa: idEmpresa);
       if (cropData.success) {
         return cropData.body ?? {};
       } else {

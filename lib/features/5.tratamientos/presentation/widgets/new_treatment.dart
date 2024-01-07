@@ -1,5 +1,6 @@
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../domain/models/treatment_model.dart';
+import '../../domain/models/treatment_response_model.dart';
 import 'my_buttom.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,12 +8,14 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class NewTreatment extends StatefulWidget {
-  void Function(TreatmentModel)? onSave;
+  void Function(TreatmentResponseModel)? onSave;
   VoidCallback? onCancel;
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController instruccionesController = TextEditingController();
+  final TextEditingController formController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
+  final TextEditingController observationController = TextEditingController();
 
   NewTreatment({super.key, this.onSave, this.onCancel});
   @override
@@ -64,6 +67,23 @@ class _NewTreatmentState extends State<NewTreatment> {
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 label: const Text("Descripcion "),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 12),
+            TextField(
+              controller: widget.formController,
+              keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                label: const Text("Form "),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -129,10 +149,10 @@ class _NewTreatmentState extends State<NewTreatment> {
             ),
             SizedBox(height: 12),
             TextField(
-              controller: widget.instruccionesController,
+              controller: widget.observationController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                label: const Text("Instrucciones"),
+                label: const Text("Observación"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -263,16 +283,18 @@ class _NewTreatmentState extends State<NewTreatment> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      TreatmentModel nuevoTratamiento = TreatmentModel(
-                          id: 0, // Asigna el ID adecuado
-                          name: widget.nombreController.text,
-                          description: widget.descripcionController.text,
-                          state: selectedValue,
-                          instructions: widget.instruccionesController.text,
-                          initialDate: DateUtils.dateOnly(date1 as DateTime),
-                          finalDate: DateUtils.dateOnly(date2 as DateTime)
-                          //appareceDate: DateUtils.dateOnly(date as DateTime),
-                          );
+                      TreatmentResponseModel nuevoTratamiento =
+                          TreatmentResponseModel(
+                        id: 0, // Asigna el ID adecuado
+                        name: widget.nombreController.text,
+                        description: widget.descripcionController.text,
+                        state: selectedValue,
+                        form: widget.formController.text,
+                        observation: widget.observationController.text,
+                        dateStart: DateUtils.dateOnly(date1 as DateTime),
+                        dateEnd: DateUtils.dateOnly(date2 as DateTime),
+                        // pest
+                      );
                       widget.onSave!(nuevoTratamiento);
                     },
                     color: colors.green2,

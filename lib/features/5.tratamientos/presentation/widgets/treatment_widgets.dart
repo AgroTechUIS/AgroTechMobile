@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/spacer.dart';
 
 import '../../domain/models/treatment_model.dart';
+import '../../domain/models/treatment_response_model.dart';
 
 class TreatmentWidget extends StatelessWidget {
-  final TreatmentModel tratamiento;
+  final TreatmentResponseModel tratamiento;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete;
   TreatmentWidget(
@@ -78,6 +79,26 @@ class TreatmentWidget extends StatelessWidget {
               ),
             ]),
             SizedBox(height: 8.0),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Form: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  tratamiento.form ?? '',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
+            ]),
+            SizedBox(height: 8.0),
             // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
@@ -101,7 +122,7 @@ class TreatmentWidget extends StatelessWidget {
             SizedBox(height: 8.0),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Instrucciones: ',
+                'Observación: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -110,7 +131,7 @@ class TreatmentWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  tratamiento.instructions ?? '',
+                  tratamiento.observation ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -130,7 +151,7 @@ class TreatmentWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${tratamiento.initialDate!.year}-${tratamiento.initialDate!.month}-${tratamiento.initialDate!.day}',
+                  '${tratamiento.dateStart!.year}-${tratamiento.dateStart!.month}-${tratamiento.dateStart!.day}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -150,7 +171,7 @@ class TreatmentWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${tratamiento.finalDate!.year}-${tratamiento.finalDate!.month}-${tratamiento.finalDate!.day}',
+                  '${tratamiento.dateEnd!.year}-${tratamiento.dateEnd!.month}-${tratamiento.dateEnd!.day}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],

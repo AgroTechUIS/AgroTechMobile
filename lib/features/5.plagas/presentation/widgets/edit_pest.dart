@@ -31,9 +31,9 @@ class EditPest extends StatefulWidget {
 
 class _editPestState extends State<EditPest> {
   final List<String> items = [
-    'Baja precencia',
-    'Precencia moderada',
-    'Alta precencia',
+    'Baja presencia',
+    'Presencia moderada',
+    'Alta presencia',
     'Controlada',
   ];
   late DateTime appareceDate;
@@ -228,21 +228,24 @@ class _editPestState extends State<EditPest> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey, // Puedes personalizar el color del borde aquí
+                        color: Colors
+                            .grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder.none, // Elimina el borde de InputDecorator
+                        border: InputBorder
+                            .none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${appareceDate.day} / ${appareceDate.month} / ${appareceDate.year}',
                           style: TextStyle(
-                            color: colors.black, // Puedes personalizar el color del texto aquí
+                            color: colors
+                                .black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),

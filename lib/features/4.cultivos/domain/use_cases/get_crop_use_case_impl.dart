@@ -3,7 +3,7 @@ import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.d
 import '../../data/network/crop_repository_impl.dart';
 
 abstract class GetCropUseCase {
-  Future<List<CropResponseModel>?> getListCrops({required String userEmail});
+  Future<List<CropResponseModel>?> getListCrops({required int idEmpresa});
 }
 
 class GetCropUseCaseImpl extends GetCropUseCase {
@@ -15,9 +15,9 @@ class GetCropUseCaseImpl extends GetCropUseCase {
 
   @override
   Future<List<CropResponseModel>?> getListCrops(
-      {required String userEmail}) async {
+      {required int idEmpresa}) async {
     try {
-      var cropData = await cropRepository.getCropsByEmail(userEmail);
+      var cropData = await cropRepository.getCropsByEmail(idEmpresa);
       List<CropResponseModel>? listCrops = [];
 
       for (var entry in cropData['crops']) {

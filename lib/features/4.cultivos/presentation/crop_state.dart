@@ -1,9 +1,10 @@
 import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
 
+import '../../3.opciones_supervisor/domain/models/crops_response_model.dart';
 import '../domain/models/crop_response_model.dart';
 
 class CropState {
-  final List<dynamic> cultivos;
+  final List<CropResponseModel> cultivos;
   CropResponseModel? selectedCropForEdit;
 
   CropState({
@@ -12,7 +13,7 @@ class CropState {
   });
 
   CropState copyWith({
-    List<dynamic>? cultivos,
+    List<CropResponseModel>? cultivos,
     CropResponseModel? selectedCropForEdit,
   }) {
     return CropState(

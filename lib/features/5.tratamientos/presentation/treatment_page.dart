@@ -1,3 +1,4 @@
+import 'package:agrotech/features/5.tratamientos/domain/models/treatment_response_model.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/widgets/edit_treatment.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/widgets/new_treatment.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/widgets/treatment_widgets.dart';
@@ -17,26 +18,26 @@ class TratamientosPage extends StatefulWidget {
 }
 
 class _TratamientosPageState extends State<TratamientosPage> {
-  List<TreatmentModel> listTreatments = [];
-  TreatmentModel? selectedTreatmentForEdit;
+  List<TreatmentResponseModel> listTreatments = [];
+  TreatmentResponseModel? selectedTreatmentForEdit;
 
-  void saveNewTreatment(TreatmentModel tratamiento) {
+  void saveNewTreatment(TreatmentResponseModel tratamiento) {
     setState(() {
       listTreatments.add(tratamiento);
     });
   }
 
-  void editTreatment(TreatmentModel tratamiento) {
+  void editTreatment(TreatmentResponseModel tratamiento) {
     selectedTreatmentForEdit = tratamiento;
     showDialog(
       context: context,
       builder: (context) {
         return EditTreatment(
           initialTratamiento: selectedTreatmentForEdit,
-          onSave: (EditTreatment) {
+          onSave: (editTreatment) {
             setState(() {
               listTreatments.remove(selectedTreatmentForEdit);
-              listTreatments.add(EditTreatment);
+              listTreatments.add(editTreatment);
             });
             Navigator.of(context).pop();
           },
@@ -51,7 +52,7 @@ class _TratamientosPageState extends State<TratamientosPage> {
     );
   }
 
-  void deleteTreatment(TreatmentModel tratamiento) {
+  void deleteTreatment(TreatmentResponseModel tratamiento) {
     setState(() {
       listTreatments.remove(tratamiento);
     });

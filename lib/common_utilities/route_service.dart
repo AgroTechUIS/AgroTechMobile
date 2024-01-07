@@ -3,8 +3,8 @@ import 'package:secure_shared_preferences/secure_shared_preferences.dart';
 class RouteService {
   /// Local Mockoon
   static const String protocol = "http";
-  static const String domain = "192.168.1.52";
-  static const String port = "3000"; //8080
+  //static const String domain = "192.168.1.52";
+  //static const String port = "3000"; //8080
 
   /// Ambiente Web
   //static const String protocol = "http";
@@ -18,8 +18,8 @@ class RouteService {
 
   /// Ambiente
   //static const String domain = "34.31.94.160";
-  //static const String port = "8080";
-  //static const String domain = "localhost";
+  static const String port = "8080";
+  static const String domain = "localhost";
 
   /// Ruta
   static const String routeService = "$protocol://$domain:$port";

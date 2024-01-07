@@ -26,16 +26,6 @@ class GetPestUseCaseImpl extends GetPestUseCase {
     } catch (e) {
       throw ('Error al obtener la lista de plagas: $e');
     }
-
-    /*var response = await pestService.getPestByCrop(idCrop: idCrop);
-
-    if (response.success) {
-      var listaPlagas = listplagaFromJson(response.body as List);
-
-      return listaPlagas;
-    } else {
-      return null;
-    }*/
   }
 
   @override

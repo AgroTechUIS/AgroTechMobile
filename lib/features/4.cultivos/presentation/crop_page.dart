@@ -1,3 +1,4 @@
+import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
 import 'package:agrotech/features/4.cultivos/domain/use_cases/get_crop_use_case_impl.dart';
 import 'package:agrotech/features/4.cultivos/presentation/crop_controller.dart';
@@ -5,17 +6,20 @@ import 'package:agrotech/features/4.cultivos/presentation/crop_state.dart';
 import 'package:agrotech/features/4.cultivos/presentation/widgets/crop_widgets.dart';
 import 'package:agrotech/features/4.cultivos/presentation/widgets/edit_crop.dart';
 import 'package:agrotech/features/4.cultivos/presentation/widgets/new_crop.dart';
+import 'package:agrotech/features/4.vistaPlay/presentation/vistaPlay_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
+import '../../1.login/presentation/login_controller.dart';
 import '../../5.plagas/presentation/pest_page.dart';
 import '../data/network/crop_repository_impl.dart';
 import '../data/network/crop_service.dart';
 
-final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+    GlobalKey<RefreshIndicatorState>();
 
 class CropPage extends ConsumerWidget {
   final ccase = GetCropUseCaseImpl(CropRepositoryImpl(CropService()));
@@ -38,7 +42,8 @@ class CropPage extends ConsumerWidget {
       builder: (context) {
         return NewCrop(
           onSave: (nuevoCultivo) {
-            bool existeCultivo = controller.existeCultivoConNombre(nuevoCultivo.name!);
+            bool existeCultivo =
+                controller.existeCultivoConNombre(nuevoCultivo.name!);
 
             if (existeCultivo) {
               Fluttertoast.showToast(
@@ -54,7 +59,8 @@ class CropPage extends ConsumerWidget {
                 msg: 'Cultivo creado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor:
+                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -68,7 +74,8 @@ class CropPage extends ConsumerWidget {
     );
   }
 
-  void editCrop(context, CropResponseModel cultivo, CropController controller, CropState state) {
+  void editCrop(context, CropResponseModel cultivo, CropController controller,
+      CropState state) {
     state.selectedCropForEdit = cultivo;
     showDialog(
       context: context,
@@ -79,7 +86,8 @@ class CropPage extends ConsumerWidget {
             final nca = await controller.updatesCrops(nc, cultivo);
 
             CropResponseModel cultivoModel = CropResponseModel.fromJson(nca);
-            bool existeCultivo = controller.existeCultivoEConNombre(cultivoModel.name!, cultivoModel);
+            bool existeCultivo = controller.existeCultivoEConNombre(
+                cultivoModel.name!, cultivoModel);
 
             if (existeCultivo) {
               Fluttertoast.showToast(
@@ -90,12 +98,13 @@ class CropPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.getListCrop("jorgesandoval529@gmail.com");
+              controller.getListCrop(1);
               Fluttertoast.showToast(
                 msg: 'Cultivo actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor:
+                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -109,8 +118,8 @@ class CropPage extends ConsumerWidget {
     );
   }
 
-  void playCrop() {
-    PlagasPage();
+  void playCrop(BuildContext context, int idCrop) {
+    context.pushRoute(VistaPlayPage(idCrop));
   }
 
   @override
@@ -127,7 +136,8 @@ class CropPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: EdgeInsets.only(
+                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(
@@ -169,7 +179,7 @@ class CropPage extends ConsumerWidget {
                     .map((e) => CropWidget(
                           cultivo: e,
                           onPlay: () {
-                            playCrop();
+                            playCrop(context, e.id!);
                           },
                           onEdit: () {
                             editCrop(context, e, controller, state);
