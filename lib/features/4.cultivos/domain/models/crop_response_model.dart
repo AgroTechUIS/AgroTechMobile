@@ -16,24 +16,25 @@ class CropResponseModel {
   final String? description;
   final int? cantidadSemillas;
   final int? costoSemillas;
-
+  final int? idEmpresa;
   // final UserEmail? usuario;
 
-  CropResponseModel({
-    this.id,
-    this.name,
-    this.description,
-    this.cantidadSemillas,
-    this.costoSemillas,
-    //this.usuario
-  });
+  CropResponseModel(
+      {this.id,
+      this.name,
+      this.description,
+      this.cantidadSemillas,
+      this.costoSemillas,
+      this.idEmpresa
+      //this.usuario
+      });
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "name": name,
         "description": description,
         "cantidad_semillas": cantidadSemillas,
         "costo_semillas": costoSemillas,
+        "empresa": idEmpresa
         // "plantingDate":
         //   "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
         //"usuario": usuario?.email
@@ -44,6 +45,7 @@ class CropResponseModel {
         "description": description,
         "cantidad_semillas": cantidadSemillas,
         "costo_semillas": costoSemillas,
+        "empresa": idEmpresa
         //   "plantingDate":
         //      "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
         //"usuario": usuario?.email
@@ -55,6 +57,7 @@ class CropResponseModel {
         description: json["description"],
         cantidadSemillas: json["cantidad_semillas"],
         costoSemillas: json["costo_semillas"],
+        //idEmpresa: json["empresa"]
         // plantingDate: DateTime.parse(json["plantingDate"]),
         // plantPlanted: int.parse(json["plantPlanted"]), // Convierte a cadena (string)
         // variety: json["variety"],

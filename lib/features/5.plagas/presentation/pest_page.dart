@@ -1,3 +1,5 @@
+import 'package:agrotech/common_utilities/context_extension.dart';
+import 'package:agrotech/features/4.cultivos/presentation/crop_controller.dart';
 import 'package:agrotech/features/5.plagas/data/network/pest_repository_impl.dart';
 import 'package:agrotech/features/5.plagas/data/network/pest_service.dart';
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
@@ -7,6 +9,7 @@ import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/edit_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/new_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/pest_widgets.dart';
+import 'package:agrotech/features/5.tratamientos/presentation/treatment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/services.dart';
@@ -22,8 +25,7 @@ class PlagasPage extends ConsumerWidget {
   //PlagaModel? selectedPlagaForEdit;
 
   //List<dynamic> lista = [];
-
-  final ccase = GetPestUseCaseImpl(PestRepositoryImpl(PestService()));
+  
 
   /*Future<List<PlagaResponseModel>> obtenerLista() async {
     try {
@@ -103,7 +105,10 @@ class PlagasPage extends ConsumerWidget {
     );
   }
 
-  void createNewPest(BuildContext context, PestController controller) {
+  void createNewPest(
+      BuildContext context, PestController controller, WidgetRef ref) {
+    var stateCrop = ref.watch(cropController);
+
     showDialog(
       context: context,
       builder: (context) {
@@ -121,7 +126,7 @@ class PlagasPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.savePests(nuevaPlaga);
+              controller.savePests(nuevaPlaga, stateCrop.idCrop);
               Fluttertoast.showToast(
                 msg: 'Plaga creada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -141,6 +146,10 @@ class PlagasPage extends ConsumerWidget {
     );
   }
 
+  void playTreatment(BuildContext context, int idPest) {
+    context.pushRoute(TratamientosPage(idPest));
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var state = ref.watch(pestController);
@@ -151,7 +160,7 @@ class PlagasPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => createNewPest(context, controller),
+        onPressed: () => createNewPest(context, controller, ref),
         child: const Icon(Icons.add),
       ),
       body: Column(
@@ -201,6 +210,9 @@ class PlagasPage extends ConsumerWidget {
                 children: state.plagas
                     .map((e) => PestWidget(
                           plaga: e,
+                          onTreatment: () {
+                            playTreatment(context, e.id!);
+                          },
                           onEdit: () {
                             editPest(context, e, controller, state);
                           },

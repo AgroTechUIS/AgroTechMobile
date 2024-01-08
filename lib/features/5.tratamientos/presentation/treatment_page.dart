@@ -4,77 +4,67 @@ import 'package:agrotech/features/5.tratamientos/presentation/widgets/new_treatm
 import 'package:agrotech/features/5.tratamientos/presentation/widgets/treatment_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
 import '../domain/models/treatment_model.dart';
 
-class TratamientosPage extends StatefulWidget {
-  @override
-  const TratamientosPage({super.key});
+class TratamientosPage extends ConsumerWidget {
+  TratamientosPage(this.idPest, {super.key});
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _TratamientosPageState createState() => _TratamientosPageState();
-}
+  final int idPest;
 
-class _TratamientosPageState extends State<TratamientosPage> {
   List<TreatmentResponseModel> listTreatments = [];
   TreatmentResponseModel? selectedTreatmentForEdit;
 
-  void saveNewTreatment(TreatmentResponseModel tratamiento) {
-    setState(() {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    void saveNewTreatment(TreatmentResponseModel tratamiento) {
       listTreatments.add(tratamiento);
-    });
-  }
+    }
 
-  void editTreatment(TreatmentResponseModel tratamiento) {
-    selectedTreatmentForEdit = tratamiento;
-    showDialog(
-      context: context,
-      builder: (context) {
-        return EditTreatment(
-          initialTratamiento: selectedTreatmentForEdit,
-          onSave: (editTreatment) {
-            setState(() {
+    void editTreatment(TreatmentResponseModel tratamiento) {
+      selectedTreatmentForEdit = tratamiento;
+      showDialog(
+        context: context,
+        builder: (context) {
+          return EditTreatment(
+            initialTratamiento: selectedTreatmentForEdit,
+            onSave: (editTreatment) {
               listTreatments.remove(selectedTreatmentForEdit);
               listTreatments.add(editTreatment);
-            });
-            Navigator.of(context).pop();
-          },
-          onCancel: () {
-            selectedTreatmentForEdit =
-                null; // Limpiar la variable temporal si se cancela
-            Navigator.of(context).pop();
-          },
-          // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
-        );
-      },
-    );
-  }
+              Navigator.of(context).pop();
+            },
+            onCancel: () {
+              selectedTreatmentForEdit =
+                  null; // Limpiar la variable temporal si se cancela
+              Navigator.of(context).pop();
+            },
+            // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
+          );
+        },
+      );
+    }
 
-  void deleteTreatment(TreatmentResponseModel tratamiento) {
-    setState(() {
+    void deleteTreatment(TreatmentResponseModel tratamiento) {
       listTreatments.remove(tratamiento);
-    });
-  }
+    }
 
-  void createNewTreatment() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return NewTreatment(
-          onSave: (nuevoTratamiento) {
-            saveNewTreatment(nuevoTratamiento);
-            Navigator.of(context).pop();
-          },
-          onCancel: () => Navigator.of(context).pop(),
-        );
-      },
-    );
-  }
+    void createNewTreatment() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return NewTreatment(
+            onSave: (nuevoTratamiento) {
+              saveNewTreatment(nuevoTratamiento);
+              Navigator.of(context).pop();
+            },
+            onCancel: () => Navigator.of(context).pop(),
+          );
+        },
+      );
+    }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(

@@ -3,6 +3,7 @@ import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
 import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
+import 'package:agrotech/features/5.products/presentation/product_page.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/treatment_page.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_page.dart';
 import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
@@ -42,14 +43,26 @@ class GestorOptions extends ConsumerWidget {
                   },
                 ),
                 MiniOptionWidget(
+                  title: 'Gestión de productos',
+                  iconRoute: 'assets/bill.svg',
+                  onTap: () {
+                    //async
+                    // await controller.getListCrop(stateLogin.idEmpresa);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProductPage()),
+                    );
+                  },
+                ),
+                /* MiniOptionWidget(
                   title: 'Tratamientos',
                   iconRoute: 'assets/agronomy.svg',
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const TratamientosPage()),
-                    );
+                          builder: (context) => TratamientosPage()),
+                    )
                   },
                   //goPage: TratamientosPage(),
                 ),
@@ -88,7 +101,7 @@ class GestorOptions extends ConsumerWidget {
                     );
                   },
                   //goPage: VariablesTPage(),
-                ),
+                ),;*/
               ],
             ),
           ),

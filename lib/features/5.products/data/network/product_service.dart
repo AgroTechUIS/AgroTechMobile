@@ -14,9 +14,9 @@ class ProductService {
         body: productModel.toJson());
   }
 
-  Future<HttpResponseModel> getProducts({required String userEmail}) async {
+  Future<HttpResponseModel> getProducts({required int idCrop}) async {
     final response = await clienthttp.get(
-        url: '${RouteService.routeService}/api/productos/$userEmail');
+        url: '${RouteService.routeService}/api/products/$idCrop');
 
     return response;
   }

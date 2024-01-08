@@ -1,4 +1,5 @@
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
+import 'package:agrotech/features/5.products/presentation/product_controller.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_page.dart';
 import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +30,7 @@ class VistaPlayOptions extends ConsumerWidget {
               children: [
                 MiniOptionWidget(
                     title: 'Plagas',
-                    iconRoute: 'assets/bill.svg',
+                    iconRoute: '/pest.svg',
                     onTap: () async {
                       await ref
                           .read(pestController.notifier)
@@ -41,8 +42,11 @@ class VistaPlayOptions extends ConsumerWidget {
                     }),
                 MiniOptionWidget(
                     title: 'Variables',
-                    iconRoute: 'assets/file.svg',
-                    onTap: () {
+                    iconRoute: 'assets/variable.svg',
+                    onTap: () async {
+                      await ref
+                          .read(productController.notifier)
+                          .getListProduct(idCrop);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -51,7 +55,7 @@ class VistaPlayOptions extends ConsumerWidget {
                     }),
                 MiniOptionWidget(
                     title: 'Medidas',
-                    iconRoute: 'assets/profits.svg',
+                    iconRoute: '/medicion.svg',
                     onTap: () {
                       Navigator.push(
                         context,

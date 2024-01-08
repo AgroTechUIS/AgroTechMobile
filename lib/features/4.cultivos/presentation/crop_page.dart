@@ -36,12 +36,15 @@ class CropPage extends ConsumerWidget {
     );
   }
 
-  void createNewCrop(BuildContext context, CropController controller) {
+  void createNewCrop(
+      BuildContext context, CropController controller, WidgetRef ref) {
+    var stateLogin = ref.watch(loginController);
+
     showDialog(
       context: context,
       builder: (context) {
         return NewCrop(
-          onSave: (nuevoCultivo) {
+          onSave: (nuevoCultivo) async {
             bool existeCultivo =
                 controller.existeCultivoConNombre(nuevoCultivo.name!);
 
@@ -54,7 +57,9 @@ class CropPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.saveCrops(nuevoCultivo);
+              controller.saveCrops(nuevoCultivo, stateLogin.idEmpresa);
+              Future.delayed(const Duration(milliseconds: 500));
+              await controller.getListCrop(stateLogin.idEmpresa);
               Fluttertoast.showToast(
                 msg: 'Cultivo creado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -75,7 +80,9 @@ class CropPage extends ConsumerWidget {
   }
 
   void editCrop(context, CropResponseModel cultivo, CropController controller,
-      CropState state) {
+      CropState state, WidgetRef ref) {
+    var stateLogin = ref.watch(loginController);
+
     state.selectedCropForEdit = cultivo;
     showDialog(
       context: context,
@@ -98,7 +105,7 @@ class CropPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.getListCrop(1);
+              await controller.getListCrop(stateLogin.idEmpresa);
               Fluttertoast.showToast(
                 msg: 'Cultivo actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -129,7 +136,7 @@ class CropPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => createNewCrop(context, controller),
+        onPressed: () => createNewCrop(context, controller, ref),
         child: const Icon(Icons.add),
       ),
       body: Column(
@@ -182,7 +189,7 @@ class CropPage extends ConsumerWidget {
                             playCrop(context, e.id!);
                           },
                           onEdit: () {
-                            editCrop(context, e, controller, state);
+                            editCrop(context, e, controller, state, ref);
                           },
                           onDelete: () {
                             deleteCrop(e, controller);

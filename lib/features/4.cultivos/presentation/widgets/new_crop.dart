@@ -180,12 +180,19 @@ class _NewCropState extends State<NewCrop> {
                       if (cantidadText.isNotEmpty) {
                         cantidadValue = int.tryParse(cantidadText);
                       }
+                      String costoText2 = widget.costoSemillasController.text;
+                      String cantidadText2 =
+                          widget.cantidadSemillasController.text;
 
                       CropResponseModel nuevoCultivo = CropResponseModel(
                         name: widget.nombreController.text,
                         description: widget.descripcionController.text,
-                        cantidadSemillas: cantidadValue,
-                        costoSemillas: costoValue,
+                        cantidadSemillas: cantidadText2.isNotEmpty
+                            ? int.parse(cantidadText2)
+                            : 0,
+                        costoSemillas: cantidadText2.isNotEmpty
+                            ? int.parse(costoText2)
+                            : 0,
                         //usuario: UserEmail(email: "jorgesandoval529@gmail.com"),
                       );
                       widget.onSave!(nuevoCultivo);

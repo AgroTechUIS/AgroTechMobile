@@ -4,6 +4,7 @@ import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 import 'package:agrotech/features/5.plagas/domain/use_cases/get_pest_use_case_impl.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:riverpod/riverpod.dart';
 
 class PestController extends StateNotifier<PestState> {
@@ -66,7 +67,8 @@ class PestController extends StateNotifier<PestState> {
         .any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
   }
 
-  void savePests(PlagaResponseModel? savedPlagas) async {
+  void savePests(PlagaResponseModel? savedPlagas, int idCrop) async {
+    debugPrint('$idCrop es el valor');
     PlagaResponseModel savedPlaga = PlagaResponseModel(
       id: savedPlagas!.id,
       name: savedPlagas.name ?? '',

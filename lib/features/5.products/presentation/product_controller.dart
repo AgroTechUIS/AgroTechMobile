@@ -7,9 +7,7 @@ import '../data/network/product_service.dart';
 import '../domain/use_cases/get_product_use_case_impl.dart';
 
 class ProductController extends StateNotifier<ProductState> {
-  ProductController(this.getProductUseCaseImpl) : super(ProductState()) {
-    getListProduct("jorgesandoval529@gmail.com");
-  }
+  ProductController(this.getProductUseCaseImpl) : super(ProductState()) {}
 
   // Use cases
   final GetProductUseCaseImpl getProductUseCaseImpl;
@@ -88,11 +86,8 @@ class ProductController extends StateNotifier<ProductState> {
     return resp;
   }
 
-  Future<List<ProductResponseModel>?> getListProduct(String userEmail) async {
-    // condicion: si hay internet consulte el servicio
-
-    var resp =
-        await getProductUseCaseImpl.getListProducts(userEmail: userEmail);
+  Future<List<ProductResponseModel>?> getListProduct(int idCrop) async {
+    var resp = await getProductUseCaseImpl.getListProducts(idCrop: idCrop);
     state = state.copyWith(productos: resp);
     return resp;
   }

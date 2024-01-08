@@ -4,10 +4,12 @@ import '../../3.opciones_supervisor/domain/models/crops_response_model.dart';
 import '../domain/models/crop_response_model.dart';
 
 class CropState {
+  final int idCrop;
   final List<CropResponseModel> cultivos;
   CropResponseModel? selectedCropForEdit;
 
   CropState({
+    this.idCrop = 0,
     this.cultivos = const [],
     this.selectedCropForEdit,
   });

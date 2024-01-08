@@ -44,16 +44,17 @@ class CropController extends StateNotifier<CropState> {
     state = state.copyWith(cultivos: temp, selectedCropForEdit: cultivo);
   }
 
-  void saveCrops(CropResponseModel? savedCultivos) async {
+  void saveCrops(CropResponseModel? savedCultivos, int idEmpresa) async {
     CropResponseModel savedCultivo = CropResponseModel(
-      id: savedCultivos!.id,
-      name: savedCultivos.name ?? '',
-      description: savedCultivos.description ?? '',
-      cantidadSemillas: savedCultivos.cantidadSemillas ?? 0,
-      costoSemillas: savedCultivos.costoSemillas ?? 0,
-      //plantingDate: savedCultivos.plantingDate ?? DateTime.now(),
-      //usuario: savedCultivos.usuario ?? null,
-    );
+        id: savedCultivos!.id,
+        name: savedCultivos.name ?? '',
+        description: savedCultivos.description ?? '',
+        cantidadSemillas: savedCultivos.cantidadSemillas ?? 0,
+        costoSemillas: savedCultivos.costoSemillas ?? 0,
+        idEmpresa: idEmpresa
+        //plantingDate: savedCultivos.plantingDate ?? DateTime.now(),
+        //usuario: savedCultivos.usuario ?? null,
+        );
 
     var resp = await getCropUseCaseImpl.saveCrop(savedCultivo);
 
