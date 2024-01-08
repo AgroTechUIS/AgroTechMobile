@@ -3,7 +3,7 @@ import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
 import '../domain/models/pest_response_model.dart';
 
 class PestState {
-  final List<dynamic> plagas;
+  final List<PlagaResponseModel> plagas;
   PlagaResponseModel? selectedPlagaForEdit;
 
   PestState({
@@ -12,7 +12,7 @@ class PestState {
   });
 
   PestState copyWith({
-    List<dynamic>? plagas,
+    List<PlagaResponseModel>? plagas,
     PlagaResponseModel? selectedPlagaForEdit,
   }) {
     return PestState(

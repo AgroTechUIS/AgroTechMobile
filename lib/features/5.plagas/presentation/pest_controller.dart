@@ -4,11 +4,12 @@ import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 import 'package:agrotech/features/5.plagas/domain/use_cases/get_pest_use_case_impl.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:riverpod/riverpod.dart';
 
 class PestController extends StateNotifier<PestState> {
   PestController(this.getPestUseCaseImpl) : super(PestState()) {
-    getListPest(1);
+    //getListPest();
     //updatesPests(state.plagas);
   }
 
@@ -18,7 +19,7 @@ class PestController extends StateNotifier<PestState> {
   Future<List<PlagaResponseModel>> getListPest(int crop) async {
     // condicion: si hay internet consulte el servicio
 
-    var resp = await getPestUseCaseImpl.getListPest(idCrop: 1);
+    var resp = await getPestUseCaseImpl.getListPest(idCrop: crop);
     state = state.copyWith(plagas: resp);
     return resp;
   }
@@ -53,7 +54,7 @@ class PestController extends StateNotifier<PestState> {
     final nombreLowerCase =
         nombre.toLowerCase(); // Convertir el nombre a minúsculas
     return state.plagas
-        .any((plaga) => plaga.name.toLowerCase() == nombreLowerCase);
+        .any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
   }
 
   bool existePlagaEConNombre(String nombre, PlagaResponseModel plagaEditar) {
@@ -63,7 +64,7 @@ class PestController extends StateNotifier<PestState> {
         .where((plaga) =>
             plaga.id !=
             plagaEditar.id) // Excluir la plaga que estás editando por su ID
-        .any((plaga) => plaga.name.toLowerCase() == nombreLowerCase);
+        .any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
   }
 
   void savePests(PlagaResponseModel? savedPlagas) async {
@@ -110,7 +111,7 @@ class PestController extends StateNotifier<PestState> {
   void edit(PlagaResponseModel? plaga) {
     var temp = state.plagas;
     temp.remove(state.selectedPlagaForEdit);
-    temp.add(plaga);
+    temp.add(plaga!);
     state = state.copyWith(plagas: temp);
   }
 }

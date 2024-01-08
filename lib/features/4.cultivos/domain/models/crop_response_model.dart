@@ -14,55 +14,65 @@ class CropResponseModel {
   final int? id;
   final String? name;
   final String? description;
-  final String? variety;
-  final int? plantPlanted;
-  final DateTime? plantingDate;
-  final UserEmail? usuario;
+  final int? cantidadSemillas;
+  final int? costoSemillas;
+  final int? idEmpresa;
+  final String? idPlanta;
+  // final UserEmail? usuario;
 
   CropResponseModel(
       {this.id,
       this.name,
       this.description,
-      this.plantingDate,
-      this.plantPlanted,
-      this.variety,
-      this.usuario});
+      this.cantidadSemillas,
+      this.costoSemillas,
+      this.idEmpresa,
+      this.idPlanta
+      //this.usuario
+      });
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "name": name,
         "description": description,
-        "plantPlanted": plantPlanted,
-        "variety": variety,
-        "plantingDate":
-            "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
-        "usuario": usuario?.email
+        "cantidad_semillas": cantidadSemillas,
+        "costo_semillas": costoSemillas,
+        "empresa": idEmpresa,
+        "plant": idPlanta
+        // "plantingDate":
+        //   "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
+        //"usuario": usuario?.email
       };
   Map<String, dynamic> toJsonEdit() => {
         "id": id,
         "name": name,
         "description": description,
-        "variety": variety,
-        "plantPlanted": plantPlanted,
-        "plantingDate":
-            "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
+        "cantidad_semillas": cantidadSemillas,
+        "costo_semillas": costoSemillas,
+        "empresa": idEmpresa,
+        "plant": idPlanta
+
+        //   "plantingDate":
+        //      "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
         //"usuario": usuario?.email
       };
   factory CropResponseModel.fromJson(Map<String, dynamic> json) =>
       CropResponseModel(
-          id: json["id"],
-          name: json["name"],
-          description: json["description"],
-          plantingDate: DateTime.parse(json["plantingDate"]),
-          plantPlanted:
-              int.parse(json["plantPlanted"]), // Convierte a cadena (string)
-          variety: json["variety"],
-          usuario: json["usuario"] == null
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        cantidadSemillas: json["cantidad_semillas"],
+        costoSemillas: json["costo_semillas"],
+        //idEmpresa: json["empresa"]
+        // plantingDate: DateTime.parse(json["plantingDate"]),
+        // plantPlanted: int.parse(json["plantPlanted"]), // Convierte a cadena (string)
+        // variety: json["variety"],
+        /* usuario: json["usuario"] == null
               ? null
               : UserEmail.fromJson({
                   "id": json["usuario"]["id"],
                   "email": json["usuario"]["email"],
-                }));
+                })*/
+      );
 }
 
 class UserEmail {

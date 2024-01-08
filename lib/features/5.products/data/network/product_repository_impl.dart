@@ -1,7 +1,7 @@
 import 'package:agrotech/features/5.products/data/network/product_service.dart';
 
 abstract class ProductRepository {
-  Future<Map<String, dynamic>> getProductsByEmail(String userEmail); // ??
+  Future<Map<String, dynamic>> getProductsByEmpresa(int idCrop); // ??
 
   Future<String> deleteProductsById(int? productId);
 
@@ -17,10 +17,9 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl(this.productService);
 
   @override
-  Future<Map<String, dynamic>> getProductsByEmail(String userEmail) async {
+  Future<Map<String, dynamic>> getProductsByEmpresa(int idCrop) async {
     try {
-      final productData =
-          await productService.getProducts(userEmail: userEmail);
+      final productData = await productService.getProducts(idCrop: idCrop);
       if (productData.success) {
         return productData.body ?? {};
       } else {

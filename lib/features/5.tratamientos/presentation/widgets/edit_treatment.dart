@@ -1,5 +1,6 @@
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../domain/models/treatment_model.dart';
+import '../../domain/models/treatment_response_model.dart';
 import 'my_buttom.dart';
 import 'package:flutter/material.dart';
 
@@ -7,13 +8,15 @@ import 'package:dropdown_button3/dropdown_button3.dart';
 
 // ignore: must_be_immutable
 class EditTreatment extends StatefulWidget {
-  void Function(TreatmentModel)? onSave;
+  void Function(TreatmentResponseModel)? onSave;
   VoidCallback? onCancel;
-  TreatmentModel? initialTratamiento;
+  TreatmentResponseModel? initialTratamiento;
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController instruccionesController = TextEditingController();
+  final TextEditingController formController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
+  final TextEditingController observationController = TextEditingController();
 
   String? selectedValue;
 
@@ -24,7 +27,9 @@ class EditTreatment extends StatefulWidget {
       required this.initialTratamiento}) {
     nombreController.text = initialTratamiento?.name ?? '';
     descripcionController.text = initialTratamiento?.description ?? '';
-    instruccionesController.text = initialTratamiento?.instructions ?? '';
+    formController.text = initialTratamiento?.form ?? '';
+    stateController.text = initialTratamiento?.state ?? '';
+    observationController.text = initialTratamiento?.observation ?? '';
   }
   @override
   _editTreatmentState createState() => _editTreatmentState();
@@ -73,6 +78,23 @@ class _editTreatmentState extends State<EditTreatment> {
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 label: const Text("Descripcion "),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 12),
+            TextField(
+              controller: widget.formController,
+              keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                label: const Text("Form "),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -138,10 +160,10 @@ class _editTreatmentState extends State<EditTreatment> {
             ),
             SizedBox(height: 12),
             TextField(
-              controller: widget.instruccionesController,
+              controller: widget.observationController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                label: const Text("Instrucciones"),
+                label: const Text("Observación"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -158,15 +180,14 @@ class _editTreatmentState extends State<EditTreatment> {
               onTap: () async {
                 fecha = showDatePicker(
                   context: context,
-                  initialDate:
-                      widget.initialTratamiento!.initialDate as DateTime,
+                  initialDate: widget.initialTratamiento!.dateStart as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
                 final selectedDate = await fecha;
                 if (selectedDate != null) {
                   setState(() {
-                    widget.initialTratamiento!.initialDate = selectedDate;
+                    widget.initialTratamiento!.dateStart = selectedDate;
                   });
                 }
               },
@@ -198,7 +219,7 @@ class _editTreatmentState extends State<EditTreatment> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${widget.initialTratamiento!.initialDate!.day} / ${widget.initialTratamiento!.initialDate!.month} / ${widget.initialTratamiento!.initialDate!.year}',
+                          '${widget.initialTratamiento!.dateStart!.day} / ${widget.initialTratamiento!.dateStart!.month} / ${widget.initialTratamiento!.dateStart!.year}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
@@ -217,14 +238,14 @@ class _editTreatmentState extends State<EditTreatment> {
               onTap: () async {
                 fecha2 = showDatePicker(
                   context: context,
-                  initialDate: widget.initialTratamiento!.finalDate as DateTime,
+                  initialDate: widget.initialTratamiento!.dateEnd as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
                 final selectedDate = await fecha2;
                 if (selectedDate != null) {
                   setState(() {
-                    widget.initialTratamiento!.finalDate = selectedDate;
+                    widget.initialTratamiento!.dateEnd = selectedDate;
                   });
                 }
               },
@@ -256,7 +277,7 @@ class _editTreatmentState extends State<EditTreatment> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${widget.initialTratamiento!.finalDate!.day} / ${widget.initialTratamiento!.finalDate!.month} / ${widget.initialTratamiento!.finalDate!.year}',
+                          '${widget.initialTratamiento!.dateEnd!.day} / ${widget.initialTratamiento!.dateEnd!.month} / ${widget.initialTratamiento!.dateEnd!.year}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
@@ -275,14 +296,17 @@ class _editTreatmentState extends State<EditTreatment> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      TreatmentModel nuevoTratamiento = TreatmentModel(
-                          id: 0, // Asigna el ID adecuado
-                          name: widget.nombreController.text,
-                          description: widget.descripcionController.text,
-                          state: selectedValue,
-                          instructions: widget.instruccionesController.text,
-                          initialDate: widget.initialTratamiento!.initialDate,
-                          finalDate: widget.initialTratamiento!.finalDate);
+                      TreatmentResponseModel nuevoTratamiento =
+                          TreatmentResponseModel(
+                              id: widget.initialTratamiento!
+                                  .id, // Asigna el ID adecuado
+                              name: widget.nombreController.text,
+                              description: widget.descripcionController.text,
+                              form: widget.formController.text,
+                              state: selectedValue,
+                              observation: widget.observationController.text,
+                              dateStart: widget.initialTratamiento!.dateStart,
+                              dateEnd: widget.initialTratamiento!.dateEnd);
                       widget.onSave!(nuevoTratamiento);
                     },
                     color: colors.green2,

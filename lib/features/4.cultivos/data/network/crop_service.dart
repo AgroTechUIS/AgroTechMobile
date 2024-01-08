@@ -13,9 +13,16 @@ class CropService {
         url: '${RouteService.routeService}/crops', body: cropModel.toJson());
   }
 
-  Future<HttpResponseModel> getCrops({required String userEmail}) async {
+  Future<HttpResponseModel> getCrops({required int idEmpresa}) async {
     final response = await clienthttp.get(
-        url: '${RouteService.routeService}/api/crop/$userEmail');
+        url: '${RouteService.routeService}/api/crop/$idEmpresa');
+
+    return response;
+  }
+
+  Future<HttpResponseModel> getPlants() async {
+    final response = await clienthttp.get(
+        url: '${RouteService.routeService}/api/plantas/all');
 
     return response;
   }

@@ -96,7 +96,7 @@ class ProductPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.getListProduct("all");
+              // controller.getListProduct();
               Fluttertoast.showToast(
                 msg: 'Producto actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,

@@ -3,8 +3,7 @@ import 'package:agrotech/features/5.products/domain/models/product_response_mode
 import '../../data/network/product_repository_impl.dart';
 
 abstract class GetProductUseCase {
-  Future<List<ProductResponseModel>?> getListProducts(
-      {required String userEmail});
+  Future<List<ProductResponseModel>?> getListProducts({required int idCrop});
 }
 
 class GetProductUseCaseImpl extends GetProductUseCase {
@@ -16,9 +15,9 @@ class GetProductUseCaseImpl extends GetProductUseCase {
 
   @override
   Future<List<ProductResponseModel>?> getListProducts(
-      {required String userEmail}) async {
+      {required int idCrop}) async {
     try {
-      var productData = await productRepository.getProductsByEmail(userEmail);
+      var productData = await productRepository.getProductsByEmpresa(idCrop);
       List<ProductResponseModel>? listProducts = [];
 
       for (var entry in productData['products']) {

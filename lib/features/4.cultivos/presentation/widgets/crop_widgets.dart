@@ -1,4 +1,5 @@
 // ignore: must_be_immutable
+import 'package:agrotech/features/4.vistaPlay/presentation/vistaPlay_page.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class CropWidget extends StatelessWidget {
               ),
             ]),
             SizedBox(height: 8.0),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            /*Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 'Fecha de cultivación: ',
                 style: TextStyle(
@@ -91,7 +92,7 @@ class CropWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción */
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 'Plantas sembradas: ',
@@ -103,7 +104,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.plantPlanted.toString(),
+                  cultivo.cantidadSemillas.toString(),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -123,7 +124,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.variety ?? '',
+                  cultivo.costoSemillas.toString() ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -133,18 +134,32 @@ class CropWidget extends StatelessWidget {
             ]),
 
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Planta: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  cultivo.cantidadSemillas.toString(),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
+            ]),
+            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
 
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 FloatingActionButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => PlagasPage(),
-                      ),
-                    );
-                  },
+                  onPressed: onPlay,
                   backgroundColor: Colors.yellow,
                   child: Icon(Icons.play_arrow),
                 ),

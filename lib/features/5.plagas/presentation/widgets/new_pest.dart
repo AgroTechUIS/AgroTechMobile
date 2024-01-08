@@ -24,9 +24,9 @@ class NewPest extends StatefulWidget {
 
 class _NewPestState extends State<NewPest> {
   final List<String> items = [
-    'Baja precencia',
-    'Precencia moderada',
-    'Alta precencia',
+    'Baja presencia',
+    'Presencia moderada',
+    'Alta presencia',
     'Controlada',
   ];
   String? selectedValue;
@@ -212,21 +212,24 @@ class _NewPestState extends State<NewPest> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey, // Puedes personalizar el color del borde aquí
+                        color: Colors
+                            .grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: InputDecoration(
-                        border: InputBorder.none, // Elimina el borde de InputDecorator
+                        border: InputBorder
+                            .none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${date!.day} / ${date!.month} / ${date!.year}',
                           style: TextStyle(
-                            color: colors.black, // Puedes personalizar el color del texto aquí
+                            color: colors
+                                .black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -251,13 +254,16 @@ class _NewPestState extends State<NewPest> {
                         pestFamily: widget.familiaController.text,
                         stateTratment: null,
                         adjuntoDto: null,
-                        crop: 18,
                       );
                       widget.onSave!(nuevaPlaga);
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
+                MyButton(
+                    text: "Cerrar",
+                    onPressed: widget.onCancel,
+                    color: colors.white,
+                    textColor: colors.textColor),
               ],
             )
           ],

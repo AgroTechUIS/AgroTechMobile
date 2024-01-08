@@ -13,8 +13,9 @@ class EditCrop extends StatefulWidget {
   CropResponseModel? initialCrop;
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController variedadController = TextEditingController();
-  final TextEditingController plantedsController = TextEditingController();
+  final TextEditingController cantidadSemillasController =
+      TextEditingController();
+  final TextEditingController costoSemillasController = TextEditingController();
 
   EditCrop({
     super.key,
@@ -24,8 +25,9 @@ class EditCrop extends StatefulWidget {
   }) {
     nombreController.text = initialCrop?.name ?? '';
     descripcionController.text = initialCrop?.description ?? '';
-    variedadController.text = initialCrop?.variety ?? '';
-    plantedsController.text = initialCrop?.plantPlanted?.toString() ?? '';
+    cantidadSemillasController.text =
+        initialCrop?.cantidadSemillas.toString() ?? '';
+    costoSemillasController.text = initialCrop?.costoSemillas?.toString() ?? '';
   }
 
   @override
@@ -40,7 +42,7 @@ class _editPestState extends State<EditCrop> {
   void initState() {
     super.initState();
 
-    plantingDate = widget.initialCrop!.plantingDate ?? DateTime.now();
+    // plantingDate = widget.initialCrop!.plantingDate ?? DateTime.now();
   }
 
   late Future<DateTime?> fecha;
@@ -89,10 +91,10 @@ class _editPestState extends State<EditCrop> {
             ),
             SizedBox(height: 12),
             TextField(
-              controller: widget.variedadController,
-              keyboardType: TextInputType.text,
+              controller: widget.cantidadSemillasController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                label: const Text("Variedad"),
+                label: const Text("Cantidad de semillas"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -105,7 +107,23 @@ class _editPestState extends State<EditCrop> {
               ),
             ),
             SizedBox(height: 12),
-            InkWell(
+            TextField(
+              controller: widget.costoSemillasController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                label: const Text("Costo de semillas"),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+            /*InkWell(
               onTap: () async {
                 var selectedDate = await showDatePicker(
                   context: context,
@@ -156,24 +174,8 @@ class _editPestState extends State<EditCrop> {
                   ),
                 ],
               ),
-            ),
+            ),*/
             SizedBox(height: 12),
-            TextField(
-              controller: widget.plantedsController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                label: const Text("Cantidad de plantas sembradas"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,18 +183,23 @@ class _editPestState extends State<EditCrop> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      int? cantidadPlantasSembradas =
-                          int.tryParse(widget.plantedsController.text);
+                      int? cantidadSemillas =
+                          int.tryParse(widget.cantidadSemillasController.text);
+
+                      int? costoSemillas =
+                          int.tryParse(widget.costoSemillasController.text);
 
                       CropResponseModel nuevoCultivo = CropResponseModel(
-                          id: widget.initialCrop?.id,
-                          name: widget.nombreController.text,
-                          description: widget.descripcionController.text,
-                          plantingDate: plantingDate,
-                          plantPlanted: cantidadPlantasSembradas ??
+                        id: widget.initialCrop?.id,
+                        name: widget.nombreController.text,
+                        description: widget.descripcionController.text,
+                        cantidadSemillas: cantidadSemillas,
+                        costoSemillas: costoSemillas,
+                        /* ??
                               widget.initialCrop!.plantPlanted,
                           variety: widget.variedadController.text,
-                          usuario: widget.initialCrop!.usuario);
+                          usuario: widget.initialCrop!.usuario);*/
+                      );
 
                       widget.onSave!(nuevoCultivo);
                     },

@@ -1,31 +1,37 @@
 // ignore: must_be_immutable
+import 'package:agrotech/features/4.cultivos/domain/models/plant_model.dart';
+import 'package:agrotech/features/4.cultivos/presentation/crop_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../../5.cuidados/presentation/widgets/my_buttom.dart';
 import '../../domain/models/crop_response_model.dart';
 
-class NewCrop extends StatefulWidget {
+class NewCrop extends ConsumerStatefulWidget {
   void Function(CropResponseModel)? onSave;
   VoidCallback? onCancel;
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController variedadController = TextEditingController();
-  final TextEditingController plantedsController = TextEditingController();
+  final TextEditingController cantidadSemillasController =
+      TextEditingController();
+  final TextEditingController costoSemillasController = TextEditingController();
 
   NewCrop({super.key, this.onSave, this.onCancel});
   @override
   _NewCropState createState() => _NewCropState();
 }
 
-class _NewCropState extends State<NewCrop> {
+class _NewCropState extends ConsumerState<NewCrop> {
   DateTime? date = DateTime.now();
   late Future<DateTime?> fecha;
 
   @override
   Widget build(BuildContext context) {
+    var state = ref.watch(cropController);
+    var controller = ref.read(cropController.notifier);
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Text("Crea un nuevo cultivo"),
@@ -124,10 +130,10 @@ class _NewCropState extends State<NewCrop> {
             ),
             SizedBox(height: 12),
             TextField(
-              controller: widget.variedadController,
-              keyboardType: TextInputType.text,
+              controller: widget.cantidadSemillasController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                label: const Text("Variedad"),
+                label: const Text("Cantidad de semillas"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -141,7 +147,7 @@ class _NewCropState extends State<NewCrop> {
             ),
             SizedBox(height: 12),
             TextField(
-              controller: widget.plantedsController,
+              controller: widget.costoSemillasController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 label: const Text("Plantas sembradas"),
@@ -157,6 +163,23 @@ class _NewCropState extends State<NewCrop> {
               ),
             ),
             SizedBox(height: 12),
+            DropdownButton<PlantResponseModel>(
+              value: state.selectedPlant,
+              items: state.plants.map((PlantResponseModel item) {
+                return DropdownMenuItem<PlantResponseModel>(
+                  value: item,
+                  child: Row(
+                    children: [
+                      Text('${item.name}'),
+                    ],
+                  ),
+                );
+              }).toList(),
+              onChanged: (PlantResponseModel? newValue) {
+                if (newValue != null) controller.updatePlants(newValue);
+              },
+            ),
+            SizedBox(height: 12),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -164,19 +187,35 @@ class _NewCropState extends State<NewCrop> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      int? plantPlantedValue;
-                      String plantPlantedText =
-                          widget.plantedsController.value.toString();
+                      int? costoValue;
+                      String costoText =
+                          widget.costoSemillasController.value.toString();
 
-                      if (plantPlantedText.isNotEmpty) {
-                        plantPlantedValue = int.tryParse(plantPlantedText);
+                      if (costoText.isNotEmpty) {
+                        costoValue = int.tryParse(costoText);
                       }
+
+                      int? cantidadValue;
+                      String cantidadText =
+                          widget.cantidadSemillasController.value.toString();
+
+                      if (cantidadText.isNotEmpty) {
+                        cantidadValue = int.tryParse(cantidadText);
+                      }
+                      String costoText2 = widget.costoSemillasController.text;
+                      String cantidadText2 =
+                          widget.cantidadSemillasController.text;
+
                       CropResponseModel nuevoCultivo = CropResponseModel(
                         name: widget.nombreController.text,
                         description: widget.descripcionController.text,
-                        plantingDate: date,
-                        plantPlanted: plantPlantedValue,
-                        usuario: UserEmail(email: "jorgesandoval529@gmail.com"),
+                        cantidadSemillas: cantidadText2.isNotEmpty
+                            ? int.parse(cantidadText2)
+                            : 0,
+                        costoSemillas: cantidadText2.isNotEmpty
+                            ? int.parse(costoText2)
+                            : 0,
+                        //usuario: UserEmail(email: "jorgesandoval529@gmail.com"),
                       );
                       widget.onSave!(nuevoCultivo);
                     },

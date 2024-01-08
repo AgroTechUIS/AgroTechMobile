@@ -1,23 +1,33 @@
+import 'package:agrotech/features/4.cultivos/domain/models/plant_model.dart';
 import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
 
+import '../../3.opciones_supervisor/domain/models/crops_response_model.dart';
 import '../domain/models/crop_response_model.dart';
 
 class CropState {
-  final List<dynamic> cultivos;
+  final List<CropResponseModel> cultivos;
+  final List<PlantResponseModel> plants;
   CropResponseModel? selectedCropForEdit;
 
-  CropState({
-    this.cultivos = const [],
-    this.selectedCropForEdit,
-  });
+  PlantResponseModel? selectedPlant;
+
+  CropState(
+      {this.plants = const [],
+      this.cultivos = const [],
+      this.selectedCropForEdit,
+      this.selectedPlant});
 
   CropState copyWith({
-    List<dynamic>? cultivos,
+    List<CropResponseModel>? cultivos,
+    List<PlantResponseModel>? plants,
     CropResponseModel? selectedCropForEdit,
+    PlantResponseModel? selectedPlant,
   }) {
     return CropState(
       cultivos: cultivos ?? this.cultivos,
+      plants: plants ?? this.plants,
       selectedCropForEdit: selectedCropForEdit ?? this.selectedCropForEdit,
+      selectedPlant: selectedPlant ?? this.selectedPlant,
     );
   }
 }

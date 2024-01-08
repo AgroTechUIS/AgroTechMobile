@@ -1,51 +1,60 @@
 import 'dart:convert';
 
-List<TreatmentModel> treatmentFromJson(String str) => List<TreatmentModel>.from(
-    json.decode(str).map((x) => TreatmentModel.fromJson(x)));
+import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 
-String treatmentToJson(List<TreatmentModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+List<TreatmentModel> treatmentsFromJson(String str) =>
+    List<TreatmentModel>.from(
+        json.decode(str)['treatments'].map((x) => TreatmentModel.fromJson(x)));
 
-List<TreatmentModel> listtreatmentFromJson(List<dynamic> datos) =>
-    datos.map((e) => TreatmentModel.fromJson(e)).toList();
+String treatmentsToJson(List<TreatmentModel> data) => json
+    .encode({'treatments': List<dynamic>.from(data.map((x) => x.toJson()))});
 
 class TreatmentModel {
   int id;
   String? name;
   String? description;
+  String? form;
   String? state;
-  String? instructions;
-  DateTime? initialDate;
-  DateTime? finalDate;
+  String? observation;
+  DateTime? dateStart;
+  DateTime? dateEnd;
+  PlagaResponseModel? pest;
 
-  TreatmentModel(
-      {required this.id,
-      this.name,
-      this.description,
-      this.state,
-      this.instructions,
-      this.initialDate,
-      this.finalDate});
+  TreatmentModel({
+    required this.id,
+    this.name,
+    this.description,
+    this.form,
+    this.state,
+    this.observation,
+    this.dateStart,
+    this.dateEnd,
+    this.pest,
+  });
 
   factory TreatmentModel.fromJson(Map<String, dynamic> json) => TreatmentModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],
+        form: json["form"],
         state: json["state"],
-        instructions: json["observation"],
-        initialDate: DateTime.parse(json["appareceDate"]),
-        finalDate:
-            null, // You might need to modify this based on your data source
+        observation: json["observation"],
+        dateStart: DateTime.parse(json["date_start"]),
+        dateEnd: DateTime.parse(json["date_end"]),
+        pest: PlagaResponseModel.fromJson(json["pest"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "description": description,
+        "form": form,
         "state": state,
-        "observation": instructions, // Make sure to adjust this if needed
-        "appareceDate":
-            "${initialDate?.year.toString().padLeft(4, '0')}-${initialDate?.month.toString().padLeft(2, '0')}-${initialDate?.day.toString().padLeft(2, '0')}",
-        // Add other fields here if needed
+        "observation": observation,
+        "date_start":
+            "${dateStart?.year.toString().padLeft(4, '0')}-${dateStart?.month.toString().padLeft(2, '0')}-${dateStart?.day.toString().padLeft(2, '0')}",
+        "date_end":
+            "${dateEnd?.year.toString().padLeft(4, '0')}-${dateEnd?.month.toString().padLeft(2, '0')}-${dateEnd?.day.toString().padLeft(2, '0')}",
+        "pest": pest?.toJson(),
       };
 }
