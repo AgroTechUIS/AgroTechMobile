@@ -106,6 +106,7 @@ class CropPage extends ConsumerWidget {
               );
             } else {
               await controller.getListCrop(stateLogin.idEmpresa);
+              await controller.getListPlants();
               Fluttertoast.showToast(
                 msg: 'Cultivo actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,

@@ -67,8 +67,7 @@ class PestController extends StateNotifier<PestState> {
         .any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
   }
 
-  void savePests(PlagaResponseModel? savedPlagas, int idCrop) async {
-    debugPrint('$idCrop es el valor');
+  void savePests(PlagaResponseModel? savedPlagas) async {
     PlagaResponseModel savedPlaga = PlagaResponseModel(
       id: savedPlagas!.id,
       name: savedPlagas.name ?? '',

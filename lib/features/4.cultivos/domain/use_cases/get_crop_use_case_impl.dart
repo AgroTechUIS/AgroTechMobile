@@ -1,4 +1,5 @@
 import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
+import 'package:agrotech/features/4.cultivos/domain/models/plant_model.dart';
 
 import '../../data/network/crop_repository_impl.dart';
 
@@ -26,6 +27,20 @@ class GetCropUseCaseImpl extends GetCropUseCase {
       return listCrops;
     } catch (e) {
       throw ('Error al obtener la lista de cultivos: $e');
+    }
+  }
+
+  Future<List<PlantResponseModel>?> getListPlants() async {
+    try {
+      var cropData = await cropRepository.getPlants();
+      List<PlantResponseModel>? listPlants = [];
+
+      for (var entry in cropData['plants']) {
+        listPlants.add(PlantResponseModel.fromJson(entry));
+      }
+      return listPlants;
+    } catch (e) {
+      throw ('Error al obtener la lista de plantas: $e');
     }
   }
 

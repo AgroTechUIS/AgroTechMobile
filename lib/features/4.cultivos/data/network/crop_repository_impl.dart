@@ -3,6 +3,7 @@ import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.d
 
 abstract class CropRepository {
   Future<Map<String, dynamic>> getCropsByEmail(int idEmpresa); // ??
+  Future<Map<String, dynamic>> getPlants(); // ??
 
   Future<String> deleteCropsById(int? idCrop);
 
@@ -19,6 +20,19 @@ class CropRepositoryImpl implements CropRepository {
   Future<Map<String, dynamic>> getCropsByEmail(int idEmpresa) async {
     try {
       final cropData = await cropService.getCrops(idEmpresa: idEmpresa);
+      if (cropData.success) {
+        return cropData.body ?? {};
+      } else {
+        throw ('Error: Mal status');
+      }
+    } catch (e) {
+      throw ('Error al obtener datos de los cultivos: $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> getPlants() async {
+    try {
+      final cropData = await cropService.getPlants();
       if (cropData.success) {
         return cropData.body ?? {};
       } else {

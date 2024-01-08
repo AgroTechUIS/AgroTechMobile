@@ -1,12 +1,15 @@
 // ignore: must_be_immutable
+import 'package:agrotech/features/4.cultivos/domain/models/plant_model.dart';
+import 'package:agrotech/features/4.cultivos/presentation/crop_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../../5.cuidados/presentation/widgets/my_buttom.dart';
 import '../../domain/models/crop_response_model.dart';
 
-class NewCrop extends StatefulWidget {
+class NewCrop extends ConsumerStatefulWidget {
   void Function(CropResponseModel)? onSave;
   VoidCallback? onCancel;
 
@@ -21,12 +24,14 @@ class NewCrop extends StatefulWidget {
   _NewCropState createState() => _NewCropState();
 }
 
-class _NewCropState extends State<NewCrop> {
+class _NewCropState extends ConsumerState<NewCrop> {
   DateTime? date = DateTime.now();
   late Future<DateTime?> fecha;
 
   @override
   Widget build(BuildContext context) {
+    var state = ref.watch(cropController);
+    var controller = ref.read(cropController.notifier);
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Text("Crea un nuevo cultivo"),
@@ -156,6 +161,23 @@ class _NewCropState extends State<NewCrop> {
                   ),
                 ),
               ),
+            ),
+            SizedBox(height: 12),
+            DropdownButton<PlantResponseModel>(
+              value: state.selectedPlant,
+              items: state.plants.map((PlantResponseModel item) {
+                return DropdownMenuItem<PlantResponseModel>(
+                  value: item,
+                  child: Row(
+                    children: [
+                      Text('${item.name}'),
+                    ],
+                  ),
+                );
+              }).toList(),
+              onChanged: (PlantResponseModel? newValue) {
+                if (newValue != null) controller.updatePlants(newValue);
+              },
             ),
             SizedBox(height: 12),
             Divider(),

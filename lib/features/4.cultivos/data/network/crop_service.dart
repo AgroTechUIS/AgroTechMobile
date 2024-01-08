@@ -20,6 +20,13 @@ class CropService {
     return response;
   }
 
+  Future<HttpResponseModel> getPlants() async {
+    final response = await clienthttp.get(
+        url: '${RouteService.routeService}/api/plantas/all');
+
+    return response;
+  }
+
   Future<HttpResponseModel> saveCropData(Map<String, dynamic> cropData) async {
     final response = await clienthttp.post(
         url: '${RouteService.routeService}/api/crop', body: cropData);

@@ -1,4 +1,5 @@
 import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
+import 'package:agrotech/features/4.cultivos/domain/models/plant_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/network/crop_repository_impl.dart';
@@ -89,11 +90,23 @@ class CropController extends StateNotifier<CropState> {
     return resp;
   }
 
+  void updatePlants(PlantResponseModel plant) async {
+    state = state.copyWith(selectedPlant: plant);
+  }
+
   Future<List<CropResponseModel>?> getListCrop(int idEmpresa) async {
     // condicion: si hay internet consulte el servicio
 
     var resp = await getCropUseCaseImpl.getListCrops(idEmpresa: idEmpresa);
     state = state.copyWith(cultivos: resp);
+    return resp;
+  }
+
+  Future<List<PlantResponseModel>?> getListPlants() async {
+    // condicion: si hay internet consulte el servicio
+
+    var resp = await getCropUseCaseImpl.getListPlants();
+    state = state.copyWith(plants: resp);
     return resp;
   }
 }

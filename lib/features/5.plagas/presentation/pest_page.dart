@@ -25,7 +25,6 @@ class PlagasPage extends ConsumerWidget {
   //PlagaModel? selectedPlagaForEdit;
 
   //List<dynamic> lista = [];
-  
 
   /*Future<List<PlagaResponseModel>> obtenerLista() async {
     try {
@@ -126,7 +125,7 @@ class PlagasPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.savePests(nuevaPlaga, stateCrop.idCrop);
+              controller.savePests(nuevaPlaga);
               Fluttertoast.showToast(
                 msg: 'Plaga creada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,

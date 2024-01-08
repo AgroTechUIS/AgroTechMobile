@@ -17,6 +17,7 @@ class CropResponseModel {
   final int? cantidadSemillas;
   final int? costoSemillas;
   final int? idEmpresa;
+  final String? idPlanta;
   // final UserEmail? usuario;
 
   CropResponseModel(
@@ -25,7 +26,8 @@ class CropResponseModel {
       this.description,
       this.cantidadSemillas,
       this.costoSemillas,
-      this.idEmpresa
+      this.idEmpresa,
+      this.idPlanta
       //this.usuario
       });
 
@@ -34,7 +36,8 @@ class CropResponseModel {
         "description": description,
         "cantidad_semillas": cantidadSemillas,
         "costo_semillas": costoSemillas,
-        "empresa": idEmpresa
+        "empresa": idEmpresa,
+        "plant": idPlanta
         // "plantingDate":
         //   "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
         //"usuario": usuario?.email
@@ -45,7 +48,9 @@ class CropResponseModel {
         "description": description,
         "cantidad_semillas": cantidadSemillas,
         "costo_semillas": costoSemillas,
-        "empresa": idEmpresa
+        "empresa": idEmpresa,
+        "plant": idPlanta
+
         //   "plantingDate":
         //      "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
         //"usuario": usuario?.email
