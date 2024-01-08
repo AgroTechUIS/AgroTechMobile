@@ -49,7 +49,7 @@ class InformeHistoricoPage extends ConsumerWidget {
                                 title: '- \$${factura.total!.toInt()}',
                                 subtitle: '${actividad!.nombre}  -  N°${actividad.id}',
                                 content: [
-                                  'Factura: ${factura.numeroFactura}',
+                                  'Factura: ${factura.id}',
                                   'Encargado: ${actividad.obrero}',
                                   'Fecha: ${factura.fecha}',
                                 ],
@@ -60,7 +60,7 @@ class InformeHistoricoPage extends ConsumerWidget {
                                 title: '+ \$${factura.total!.toInt()}',
                                 subtitle: 'Venta  -  N°${factura.id}',
                                 content: [
-                                  'Factura: ${factura.numeroFactura}',
+                                  'Factura: ${factura.id}',
                                   'Fecha: ${factura.fecha}',
                                 ],
                                 subtitleColor: colors.green3,
@@ -70,7 +70,7 @@ class InformeHistoricoPage extends ConsumerWidget {
                                 title: '- \$${factura.total!.toInt()}',
                                 subtitle: 'Pago  -  N°${factura.id}',
                                 content: [
-                                  'Factura: ${factura.numeroFactura}',
+                                  'Factura: ${factura.id}',
                                   'Fecha: ${factura.fecha}',
                                 ],
                                 subtitleColor: colors.orange,

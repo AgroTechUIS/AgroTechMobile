@@ -357,7 +357,6 @@ class SupervisorController extends StateNotifier<SupervisorState> {
     if (value.isNotEmpty) {
       var filtered = history
           .where((objeto) =>
-              (objeto.numeroFactura ?? '').toLowerCase().contains(search) ||
               (objeto.tipo ?? '').toLowerCase().contains(search) ||
               (objeto.actividadObrero?.nombre ?? '').toLowerCase().contains(search) ||
               (objeto.total ?? 0).toString().contains(search))

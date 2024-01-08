@@ -3,7 +3,6 @@ import 'package:agrotech/features/3.opciones_supervisor/domain/models/buy_client
 
 class BillModel {
   int? id;
-  String? numeroFactura;
   DateTime? fecha;
   String? tipo;
   double? total;
@@ -13,7 +12,6 @@ class BillModel {
 
   BillModel({
     this.id,
-    this.numeroFactura,
     this.fecha,
     this.tipo,
     this.total,
@@ -24,7 +22,6 @@ class BillModel {
 
   BillModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
-    numeroFactura = json["numeroFactura"];
     fecha = DateTime.parse(json["fecha"]);
     tipo = json["tipo"];
     total = json["total"];
@@ -40,7 +37,6 @@ class BillModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data["id"] = id;
-    data["numeroFactura"] = numeroFactura;
     data["fecha"] = fecha.toString();
     data["tipo"] = tipo;
     data["total"] = total;

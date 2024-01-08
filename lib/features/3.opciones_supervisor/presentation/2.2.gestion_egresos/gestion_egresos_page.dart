@@ -51,7 +51,7 @@ class GestionEgresos extends ConsumerWidget {
                     return Column(
                       children: state.filterEgresos.map((actividad) {
                         return CardMovementWidget(
-                          numeroFactura: actividad.numeroFactura ?? 'Error',
+                          numeroFactura: '${actividad.id ?? 0}',
                           valor: actividad.total ?? 0,
                         );
                       }).toList(),
