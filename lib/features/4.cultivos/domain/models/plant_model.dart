@@ -10,10 +10,9 @@ class PlantResponseModel {
         "descripcion": description,
       };
 
-  factory PlantResponseModel.fromJson(Map<String, dynamic> json) =>
-      PlantResponseModel(
+  factory PlantResponseModel.fromJson(Map<String, dynamic> json) => PlantResponseModel(
         id: json["id"],
-        name: json["name"],
-        description: json["description"],
+        name: json["nombre"],
+        description: json["descripcion"],
       );
 }

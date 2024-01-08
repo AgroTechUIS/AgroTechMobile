@@ -13,8 +13,7 @@ class EditCrop extends StatefulWidget {
   CropResponseModel? initialCrop;
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController cantidadSemillasController =
-      TextEditingController();
+  final TextEditingController cantidadSemillasController = TextEditingController();
   final TextEditingController costoSemillasController = TextEditingController();
 
   EditCrop({
@@ -25,8 +24,7 @@ class EditCrop extends StatefulWidget {
   }) {
     nombreController.text = initialCrop?.name ?? '';
     descripcionController.text = initialCrop?.description ?? '';
-    cantidadSemillasController.text =
-        initialCrop?.cantidadSemillas.toString() ?? '';
+    cantidadSemillasController.text = initialCrop?.cantidadSemillas.toString() ?? '';
     costoSemillasController.text = initialCrop?.costoSemillas?.toString() ?? '';
   }
 
@@ -183,11 +181,9 @@ class _editPestState extends State<EditCrop> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      int? cantidadSemillas =
-                          int.tryParse(widget.cantidadSemillasController.text);
+                      int? cantidadSemillas = int.tryParse(widget.cantidadSemillasController.text);
 
-                      int? costoSemillas =
-                          int.tryParse(widget.costoSemillasController.text);
+                      double? costoSemillas = double.tryParse(widget.costoSemillasController.text);
 
                       CropResponseModel nuevoCultivo = CropResponseModel(
                         id: widget.initialCrop?.id,

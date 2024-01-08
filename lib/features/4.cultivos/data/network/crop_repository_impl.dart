@@ -30,6 +30,7 @@ class CropRepositoryImpl implements CropRepository {
     }
   }
 
+  @override
   Future<Map<String, dynamic>> getPlants() async {
     try {
       final cropData = await cropService.getPlants();
@@ -43,8 +44,8 @@ class CropRepositoryImpl implements CropRepository {
     }
   }
 
-  Future<Map<String, dynamic>> updateCropDataRep(
-      Map<String, dynamic> cropData) async {
+  @override
+  Future<Map<String, dynamic>> updateCropDataRep(Map<String, dynamic> cropData) async {
     try {
       final response = await cropService.updateCropData(cropData);
 
@@ -59,6 +60,7 @@ class CropRepositoryImpl implements CropRepository {
     }
   }
 
+  @override
   Future<String> deleteCropsById(int? idCrop) async {
     try {
       final cropData = await cropService.deleteCropData(idCrop);
@@ -72,8 +74,8 @@ class CropRepositoryImpl implements CropRepository {
     }
   }
 
-  Future<Map<String, dynamic>> saveCropDataRep(
-      Map<String, dynamic> cropData) async {
+  @override
+  Future<Map<String, dynamic>> saveCropDataRep(Map<String, dynamic> cropData) async {
     try {
       final response = await cropService.saveCropData(cropData);
 

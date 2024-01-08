@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 List<CropResponseModel> cropFromJson(String str) =>
-    List<CropResponseModel>.from(
-        json.decode(str).map((x) => CropResponseModel.fromJson(x)));
+    List<CropResponseModel>.from(json.decode(str).map((x) => CropResponseModel.fromJson(x)));
 
-String cropToJson(List<CropResponseModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String cropToJson(List<CropResponseModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 List<CropResponseModel> listplagaFromJson(List<dynamic> datos) =>
     datos.map((e) => CropResponseModel.fromJson(e)).toList();
@@ -15,21 +13,23 @@ class CropResponseModel {
   final String? name;
   final String? description;
   final int? cantidadSemillas;
-  final int? costoSemillas;
+  final double? costoSemillas;
   final int? idEmpresa;
   final String? idPlanta;
+  final int? planta;
   // final UserEmail? usuario;
 
-  CropResponseModel(
-      {this.id,
-      this.name,
-      this.description,
-      this.cantidadSemillas,
-      this.costoSemillas,
-      this.idEmpresa,
-      this.idPlanta
-      //this.usuario
-      });
+  CropResponseModel({
+    this.id,
+    this.name,
+    this.description,
+    this.cantidadSemillas,
+    this.costoSemillas,
+    this.idEmpresa,
+    this.idPlanta,
+    this.planta,
+    //this.usuario
+  });
 
   Map<String, dynamic> toJson() => {
         "name": name,
@@ -37,7 +37,8 @@ class CropResponseModel {
         "cantidad_semillas": cantidadSemillas,
         "costo_semillas": costoSemillas,
         "empresa": idEmpresa,
-        "plant": idPlanta
+        "plant": idPlanta,
+        "planta": planta,
         // "plantingDate":
         //   "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
         //"usuario": usuario?.email
@@ -49,14 +50,14 @@ class CropResponseModel {
         "cantidad_semillas": cantidadSemillas,
         "costo_semillas": costoSemillas,
         "empresa": idEmpresa,
-        "plant": idPlanta
+        "plant": idPlanta,
+        "planta": planta,
 
         //   "plantingDate":
         //      "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
         //"usuario": usuario?.email
       };
-  factory CropResponseModel.fromJson(Map<String, dynamic> json) =>
-      CropResponseModel(
+  factory CropResponseModel.fromJson(Map<String, dynamic> json) => CropResponseModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],

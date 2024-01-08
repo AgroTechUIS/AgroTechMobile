@@ -36,6 +36,7 @@ class GestorOptions extends ConsumerWidget {
                   iconRoute: 'assets/agronomy.svg',
                   onTap: () async {
                     await controller.getListCrop(stateLogin.idEmpresa);
+                    await controller.getListPlants();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => CropPage()),

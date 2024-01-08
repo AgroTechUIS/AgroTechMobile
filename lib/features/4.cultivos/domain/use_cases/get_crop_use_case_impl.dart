@@ -15,8 +15,7 @@ class GetCropUseCaseImpl extends GetCropUseCase {
   );
 
   @override
-  Future<List<CropResponseModel>?> getListCrops(
-      {required int idEmpresa}) async {
+  Future<List<CropResponseModel>?> getListCrops({required int idEmpresa}) async {
     try {
       var cropData = await cropRepository.getCropsByEmail(idEmpresa);
       List<CropResponseModel>? listCrops = [];
@@ -35,7 +34,7 @@ class GetCropUseCaseImpl extends GetCropUseCase {
       var cropData = await cropRepository.getPlants();
       List<PlantResponseModel>? listPlants = [];
 
-      for (var entry in cropData['plants']) {
+      for (var entry in cropData['body']) {
         listPlants.add(PlantResponseModel.fromJson(entry));
       }
       return listPlants;
@@ -44,8 +43,7 @@ class GetCropUseCaseImpl extends GetCropUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> updateCrop(
-      CropResponseModel? updatedCrops) async {
+  Future<Map<String, dynamic>> updateCrop(CropResponseModel? updatedCrops) async {
     try {
       final cropData = updatedCrops!.toJsonEdit();
       var r = await cropRepository.updateCropDataRep(cropData);
@@ -64,8 +62,7 @@ class GetCropUseCaseImpl extends GetCropUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> saveCrop(
-      CropResponseModel? savedCultivos) async {
+  Future<Map<String, dynamic>> saveCrop(CropResponseModel? savedCultivos) async {
     try {
       final cropData = savedCultivos!.toJson();
       var s = await cropRepository.saveCropDataRep(cropData);
