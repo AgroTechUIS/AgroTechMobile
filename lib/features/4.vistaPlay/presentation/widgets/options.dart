@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../common_utilities/widgets/mini_option_widget.dart';
 import '../../../../common_utilities/widgets/subtitleWidget.dart';
 import '../../../5.plagas/presentation/pest_controller.dart';
+import '../../../5.variables/presentation/variable_controller.dart';
 
 class VistaPlayOptions extends ConsumerWidget {
   const VistaPlayOptions({
@@ -46,12 +47,14 @@ class VistaPlayOptions extends ConsumerWidget {
                     iconRoute: 'assets/variable.svg',
                     onTap: () async {
                       await ref
-                          .read(productController.notifier)
-                          .getListProduct(idCrop);
+                          .read(variableController.notifier)
+                          .getListVariable(idCrop);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const VariablesPage()),
+                            builder: (context) => VariablesPage(
+                                  idCrop: idCrop,
+                                )),
                       );
                     }),
                 MiniOptionWidget(

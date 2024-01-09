@@ -1,9 +1,10 @@
+import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/models/variable_model.dart';
 
 class VariablesWidget extends StatelessWidget {
-  final VariableModel variable;
+  final VariableResponseModel variable;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
   VariablesWidget(
@@ -76,7 +77,7 @@ class VariablesWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  variable.method ?? '',
+                  variable.measurement_method ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -96,7 +97,7 @@ class VariablesWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${variable.date!.year}-${variable.date!.month}-${variable.date!.day}',
+                  '${variable.date_init!.year}-${variable.date_init!.month}-${variable.date_init!.day}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -116,7 +117,7 @@ class VariablesWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  variable.instrumento ?? '',
+                  variable.measuring_instrument ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],

@@ -11,28 +11,36 @@ List<MeasureResponseModel> listmeasureFromJson(List<dynamic> datos) =>
     datos.map((e) => MeasureResponseModel.fromJson(e)).toList();
 
 class MeasureResponseModel {
-  int id = 0;
-  int? value;
+  int id;
+  int? measurement_value;
+  String? measuring_unit;
   String? description;
   DateTime? date;
-  String? unit;
+  int? variable;
   MeasureResponseModel(
-      {required this.id, this.value, this.description, this.date, this.unit});
+      {required this.id,
+      this.measurement_value,
+      this.measuring_unit,
+      this.description,
+      this.date,
+      this.variable});
 
   factory MeasureResponseModel.fromJson(Map<String, dynamic> json) =>
       MeasureResponseModel(
         id: json["id"],
-        value: json["value"],
+        measurement_value: json["measurement_value"],
+        measuring_unit: json["measuring_unit"],
         description: json["description"],
         date: json["date"] != null ? DateTime.parse(json["date"]) : null,
-        unit: json["unit"],
+        variable: json["variable"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "value": value,
+        "measurement_value": measurement_value,
+        "measuring_unit": measuring_unit,
         "description": description,
         "date": date?.toIso8601String(),
-        "unit": unit,
+        "variable": variable,
       };
 }

@@ -161,19 +161,6 @@ class _VariablesTPageState extends State<VariablesTPage> {
                   ),
                 ),
               ),
-              /* child: ListView(
-                      children: listVariables
-                          .map((e) => VariablesWidget(
-                                variable: e,
-                                onEdit: () {
-                                  editVariable(e);
-                                },
-                                onDelete: () {
-                                  deleteVariable(e);
-                                },
-                              ))
-                          .toList(),
-                    ),*/
             ),
           ),
         ],
