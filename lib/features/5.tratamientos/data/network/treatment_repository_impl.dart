@@ -29,6 +29,7 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
     }
   }
 
+  @override
   Future<Map<String, dynamic>> updateTreatmentDataRep(
       Map<String, dynamic> treatmentData) async {
     try {
@@ -46,6 +47,7 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
     }
   }
 
+  @override
   Future<Map<String, dynamic>> saveTreatmentDataRep(
       Map<String, dynamic> treatmentData) async {
     try {
@@ -62,6 +64,7 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
     }
   }
 
+  @override
   Future<String> deleteTreatmentsById(int? idTreatment) async {
     try {
       final treatmentData =

@@ -29,7 +29,6 @@ class EditTreatment extends StatefulWidget {
     descripcionController.text = initialTratamiento?.description ?? '';
     formController.text = initialTratamiento?.form ?? '';
     stateController.text = initialTratamiento?.state ?? '';
-    observationController.text = initialTratamiento?.observation ?? '';
   }
   @override
   _editTreatmentState createState() => _editTreatmentState();
@@ -159,23 +158,6 @@ class _editTreatmentState extends State<EditTreatment> {
               ),
             ),
             SizedBox(height: 12),
-            TextField(
-              controller: widget.observationController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: const Text("Observación"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 12),
             InkWell(
               onTap: () async {
                 fecha = showDatePicker(
@@ -298,15 +280,16 @@ class _editTreatmentState extends State<EditTreatment> {
                     onPressed: () {
                       TreatmentResponseModel nuevoTratamiento =
                           TreatmentResponseModel(
-                              id: widget.initialTratamiento!
-                                  .id, // Asigna el ID adecuado
-                              name: widget.nombreController.text,
-                              description: widget.descripcionController.text,
-                              form: widget.formController.text,
-                              state: selectedValue,
-                              observation: widget.observationController.text,
-                              dateStart: widget.initialTratamiento!.dateStart,
-                              dateEnd: widget.initialTratamiento!.dateEnd);
+                        id: widget
+                            .initialTratamiento!.id, // Asigna el ID adecuado
+                        name: widget.nombreController.text,
+                        description: widget.descripcionController.text,
+                        form: widget.formController.text,
+                        state:
+                            selectedValue ?? widget.initialTratamiento!.state,
+                        dateStart: widget.initialTratamiento!.dateStart,
+                        dateEnd: widget.initialTratamiento!.dateEnd,
+                      );
                       widget.onSave!(nuevoTratamiento);
                     },
                     color: colors.green2,

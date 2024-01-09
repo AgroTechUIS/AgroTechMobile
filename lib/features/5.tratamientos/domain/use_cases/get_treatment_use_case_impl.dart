@@ -44,7 +44,7 @@ class GetTreatmentUseCaseImpl extends GetTreatmentUseCase {
   Future<Map<String, dynamic>> saveTreatment(
       TreatmentResponseModel? savedTreatments) async {
     try {
-      final treatmentData = savedTreatments!.toJson();
+      final treatmentData = savedTreatments!.toJsonPost();
       var s = await treatmentRepository.saveTreatmentDataRep(treatmentData);
       return s;
     } catch (e) {

@@ -18,7 +18,8 @@ class TreatmentController extends StateNotifier<TreatmentState> {
 
   Future<Map<String, dynamic>> updatesTreatments(
       TreatmentResponseModel? updatedTratamientos,
-      TreatmentResponseModel? initialTratamiento) async {
+      TreatmentResponseModel? initialTratamiento,
+      int idPest) async {
     if (updatedTratamientos == null || initialTratamiento == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -30,11 +31,10 @@ class TreatmentController extends StateNotifier<TreatmentState> {
             updatedTratamientos.description ?? initialTratamiento.description,
         form: updatedTratamientos.form ?? initialTratamiento.form,
         state: updatedTratamientos.state ?? initialTratamiento.state,
-        observation:
-            updatedTratamientos.observation ?? initialTratamiento.observation,
         dateStart:
             updatedTratamientos.dateStart ?? initialTratamiento.dateStart,
-        dateEnd: updatedTratamientos.dateStart ?? initialTratamiento.dateEnd);
+        dateEnd: updatedTratamientos.dateStart ?? initialTratamiento.dateEnd,
+        pest: idPest);
 
     var resp =
         await getTreatmentUseCaseImpl.updateTreatment(updatedInitialPlaga);
@@ -65,17 +65,17 @@ class TreatmentController extends StateNotifier<TreatmentState> {
             tratamiento.name!.toLowerCase() == nombreLowerCase);
   }
 
-  void saveTreatments(TreatmentResponseModel? savedTreatments) async {
+  void saveTreatments(
+      TreatmentResponseModel? savedTreatments, int idPest) async {
     TreatmentResponseModel savedTreatment = TreatmentResponseModel(
         id: savedTreatments!.id,
         name: savedTreatments.name ?? '',
         description: savedTreatments.description ?? '',
         form: savedTreatments.form ?? '',
         state: savedTreatments.state ?? '',
-        observation: savedTreatments.observation ?? '',
         dateStart: savedTreatments.dateStart,
         dateEnd: savedTreatments.dateEnd,
-        pest: savedTreatments.pest);
+        pest: idPest);
 
     var resp = await getTreatmentUseCaseImpl.saveTreatment(savedTreatment);
 
@@ -93,17 +93,39 @@ class TreatmentController extends StateNotifier<TreatmentState> {
     print(resp);
   }
 
-  void saveNewTreatments(TreatmentResponseModel tratamiento) {
-    var temp = state.tratamientos;
-    temp.add(tratamiento);
-    state = state.copyWith(tratamientos: temp);
-  }
-
-  void updateTreatment(TreatmentResponseModel? tratamiento) {
+  void update(TreatmentResponseModel? tratamiento) {
     var temp = state.tratamientos;
     state.selectedTreatmentForEdit = tratamiento;
     state = state.copyWith(
         tratamientos: temp, selectedTreatmentForEdit: tratamiento);
+  }
+
+  Future<Map<String, dynamic>> updateTreatment(
+      TreatmentResponseModel? updatedTratamiento,
+      TreatmentResponseModel? initialTratamiento) async {
+    if (updatedTratamiento == null || initialTratamiento == null) {
+      // Manejar el caso en el que los argumentos sean nulos o inválidos.
+      throw Exception("Los argumentos no pueden ser nulos.");
+    }
+
+    TreatmentResponseModel updatedInitialTratamiento = TreatmentResponseModel(
+      id: updatedTratamiento.id,
+      name: updatedTratamiento.name ?? initialTratamiento.name,
+      description:
+          updatedTratamiento.description ?? initialTratamiento.description,
+      form: updatedTratamiento.form ?? initialTratamiento.form,
+      state: updatedTratamiento.state ?? initialTratamiento.state,
+      dateStart: updatedTratamiento.dateStart ?? initialTratamiento.dateStart,
+      dateEnd: updatedTratamiento.dateEnd ?? initialTratamiento.dateEnd,
+    );
+
+    var resp = await getTreatmentUseCaseImpl
+        .updateTreatment(updatedInitialTratamiento);
+
+    final selectedTreatment = TreatmentResponseModel.fromJsonEdit(resp);
+    state = state.copyWith(selectedTreatmentForEdit: selectedTreatment);
+
+    return resp;
   }
 
   void edit(TreatmentResponseModel? tratamiento) {

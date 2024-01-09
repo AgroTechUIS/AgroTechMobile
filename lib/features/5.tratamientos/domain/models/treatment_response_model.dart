@@ -19,10 +19,9 @@ class TreatmentResponseModel {
   String? description;
   String? form;
   String? state;
-  String? observation;
   DateTime? dateStart;
   DateTime? dateEnd;
-  PlagaResponseModel? pest;
+  int? pest;
 
   TreatmentResponseModel({
     required this.id,
@@ -30,7 +29,6 @@ class TreatmentResponseModel {
     this.description,
     this.form,
     this.state,
-    this.observation,
     this.dateStart,
     this.dateEnd,
     this.pest,
@@ -43,23 +41,44 @@ class TreatmentResponseModel {
         description: json["description"],
         form: json["form"],
         state: json["state"],
-        observation: json["observation"],
         dateStart: DateTime.parse(json["date_start"]),
         dateEnd: DateTime.parse(json["date_end"]),
-        pest: PlagaResponseModel.fromJson(json["pest"]),
+        // pest: json["pest"],
       );
 
+  factory TreatmentResponseModel.fromJsonEdit(Map<String, dynamic> json) =>
+      TreatmentResponseModel(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        form: json["form"],
+        state: json["state"],
+        dateStart: DateTime.parse(json["date_start"]),
+        dateEnd: DateTime.parse(json["date_end"]),
+        // pest: json["pest"],
+      );
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "description": description,
         "form": form,
         "state": state,
-        "observation": observation,
         "date_start":
             "${dateStart?.year.toString().padLeft(4, '0')}-${dateStart?.month.toString().padLeft(2, '0')}-${dateStart?.day.toString().padLeft(2, '0')}",
         "date_end":
             "${dateEnd?.year.toString().padLeft(4, '0')}-${dateEnd?.month.toString().padLeft(2, '0')}-${dateEnd?.day.toString().padLeft(2, '0')}",
-        "pest": pest?.toJson(),
+        "pest": pest,
+      };
+  Map<String, dynamic> toJsonPost() => {
+        "id": null,
+        "name": name,
+        "description": description,
+        "form": form,
+        "state": state,
+        "date_start":
+            "${dateStart?.year.toString().padLeft(4, '0')}-${dateStart?.month.toString().padLeft(2, '0')}-${dateStart?.day.toString().padLeft(2, '0')}",
+        "date_end":
+            "${dateEnd?.year.toString().padLeft(4, '0')}-${dateEnd?.month.toString().padLeft(2, '0')}-${dateEnd?.day.toString().padLeft(2, '0')}",
+        "pest": pest,
       };
 }

@@ -10,7 +10,8 @@ class TreatmentService {
   Future<HttpResponseModel> saveTreatment(
       Map<String, dynamic> treatmentModel) async {
     return clienthttp.post(
-        url: '${RouteService.routeService}/treatment', body: treatmentModel);
+        url: '${RouteService.routeService}/api/treatment',
+        body: treatmentModel);
   }
 
   Future<HttpResponseModel> getTreatments(int idPest) async {

@@ -290,7 +290,6 @@ class _NewTreatmentState extends State<NewTreatment> {
                         description: widget.descripcionController.text,
                         state: selectedValue,
                         form: widget.formController.text,
-                        observation: widget.observationController.text,
                         dateStart: DateUtils.dateOnly(date1 as DateTime),
                         dateEnd: DateUtils.dateOnly(date2 as DateTime),
                         // pest

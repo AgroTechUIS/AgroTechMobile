@@ -9,6 +9,7 @@ import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/edit_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/new_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/pest_widgets.dart';
+import 'package:agrotech/features/5.tratamientos/presentation/treatment_controller.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/treatment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
@@ -148,7 +149,8 @@ class PlagasPage extends ConsumerWidget {
     );
   }
 
-  void playTreatment(BuildContext context, int idPest) {
+  void playTreatment(BuildContext context, int idPest, WidgetRef ref) async {
+    await ref.read(treatmentController.notifier).getListTreatment(idPest);
     context.pushRoute(TratamientosPage(idPest));
   }
 
@@ -213,7 +215,7 @@ class PlagasPage extends ConsumerWidget {
                     .map((e) => PestWidget(
                           plaga: e,
                           onTreatment: () {
-                            playTreatment(context, e.id!);
+                            playTreatment(context, e.id!, ref);
                           },
                           onEdit: () {
                             editPest(context, e, controller, state);

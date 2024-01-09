@@ -1,10 +1,12 @@
 import 'package:agrotech/features/5.tratamientos/domain/models/treatment_response_model.dart';
+import 'package:agrotech/features/5.tratamientos/presentation/treatment_controller.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/widgets/edit_treatment.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/widgets/new_treatment.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/widgets/treatment_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
 import '../domain/models/treatment_model.dart';
@@ -19,25 +21,50 @@ class TratamientosPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var state = ref.watch(treatmentController);
+    var controller = ref.read(treatmentController.notifier);
     void saveNewTreatment(TreatmentResponseModel tratamiento) {
       listTreatments.add(tratamiento);
     }
 
-    void editTreatment(TreatmentResponseModel tratamiento) {
+    void editTreatment(
+        TreatmentResponseModel tratamiento, TreatmentController controller) {
       selectedTreatmentForEdit = tratamiento;
       showDialog(
         context: context,
         builder: (context) {
           return EditTreatment(
             initialTratamiento: selectedTreatmentForEdit,
-            onSave: (editTreatment) {
-              listTreatments.remove(selectedTreatmentForEdit);
-              listTreatments.add(editTreatment);
-              Navigator.of(context).pop();
+            onSave: (nt) async {
+              final nta =
+                  await controller.updatesTreatments(nt, tratamiento, idPest);
+              TreatmentResponseModel treatmentModel =
+                  TreatmentResponseModel.fromJson(nta);
+              bool existeTratamiento = controller.existeTratamientoEConNombre(
+                  treatmentModel.name!, treatmentModel);
+
+              if (existeTratamiento) {
+                Fluttertoast.showToast(
+                  msg: 'Ya existe una plaga con el mismo nombre.',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.TOP_RIGHT,
+                  backgroundColor: Colors.red, // Fondo rojo
+                  textColor: Colors.white,
+                );
+              } else {
+                controller.getListTreatment(idPest);
+                Fluttertoast.showToast(
+                  msg: 'Plaga actualizada correctamente.',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.TOP_RIGHT,
+                  backgroundColor:
+                      const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                  textColor: Colors.white,
+                );
+                Navigator.of(context).pop();
+              }
             },
             onCancel: () {
-              selectedTreatmentForEdit =
-                  null; // Limpiar la variable temporal si se cancela
               Navigator.of(context).pop();
             },
             // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
@@ -47,7 +74,15 @@ class TratamientosPage extends ConsumerWidget {
     }
 
     void deleteTreatment(TreatmentResponseModel tratamiento) {
-      listTreatments.remove(tratamiento);
+      controller.deleteTreatment(tratamiento);
+      controller.update(tratamiento);
+      Fluttertoast.showToast(
+        msg: 'Tratamiento eliminado correctamente.',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP_RIGHT,
+        backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+        textColor: Colors.white,
+      );
     }
 
     void createNewTreatment() {
@@ -55,8 +90,31 @@ class TratamientosPage extends ConsumerWidget {
         context: context,
         builder: (context) {
           return NewTreatment(
-            onSave: (nuevoTratamiento) {
-              saveNewTreatment(nuevoTratamiento);
+            onSave: (nuevoTratamiento) async {
+              bool existeTratamiento =
+                  controller.existeTratamientoConNombre(nuevoTratamiento.name!);
+
+              if (existeTratamiento) {
+                Fluttertoast.showToast(
+                  msg: 'Ya existe un tratamiento con el mismo nombre.',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.TOP_RIGHT,
+                  backgroundColor: Colors.red, // Fondo rojo
+                  textColor: Colors.white,
+                );
+              } else {
+                controller.saveTreatments(nuevoTratamiento, idPest);
+                Future.delayed(const Duration(milliseconds: 500));
+                await controller.getListTreatment(idPest);
+                Fluttertoast.showToast(
+                  msg: 'Tratamiento creado correctamente.',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.TOP_RIGHT,
+                  backgroundColor:
+                      const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                  textColor: Colors.white,
+                );
+              }
               Navigator.of(context).pop();
             },
             onCancel: () => Navigator.of(context).pop(),
@@ -114,11 +172,11 @@ class TratamientosPage extends ConsumerWidget {
                 ),
               ),
               child: ListView(
-                children: listTreatments
+                children: state.tratamientos
                     .map((e) => TreatmentWidget(
                           tratamiento: e,
                           onEdit: () {
-                            editTreatment(e);
+                            editTreatment(e, controller);
                           },
                           onDelete: () {
                             deleteTreatment(e);

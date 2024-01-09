@@ -120,26 +120,7 @@ class TreatmentWidget extends StatelessWidget {
               ),
             ]),
             SizedBox(height: 8.0),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Observación: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  tratamiento.observation ?? '',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 'Fecha inicial del tratamiento: ',
