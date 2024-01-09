@@ -37,7 +37,8 @@ class VistaPlayOptions extends ConsumerWidget {
                           .getListPest(idCrop);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PlagasPage()),
+                        MaterialPageRoute(
+                            builder: (context) => PlagasPage(idCrop)),
                       );
                     }),
                 MiniOptionWidget(

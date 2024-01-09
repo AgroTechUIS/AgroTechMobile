@@ -47,7 +47,7 @@ class PlagaResponseModel {
         adjuntoDto: json["adjuntoDto"] == null
             ? null
             : AdjuntoDto.fromJson(json["adjuntoDto"]),
-        //crop: json["crop"],
+        crop: json["crop"],
       );
 
   Map<String, dynamic> toJson() => {

@@ -19,6 +19,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../domain/models/pest_model.dart';
 
 class PlagasPage extends ConsumerWidget {
+  final int idCrop;
+
+  PlagasPage(this.idCrop);
   //final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   //List<PlagaResponseModel> listPest = [];
   //PlagaModel? pests;
@@ -72,7 +75,7 @@ class PlagasPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.getListPest(1);
+              controller.getListPest(idCrop);
               Fluttertoast.showToast(
                 msg: 'Plaga actualizada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -106,13 +109,11 @@ class PlagasPage extends ConsumerWidget {
 
   void createNewPest(
       BuildContext context, PestController controller, WidgetRef ref) {
-    var stateCrop = ref.watch(cropController);
-
     showDialog(
       context: context,
       builder: (context) {
         return NewPest(
-          onSave: (nuevaPlaga) {
+          onSave: (nuevaPlaga) async {
             bool existePlaga =
                 controller.existePlagaConNombre(nuevaPlaga.name!);
 
@@ -125,7 +126,9 @@ class PlagasPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.savePests(nuevaPlaga);
+              controller.savePests(nuevaPlaga, idCrop);
+              Future.delayed(const Duration(milliseconds: 500));
+              await controller.getListPest(idCrop);
               Fluttertoast.showToast(
                 msg: 'Plaga creada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,

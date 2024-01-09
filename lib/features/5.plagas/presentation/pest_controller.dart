@@ -67,7 +67,7 @@ class PestController extends StateNotifier<PestState> {
         .any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
   }
 
-  void savePests(PlagaResponseModel? savedPlagas) async {
+  void savePests(PlagaResponseModel? savedPlagas, int crop) async {
     PlagaResponseModel savedPlaga = PlagaResponseModel(
       id: savedPlagas!.id,
       name: savedPlagas.name ?? '',
@@ -77,7 +77,7 @@ class PestController extends StateNotifier<PestState> {
       appareceDate: savedPlagas.appareceDate ?? DateTime.now(),
       pestFamily: savedPlagas.pestFamily ?? '',
       stateTratment: savedPlagas.stateTratment ?? '',
-      crop: savedPlagas.crop,
+      crop: crop,
     );
 
     var resp = await getPestUseCaseImpl.savePest(savedPlaga);
