@@ -136,7 +136,7 @@ class ProductWidget extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => PlagasPage(1),
+                        builder: (context) => PlagasPage(idCrop: 1),
                       ),
                     );
                   },

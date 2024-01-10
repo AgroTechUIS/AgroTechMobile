@@ -22,7 +22,7 @@ import '../domain/models/pest_model.dart';
 class PlagasPage extends ConsumerWidget {
   final int idCrop;
 
-  PlagasPage(this.idCrop);
+  PlagasPage({super.key, required this.idCrop});
   //final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   //List<PlagaResponseModel> listPest = [];
   //PlagaModel? pests;

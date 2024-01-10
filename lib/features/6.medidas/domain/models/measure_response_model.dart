@@ -28,7 +28,7 @@ class MeasureResponseModel {
   factory MeasureResponseModel.fromJson(Map<String, dynamic> json) =>
       MeasureResponseModel(
         id: json["id"],
-        measurement_value: json["measurement_value"],
+        measurement_value: json["measurement_Value"],
         measuring_unit: json["measuring_unit"],
         description: json["description"],
         date: json["date"] != null ? DateTime.parse(json["date"]) : null,
@@ -37,7 +37,14 @@ class MeasureResponseModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "measurement_value": measurement_value,
+        "measurement_Value": measurement_value,
+        "measuring_unit": measuring_unit,
+        "description": description,
+        "date": date?.toIso8601String(),
+        "variable": variable,
+      };
+  Map<String, dynamic> toJsonPost() => {
+        "measurement_Value": measurement_value,
         "measuring_unit": measuring_unit,
         "description": description,
         "date": date?.toIso8601String(),

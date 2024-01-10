@@ -1,41 +1,50 @@
 import 'package:agrotech/features/6.medidas/domain/models/measure_model.dart';
+import 'package:agrotech/features/6.medidas/domain/models/measure_response_model.dart';
+import 'package:agrotech/features/6.medidas/presentation/measure_controller.dart';
 import 'package:agrotech/features/6.medidas/presentation/widgets/edit_medida.dart';
 import 'package:agrotech/features/6.medidas/presentation/widgets/medidasT_widget.dart';
 import 'package:agrotech/features/6.medidas/presentation/widgets/new_medida.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
 
-class VariablesTPage extends StatefulWidget {
-  const VariablesTPage({super.key});
+class VariablesTPage extends ConsumerWidget {
+  VariablesTPage(this.idVariable, {super.key});
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _VariablesTPageState createState() => _VariablesTPageState();
-}
+  final int idVariable;
 
-class _VariablesTPageState extends State<VariablesTPage> {
-  List<MeasureModel> listMedidas = [];
-  MeasureModel? selectedMedidaForEdit;
-  void saveNewMedida(MeasureModel medida) {
-    setState(() {
-      listMedidas.add(medida);
-    });
+  List<MeasureResponseModel> listMedidas = [];
+  MeasureResponseModel? selectedMedidaForEdit;
+  void saveNewMedida(MeasureResponseModel medida) {
+    listMedidas.add(medida);
   }
 
-  void editMedida(MeasureModel medida) {
+  void editMedida(BuildContext context, MeasureResponseModel medida,
+      MeasureController controller) {
     selectedMedidaForEdit = medida;
     showDialog(
       context: context,
       builder: (context) {
         return EditMedida(
           initialMedida: selectedMedidaForEdit,
-          onSave: (EditMedida) {
-            // Actualizar la lista de plagas
-            setState(() {
-              listMedidas.remove(selectedMedidaForEdit);
-              listMedidas.add(EditMedida);
-            });
+          onSave: (ne) async {
+            final npa =
+                await controller.updatesMeasures(ne, medida, idVariable);
+
+            MeasureResponseModel measureModel =
+                MeasureResponseModel.fromJson(npa);
+
+            controller.getListMeasure(idVariable);
+            Fluttertoast.showToast(
+              msg: 'Variable actualizada correctamente.',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.TOP_RIGHT,
+              backgroundColor:
+                  const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+              textColor: Colors.white,
+            );
             Navigator.of(context).pop();
           },
           onCancel: () {
@@ -47,19 +56,35 @@ class _VariablesTPageState extends State<VariablesTPage> {
     );
   }
 
-  void deleteMedida(MeasureModel medida) {
-    setState(() {
-      listMedidas.remove(medida);
-    });
+  void deleteMedida(MeasureResponseModel medida, MeasureController controller) {
+    controller.deleteMeasure(medida);
+    controller.updateMeasure(medida);
+    Fluttertoast.showToast(
+      msg: 'Medida eliminada correctamente.',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP_RIGHT,
+      backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+      textColor: Colors.white,
+    );
   }
 
-  void createNewMedida() {
+  void createNewMedida(BuildContext context, MeasureController controller) {
     showDialog(
       context: context,
       builder: (context) {
         return NewMedida(
-          onSave: (nuevaMedida) {
-            saveNewMedida(nuevaMedida);
+          onSave: (nuevaMedida) async {
+            controller.saveMeasures(nuevaMedida, idVariable);
+            Future.delayed(const Duration(milliseconds: 500));
+            await controller.getListMeasure(idVariable);
+            Fluttertoast.showToast(
+              msg: 'Medida creada correctamente.',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.TOP_RIGHT,
+              backgroundColor:
+                  const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+              textColor: Colors.white,
+            );
             Navigator.of(context).pop();
           },
           onCancel: () => Navigator.of(context).pop(),
@@ -69,11 +94,13 @@ class _VariablesTPageState extends State<VariablesTPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var state = ref.watch(measureController);
+    var controller = ref.read(measureController.notifier);
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: createNewMedida,
+        onPressed: () => createNewMedida(context, controller),
         child: Icon(Icons.add),
       ),
       body: Column(
@@ -133,22 +160,22 @@ class _VariablesTPageState extends State<VariablesTPage> {
                           DataColumn(
                               label: Text('Acciones')), // Columna para botones
                         ],
-                        rows: listMedidas.map((e) {
+                        rows: state.medidas.map((e) {
                           return DataRow(
                             cells: [
-                              DataCell(Text('${e.value ?? ''}')),
+                              DataCell(Text('${e.measurement_value}')),
                               DataCell(Text(e.description ?? '')),
                               DataCell(Text(
                                   '${e.date!.year}-${e.date!.month}-${e.date!.day} | ${e.date!.hour}:${e.date!.minute}')),
-                              DataCell(Text(e.unit ?? '')),
+                              DataCell(Text(e.measuring_unit ?? '')),
                               DataCell(
                                 VariablesTWidget(
                                   medida: e,
                                   onEdit: () {
-                                    editMedida(e);
+                                    editMedida(context, e, controller);
                                   },
                                   onDelete: () {
-                                    deleteMedida(e);
+                                    deleteMedida(e, controller);
                                   },
                                 ),
                               )

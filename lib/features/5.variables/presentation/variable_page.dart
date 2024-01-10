@@ -1,15 +1,18 @@
+import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/features/5.variables/domain/models/variable_model.dart';
 import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_controller.dart';
 import 'package:agrotech/features/5.variables/presentation/widgets/edit_variable.dart';
 import 'package:agrotech/features/5.variables/presentation/widgets/new_variable.dart';
 import 'package:agrotech/features/5.variables/presentation/widgets/variable_widgets.dart';
+import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
+import '../../6.medidas/presentation/measure_controller.dart';
 
 class VariablesPage extends ConsumerWidget {
   VariablesPage({super.key, required this.idCrop});
@@ -22,6 +25,11 @@ class VariablesPage extends ConsumerWidget {
   VariableResponseModel? selectedVariableForEdit;
   void saveNewVariable(VariableResponseModel variable) {
     listVariables.add(variable);
+  }
+
+  void playVariable(BuildContext context, int idVariable, WidgetRef ref) async {
+    await ref.read(measureController.notifier).getListMeasure(idVariable);
+    context.pushRoute(VariablesTPage(idVariable));
   }
 
   void editVariable(
@@ -176,6 +184,9 @@ class VariablesPage extends ConsumerWidget {
                 children: state.variables
                     .map((e) => VariablesWidget(
                           variable: e,
+                          onVariable: () {
+                            playVariable(context, e.id!, ref);
+                          },
                           onEdit: () {
                             editVariable(context, e, controller);
                           },

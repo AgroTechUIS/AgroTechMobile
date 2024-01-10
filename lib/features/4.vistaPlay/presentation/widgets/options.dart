@@ -1,7 +1,5 @@
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
-import 'package:agrotech/features/5.products/presentation/product_controller.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_page.dart';
-import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../common_utilities/widgets/mini_option_widget.dart';
 import '../../../../common_utilities/widgets/subtitleWidget.dart';
 import '../../../5.plagas/presentation/pest_controller.dart';
+import '../../../5.products/presentation/product_page.dart';
 import '../../../5.variables/presentation/variable_controller.dart';
 
 class VistaPlayOptions extends ConsumerWidget {
@@ -39,7 +38,7 @@ class VistaPlayOptions extends ConsumerWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PlagasPage(idCrop)),
+                            builder: (context) => PlagasPage(idCrop: idCrop)),
                       );
                     }),
                 MiniOptionWidget(
@@ -58,15 +57,17 @@ class VistaPlayOptions extends ConsumerWidget {
                       );
                     }),
                 MiniOptionWidget(
-                    title: 'Medidas',
-                    iconRoute: '/medicion.svg',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const VariablesTPage()),
-                      );
-                    }),
+                  title: 'Gestión de productos',
+                  iconRoute: 'assets/bill.svg',
+                  onTap: () {
+                    //async
+                    // await controller.getListCrop(stateLogin.idEmpresa);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProductPage()),
+                    );
+                  },
+                ),
               ],
             ),
           ),

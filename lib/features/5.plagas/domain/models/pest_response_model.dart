@@ -12,16 +12,16 @@ List<PlagaResponseModel> listplagaFromJson(List<dynamic> datos) =>
     datos.map((e) => PlagaResponseModel.fromJson(e)).toList();
 
 class PlagaResponseModel {
-  final int? id;
-  late final String? name;
-  late final String? description;
-  late final String? state;
-  late final String? observation;
-  late final DateTime? appareceDate;
-  late final String? pestFamily;
-  late final String? stateTratment;
-  late final AdjuntoDto? adjuntoDto;
-  late final int? crop;
+  int? id;
+  String? name;
+  String? description;
+  String? state;
+  String? observation;
+  DateTime? appareceDate;
+  String? pestFamily;
+  String? stateTratment;
+  AdjuntoDto? adjuntoDto;
+  int? crop;
   PlagaResponseModel(
       {this.id,
       this.name,
