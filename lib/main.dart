@@ -23,9 +23,6 @@ class MyApp extends StatelessWidget {
         initialRoute: 'login',
         routes: {
           'login': (_) => LoginPage(),
-          // 'plagas': (_) => PlagasPage(),
-          'crops': (_) => CropPage(),
-          'products': (_) => ProductPage(),
         },
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
