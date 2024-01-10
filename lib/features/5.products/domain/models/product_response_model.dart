@@ -27,24 +27,24 @@ class ProductResponseModel {
   final AdjuntoModel? adjunto;
   final dynamic
       discount; // Puedes ajustar el tipo según la estructura real del JSON
-
-  ProductResponseModel({
-    this.id,
-    this.name,
-    this.slug,
-    this.sku,
-    this.price,
-    this.state,
-    this.stock,
-    this.description,
-    this.summary,
-    this.typeInventario,
-    this.createdAt,
-    this.updatedAt,
-    this.category,
-    this.adjunto,
-    this.discount,
-  });
+  final int? crop;
+  ProductResponseModel(
+      {this.id,
+      this.name,
+      this.slug,
+      this.sku,
+      this.price,
+      this.state,
+      this.stock,
+      this.description,
+      this.summary,
+      this.typeInventario,
+      this.createdAt,
+      this.updatedAt,
+      this.category,
+      this.adjunto,
+      this.discount,
+      this.crop});
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -66,22 +66,22 @@ class ProductResponseModel {
 
   factory ProductResponseModel.fromJson(Map<String, dynamic> json) =>
       ProductResponseModel(
-        id: json["id"],
-        name: json["title"],
-        slug: json["slug"],
-        sku: json["sku"],
-        price: json["priceCop"]?.toDouble(), // Ajusta el nombre según tu JSON
-        state: json["state"],
-        stock: json["stock"],
-        description: json["description"],
-        summary: json["resumen"],
-        typeInventario: json["typeInventario"],
-        createdAt: DateTime.tryParse(json["createdAt"]),
-        updatedAt: DateTime.tryParse(json["updatedAt"]),
-        category: CategoryModel.fromJson(json["categorie"]),
-        adjunto: AdjuntoModel.fromJson(json["adjunto"]),
-        discount: json["discount"],
-      );
+          id: json["id"],
+          name: json["title"],
+          slug: json["slug"],
+          sku: json["sku"],
+          price: json["priceCop"]?.toDouble(), // Ajusta el nombre según tu JSON
+          state: json["state"],
+          stock: json["stock"],
+          description: json["description"],
+          summary: json["resumen"],
+          typeInventario: json["typeInventario"],
+          createdAt: DateTime.tryParse(json["createdAt"]),
+          updatedAt: DateTime.tryParse(json["updatedAt"]),
+          category: CategoryModel.fromJson(json["categorie"]),
+          adjunto: AdjuntoModel.fromJson(json["adjunto"]),
+          discount: json["discount"],
+          crop: json["crop_id"]);
 }
 
 class CategoryModel {

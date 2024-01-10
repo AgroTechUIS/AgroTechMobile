@@ -18,7 +18,9 @@ final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
     GlobalKey<RefreshIndicatorState>();
 
 class ProductPage extends ConsumerWidget {
-  final ccase = GetProductUseCaseImpl(ProductRepositoryImpl(ProductService()));
+  ProductPage({super.key, required this.idCrop});
+
+  final int idCrop;
 
   void deleteProduct(
       ProductResponseModel producto, ProductController controller) {
@@ -38,7 +40,7 @@ class ProductPage extends ConsumerWidget {
       context: context,
       builder: (context) {
         return NewProduct(
-          onSave: (nuevoProducto) {
+          onSave: (nuevoProducto) async {
             bool existeProducto =
                 controller.existeProductoConNombre(nuevoProducto.name!);
 
@@ -52,6 +54,9 @@ class ProductPage extends ConsumerWidget {
               );
             } else {
               controller.saveProducts(nuevoProducto);
+              Future.delayed(const Duration(milliseconds: 500));
+              await controller.getListProduct(idCrop);
+
               Fluttertoast.showToast(
                 msg: 'Producto creado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -96,7 +101,7 @@ class ProductPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              // controller.getListProduct();
+              controller.getListProduct(idCrop);
               Fluttertoast.showToast(
                 msg: 'Producto actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
