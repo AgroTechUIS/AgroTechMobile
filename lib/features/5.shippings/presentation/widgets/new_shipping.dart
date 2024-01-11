@@ -31,7 +31,7 @@ class _NewPestState extends State<NewShipping> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Text("Crea una nueva plaga"),
+      title: Text("Crea un nuevo envio"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,

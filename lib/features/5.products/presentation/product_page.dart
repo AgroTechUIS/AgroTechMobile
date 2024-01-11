@@ -42,7 +42,7 @@ class ProductPage extends ConsumerWidget {
         return NewProduct(
           onSave: (nuevoProducto) async {
             bool existeProducto =
-                controller.existeProductoConNombre(nuevoProducto.name!);
+                controller.existeProductoConNombre(nuevoProducto.title!);
 
             if (existeProducto) {
               Fluttertoast.showToast(
@@ -53,7 +53,7 @@ class ProductPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.saveProducts(nuevoProducto);
+              controller.saveProducts(nuevoProducto, idEmpresa);
               Future.delayed(const Duration(milliseconds: 500));
               await controller.getListProduct(idEmpresa);
 
@@ -90,7 +90,7 @@ class ProductPage extends ConsumerWidget {
             ProductResponseModel productModel =
                 ProductResponseModel.fromJson(nca);
             bool existeProducto = controller.existeProductoEConNombre(
-                productModel.name!, productModel);
+                productModel.title!, productModel);
 
             if (existeProducto) {
               Fluttertoast.showToast(

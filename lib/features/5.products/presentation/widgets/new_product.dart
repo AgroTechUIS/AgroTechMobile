@@ -101,40 +101,6 @@ class _NewProductState extends State<NewProduct> {
               ),
             ),
             SizedBox(height: 12),
-            TextField(
-              controller: widget.categoryController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: const Text("Categoría"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 12),
-            TextField(
-              controller: widget.cropController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: const Text("CULTIVO"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 12),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -158,10 +124,12 @@ class _NewProductState extends State<NewProduct> {
                       }
 
                       ProductResponseModel nuevoProducto = ProductResponseModel(
-                          name: widget.nombreController.text,
+                          title: widget.nombreController.text,
                           summary: widget.resumenController.text,
                           price: precio,
-                          stock: cantidad);
+                          stock: cantidad,
+                          category: null,
+                          crop: null);
                       widget.onSave!(nuevoProducto);
                     },
                     color: colors.green2,

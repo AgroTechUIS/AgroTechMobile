@@ -45,17 +45,17 @@ class ProductController extends StateNotifier<ProductState> {
     state = state.copyWith(productos: temp, selectedProductForEdit: producto);
   }
 
-  void saveProducts(ProductResponseModel? savedProductos) async {
+  void saveProducts(ProductResponseModel? savedProductos, int idEmpresa) async {
     ProductResponseModel savedProducto = ProductResponseModel(
       id: savedProductos!.id,
-      name: savedProductos.name,
+      title: savedProductos.title,
       summary: savedProductos.summary,
-      category: savedProductos.category,
       price: savedProductos.price,
       stock: savedProductos.stock,
     );
 
-    var resp = await getProductUseCaseImpl.saveProduct(savedProducto);
+    var resp =
+        await getProductUseCaseImpl.saveProduct(savedProducto, idEmpresa);
 
     final selectedProduct = ProductResponseModel.fromJson(resp);
     state.productos.add(selectedProduct);
@@ -71,7 +71,7 @@ class ProductController extends StateNotifier<ProductState> {
     }
     ProductResponseModel updatedInitialProducto = ProductResponseModel(
         id: updatedProductos.id ?? initialProducto.id,
-        name: updatedProductos.name ?? updatedProductos.name,
+        title: updatedProductos.title ?? updatedProductos.title,
         summary: updatedProductos.summary ?? updatedProductos.summary,
         category: updatedProductos.category ?? updatedProductos.category,
         price: updatedProductos.price ?? updatedProductos.price,

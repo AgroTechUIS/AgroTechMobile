@@ -6,7 +6,8 @@ abstract class ProductRepository {
   Future<String> deleteProductsById(int? productId);
 
   Future<Map<String, dynamic>> saveProductDataRep(
-      Map<String, dynamic> cropData);
+      Map<String, dynamic> productData,
+      {required int idEmpresa});
   Future<Map<String, dynamic>> updateProductsDataRep(
       Map<String, dynamic> pestData);
 }
@@ -61,9 +62,11 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   Future<Map<String, dynamic>> saveProductDataRep(
-      Map<String, dynamic> productData) async {
+      Map<String, dynamic> productData,
+      {required int idEmpresa}) async {
     try {
-      final response = await productService.saveProductData(productData);
+      final response = await productService.saveProductData(productData,
+          idEmpresa: idEmpresa);
 
       if (response.success) {
         final responseData = response.body;

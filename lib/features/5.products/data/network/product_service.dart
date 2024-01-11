@@ -22,10 +22,11 @@ class ProductService {
     return response;
   }
 
-  Future<HttpResponseModel> saveProductData(
-      Map<String, dynamic> productData) async {
+  Future<HttpResponseModel> saveProductData(Map<String, dynamic> productData,
+      {required int idEmpresa}) async {
     final response = await clienthttp.post(
-        url: '${RouteService.routeService}/api/store/product/productsOwn',
+        url:
+            '${RouteService.routeService}/api/store/product/productsOwn/$idEmpresa',
         body: productData); // api/store/products
     return response;
   }
@@ -34,7 +35,7 @@ class ProductService {
       Map<String, dynamic> productData) async {
     final response = await clienthttp.put(
       url:
-          '${RouteService.routeService}/api/store/products', // Ruta sin el cropId
+          '${RouteService.routeService}/api/store/product/productsOwn/', // Ruta sin el cropId
       body: productData,
     );
     return response;
@@ -42,7 +43,8 @@ class ProductService {
 
   Future<HttpDeleteModel> deleteProductData(int? idProduct) async {
     final response = await clienthttp.delete(
-        url: '${RouteService.routeService}/api/store/products$idProduct');
+        url:
+            '${RouteService.routeService}/api/store/product/productsOwn/$idProduct');
     return response;
   }
 }

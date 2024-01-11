@@ -23,7 +23,7 @@ class GetShippingUseCaseImpl extends GetShippingUseCase {
           await shippingRepository.getShippingByEmpresa(idEmpresa);
       List<ShippingsResponseModel>? listEnvios = [];
 
-      for (var entry in shippingData!['']) {
+      for (var entry in shippingData!['address_Shipping']) {
         listEnvios.add(ShippingsResponseModel.fromJson(entry));
       }
       return listEnvios;

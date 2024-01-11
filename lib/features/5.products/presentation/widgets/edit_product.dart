@@ -22,7 +22,7 @@ class EditProduct extends StatefulWidget {
     this.onCancel,
     required this.initialProduct,
   }) {
-    nombreController.text = initialProduct?.name ?? '';
+    nombreController.text = initialProduct?.title ?? '';
     resumenController.text = initialProduct?.summary ?? '';
     precioController.text = initialProduct?.price?.toString() ?? '';
     cantidadController.text = initialProduct?.stock.toString() ?? '';
@@ -130,7 +130,7 @@ class _editProductState extends State<EditProduct> {
 
                       ProductResponseModel nuevoProducto = ProductResponseModel(
                           id: widget.initialProduct?.id,
-                          name: widget.nombreController.text,
+                          title: widget.nombreController.text,
                           summary: widget.resumenController.text,
                           category: widget.initialProduct?.category,
                           price: precio,

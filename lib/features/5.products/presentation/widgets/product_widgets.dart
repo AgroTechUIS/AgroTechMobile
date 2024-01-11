@@ -37,7 +37,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.name ?? '',
+                  producto.title ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -106,44 +106,13 @@ class ProductWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Categoría: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  producto.category.toString(),
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
+            // Espacio entre el nombre y la descripción
 
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
 
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                FloatingActionButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => PlagasPage(idCrop: 1),
-                      ),
-                    );
-                  },
-                  backgroundColor: Colors.yellow,
-                  child: Icon(Icons.play_arrow),
-                ),
-                SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onEdit,
                   backgroundColor: Colors.green,

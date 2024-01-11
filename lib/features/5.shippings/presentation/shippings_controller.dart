@@ -34,7 +34,7 @@ class ShippingController extends StateNotifier<ShippingState> {
         department: updatedEnvios.department ?? initialEnvio.department,
         name: updatedEnvios.name ?? initialEnvio.name,
         price: updatedEnvios.price ?? initialEnvio.price,
-        empresa_id: idEmpresa);
+        empresa_id: idEmpresa.toString());
 
     var resp =
         await getShippingUseCaseImpl.updateShippings(updatedInitialEnvio);
@@ -72,7 +72,7 @@ class ShippingController extends StateNotifier<ShippingState> {
         name: savedShippings.name ?? '',
         department: savedShippings.department ?? '',
         price: savedShippings.price,
-        empresa_id: idEmpresa);
+        empresa_id: idEmpresa.toString());
 
     var resp = await getShippingUseCaseImpl.saveShipping(savedShipping);
 
@@ -98,7 +98,8 @@ class ShippingController extends StateNotifier<ShippingState> {
 
   Future<Map<String, dynamic>> updateShipping(
       ShippingsResponseModel? updatedEnvio,
-      ShippingsResponseModel? initialEnvio) async {
+      ShippingsResponseModel? initialEnvio,
+      int empresa_id) async {
     if (updatedEnvio == null || initialEnvio == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -112,7 +113,7 @@ class ShippingController extends StateNotifier<ShippingState> {
         department: updatedEnvio.department ?? initialEnvio.department,
         name: updatedEnvio.name ?? initialEnvio.name,
         price: updatedEnvio.price ?? initialEnvio.price,
-        empresa_id: updatedEnvio.empresa_id ?? initialEnvio.empresa_id);
+        empresa_id: empresa_id.toString());
 
     var resp =
         await getShippingUseCaseImpl.updateShippings(updatedInitialEnvio);

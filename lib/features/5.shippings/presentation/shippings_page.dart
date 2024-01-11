@@ -20,10 +20,9 @@ class ShippingsPage extends ConsumerWidget {
   final int idEmpresa;
 
   void deleteShipping(
-      ShippingsResponseModel envio, ShippingController controller) async {
+      ShippingsResponseModel envio, ShippingController controller) {
     controller.deleteShipping(envio);
-    Future.delayed(const Duration(milliseconds: 500));
-    await controller.getListShipping(idEmpresa);
+    controller.update(envio);
     Fluttertoast.showToast(
       msg: 'Envio eliminado correctamente.',
       toastLength: Toast.LENGTH_SHORT,
@@ -83,7 +82,7 @@ class ShippingsPage extends ConsumerWidget {
         return EditShipping(
           initialEnvio: state.selectedShippingForEdit,
           onSave: (ne) async {
-            final nca = await controller.updateShipping(ne, envio);
+            final nca = await controller.updateShipping(ne, envio, idEmpresa);
 
             ShippingsResponseModel shippingModel =
                 ShippingsResponseModel.fromJson(nca);

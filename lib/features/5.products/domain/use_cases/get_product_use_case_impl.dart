@@ -50,10 +50,11 @@ class GetProductUseCaseImpl extends GetProductUseCase {
   }
 
   Future<Map<String, dynamic>> saveProduct(
-      ProductResponseModel? savedProductos) async {
+      ProductResponseModel? savedProductos, int idEmpresa) async {
     try {
       final productData = savedProductos!.toJson();
-      var s = await productRepository.saveProductDataRep(productData);
+      var s = await productRepository.saveProductDataRep(productData,
+          idEmpresa: idEmpresa);
       return s;
     } catch (e) {
       throw ('Error al guardar el producto: $e');

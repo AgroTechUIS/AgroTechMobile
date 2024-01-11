@@ -17,7 +17,7 @@ class ShippingsResponseModel {
   String? department;
   double? price;
   String? name;
-  int? empresa_id;
+  String? empresa_id;
 
   ShippingsResponseModel({
     this.id,
@@ -42,7 +42,7 @@ class ShippingsResponseModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "city": name,
+        "city": city,
         "days_to_delivery": days_to_delivery,
         "department": department,
         "price": price,
