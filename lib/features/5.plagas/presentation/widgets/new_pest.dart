@@ -251,8 +251,7 @@ class _NewPestState extends State<NewPest> {
                         observation: widget.observacionesController.text,
                         appareceDate: date,
                         pestFamily: widget.familiaController.text,
-                        stateTratment: null,
-                        adjuntoDto: null,
+                        //  adjuntoDto: null,
                       );
                       widget.onSave!(nuevaPlaga);
                     },

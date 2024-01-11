@@ -38,8 +38,7 @@ class PestController extends StateNotifier<PestState> {
       observation: updatedPlagas.observation ?? initialPlaga.observation,
       appareceDate: updatedPlagas.appareceDate ?? initialPlaga.appareceDate,
       pestFamily: updatedPlagas.pestFamily ?? initialPlaga.pestFamily,
-      stateTratment: updatedPlagas.stateTratment ?? initialPlaga.stateTratment,
-      adjuntoDto: updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto,
+      //  adjuntoDto: updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto,
     );
 
     var resp = await getPestUseCaseImpl.updatePest(updatedInitialPlaga);
@@ -76,7 +75,6 @@ class PestController extends StateNotifier<PestState> {
       observation: savedPlagas.observation ?? '',
       appareceDate: savedPlagas.appareceDate ?? DateTime.now(),
       pestFamily: savedPlagas.pestFamily ?? '',
-      stateTratment: savedPlagas.stateTratment ?? '',
       crop: crop,
     );
 

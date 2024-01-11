@@ -19,8 +19,7 @@ class PlagaResponseModel {
   String? observation;
   DateTime? appareceDate;
   String? pestFamily;
-  String? stateTratment;
-  AdjuntoDto? adjuntoDto;
+  // AdjuntoDto? adjuntoDto;
   int? crop;
   PlagaResponseModel(
       {this.id,
@@ -30,8 +29,7 @@ class PlagaResponseModel {
       this.observation,
       this.appareceDate,
       this.pestFamily,
-      this.stateTratment,
-      this.adjuntoDto,
+      //  this.adjuntoDto,
       this.crop});
 
   factory PlagaResponseModel.fromJson(Map<String, dynamic> json) =>
@@ -43,11 +41,7 @@ class PlagaResponseModel {
         observation: json["observation"],
         appareceDate: DateTime.parse(json["appareceDate"]),
         pestFamily: json["pestFamily"],
-        stateTratment: json["state_tratment"],
-        adjuntoDto: json["adjuntoDto"] == null
-            ? null
-            : AdjuntoDto.fromJson(json["adjuntoDto"]),
-        crop: json["crop"],
+        //  crop: json["crop"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,8 +53,6 @@ class PlagaResponseModel {
         "appareceDate":
             "${appareceDate?.year.toString().padLeft(4, '0')}-${appareceDate?.month.toString().padLeft(2, '0')}-${appareceDate?.day.toString().padLeft(2, '0')}",
         "pestFamily": pestFamily,
-        "state_tratment": stateTratment,
-        "adjuntoDto": adjuntoDto?.toJson(),
         "crop": crop
       };
 
@@ -74,7 +66,6 @@ class PlagaResponseModel {
             "${appareceDate?.year.toString().padLeft(4, '0')}-${appareceDate?.month.toString().padLeft(2, '0')}-${appareceDate?.day.toString().padLeft(2, '0')}",
         "pestFamily": pestFamily,
         // "state_tratment": stateTratment,
-        "url": adjuntoDto?.url ?? "",
         "crop": crop.toString()
       };
   Map<String, dynamic> toJsonEdit() => {
@@ -86,8 +77,7 @@ class PlagaResponseModel {
         "appareceDate":
             "${appareceDate?.year.toString().padLeft(4, '0')}-${appareceDate?.month.toString().padLeft(2, '0')}-${appareceDate?.day.toString().padLeft(2, '0')}",
         "pestFamily": pestFamily,
-        "state_tratment": stateTratment ?? "",
-        "url": adjuntoDto?.url ?? "",
+        //- "url": adjuntoDto?.url ?? "",
       };
 }
 

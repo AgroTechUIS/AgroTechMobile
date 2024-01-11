@@ -128,8 +128,9 @@ class PlagasPage extends ConsumerWidget {
               );
             } else {
               controller.savePests(nuevaPlaga, idCrop);
-              Future.delayed(const Duration(milliseconds: 500));
-              await controller.getListPest(idCrop);
+
+              controller.updatePest(nuevaPlaga);
+
               Fluttertoast.showToast(
                 msg: 'Plaga creada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -141,9 +142,7 @@ class PlagasPage extends ConsumerWidget {
               Navigator.of(context).pop();
             }
           },
-          onCancel: () {
-            Navigator.of(context).pop();
-          },
+          onCancel: () => Navigator.of(context).pop(),
         );
       },
     );

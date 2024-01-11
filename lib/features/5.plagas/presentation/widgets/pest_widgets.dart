@@ -74,7 +74,7 @@ class PestWidget extends StatelessWidget {
                   ),
                 ]),
                 Spacer(),
-                GestureDetector(
+              /* GestureDetector(
                     onTap: () async {
                       if (plaga.adjuntoDto!.url != null) {
                         showDialog(
@@ -115,9 +115,9 @@ class PestWidget extends StatelessWidget {
                                     ]));
                       }
                     },
-                    child: /*plaga.adjuntoDto!.url != null
+                    child: plaga.adjuntoDto!.url != null
                         ? CircleAvatar(radius: 40, backgroundImage: NetworkImage(plaga.adjuntoDto!.url as String))
-                        :*/
+                        :
                         CircleAvatar(
                       radius: 40,
                       backgroundColor: Colors.grey[300],
@@ -126,7 +126,7 @@ class PestWidget extends StatelessWidget {
                         size: 30,
                         color: Colors.black,
                       ),
-                    )),
+                    )),*/
               ],
             ),
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción

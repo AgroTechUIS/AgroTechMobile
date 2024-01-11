@@ -45,7 +45,7 @@ class TratamientosPage extends ConsumerWidget {
 
               if (existeTratamiento) {
                 Fluttertoast.showToast(
-                  msg: 'Ya existe una plaga con el mismo nombre.',
+                  msg: 'Ya existe un tratamiento con el mismo nombre.',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.TOP_RIGHT,
                   backgroundColor: Colors.red, // Fondo rojo
@@ -54,7 +54,7 @@ class TratamientosPage extends ConsumerWidget {
               } else {
                 controller.getListTreatment(idPest);
                 Fluttertoast.showToast(
-                  msg: 'Plaga actualizada correctamente.',
+                  msg: 'Tratamiento actualizado correctamente.',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.TOP_RIGHT,
                   backgroundColor:
@@ -67,7 +67,6 @@ class TratamientosPage extends ConsumerWidget {
             onCancel: () {
               Navigator.of(context).pop();
             },
-            // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
           );
         },
       );
