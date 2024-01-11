@@ -1,33 +1,31 @@
-import 'package:agrotech/features/5.products/presentation/product_state.dart';
-import 'package:agrotech/features/5.products/presentation/widgets/edit_product.dart';
-import 'package:agrotech/features/5.products/presentation/widgets/new_product.dart';
-import 'package:agrotech/features/5.products/presentation/widgets/product_widgets.dart';
+import 'package:agrotech/features/5.shippings/presentation/shippings_controller.dart';
+import 'package:agrotech/features/5.shippings/presentation/shippings_state.dart';
+import 'package:agrotech/features/5.shippings/presentation/widgets/new_shipping.dart';
+import 'package:agrotech/features/5.shippings/presentation/widgets/shippings_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
-import '../data/network/product_repository_impl.dart';
-import '../data/network/product_service.dart';
-import '../domain/models/product_response_model.dart';
-import '../domain/use_cases/get_product_use_case_impl.dart';
-import 'product_controller.dart';
+import '../domain/models/shippings_model.dart';
+import 'widgets/edit_shipping.dart';
 
 final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
     GlobalKey<RefreshIndicatorState>();
 
-class ProductPage extends ConsumerWidget {
-  ProductPage({super.key, required this.idEmpresa});
+class ShippingsPage extends ConsumerWidget {
+  ShippingsPage({super.key, required this.idEmpresa});
 
   final int idEmpresa;
 
-  void deleteProduct(
-      ProductResponseModel producto, ProductController controller) {
-    controller.deleteProduct(producto);
-    controller.updateProduct(producto);
+  void deleteShipping(
+      ShippingsResponseModel envio, ShippingController controller) async {
+    controller.deleteShipping(envio);
+    Future.delayed(const Duration(milliseconds: 500));
+    await controller.getListShipping(idEmpresa);
     Fluttertoast.showToast(
-      msg: 'Producto eliminado correctamente.',
+      msg: 'Envio eliminado correctamente.',
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.TOP_RIGHT,
       backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
@@ -35,30 +33,30 @@ class ProductPage extends ConsumerWidget {
     );
   }
 
-  void createNewProduct(BuildContext context, ProductController controller) {
+  void createNewShipping(BuildContext context, ShippingController controller) {
     showDialog(
       context: context,
       builder: (context) {
-        return NewProduct(
-          onSave: (nuevoProducto) async {
-            bool existeProducto =
-                controller.existeProductoConNombre(nuevoProducto.name!);
+        return NewShipping(
+          onSave: (nuevoEnvio) async {
+            bool existeEnvio =
+                controller.existeEnvioConNombre(nuevoEnvio.name!);
 
-            if (existeProducto) {
+            if (existeEnvio) {
               Fluttertoast.showToast(
-                msg: 'Ya existe un producto con el mismo nombre.',
+                msg: 'Ya existe un envio con el mismo nombre.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
                 backgroundColor: Colors.red, // Fondo rojo
                 textColor: Colors.white,
               );
             } else {
-              controller.saveProducts(nuevoProducto);
+              controller.saveShippings(nuevoEnvio, idEmpresa);
               Future.delayed(const Duration(milliseconds: 500));
-              await controller.getListProduct(idEmpresa);
+              await controller.getListShipping(idEmpresa);
 
               Fluttertoast.showToast(
-                msg: 'Producto creado correctamente.',
+                msg: 'Envio creado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
                 backgroundColor:
@@ -76,34 +74,34 @@ class ProductPage extends ConsumerWidget {
     );
   }
 
-  void editProduct(context, ProductResponseModel producto,
-      ProductController controller, ProductState state) {
-    state.selectedProductForEdit = producto;
+  void editShipping(context, ShippingsResponseModel envio,
+      ShippingController controller, ShippingState state) {
+    state.selectedShippingForEdit = envio;
     showDialog(
       context: context,
       builder: (context) {
-        return EditProduct(
-          initialProduct: state.selectedProductForEdit,
-          onSave: (nc) async {
-            final nca = await controller.updatesProducts(nc, producto);
+        return EditShipping(
+          initialEnvio: state.selectedShippingForEdit,
+          onSave: (ne) async {
+            final nca = await controller.updateShipping(ne, envio);
 
-            ProductResponseModel productModel =
-                ProductResponseModel.fromJson(nca);
-            bool existeProducto = controller.existeProductoEConNombre(
-                productModel.name!, productModel);
+            ShippingsResponseModel shippingModel =
+                ShippingsResponseModel.fromJson(nca);
+            bool existeEnvio = controller.existeEnvioEConNombre(
+                shippingModel.name!, shippingModel);
 
-            if (existeProducto) {
+            if (existeEnvio) {
               Fluttertoast.showToast(
-                msg: 'Ya existe un Producto con el mismo nombre.',
+                msg: 'Ya existe un envio con el mismo nombre.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
                 backgroundColor: Colors.red, // Fondo rojo
                 textColor: Colors.white,
               );
             } else {
-              controller.getListProduct(idEmpresa);
+              controller.getListShipping(idEmpresa);
               Fluttertoast.showToast(
-                msg: 'Producto actualizado correctamente.',
+                msg: 'Envio actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
                 backgroundColor:
@@ -123,12 +121,12 @@ class ProductPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var state = ref.watch(productController);
-    var controller = ref.read(productController.notifier);
+    var state = ref.watch(shippingController);
+    var controller = ref.read(shippingController.notifier);
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => createNewProduct(context, controller),
+        onPressed: () => createNewShipping(context, controller),
         child: const Icon(Icons.add),
       ),
       body: Column(
@@ -152,7 +150,7 @@ class ProductPage extends ConsumerWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 15.0),
                   child: Text(
-                    'Productos',
+                    'Envios',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
@@ -174,14 +172,14 @@ class ProductPage extends ConsumerWidget {
                 ),
               ),
               child: ListView(
-                children: state.productos
-                    .map((e) => ProductWidget(
-                          producto: e,
+                children: state.envios
+                    .map((e) => ShippingWidget(
+                          envio: e,
                           onEdit: () {
-                            editProduct(context, e, controller, state);
+                            editShipping(context, e, controller, state);
                           },
                           onDelete: () {
-                            deleteProduct(e, controller);
+                            deleteShipping(e, controller);
                           },
                         ))
                     .toList(),

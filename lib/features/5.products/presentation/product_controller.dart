@@ -86,8 +86,9 @@ class ProductController extends StateNotifier<ProductState> {
     return resp;
   }
 
-  Future<List<ProductResponseModel>?> getListProduct(int idCrop) async {
-    var resp = await getProductUseCaseImpl.getListProducts(idCrop: idCrop);
+  Future<List<ProductResponseModel>?> getListProduct(int idEmpresa) async {
+    var resp =
+        await getProductUseCaseImpl.getListProducts(idEmpresa: idEmpresa);
     state = state.copyWith(productos: resp);
     return resp;
   }

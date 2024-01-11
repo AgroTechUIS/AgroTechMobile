@@ -10,13 +10,14 @@ class ProductService {
   Future<HttpResponseModel> saveProduct(
       {required ProductResponseModel productModel}) async {
     return clienthttp.post(
-        url: '${RouteService.routeService}/productos',
+        url: '${RouteService.routeService}/api/store/product/productsOwn',
         body: productModel.toJson());
   }
 
-  Future<HttpResponseModel> getProducts({required int idCrop}) async {
+  Future<HttpResponseModel> getProducts({required int idEmpresa}) async {
     final response = await clienthttp.get(
-        url: '${RouteService.routeService}/api/products/$idCrop');
+        url:
+            '${RouteService.routeService}/api/store/product/productsOwn/$idEmpresa');
 
     return response;
   }
@@ -24,14 +25,16 @@ class ProductService {
   Future<HttpResponseModel> saveProductData(
       Map<String, dynamic> productData) async {
     final response = await clienthttp.post(
-        url: '${RouteService.routeService}/api/productos', body: productData);
+        url: '${RouteService.routeService}/api/store/product/productsOwn',
+        body: productData); // api/store/products
     return response;
   }
 
   Future<HttpResponseModel> updateProductData(
       Map<String, dynamic> productData) async {
     final response = await clienthttp.put(
-      url: '${RouteService.routeService}/api/productos', // Ruta sin el cropId
+      url:
+          '${RouteService.routeService}/api/store/products', // Ruta sin el cropId
       body: productData,
     );
     return response;
@@ -39,7 +42,7 @@ class ProductService {
 
   Future<HttpDeleteModel> deleteProductData(int? idProduct) async {
     final response = await clienthttp.delete(
-        url: '${RouteService.routeService}/api/productos/$idProduct');
+        url: '${RouteService.routeService}/api/store/products$idProduct');
     return response;
   }
 }

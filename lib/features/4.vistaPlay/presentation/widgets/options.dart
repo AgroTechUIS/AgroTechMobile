@@ -56,19 +56,6 @@ class VistaPlayOptions extends ConsumerWidget {
                                 )),
                       );
                     }),
-                MiniOptionWidget(
-                  title: 'Gestión de productos',
-                  iconRoute: 'assets/bill.svg',
-                  onTap: () {
-                    //async
-                    // await controller.getListCrop(stateLogin.idEmpresa);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProductPage(idCrop: idCrop)),
-                    );
-                  },
-                ),
               ],
             ),
           ),

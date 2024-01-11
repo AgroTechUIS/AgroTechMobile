@@ -17,9 +17,10 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl(this.productService);
 
   @override
-  Future<Map<String, dynamic>> getProductsByEmpresa(int idCrop) async {
+  Future<Map<String, dynamic>> getProductsByEmpresa(int idEmpresa) async {
     try {
-      final productData = await productService.getProducts(idCrop: idCrop);
+      final productData =
+          await productService.getProducts(idEmpresa: idEmpresa);
       if (productData.success) {
         return productData.body ?? {};
       } else {

@@ -7,7 +7,6 @@ import 'package:agrotech/features/5.plagas/domain/use_cases/get_pest_use_case_im
 import 'package:agrotech/features/5.plagas/presentation/pest_controller.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/edit_pest.dart';
-import 'package:agrotech/features/5.plagas/presentation/widgets/new_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/pest_widgets.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/treatment_controller.dart';
 import 'package:agrotech/features/5.tratamientos/presentation/treatment_page.dart';
@@ -18,6 +17,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../domain/models/pest_model.dart';
+import 'widgets/new_pest.dart';
 
 class PlagasPage extends ConsumerWidget {
   final int idCrop;
