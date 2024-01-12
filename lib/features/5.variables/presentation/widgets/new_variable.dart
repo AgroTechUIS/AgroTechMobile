@@ -207,7 +207,6 @@ class _NewVariableState extends State<NewVariable> {
                     onPressed: () {
                       VariableResponseModel nuevaVariable =
                           VariableResponseModel(
-                              id: 0, // Asigna el ID adecuado
                               name: widget.nombreController.text,
                               description: widget.descripcionController.text,
                               measurement_method: selectedValue,

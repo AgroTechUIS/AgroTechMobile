@@ -58,6 +58,7 @@ class VariablesPage extends ConsumerWidget {
               );
             } else {
               controller.getListVariable(idCrop);
+
               Fluttertoast.showToast(
                 msg: 'Variable actualizada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -109,8 +110,10 @@ class VariablesPage extends ConsumerWidget {
               );
             } else {
               controller.saveVariables(nuevaVariable, idCrop);
-              Future.delayed(const Duration(milliseconds: 500));
+              Future.delayed(const Duration(milliseconds: 200));
               await controller.getListVariable(idCrop);
+              controller.updateVariable(nuevaVariable);
+
               Fluttertoast.showToast(
                 msg: 'Variable creada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,

@@ -77,7 +77,7 @@ class VariableController extends StateNotifier<VariableState> {
 
     var resp = await getVariableUseCaseImpl.saveVariable(savedVariable);
 
-    final selectedVariable = VariableResponseModel.fromJson(resp);
+    final selectedVariable = VariableResponseModel.fromJsonPost(resp);
     state.variables.add(selectedVariable);
     state = state.copyWith(variables: state.variables);
   }

@@ -1,34 +1,30 @@
-import 'package:agrotech/common_utilities/context_extension.dart';
-import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
-import 'package:agrotech/features/4.cultivos/domain/use_cases/get_crop_use_case_impl.dart';
-import 'package:agrotech/features/4.cultivos/presentation/crop_controller.dart';
-import 'package:agrotech/features/4.cultivos/presentation/crop_state.dart';
-import 'package:agrotech/features/4.cultivos/presentation/widgets/crop_widgets.dart';
-import 'package:agrotech/features/4.cultivos/presentation/widgets/edit_crop.dart';
-import 'package:agrotech/features/4.cultivos/presentation/widgets/new_crop.dart';
-import 'package:agrotech/features/4.vistaPlay/presentation/vistaPlay_page.dart';
+import 'package:agrotech/features/4.shippings/presentation/shippings_controller.dart';
+import 'package:agrotech/features/4.shippings/presentation/shippings_state.dart';
+import 'package:agrotech/features/4.shippings/presentation/widgets/new_shipping.dart';
+import 'package:agrotech/features/4.shippings/presentation/widgets/shippings_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
-import '../../1.login/presentation/login_controller.dart';
-import '../../5.plagas/presentation/pest_page.dart';
-import '../data/network/crop_repository_impl.dart';
-import '../data/network/crop_service.dart';
+import '../domain/models/shippings_model.dart';
+import 'widgets/edit_shipping.dart';
 
 final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
     GlobalKey<RefreshIndicatorState>();
 
-class CropPage extends ConsumerWidget {
-  final ccase = GetCropUseCaseImpl(CropRepositoryImpl(CropService()));
+class ShippingsPage extends ConsumerWidget {
+  ShippingsPage({super.key, required this.idEmpresa});
 
-  void deleteCrop(CropResponseModel cultivo, CropController controller) {
-    controller.deleteCrop(cultivo);
-    controller.updateCrop(cultivo);
+  final int idEmpresa;
+
+  void deleteShipping(
+      ShippingsResponseModel envio, ShippingController controller) {
+    controller.deleteShipping(envio);
+    controller.update(envio);
     Fluttertoast.showToast(
-      msg: 'Cultivo eliminado correctamente.',
+      msg: 'Envio eliminado correctamente.',
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.TOP_RIGHT,
       backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
@@ -36,38 +32,30 @@ class CropPage extends ConsumerWidget {
     );
   }
 
-  void createNewCrop(
-      BuildContext context, CropController controller, WidgetRef ref) {
-    var stateLogin = ref.watch(loginController);
-
+  void createNewShipping(BuildContext context, ShippingController controller) {
     showDialog(
       context: context,
       builder: (context) {
-        return NewCrop(
-          onSave: (nuevoCultivo) async {
-            bool existeCultivo =
-                controller.existeCultivoConNombre(nuevoCultivo.name!);
+        return NewShipping(
+          onSave: (nuevoEnvio) async {
+            bool existeEnvio =
+                controller.existeEnvioConNombre(nuevoEnvio.name!);
 
-            if (existeCultivo) {
+            if (existeEnvio) {
               Fluttertoast.showToast(
-                msg: 'Ya existe un cultivo con el mismo nombre.',
+                msg: 'Ya existe un envio con el mismo nombre.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
                 backgroundColor: Colors.red, // Fondo rojo
                 textColor: Colors.white,
               );
             } else {
-              // ignore: curly_braces_in_flow_control_structures
-
-              controller.saveCrops(nuevoCultivo, stateLogin.idEmpresa);
-              /*Future.delayed(const Duration(milliseconds: 100));
-
-              await controller.getListCrop(stateLogin.idEmpresa);
-              await controller.getListPlants();
-              controller.updateCrop(nuevoCultivo);*/
+              controller.saveShippings(nuevoEnvio, idEmpresa);
+              Future.delayed(const Duration(milliseconds: 500));
+              await controller.getListShipping(idEmpresa);
 
               Fluttertoast.showToast(
-                msg: 'Cultivo creado correctamente.',
+                msg: 'Envio creado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
                 backgroundColor:
@@ -85,36 +73,34 @@ class CropPage extends ConsumerWidget {
     );
   }
 
-  void editCrop(context, CropResponseModel cultivo, CropController controller,
-      CropState state, WidgetRef ref) {
-    var stateLogin = ref.watch(loginController);
-
-    state.selectedCropForEdit = cultivo;
+  void editShipping(context, ShippingsResponseModel envio,
+      ShippingController controller, ShippingState state) {
+    state.selectedShippingForEdit = envio;
     showDialog(
       context: context,
       builder: (context) {
-        return EditCrop(
-          initialCrop: state.selectedCropForEdit,
-          onSave: (nc) async {
-            final nca = await controller.updatesCrops(nc, cultivo);
+        return EditShipping(
+          initialEnvio: state.selectedShippingForEdit,
+          onSave: (ne) async {
+            final nca = await controller.updateShipping(ne, envio, idEmpresa);
 
-            CropResponseModel cultivoModel = CropResponseModel.fromJson(nca);
-            bool existeCultivo = controller.existeCultivoEConNombre(
-                cultivoModel.name!, cultivoModel);
+            ShippingsResponseModel shippingModel =
+                ShippingsResponseModel.fromJson(nca);
+            bool existeEnvio = controller.existeEnvioEConNombre(
+                shippingModel.name!, shippingModel);
 
-            if (existeCultivo) {
+            if (existeEnvio) {
               Fluttertoast.showToast(
-                msg: 'Ya existe un cultivo con el mismo nombre.',
+                msg: 'Ya existe un envio con el mismo nombre.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
                 backgroundColor: Colors.red, // Fondo rojo
                 textColor: Colors.white,
               );
             } else {
-              await controller.getListCrop(stateLogin.idEmpresa);
-
+              controller.getListShipping(idEmpresa);
               Fluttertoast.showToast(
-                msg: 'Cultivo actualizado correctamente.',
+                msg: 'Envio actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
                 backgroundColor:
@@ -130,20 +116,16 @@ class CropPage extends ConsumerWidget {
         );
       },
     );
-  }
-
-  void playCrop(BuildContext context, int idCrop) {
-    context.pushRoute(VistaPlayPage(idCrop));
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var state = ref.watch(cropController);
-    var controller = ref.read(cropController.notifier);
+    var state = ref.watch(shippingController);
+    var controller = ref.read(shippingController.notifier);
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => createNewCrop(context, controller, ref),
+        onPressed: () => createNewShipping(context, controller),
         child: const Icon(Icons.add),
       ),
       body: Column(
@@ -167,7 +149,7 @@ class CropPage extends ConsumerWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 15.0),
                   child: Text(
-                    'CULTIVOS',
+                    'Envios',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
@@ -189,17 +171,14 @@ class CropPage extends ConsumerWidget {
                 ),
               ),
               child: ListView(
-                children: state.cultivos
-                    .map((e) => CropWidget(
-                          cultivo: e,
-                          onPlay: () {
-                            playCrop(context, e.id!);
-                          },
+                children: state.envios
+                    .map((e) => ShippingWidget(
+                          envio: e,
                           onEdit: () {
-                            editCrop(context, e, controller, state, ref);
+                            editShipping(context, e, controller, state);
                           },
                           onDelete: () {
-                            deleteCrop(e, controller);
+                            deleteShipping(e, controller);
                           },
                         ))
                     .toList(),

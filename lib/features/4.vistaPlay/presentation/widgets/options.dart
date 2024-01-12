@@ -1,5 +1,5 @@
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
-import 'package:agrotech/features/5.products/presentation/product_page.dart';
+import 'package:agrotech/features/4.products/presentation/product_page.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

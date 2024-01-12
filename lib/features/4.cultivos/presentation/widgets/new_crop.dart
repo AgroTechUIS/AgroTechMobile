@@ -4,6 +4,7 @@ import 'package:agrotech/features/4.cultivos/presentation/crop_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../../5.cuidados/presentation/widgets/my_buttom.dart';
@@ -15,7 +16,8 @@ class NewCrop extends ConsumerStatefulWidget {
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController cantidadSemillasController = TextEditingController();
+  final TextEditingController cantidadSemillasController =
+      TextEditingController();
   final TextEditingController costoSemillasController = TextEditingController();
 
   NewCrop({super.key, this.onSave, this.onCancel});
@@ -27,6 +29,7 @@ class _NewCropState extends ConsumerState<NewCrop> {
   DateTime? date = DateTime.now();
   late Future<DateTime?> fecha;
 
+  String? valorInicial = null;
   @override
   Widget build(BuildContext context) {
     var state = ref.watch(cropController);
@@ -101,21 +104,24 @@ class _NewCropState extends ConsumerState<NewCrop> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey, // Puedes personalizar el color del borde aquí
+                        color: Colors
+                            .grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: InputDecoration(
-                        border: InputBorder.none, // Elimina el borde de InputDecorator
+                        border: InputBorder
+                            .none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${date!.day} / ${date!.month} / ${date!.year}',
                           style: TextStyle(
-                            color: colors.black, // Puedes personalizar el color del texto aquí
+                            color: colors
+                                .black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -184,38 +190,57 @@ class _NewCropState extends ConsumerState<NewCrop> {
                     text: "Guardar",
                     onPressed: () {
                       int? costoValue;
-                      String costoText = widget.costoSemillasController.value.toString();
+                      String costoText =
+                          widget.costoSemillasController.value.toString();
 
                       if (costoText.isNotEmpty) {
                         costoValue = int.tryParse(costoText);
                       }
 
                       int? cantidadValue;
-                      String cantidadText = widget.cantidadSemillasController.value.toString();
+                      String cantidadText =
+                          widget.cantidadSemillasController.value.toString();
 
                       if (cantidadText.isNotEmpty) {
                         cantidadValue = int.tryParse(cantidadText);
                       }
                       String costoText2 = widget.costoSemillasController.text;
-                      String cantidadText2 = widget.cantidadSemillasController.text;
+                      String cantidadText2 =
+                          widget.cantidadSemillasController.text;
 
                       CropResponseModel nuevoCultivo;
                       if (state.selectedPlant != null) {
                         nuevoCultivo = CropResponseModel(
                             name: widget.nombreController.text,
                             description: widget.descripcionController.text,
-                            cantidadSemillas: cantidadText2.isNotEmpty ? int.parse(cantidadText2) : 0,
-                            costoSemillas: cantidadText2.isNotEmpty ? double.parse(costoText2) : 0,
+                            cantidadSemillas: cantidadText2.isNotEmpty
+                                ? int.parse(cantidadText2)
+                                : 0,
+                            costoSemillas: cantidadText2.isNotEmpty
+                                ? double.parse(costoText2)
+                                : 0,
                             idPlanta: state.selectedPlant!.name,
                             planta: state.selectedPlant!.id
                             //usuario: UserEmail(email: "jorgesandoval529@gmail.com"),
                             );
                         widget.onSave!(nuevoCultivo);
+                      } else {
+                        Fluttertoast.showToast(
+                          msg: 'Debes asignar un valor de planta.',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.TOP_RIGHT,
+                          backgroundColor: Colors.red, // Fondo rojo
+                          textColor: Colors.white,
+                        );
                       }
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
+                MyButton(
+                    text: "Cerrar",
+                    onPressed: widget.onCancel,
+                    color: colors.white,
+                    textColor: colors.textColor),
               ],
             )
           ],

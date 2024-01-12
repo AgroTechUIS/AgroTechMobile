@@ -1,21 +1,17 @@
-// ignore: must_be_immutable
-import 'package:agrotech/features/4.vistaPlay/presentation/vistaPlay_page.dart';
-import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:typed_data';
+import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
+import 'package:agrotech/features/4.shippings/domain/models/shippings_model.dart';
+//import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
+//import 'package:image_picker/image_picker.dart';
 
-import '../../domain/models/crop_response_model.dart';
-
-class CropWidget extends StatelessWidget {
-  final CropResponseModel cultivo;
-  final VoidCallback onPlay; // Agrega este parámetro
-  final VoidCallback onEdit; // Agrega este parámetro
-  final VoidCallback onDelete; // Agrega este parámetro
-  CropWidget(
-      {required this.cultivo,
-      required this.onPlay,
-      required this.onEdit,
-      required this.onDelete});
+// ignore: must_be_immutable
+class ShippingWidget extends StatelessWidget {
+  final ShippingsResponseModel envio;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+  ShippingWidget(
+      {required this.envio, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -32,30 +28,31 @@ class CropWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text(
-                'Nombre: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  cultivo.name ?? '',
+            Row(children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Text(
+                  'Nombre: ',
                   style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                  child: Text(
+                    envio.name ?? '',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ),
+              ]),
             ]),
-
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Descripción: ',
+                'Ciudad: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -64,47 +61,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.description ?? '',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
-            SizedBox(height: 8.0),
-            /*Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Fecha de cultivación: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  '${cultivo.plantingDate!.year}-${cultivo.plantingDate!.month}-${cultivo.plantingDate!.day}',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción */
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Cantidad de semillas: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  cultivo.cantidadSemillas.toString(),
+                  envio.city ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -115,7 +72,7 @@ class CropWidget extends StatelessWidget {
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Costo de las semillas: ',
+                'Departamento: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -124,7 +81,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.costoSemillas.toString() ?? '',
+                  envio.department ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -132,18 +89,51 @@ class CropWidget extends StatelessWidget {
                 ),
               ),
             ]),
-
+            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Precio: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  '${envio.price}' ?? '',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
+            ]),
+            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Dias para entregar: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  '${envio.days_to_delivery}',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
+            ]),
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
 
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                FloatingActionButton(
-                  onPressed: onPlay,
-                  backgroundColor: Colors.yellow,
-                  child: Icon(Icons.play_arrow),
-                ),
-                SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onEdit,
                   backgroundColor: Colors.green,

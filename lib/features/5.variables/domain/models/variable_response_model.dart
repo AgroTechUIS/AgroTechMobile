@@ -11,7 +11,7 @@ List<VariableResponseModel> listvariableFromJson(List<dynamic> datos) =>
     datos.map((e) => VariableResponseModel.fromJson(e)).toList();
 
 class VariableResponseModel {
-  int id = 0;
+  int? id;
   String? name;
   String? description;
   String? measurement_method;
@@ -20,7 +20,7 @@ class VariableResponseModel {
   int? crop;
 
   VariableResponseModel(
-      {required this.id,
+      {this.id,
       this.name,
       this.description,
       this.measurement_method,
@@ -39,6 +39,15 @@ class VariableResponseModel {
               : null,
           measuring_instrument: json["measuring_instrument"],
           crop: json["crop"]);
+  factory VariableResponseModel.fromJsonPost(Map<String, dynamic> json) =>
+      VariableResponseModel(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        measurement_method: json["measurement_method"],
+        date_init: DateTime.parse(json["date_init"]),
+        measuring_instrument: json["measuring_instrument"],
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,

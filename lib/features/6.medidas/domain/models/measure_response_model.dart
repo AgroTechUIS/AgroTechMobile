@@ -29,7 +29,7 @@ class MeasureResponseModel {
       MeasureResponseModel(
         id: json["id"],
         measurement_value: json["measurement_Value"],
-        measuring_unit: json["measuring_unit"],
+        measuring_unit: json["measuring_Unit"],
         description: json["description"],
         date: json["date"] != null ? DateTime.parse(json["date"]) : null,
         variable: json["variable"],
@@ -38,14 +38,14 @@ class MeasureResponseModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "measurement_Value": measurement_value,
-        "measuring_unit": measuring_unit,
+        "measuring_Unit": measuring_unit,
         "description": description,
         "date": date?.toIso8601String(),
         "variable": variable,
       };
   Map<String, dynamic> toJsonPost() => {
         "measurement_Value": measurement_value,
-        "measuring_unit": measuring_unit,
+        "measuring_Unit": measuring_unit,
         "description": description,
         "date": date?.toIso8601String(),
         "variable": variable,

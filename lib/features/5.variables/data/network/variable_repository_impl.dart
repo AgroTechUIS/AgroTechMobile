@@ -29,6 +29,7 @@ class VariableRepositoryImpl implements VariableRepository {
     }
   }
 
+  @override
   Future<Map<String, dynamic>> updateVariableDataRep(
       Map<String, dynamic> variableData) async {
     try {
@@ -45,6 +46,7 @@ class VariableRepositoryImpl implements VariableRepository {
     }
   }
 
+  @override
   Future<Map<String, dynamic>> saveVariableDataRep(
       Map<String, dynamic> variableData) async {
     try {

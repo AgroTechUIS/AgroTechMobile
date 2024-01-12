@@ -8,8 +8,8 @@ import 'package:agrotech/features/5.plagas/presentation/pest_controller.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/edit_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/pest_widgets.dart';
-import 'package:agrotech/features/5.tratamientos/presentation/treatment_controller.dart';
-import 'package:agrotech/features/5.tratamientos/presentation/treatment_page.dart';
+import 'package:agrotech/features/6.tratamientos/presentation/treatment_controller.dart';
+import 'package:agrotech/features/6.tratamientos/presentation/treatment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/services.dart';
@@ -158,7 +158,7 @@ class PlagasPage extends ConsumerWidget {
     var state = ref.watch(pestController);
     var controller = ref.read(pestController.notifier);
 
-    //controller.getListPest(1);
+    //var controller2 = ref.read(treatmentController.notifier);
 
     return Scaffold(
       backgroundColor: colors.appbar,

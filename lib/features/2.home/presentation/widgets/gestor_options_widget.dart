@@ -3,11 +3,11 @@ import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
 import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
-import 'package:agrotech/features/5.products/presentation/product_controller.dart';
-import 'package:agrotech/features/5.products/presentation/product_page.dart';
-import 'package:agrotech/features/5.shippings/presentation/shippings_controller.dart';
-import 'package:agrotech/features/5.shippings/presentation/shippings_page.dart';
-import 'package:agrotech/features/5.tratamientos/presentation/treatment_page.dart';
+import 'package:agrotech/features/4.products/presentation/product_controller.dart';
+import 'package:agrotech/features/4.products/presentation/product_page.dart';
+import 'package:agrotech/features/4.shippings/presentation/shippings_controller.dart';
+import 'package:agrotech/features/4.shippings/presentation/shippings_page.dart';
+import 'package:agrotech/features/6.tratamientos/presentation/treatment_page.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_page.dart';
 import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +55,7 @@ class GestorOptions extends ConsumerWidget {
                   iconRoute: 'assets/bill.svg',
                   onTap: () async {
                     await controller2.getListProduct(stateLogin.idEmpresa);
+                    await controller2.getListCategories();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

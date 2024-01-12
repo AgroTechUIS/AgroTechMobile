@@ -136,55 +136,51 @@ class VariablesTPage extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                ),
-              ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: SingleChildScrollView(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      DataTable(
-                        columns: [
-                          DataColumn(label: Text('Valor')),
-                          DataColumn(label: Text('Descripción')),
-                          DataColumn(label: Text('Fecha')),
-                          DataColumn(label: Text('Unidad')),
-
-                          DataColumn(
-                              label: Text('Acciones')), // Columna para botones
-                        ],
-                        rows: state.medidas.map((e) {
-                          return DataRow(
-                            cells: [
-                              DataCell(Text('${e.measurement_value}')),
-                              DataCell(Text(e.description ?? '')),
-                              DataCell(Text(
-                                  '${e.date!.year}-${e.date!.month}-${e.date!.day} | ${e.date!.hour}:${e.date!.minute}')),
-                              DataCell(Text(e.measuring_unit ?? '')),
-                              DataCell(
-                                VariablesTWidget(
-                                  medida: e,
-                                  onEdit: () {
-                                    editMedida(context, e, controller);
-                                  },
-                                  onDelete: () {
-                                    deleteMedida(e, controller);
-                                  },
-                                ),
-                              )
-                              // Agrega más DataCell según sea necesario
-                            ],
-                          );
-                        }).toList(),
-                      ),
+                scrollDirection: Axis.horizontal,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                  ),
+                  child: DataTable(
+                    columns: [
+                      DataColumn(label: Text('Valor')),
+                      DataColumn(label: Text('Descripción')),
+                      DataColumn(label: Text('Fecha')),
+                      DataColumn(label: Text('Unidad')),
+                      DataColumn(
+                          label: Text('Acciones')), // Columna para botones
                     ],
+                    rows: state.medidas.map((e) {
+                      return DataRow(
+                        cells: [
+                          DataCell(Text('${e.measurement_value}')),
+                          DataCell(Text(e.description ?? '')),
+                          DataCell(Text(
+                              '${e.date!.year}-${e.date!.month}-${e.date!.day} | ${e.date!.hour}:${e.date!.minute}')),
+                          DataCell(Text(e.measuring_unit ?? '')),
+                          DataCell(
+                            VariablesTWidget(
+                              medida: e,
+                              onEdit: () {
+                                editMedida(context, e, controller);
+                              },
+                              onDelete: () {
+                                deleteMedida(e, controller);
+                              },
+                            ),
+                          )
+                          // Agrega más DataCell según sea necesario
+                        ],
+                      );
+                    }).toList(),
                   ),
                 ),
               ),

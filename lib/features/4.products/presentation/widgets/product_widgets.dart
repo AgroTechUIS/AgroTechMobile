@@ -1,21 +1,15 @@
 // ignore: must_be_immutable
-import 'package:agrotech/features/4.vistaPlay/presentation/vistaPlay_page.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
+import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/models/crop_response_model.dart';
-
-class CropWidget extends StatelessWidget {
-  final CropResponseModel cultivo;
-  final VoidCallback onPlay; // Agrega este parámetro
+class ProductWidget extends StatelessWidget {
+  final ProductResponseModel producto;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  CropWidget(
-      {required this.cultivo,
-      required this.onPlay,
-      required this.onEdit,
-      required this.onDelete});
+  ProductWidget(
+      {required this.producto, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +37,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.name ?? '',
+                  producto.title ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -55,7 +49,7 @@ class CropWidget extends StatelessWidget {
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Descripción: ',
+                'Resumen: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -64,7 +58,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.description ?? '',
+                  producto.summary ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -73,29 +67,9 @@ class CropWidget extends StatelessWidget {
               ),
             ]),
             SizedBox(height: 8.0),
-            /*Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Fecha de cultivación: ',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
-                child: Text(
-                  '${cultivo.plantingDate!.year}-${cultivo.plantingDate!.month}-${cultivo.plantingDate!.day}',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción */
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Cantidad de semillas: ',
+                'Precio: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -104,7 +78,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.cantidadSemillas.toString(),
+                  '${producto.price}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -115,7 +89,7 @@ class CropWidget extends StatelessWidget {
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Costo de las semillas: ',
+                'Stock: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -124,7 +98,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.costoSemillas.toString() ?? '',
+                  producto.stock.toString(),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -132,18 +106,13 @@ class CropWidget extends StatelessWidget {
                 ),
               ),
             ]),
+            // Espacio entre el nombre y la descripción
 
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
 
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                FloatingActionButton(
-                  onPressed: onPlay,
-                  backgroundColor: Colors.yellow,
-                  child: Icon(Icons.play_arrow),
-                ),
-                SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onEdit,
                   backgroundColor: Colors.green,
