@@ -46,11 +46,18 @@ class ProductController extends StateNotifier<ProductState> {
     state = state.copyWith(productos: temp, selectedProductForEdit: producto);
   }
 
+  void updateCategory(CategoryModel? categoria) {
+    var temp = state.categorias;
+    state.selectedCategorie = categoria;
+    state = state.copyWith(categorias: temp, selectedCategorie: categoria);
+  }
+
   void saveProducts(ProductResponseModel? savedProductos, int idEmpresa) async {
     ProductResponseModel savedProducto = ProductResponseModel(
       id: savedProductos!.id,
       title: savedProductos.title,
       summary: savedProductos.summary,
+      state: savedProductos.state,
       price: savedProductos.price,
       stock: savedProductos.stock,
     );
@@ -74,6 +81,8 @@ class ProductController extends StateNotifier<ProductState> {
         id: updatedProductos.id ?? initialProducto.id,
         title: updatedProductos.title ?? updatedProductos.title,
         summary: updatedProductos.summary ?? updatedProductos.summary,
+        state: updatedProductos.state ?? updatedProductos.state,
+
         // category: updatedProductos.category ?? updatedProductos.category,
         price: updatedProductos.price ?? updatedProductos.price,
         stock: updatedProductos.stock ?? updatedProductos.stock);

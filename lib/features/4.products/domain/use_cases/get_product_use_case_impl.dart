@@ -35,8 +35,8 @@ class GetProductUseCaseImpl extends GetProductUseCase {
       var categoryData = await productRepository.getCategories();
       List<CategoryModel>? listCategories = [];
 
-      for (var entry in categoryData.entries) {
-        listCategories.add(CategoryModel.fromJson(entry.value));
+      for (var entry in categoryData["categories"]) {
+        listCategories.add(CategoryModel.fromJson(entry));
       }
       return listCategories;
     } catch (e) {

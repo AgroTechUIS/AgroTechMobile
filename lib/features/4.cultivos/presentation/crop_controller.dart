@@ -94,7 +94,7 @@ class CropController extends StateNotifier<CropState> {
 
   void updatePlants(PlantResponseModel plant) async {
     var temp = state.plants;
-
+    state.selectedPlant = plant;
     state = state.copyWith(plants: temp, selectedPlant: plant);
   }
 

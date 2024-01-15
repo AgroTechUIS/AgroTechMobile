@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
+import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,9 @@ class _editProductState extends State<EditProduct> {
   void initState() {
     super.initState();
   }
+
+  String? selectedValue;
+  final List<String> itemsState = ['Activo', 'Desactivado'];
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +119,63 @@ class _editProductState extends State<EditProduct> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              width: double.infinity,
+              alignment: Alignment.centerLeft,
+              child: InputDecorator(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                )),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    isExpanded: true,
+                    hint: Text(
+                      'Estado del producto',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ),
+                    items: itemsState
+                        .map((String item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    value: selectedValue,
+                    onChanged: (String? value) {
+                      setState(() {
+                        selectedValue = value;
+                      });
+                    },
+                    buttonHeight: 20,
+                    buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                    buttonWidth: 140,
+                    itemHeight: 40,
+                    /*buttonStyleData: const ButtonStyleData(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      height: 20,
+                      width: 140,
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                    ),*/
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,12 +188,22 @@ class _editProductState extends State<EditProduct> {
 
                       double? precio =
                           double.tryParse(widget.precioController.text);
-
+                      int? valor;
+                      switch (selectedValue) {
+                        case 'Activo':
+                          valor = 1;
+                          break;
+                        case 'Desactivado':
+                          valor = 2;
+                          break;
+                        default:
+                          valor = null;
+                      }
                       ProductResponseModel nuevoProducto = ProductResponseModel(
                           id: widget.initialProduct?.id,
                           title: widget.nombreController.text,
                           summary: widget.resumenController.text,
-                          //  category: widget.initialProduct?.category,
+                          state: valor ?? widget.initialProduct!.state,
                           price: precio,
                           stock: cantidad);
 

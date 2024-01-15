@@ -1,8 +1,10 @@
 // ignore: must_be_immutable
+import 'package:agrotech/features/4.products/presentation/product_controller.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductWidget extends StatelessWidget {
   final ProductResponseModel producto;
@@ -11,6 +13,7 @@ class ProductWidget extends StatelessWidget {
   ProductWidget(
       {required this.producto, required this.onEdit, required this.onDelete});
 
+  String? estado;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -106,7 +109,26 @@ class ProductWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            // Espacio entre el nombre y la descripción
+            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Estado: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  getEstadoText(producto.state),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
+            ]),
 
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
 
@@ -130,5 +152,16 @@ class ProductWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+String getEstadoText(int? estado) {
+  switch (estado) {
+    case 1:
+      return 'Activo';
+    case 2:
+      return 'Desactivado';
+    default:
+      return 'Desconocido';
   }
 }
