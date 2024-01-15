@@ -52,6 +52,16 @@ class GestorOptions extends ConsumerWidget {
                     );
                   },
                 ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
                 MiniOptionWidget(
                   title: 'Gestión de productos',
                   iconRoute: 'assets/bill.svg',
@@ -79,54 +89,32 @@ class GestorOptions extends ConsumerWidget {
                     );
                   },
                 ),
-                /* MiniOptionWidget(
-                  title: 'Tratamientos',
-                  iconRoute: 'assets/agronomy.svg',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TratamientosPage()),
-                    )
-                  },
-                  //goPage: TratamientosPage(),
-                ),
                 MiniOptionWidget(
-                  title: 'Variables',
-                  iconRoute: 'assets/agronomy.svg',
-                  onTap: () {
+                  title: 'Gestión de descuentos',
+                  iconRoute: '/discount.svg',
+                  onTap: () async {
+                    //await controller2.getListProduct(stateLogin.idEmpresa);
+                    //await controller2.getListCategories();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const VariablesPage()),
+                          builder: (context) =>
+                              ProductPage(idEmpresa: stateLogin.idEmpresa)),
                     );
                   },
-                  //goPage: VariablesPage(),
                 ),
                 MiniOptionWidget(
-                  title: 'Cuidados',
-                  iconRoute: 'assets/agronomy.svg',
-                  onTap: () {
+                  title: 'Gestión de pedidos',
+                  iconRoute: '/orders.svg',
+                  onTap: () async {
+                    await controller.getListCrop(stateLogin.idEmpresa);
+                    await controller.getListPlants();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const CuidadosPage()),
+                      MaterialPageRoute(builder: (context) => CropPage()),
                     );
                   },
-                  //goPage: CuidadosPage(),
-                ),
-                MiniOptionWidget(
-                  title: 'Medidas',
-                  iconRoute: 'assets/agronomy.svg',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const VariablesTPage()),
-                    );
-                  },
-                  //goPage: VariablesTPage(),
-                ),;*/
+                )
               ],
             ),
           ),
