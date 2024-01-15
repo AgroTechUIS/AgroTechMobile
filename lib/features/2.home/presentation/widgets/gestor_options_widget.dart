@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:agrotech/common_utilities/widgets/mini_option_widget.dart';
 import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';

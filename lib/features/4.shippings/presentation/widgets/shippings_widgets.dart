@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 import 'package:agrotech/features/4.shippings/domain/models/shippings_model.dart';
 //import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
@@ -10,21 +8,19 @@ class ShippingWidget extends StatelessWidget {
   final ShippingsResponseModel envio;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
-  ShippingWidget(
-      {required this.envio, required this.onEdit, required this.onDelete});
+  const ShippingWidget({super.key, required this.envio, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5, // Elevación de la tarjeta
-      margin: EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
       shape: RoundedRectangleBorder(
         // Agrega el radio de borde
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -38,7 +34,7 @@ class ShippingWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                  padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                   child: Text(
                     envio.name ?? '',
                     style: TextStyle(
@@ -49,9 +45,9 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ]),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Ciudad: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -59,7 +55,7 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   envio.city ?? '',
                   style: TextStyle(
@@ -69,9 +65,9 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Departamento: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -79,7 +75,7 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   envio.department ?? '',
                   style: TextStyle(
@@ -89,9 +85,9 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Precio: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -99,9 +95,9 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${envio.price}' ?? '',
+                  '${envio.price}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -109,9 +105,9 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Dias para entregar: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -119,7 +115,7 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   '${envio.days_to_delivery}',
                   style: TextStyle(
@@ -129,7 +125,7 @@ class ShippingWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
 
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -137,13 +133,13 @@ class ShippingWidget extends StatelessWidget {
                 FloatingActionButton(
                   onPressed: onEdit,
                   backgroundColor: Colors.green,
-                  child: Icon(Icons.edit),
+                  child: const Icon(Icons.edit),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onDelete,
                   backgroundColor: Colors.red,
-                  child: Icon(Icons.delete),
+                  child: const Icon(Icons.delete),
                 ),
               ],
             ),

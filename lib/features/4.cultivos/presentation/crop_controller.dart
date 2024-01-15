@@ -23,19 +23,14 @@ class CropController extends StateNotifier<CropState> {
   }
 
   bool existeCultivoConNombre(String nombre) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
-    return state.cultivos
-        .any((cultivo) => cultivo.name!.toLowerCase() == nombreLowerCase);
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    return state.cultivos.any((cultivo) => cultivo.name!.toLowerCase() == nombreLowerCase);
   }
 
   bool existeCultivoEConNombre(String nombre, CropResponseModel cultivoEditar) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
     return state.cultivos
-        .where((cultivo) =>
-            cultivo.id !=
-            cultivoEditar.id) // Excluir la plaga que estás editando por su ID
+        .where((cultivo) => cultivo.id != cultivoEditar.id) // Excluir la plaga que estás editando por su ID
         .any((cultivo) => cultivo.name!.toLowerCase() == nombreLowerCase);
   }
 
@@ -66,8 +61,8 @@ class CropController extends StateNotifier<CropState> {
     state = state.copyWith(cultivos: state.cultivos);
   }
 
-  Future<Map<String, dynamic>> updatesCrops(CropResponseModel? updatedCultivos,
-      CropResponseModel? initialCultivo) async {
+  Future<Map<String, dynamic>> updatesCrops(
+      CropResponseModel? updatedCultivos, CropResponseModel? initialCultivo) async {
     if (updatedCultivos == null || initialCultivo == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -76,10 +71,8 @@ class CropController extends StateNotifier<CropState> {
       id: updatedCultivos.id ?? initialCultivo.id,
       name: updatedCultivos.name ?? initialCultivo.name,
       description: updatedCultivos.description ?? initialCultivo.description,
-      cantidadSemillas:
-          updatedCultivos.cantidadSemillas ?? initialCultivo.cantidadSemillas,
-      costoSemillas:
-          updatedCultivos.costoSemillas ?? initialCultivo.costoSemillas,
+      cantidadSemillas: updatedCultivos.cantidadSemillas ?? initialCultivo.cantidadSemillas,
+      costoSemillas: updatedCultivos.costoSemillas ?? initialCultivo.costoSemillas,
       //plantingDate: updatedCultivos.plantingDate ?? initialCultivo.plantingDate,
       //usuario: updatedCultivos.usuario ?? initialCultivo.usuario
     );
@@ -110,10 +103,10 @@ class CropController extends StateNotifier<CropState> {
     // condicion: si hay internet consulte el servicio
 
     var resp = await getCropUseCaseImpl.getListPlants();
-    state = state.copyWith(plants: resp);
+    state = state.copyWith(plants: resp, clearPlant: true);
     return resp;
   }
 }
 
-final cropController = StateNotifierProvider<CropController, CropState>((ref) =>
-    CropController(GetCropUseCaseImpl(CropRepositoryImpl(CropService()))));
+final cropController = StateNotifierProvider<CropController, CropState>(
+    (ref) => CropController(GetCropUseCaseImpl(CropRepositoryImpl(CropService()))));

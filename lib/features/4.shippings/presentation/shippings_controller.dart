@@ -8,7 +8,7 @@ import '../domain/models/shippings_model.dart';
 import '../domain/use_cases/get_shipping_use_case_impl.dart';
 
 class ShippingController extends StateNotifier<ShippingState> {
-  ShippingController(this.getShippingUseCaseImpl) : super(ShippingState()) {}
+  ShippingController(this.getShippingUseCaseImpl) : super(ShippingState());
 
   final GetShippingUseCaseImpl getShippingUseCaseImpl;
 
@@ -19,9 +19,7 @@ class ShippingController extends StateNotifier<ShippingState> {
   }
 
   Future<Map<String, dynamic>> updatesShippings(
-      ShippingsResponseModel? updatedEnvios,
-      ShippingsResponseModel? initialEnvio,
-      int idEmpresa) async {
+      ShippingsResponseModel? updatedEnvios, ShippingsResponseModel? initialEnvio, int idEmpresa) async {
     if (updatedEnvios == null || initialEnvio == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -29,15 +27,13 @@ class ShippingController extends StateNotifier<ShippingState> {
     ShippingsResponseModel updatedInitialEnvio = ShippingsResponseModel(
         id: updatedEnvios.id ?? initialEnvio.id,
         city: updatedEnvios.city ?? initialEnvio.city,
-        days_to_delivery:
-            updatedEnvios.days_to_delivery ?? initialEnvio.days_to_delivery,
+        days_to_delivery: updatedEnvios.days_to_delivery ?? initialEnvio.days_to_delivery,
         department: updatedEnvios.department ?? initialEnvio.department,
         name: updatedEnvios.name ?? initialEnvio.name,
         price: updatedEnvios.price ?? initialEnvio.price,
         empresa_id: idEmpresa.toString());
 
-    var resp =
-        await getShippingUseCaseImpl.updateShippings(updatedInitialEnvio);
+    var resp = await getShippingUseCaseImpl.updateShippings(updatedInitialEnvio);
 
     final selectedShipping = ShippingsResponseModel.fromJson(resp);
     state = state.copyWith(selectedShippingForEdit: selectedShipping);
@@ -46,25 +42,18 @@ class ShippingController extends StateNotifier<ShippingState> {
   }
 
   bool existeEnvioConNombre(String nombre) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    return state.envios.any((envio) => envio.name!.toLowerCase() == nombreLowerCase);
+  }
+
+  bool existeEnvioEConNombre(String nombre, ShippingsResponseModel envioEditar) {
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
     return state.envios
+        .where((envio) => envio.id != envioEditar.id) // Excluir la plaga que estás editando por su ID
         .any((envio) => envio.name!.toLowerCase() == nombreLowerCase);
   }
 
-  bool existeEnvioEConNombre(
-      String nombre, ShippingsResponseModel envioEditar) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
-    return state.envios
-        .where((envio) =>
-            envio.id !=
-            envioEditar.id) // Excluir la plaga que estás editando por su ID
-        .any((envio) => envio.name!.toLowerCase() == nombreLowerCase);
-  }
-
-  void saveShippings(
-      ShippingsResponseModel? savedShippings, int idEmpresa) async {
+  void saveShippings(ShippingsResponseModel? savedShippings, int idEmpresa) async {
     ShippingsResponseModel savedShipping = ShippingsResponseModel(
         id: savedShippings!.id,
         city: savedShippings.city ?? '',
@@ -97,9 +86,7 @@ class ShippingController extends StateNotifier<ShippingState> {
   }
 
   Future<Map<String, dynamic>> updateShipping(
-      ShippingsResponseModel? updatedEnvio,
-      ShippingsResponseModel? initialEnvio,
-      int empresa_id) async {
+      ShippingsResponseModel? updatedEnvio, ShippingsResponseModel? initialEnvio, int empresa_id) async {
     if (updatedEnvio == null || initialEnvio == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -108,15 +95,13 @@ class ShippingController extends StateNotifier<ShippingState> {
     ShippingsResponseModel updatedInitialEnvio = ShippingsResponseModel(
         id: updatedEnvio.id,
         city: updatedEnvio.city ?? initialEnvio.city,
-        days_to_delivery:
-            updatedEnvio.days_to_delivery ?? initialEnvio.days_to_delivery,
+        days_to_delivery: updatedEnvio.days_to_delivery ?? initialEnvio.days_to_delivery,
         department: updatedEnvio.department ?? initialEnvio.department,
         name: updatedEnvio.name ?? initialEnvio.name,
         price: updatedEnvio.price ?? initialEnvio.price,
         empresa_id: empresa_id.toString());
 
-    var resp =
-        await getShippingUseCaseImpl.updateShippings(updatedInitialEnvio);
+    var resp = await getShippingUseCaseImpl.updateShippings(updatedInitialEnvio);
 
     final selectedShipping = ShippingsResponseModel.fromJson(resp);
     state = state.copyWith(selectedShippingForEdit: selectedShipping);
@@ -132,7 +117,5 @@ class ShippingController extends StateNotifier<ShippingState> {
   }
 }
 
-final shippingController =
-    StateNotifierProvider<ShippingController, ShippingState>((ref) =>
-        ShippingController(
-            GetShippingUseCaseImpl(ShippingRepositoryImpl(ShippingService()))));
+final shippingController = StateNotifierProvider<ShippingController, ShippingState>(
+    (ref) => ShippingController(GetShippingUseCaseImpl(ShippingRepositoryImpl(ShippingService()))));

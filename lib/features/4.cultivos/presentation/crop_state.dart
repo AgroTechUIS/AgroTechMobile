@@ -11,23 +11,25 @@ class CropState {
 
   PlantResponseModel? selectedPlant;
 
-  CropState(
-      {this.plants = const [],
-      this.cultivos = const [],
-      this.selectedCropForEdit,
-      this.selectedPlant});
+  CropState({
+    this.plants = const [],
+    this.cultivos = const [],
+    this.selectedCropForEdit,
+    this.selectedPlant,
+  });
 
   CropState copyWith({
     List<CropResponseModel>? cultivos,
     List<PlantResponseModel>? plants,
     CropResponseModel? selectedCropForEdit,
     PlantResponseModel? selectedPlant,
+    bool? clearPlant,
   }) {
     return CropState(
       cultivos: cultivos ?? this.cultivos,
       plants: plants ?? this.plants,
       selectedCropForEdit: selectedCropForEdit ?? this.selectedCropForEdit,
-      selectedPlant: selectedPlant ?? this.selectedPlant,
+      selectedPlant: (clearPlant ?? false) ? null : (selectedPlant ?? this.selectedPlant),
     );
   }
 }
