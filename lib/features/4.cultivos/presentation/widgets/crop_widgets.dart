@@ -1,7 +1,4 @@
 // ignore: must_be_immutable
-import 'package:agrotech/features/4.vistaPlay/presentation/vistaPlay_page.dart';
-import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/models/crop_response_model.dart';
@@ -11,18 +8,13 @@ class CropWidget extends StatelessWidget {
   final VoidCallback onPlay; // Agrega este parámetro
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  CropWidget(
-      {required this.cultivo,
-      required this.onPlay,
-      required this.onEdit,
-      required this.onDelete});
+  CropWidget({required this.cultivo, required this.onPlay, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5, // Elevación de la tarjeta
-      margin: EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
+      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
       shape: RoundedRectangleBorder(
         // Agrega el radio de borde
         borderRadius: BorderRadius.circular(20.0),
@@ -124,7 +116,7 @@ class CropWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  cultivo.costoSemillas.toString() ?? '',
+                  cultivo.costoSemillas.toString(),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],

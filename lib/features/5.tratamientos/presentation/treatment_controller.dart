@@ -17,27 +17,22 @@ class TreatmentController extends StateNotifier<TreatmentState> {
   }
 
   Future<Map<String, dynamic>> updatesTreatments(
-      TreatmentResponseModel? updatedTratamientos,
-      TreatmentResponseModel? initialTratamiento) async {
+      TreatmentResponseModel? updatedTratamientos, TreatmentResponseModel? initialTratamiento) async {
     if (updatedTratamientos == null || initialTratamiento == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
     }
     TreatmentResponseModel updatedInitialPlaga = TreatmentResponseModel(
-        id: updatedTratamientos.id ?? initialTratamiento.id,
+        id: updatedTratamientos.id, //?? initialTratamiento.id,
         name: updatedTratamientos.name ?? initialTratamiento.name,
-        description:
-            updatedTratamientos.description ?? initialTratamiento.description,
+        description: updatedTratamientos.description ?? initialTratamiento.description,
         form: updatedTratamientos.form ?? initialTratamiento.form,
         state: updatedTratamientos.state ?? initialTratamiento.state,
-        observation:
-            updatedTratamientos.observation ?? initialTratamiento.observation,
-        dateStart:
-            updatedTratamientos.dateStart ?? initialTratamiento.dateStart,
+        observation: updatedTratamientos.observation ?? initialTratamiento.observation,
+        dateStart: updatedTratamientos.dateStart ?? initialTratamiento.dateStart,
         dateEnd: updatedTratamientos.dateStart ?? initialTratamiento.dateEnd);
 
-    var resp =
-        await getTreatmentUseCaseImpl.updateTreatment(updatedInitialPlaga);
+    var resp = await getTreatmentUseCaseImpl.updateTreatment(updatedInitialPlaga);
 
     final selectedTreatment = TreatmentResponseModel.fromJson(resp);
     state = state.copyWith(selectedTreatmentForEdit: selectedTreatment);
@@ -46,23 +41,15 @@ class TreatmentController extends StateNotifier<TreatmentState> {
   }
 
   bool existeTratamientoConNombre(String nombre) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
-    return state.tratamientos.any(
-        (tratamiento) => tratamiento.name!.toLowerCase() == nombreLowerCase);
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    return state.tratamientos.any((tratamiento) => tratamiento.name!.toLowerCase() == nombreLowerCase);
   }
 
-  bool existeTratamientoEConNombre(
-      String nombre, TreatmentResponseModel tratamientoEditar) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
+  bool existeTratamientoEConNombre(String nombre, TreatmentResponseModel tratamientoEditar) {
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
     return state.tratamientos
-        .where((tratamiento) =>
-            tratamiento.id !=
-            tratamientoEditar
-                .id) // Excluir la plaga que estás editando por su ID
-        .any((tratamiento) =>
-            tratamiento.name!.toLowerCase() == nombreLowerCase);
+        .where((tratamiento) => tratamiento.id != tratamientoEditar.id) // Excluir la plaga que estás editando por su ID
+        .any((tratamiento) => tratamiento.name!.toLowerCase() == nombreLowerCase);
   }
 
   void saveTreatments(TreatmentResponseModel? savedTreatments) async {
@@ -102,8 +89,7 @@ class TreatmentController extends StateNotifier<TreatmentState> {
   void updateTreatment(TreatmentResponseModel? tratamiento) {
     var temp = state.tratamientos;
     state.selectedTreatmentForEdit = tratamiento;
-    state = state.copyWith(
-        tratamientos: temp, selectedTreatmentForEdit: tratamiento);
+    state = state.copyWith(tratamientos: temp, selectedTreatmentForEdit: tratamiento);
   }
 
   void edit(TreatmentResponseModel? tratamiento) {
@@ -114,7 +100,5 @@ class TreatmentController extends StateNotifier<TreatmentState> {
   }
 }
 
-final treatmentController = StateNotifierProvider<TreatmentController,
-        TreatmentState>(
-    (ref) => TreatmentController(
-        GetTreatmentUseCaseImpl(TreatmentRepositoryImpl(TreatmentService()))));
+final treatmentController = StateNotifierProvider<TreatmentController, TreatmentState>(
+    (ref) => TreatmentController(GetTreatmentUseCaseImpl(TreatmentRepositoryImpl(TreatmentService()))));
