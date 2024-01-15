@@ -105,7 +105,7 @@ class ProductController extends StateNotifier<ProductState> {
 
   Future<List<CategoryModel>?> getListCategories() async {
     var resp = await getProductUseCaseImpl.getListCategories();
-    state = state.copyWith(categorias: resp);
+    state = state.copyWith(categorias: resp, clearCategory: true);
     return resp;
   }
 }

@@ -15,18 +15,19 @@ class ProductState {
     this.selectedProductForEdit,
   });
 
-  ProductState copyWith({
-    List<ProductResponseModel>? productos,
-    List<CategoryModel>? categorias,
-    ProductResponseModel? selectedProductForEdit,
-    CategoryModel? selectedCategorie,
-  }) {
+  ProductState copyWith(
+      {List<ProductResponseModel>? productos,
+      List<CategoryModel>? categorias,
+      ProductResponseModel? selectedProductForEdit,
+      CategoryModel? selectedCategorie,
+      bool? clearCategory}) {
     return ProductState(
       productos: productos ?? this.productos,
       categorias: categorias ?? this.categorias,
       selectedCategorie: selectedCategorie ?? this.selectedCategorie,
-      selectedProductForEdit:
-          selectedProductForEdit ?? this.selectedProductForEdit,
+      selectedProductForEdit: (clearCategory ?? false)
+          ? null
+          : (selectedProductForEdit ?? this.selectedProductForEdit),
     );
   }
 }
