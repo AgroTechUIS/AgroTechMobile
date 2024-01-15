@@ -1,7 +1,7 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/features/1.login/presentation/login_page.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
-import 'package:agrotech/features/5.products/presentation/product_page.dart';
+import 'package:agrotech/features/4.products/presentation/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -23,9 +23,6 @@ class MyApp extends StatelessWidget {
         initialRoute: 'login',
         routes: {
           'login': (_) => LoginPage(),
-          'plagas': (_) => PlagasPage(),
-          'crops': (_) => CropPage(),
-          'products': (_) => ProductPage(),
         },
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

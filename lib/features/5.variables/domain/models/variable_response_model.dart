@@ -11,38 +11,68 @@ List<VariableResponseModel> listvariableFromJson(List<dynamic> datos) =>
     datos.map((e) => VariableResponseModel.fromJson(e)).toList();
 
 class VariableResponseModel {
-  int id = 0;
+  int? id;
   String? name;
   String? description;
-  String? method;
-  DateTime? date;
-  String? instrumento;
+  String? measurement_method;
+  DateTime? date_init;
+  String? measuring_instrument;
+  int? crop;
 
-  VariableResponseModel({
-    required this.id,
-    this.name,
-    this.description,
-    this.method,
-    this.date,
-    this.instrumento,
-  });
+  VariableResponseModel(
+      {this.id,
+      this.name,
+      this.description,
+      this.measurement_method,
+      this.date_init,
+      this.measuring_instrument,
+      this.crop});
 
   factory VariableResponseModel.fromJson(Map<String, dynamic> json) =>
+      VariableResponseModel(
+          id: json["id"],
+          name: json["name"],
+          description: json["description"],
+          measurement_method: json["measurement_method"],
+          date_init: json["date_init"] != null
+              ? DateTime.parse(json["date_init"])
+              : null,
+          measuring_instrument: json["measuring_instrument"],
+          crop: json["crop"]);
+  factory VariableResponseModel.fromJsonPost(Map<String, dynamic> json) =>
       VariableResponseModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        method: json["method"],
-        date: json["date"] != null ? DateTime.parse(json["date"]) : null,
-        instrumento: json["instrumento"],
+        measurement_method: json["measurement_method"],
+        date_init: DateTime.parse(json["date_init"]),
+        measuring_instrument: json["measuring_instrument"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "description": description,
-        "method": method,
-        "date": date?.toIso8601String(),
-        "instrumento": instrumento,
+        "measurement_method": measurement_method,
+        "date_init": date_init?.toIso8601String(),
+        "measuring_instrument": measuring_instrument,
+      };
+
+  Map<String, dynamic> toJsonEdit() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "measurement_method": measurement_method,
+        "date_init": date_init?.toIso8601String(),
+        "measuring_instrument": measuring_instrument,
+      };
+
+  Map<String, dynamic> toJsonPost() => {
+        "name": name,
+        "description": description,
+        "measurement_method": measurement_method,
+        "date_init": date_init?.toIso8601String(),
+        "measuring_instrument": measuring_instrument,
+        "crop": crop
       };
 }

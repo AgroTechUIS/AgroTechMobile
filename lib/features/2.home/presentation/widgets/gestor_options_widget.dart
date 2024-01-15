@@ -3,8 +3,11 @@ import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
 import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
-import 'package:agrotech/features/5.products/presentation/product_page.dart';
-import 'package:agrotech/features/5.tratamientos/presentation/treatment_page.dart';
+import 'package:agrotech/features/4.products/presentation/product_controller.dart';
+import 'package:agrotech/features/4.products/presentation/product_page.dart';
+import 'package:agrotech/features/4.shippings/presentation/shippings_controller.dart';
+import 'package:agrotech/features/4.shippings/presentation/shippings_page.dart';
+import 'package:agrotech/features/6.tratamientos/presentation/treatment_page.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_page.dart';
 import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +25,10 @@ class GestorOptions extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var stateLogin = ref.watch(loginController);
     var controller = ref.read(cropController.notifier);
+
+    var controller2 = ref.read(productController.notifier);
+    var controller3 = ref.read(shippingController.notifier);
+
     return Column(
       children: [
         const SubtitleWidget('Mis actividades:'),
@@ -46,12 +53,27 @@ class GestorOptions extends ConsumerWidget {
                 MiniOptionWidget(
                   title: 'Gestión de productos',
                   iconRoute: 'assets/bill.svg',
-                  onTap: () {
-                    //async
-                    // await controller.getListCrop(stateLogin.idEmpresa);
+                  onTap: () async {
+                    await controller2.getListProduct(stateLogin.idEmpresa);
+                    await controller2.getListCategories();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProductPage()),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ProductPage(idEmpresa: stateLogin.idEmpresa)),
+                    );
+                  },
+                ),
+                MiniOptionWidget(
+                  title: 'Gestión de envios',
+                  iconRoute: '/envios.svg',
+                  onTap: () async {
+                    await controller3.getListShipping(stateLogin.idEmpresa);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ShippingsPage(idEmpresa: stateLogin.idEmpresa)),
                     );
                   },
                 ),

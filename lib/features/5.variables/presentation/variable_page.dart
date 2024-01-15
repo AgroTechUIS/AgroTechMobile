@@ -1,69 +1,129 @@
+import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/features/5.variables/domain/models/variable_model.dart';
+import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
+import 'package:agrotech/features/5.variables/presentation/variable_controller.dart';
 import 'package:agrotech/features/5.variables/presentation/widgets/edit_variable.dart';
 import 'package:agrotech/features/5.variables/presentation/widgets/new_variable.dart';
 import 'package:agrotech/features/5.variables/presentation/widgets/variable_widgets.dart';
+import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
+import '../../6.medidas/presentation/measure_controller.dart';
 
-class VariablesPage extends StatefulWidget {
-  const VariablesPage({super.key});
+class VariablesPage extends ConsumerWidget {
+  VariablesPage({super.key, required this.idCrop});
 
+  final int idCrop;
   @override
   // ignore: library_private_types_in_public_api
-  _VariablesPageState createState() => _VariablesPageState();
-}
 
-class _VariablesPageState extends State<VariablesPage> {
-  List<VariableModel> listVariables = [];
-  VariableModel? selectedVariableForEdit;
-  void saveNewVariable(VariableModel variable) {
-    setState(() {
-      listVariables.add(variable);
-    });
+  List<VariableResponseModel> listVariables = [];
+  VariableResponseModel? selectedVariableForEdit;
+  void saveNewVariable(VariableResponseModel variable) {
+    listVariables.add(variable);
   }
 
-  void editVariable(VariableModel variable) {
+  void playVariable(BuildContext context, int idVariable, WidgetRef ref) async {
+    await ref.read(measureController.notifier).getListMeasure(idVariable);
+    context.pushRoute(VariablesTPage(idVariable));
+  }
+
+  void editVariable(
+      context, VariableResponseModel variable, VariableController controller) {
     selectedVariableForEdit = variable;
     showDialog(
       context: context,
       builder: (context) {
         return EditVariable(
           initialVariable: selectedVariableForEdit,
-          onSave: (EditVariable) {
-            // Actualizar la lista de plagas
-            setState(() {
-              listVariables.remove(selectedVariableForEdit);
-              listVariables.add(EditVariable);
-            });
-            Navigator.of(context).pop();
+          onSave: (nv) async {
+            final npa = await controller.updatesVariables(nv, variable, idCrop);
+
+            VariableResponseModel variableModel =
+                VariableResponseModel.fromJson(npa);
+            bool existeVariable = controller.existeVariableEConNombre(
+                variableModel.name!, variableModel);
+
+            if (existeVariable) {
+              Fluttertoast.showToast(
+                msg: 'Ya existe una variable con el mismo nombre.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor: Colors.red, // Fondo rojo
+                textColor: Colors.white,
+              );
+            } else {
+              controller.getListVariable(idCrop);
+
+              Fluttertoast.showToast(
+                msg: 'Variable actualizada correctamente.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor:
+                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                textColor: Colors.white,
+              );
+              Navigator.of(context).pop();
+            }
           },
           onCancel: () {
-            selectedVariableForEdit =
-                null; // Limpiar la variable temporal si se cancela
             Navigator.of(context).pop();
           },
-          // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
         );
       },
     );
   }
 
-  void deleteVariable(VariableModel variable) {
-    setState(() {
-      listVariables.remove(variable);
-    });
+  void deleteVariable(
+      VariableResponseModel variable, VariableController controller) {
+    controller.deleteVariable(variable);
+    controller.updateVariable(variable);
+    Fluttertoast.showToast(
+      msg: 'Variable eliminada correctamente.',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP_RIGHT,
+      backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+      textColor: Colors.white,
+    );
   }
 
-  void createNewVariable() {
+  void createNewVariable(BuildContext context, VariableController controller) {
     showDialog(
       context: context,
       builder: (context) {
         return NewVariable(
-          onSave: (nuevaVariable) {
-            saveNewVariable(nuevaVariable);
-            Navigator.of(context).pop();
+          onSave: (nuevaVariable) async {
+            bool existePlaga =
+                controller.existeVariableConNombre(nuevaVariable.name!);
+
+            if (existePlaga) {
+              Fluttertoast.showToast(
+                msg: 'Ya existe una variable con el mismo nombre.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor: Colors.red, // Fondo rojo
+                textColor: Colors.white,
+              );
+            } else {
+              controller.saveVariables(nuevaVariable, idCrop);
+              Future.delayed(const Duration(milliseconds: 200));
+              await controller.getListVariable(idCrop);
+              controller.updateVariable(nuevaVariable);
+
+              Fluttertoast.showToast(
+                msg: 'Variable creada correctamente.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP_RIGHT,
+                backgroundColor:
+                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                textColor: Colors.white,
+              );
+              Navigator.of(context).pop();
+            }
           },
           onCancel: () => Navigator.of(context).pop(),
         );
@@ -72,11 +132,13 @@ class _VariablesPageState extends State<VariablesPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var state = ref.watch(variableController);
+    var controller = ref.read(variableController.notifier);
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: createNewVariable,
+        onPressed: () => createNewVariable(context, controller),
         child: Icon(Icons.add),
       ),
       body: Column(
@@ -122,14 +184,17 @@ class _VariablesPageState extends State<VariablesPage> {
                 ),
               ),
               child: ListView(
-                children: listVariables
+                children: state.variables
                     .map((e) => VariablesWidget(
                           variable: e,
+                          onVariable: () {
+                            playVariable(context, e.id!, ref);
+                          },
                           onEdit: () {
-                            editVariable(e);
+                            editVariable(context, e, controller);
                           },
                           onDelete: () {
-                            deleteVariable(e);
+                            deleteVariable(e, controller);
                           },
                         ))
                     .toList(),

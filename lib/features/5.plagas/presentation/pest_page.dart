@@ -7,9 +7,9 @@ import 'package:agrotech/features/5.plagas/domain/use_cases/get_pest_use_case_im
 import 'package:agrotech/features/5.plagas/presentation/pest_controller.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/edit_pest.dart';
-import 'package:agrotech/features/5.plagas/presentation/widgets/new_pest.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/pest_widgets.dart';
-import 'package:agrotech/features/5.tratamientos/presentation/treatment_page.dart';
+import 'package:agrotech/features/6.tratamientos/presentation/treatment_controller.dart';
+import 'package:agrotech/features/6.tratamientos/presentation/treatment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/services.dart';
@@ -17,8 +17,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../domain/models/pest_model.dart';
+import 'widgets/new_pest.dart';
 
 class PlagasPage extends ConsumerWidget {
+  final int idCrop;
+
+  PlagasPage({super.key, required this.idCrop});
   //final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   //List<PlagaResponseModel> listPest = [];
   //PlagaModel? pests;
@@ -72,7 +76,7 @@ class PlagasPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.getListPest(1);
+              controller.getListPest(idCrop);
               Fluttertoast.showToast(
                 msg: 'Plaga actualizada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -106,13 +110,11 @@ class PlagasPage extends ConsumerWidget {
 
   void createNewPest(
       BuildContext context, PestController controller, WidgetRef ref) {
-    var stateCrop = ref.watch(cropController);
-
     showDialog(
       context: context,
       builder: (context) {
         return NewPest(
-          onSave: (nuevaPlaga) {
+          onSave: (nuevaPlaga) async {
             bool existePlaga =
                 controller.existePlagaConNombre(nuevaPlaga.name!);
 
@@ -125,7 +127,10 @@ class PlagasPage extends ConsumerWidget {
                 textColor: Colors.white,
               );
             } else {
-              controller.savePests(nuevaPlaga);
+              controller.savePests(nuevaPlaga, idCrop);
+
+              controller.updatePest(nuevaPlaga);
+
               Fluttertoast.showToast(
                 msg: 'Plaga creada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
@@ -137,15 +142,14 @@ class PlagasPage extends ConsumerWidget {
               Navigator.of(context).pop();
             }
           },
-          onCancel: () {
-            Navigator.of(context).pop();
-          },
+          onCancel: () => Navigator.of(context).pop(),
         );
       },
     );
   }
 
-  void playTreatment(BuildContext context, int idPest) {
+  void playTreatment(BuildContext context, int idPest, WidgetRef ref) async {
+    await ref.read(treatmentController.notifier).getListTreatment(idPest);
     context.pushRoute(TratamientosPage(idPest));
   }
 
@@ -154,7 +158,7 @@ class PlagasPage extends ConsumerWidget {
     var state = ref.watch(pestController);
     var controller = ref.read(pestController.notifier);
 
-    //controller.getListPest(1);
+    //var controller2 = ref.read(treatmentController.notifier);
 
     return Scaffold(
       backgroundColor: colors.appbar,
@@ -210,7 +214,7 @@ class PlagasPage extends ConsumerWidget {
                     .map((e) => PestWidget(
                           plaga: e,
                           onTreatment: () {
-                            playTreatment(context, e.id!);
+                            playTreatment(context, e.id!, ref);
                           },
                           onEdit: () {
                             editPest(context, e, controller, state);

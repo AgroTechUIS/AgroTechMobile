@@ -5,11 +5,12 @@ import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
+import '../../domain/models/variable_response_model.dart';
 import 'my_buttom.dart';
 
 // ignore: must_be_immutable
 class NewVariable extends StatefulWidget {
-  void Function(VariableModel)? onSave;
+  void Function(VariableResponseModel)? onSave;
   VoidCallback? onCancel;
 
   final TextEditingController nombreController = TextEditingController();
@@ -204,13 +205,14 @@ class _NewVariableState extends State<NewVariable> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      VariableModel nuevaVariable = VariableModel(
-                          id: 0, // Asigna el ID adecuado
-                          name: widget.nombreController.text,
-                          description: widget.descripcionController.text,
-                          method: selectedValue,
-                          date: date,
-                          instrumento: widget.instrumentoController.text);
+                      VariableResponseModel nuevaVariable =
+                          VariableResponseModel(
+                              name: widget.nombreController.text,
+                              description: widget.descripcionController.text,
+                              measurement_method: selectedValue,
+                              date_init: date,
+                              measuring_instrument:
+                                  widget.instrumentoController.text);
                       widget.onSave!(nuevaVariable);
                     },
                     color: colors.green2,

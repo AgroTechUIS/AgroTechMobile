@@ -1,15 +1,17 @@
 // ignore_for_file: unused_import
 
 import 'dart:typed_data';
+import 'package:agrotech/features/6.medidas/domain/models/measure_response_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/models/measure_model.dart';
 
 class VariablesTWidget extends StatelessWidget {
-  final MeasureModel medida;
+  final MeasureResponseModel medida;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  VariablesTWidget({required this.medida, required this.onEdit, required this.onDelete});
+  VariablesTWidget(
+      {required this.medida, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {

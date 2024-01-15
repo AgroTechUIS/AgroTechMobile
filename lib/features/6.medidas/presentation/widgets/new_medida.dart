@@ -1,16 +1,18 @@
 // ignore_for_file: unused_local_variable, must_be_immutable
 
+import 'package:agrotech/features/6.medidas/domain/models/measure_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../domain/models/measure_model.dart';
 import 'my_buttom.dart';
 
-class NewMedida extends StatefulWidget {
-  void Function(MeasureModel)? onSave;
+class NewMedida extends ConsumerWidget {
+  void Function(MeasureResponseModel)? onSave;
   VoidCallback? onCancel;
 
   final TextEditingController valueController = TextEditingController();
@@ -18,11 +20,7 @@ class NewMedida extends StatefulWidget {
   final TextEditingController unitController = TextEditingController();
 
   NewMedida({super.key, this.onSave, this.onCancel});
-  @override
-  _NewMedidaState createState() => _NewMedidaState();
-}
 
-class _NewMedidaState extends State<NewMedida> {
   String? selectedValue;
   DateTime? selectedTime;
   DateTime date = DateTime.now();
@@ -30,7 +28,7 @@ class _NewMedidaState extends State<NewMedida> {
   late Future<DateTime?> fecha;
   int? intValue;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Text("Crea una nueva medida de tu variable"),
@@ -39,7 +37,7 @@ class _NewMedidaState extends State<NewMedida> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
-              controller: widget.valueController,
+              controller: valueController,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -57,18 +55,16 @@ class _NewMedidaState extends State<NewMedida> {
                 ),
               ),
               onChanged: (text) {
-                setState(() {
-                  if (text.isNotEmpty) {
-                    intValue = int.tryParse(text);
-                  } else {
-                    intValue = null;
-                  }
-                });
+                if (text.isNotEmpty) {
+                  intValue = int.tryParse(text);
+                } else {
+                  intValue = null;
+                }
               },
             ),
             SizedBox(height: 12),
             TextField(
-              controller: widget.descripcionController,
+              controller: descripcionController,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 label: const Text("Descripcion "),
@@ -100,15 +96,13 @@ class _NewMedidaState extends State<NewMedida> {
                   );
 
                   if (selectedTime != null) {
-                    setState(() {
-                      date = DateTime(
-                        selectedDate.year,
-                        selectedDate.month,
-                        selectedDate.day,
-                        selectedTime.hour,
-                        selectedTime.minute,
-                      );
-                    });
+                    date = DateTime(
+                      selectedDate.year,
+                      selectedDate.month,
+                      selectedDate.day,
+                      selectedTime.hour,
+                      selectedTime.minute,
+                    );
                   }
                 }
               },
@@ -154,7 +148,7 @@ class _NewMedidaState extends State<NewMedida> {
             ),
             SizedBox(height: 12),
             TextField(
-              controller: widget.unitController,
+              controller: unitController,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 label: const Text("Unidad "),
@@ -176,19 +170,19 @@ class _NewMedidaState extends State<NewMedida> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      MeasureModel nuevaMedida = MeasureModel(
+                      MeasureResponseModel nuevaMedida = MeasureResponseModel(
                           id: 0, // Asigna el ID adecuado
-                          value: intValue,
-                          description: widget.descripcionController.text,
+                          measurement_value: intValue,
+                          description: descripcionController.text,
                           date: date,
-                          unit: widget.unitController.text);
-                      widget.onSave!(nuevaMedida);
+                          measuring_unit: unitController.text);
+                      onSave!(nuevaMedida);
                     },
                     color: colors.green2,
                     textColor: colors.white),
                 MyButton(
                     text: "Cerrar",
-                    onPressed: widget.onCancel,
+                    onPressed: onCancel,
                     color: colors.white,
                     textColor: colors.textColor),
               ],

@@ -38,8 +38,7 @@ class PestController extends StateNotifier<PestState> {
       observation: updatedPlagas.observation ?? initialPlaga.observation,
       appareceDate: updatedPlagas.appareceDate ?? initialPlaga.appareceDate,
       pestFamily: updatedPlagas.pestFamily ?? initialPlaga.pestFamily,
-      stateTratment: updatedPlagas.stateTratment ?? initialPlaga.stateTratment,
-      adjuntoDto: updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto,
+      //  adjuntoDto: updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto,
     );
 
     var resp = await getPestUseCaseImpl.updatePest(updatedInitialPlaga);
@@ -67,7 +66,7 @@ class PestController extends StateNotifier<PestState> {
         .any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
   }
 
-  void savePests(PlagaResponseModel? savedPlagas) async {
+  void savePests(PlagaResponseModel? savedPlagas, int crop) async {
     PlagaResponseModel savedPlaga = PlagaResponseModel(
       id: savedPlagas!.id,
       name: savedPlagas.name ?? '',
@@ -76,8 +75,7 @@ class PestController extends StateNotifier<PestState> {
       observation: savedPlagas.observation ?? '',
       appareceDate: savedPlagas.appareceDate ?? DateTime.now(),
       pestFamily: savedPlagas.pestFamily ?? '',
-      stateTratment: savedPlagas.stateTratment ?? '',
-      crop: savedPlagas.crop,
+      crop: crop,
     );
 
     var resp = await getPestUseCaseImpl.savePest(savedPlaga);

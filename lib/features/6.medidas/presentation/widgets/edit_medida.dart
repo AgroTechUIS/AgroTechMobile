@@ -1,14 +1,15 @@
 import 'package:agrotech/features/6.medidas/domain/models/measure_model.dart';
 import 'package:flutter/material.dart';
 import '../../../../common_utilities/config/colors_theme.dart';
+import '../../domain/models/measure_response_model.dart';
 import 'my_buttom.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 // ignore: must_be_immutable
 class EditMedida extends StatefulWidget {
-  void Function(MeasureModel)? onSave;
+  void Function(MeasureResponseModel)? onSave;
   VoidCallback? onCancel;
-  MeasureModel? initialMedida;
+  MeasureResponseModel? initialMedida;
 
   final TextEditingController valueController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
@@ -19,9 +20,9 @@ class EditMedida extends StatefulWidget {
 
   EditMedida(
       {super.key, this.onSave, this.onCancel, required this.initialMedida}) {
-    valueController.text = '${initialMedida?.value}';
+    valueController.text = '${initialMedida?.measurement_value}';
     descripcionController.text = initialMedida?.description ?? '';
-    unitController.text = initialMedida?.unit ?? '';
+    unitController.text = initialMedida?.measuring_unit ?? '';
   }
 
   @override
@@ -188,12 +189,12 @@ class _editMedidaState extends State<EditMedida> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      MeasureModel nuevaMedida = MeasureModel(
-                          id: 0, // Asigna el ID adecuado
-                          value: intValue,
+                      MeasureResponseModel nuevaMedida = MeasureResponseModel(
+                          id: widget.initialMedida!.id, // Asigna el ID adecuado
+                          measurement_value: intValue,
                           description: widget.descripcionController.text,
                           date: widget.initialMedida!.date,
-                          unit: widget.unitController.text);
+                          measuring_unit: widget.unitController.text);
                       widget.onSave!(nuevaMedida);
                     },
                     color: colors.green2,

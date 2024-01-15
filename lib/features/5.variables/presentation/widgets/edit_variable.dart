@@ -1,4 +1,5 @@
 import 'package:agrotech/features/5.variables/domain/models/variable_model.dart';
+import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
 import '../../../../common_utilities/config/colors_theme.dart';
@@ -7,9 +8,9 @@ import 'package:flutter/src/widgets/framework.dart';
 
 // ignore: must_be_immutable
 class EditVariable extends StatefulWidget {
-  void Function(VariableModel)? onSave;
+  void Function(VariableResponseModel)? onSave;
   VoidCallback? onCancel;
-  VariableModel? initialVariable;
+  VariableResponseModel? initialVariable;
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
@@ -22,8 +23,8 @@ class EditVariable extends StatefulWidget {
       {super.key, this.onSave, this.onCancel, required this.initialVariable}) {
     nombreController.text = initialVariable?.name ?? '';
     descripcionController.text = initialVariable?.description ?? '';
-    metodoController.text = initialVariable?.method ?? '';
-    instrumentoController.text = initialVariable?.instrumento ?? '';
+    metodoController.text = initialVariable?.measurement_method ?? '';
+    instrumentoController.text = initialVariable?.measuring_instrument ?? '';
   }
 
   @override
@@ -134,14 +135,14 @@ class _editVariableState extends State<EditVariable> {
               onTap: () async {
                 fecha = showDatePicker(
                   context: context,
-                  initialDate: widget.initialVariable!.date as DateTime,
+                  initialDate: widget.initialVariable!.date_init as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
                 final selectedDate = await fecha;
                 if (selectedDate != null) {
                   setState(() {
-                    widget.initialVariable!.date = selectedDate;
+                    widget.initialVariable!.date_init = selectedDate;
                   });
                 }
               },
@@ -173,7 +174,7 @@ class _editVariableState extends State<EditVariable> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${widget.initialVariable!.date!.day} / ${widget.initialVariable!.date!.month} / ${widget.initialVariable!.date!.year}',
+                          '${widget.initialVariable!.date_init!.day} / ${widget.initialVariable!.date_init!.month} / ${widget.initialVariable!.date_init!.year}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
@@ -211,13 +212,16 @@ class _editVariableState extends State<EditVariable> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      VariableModel nuevaVariable = VariableModel(
-                          id: 0, // Asigna el ID adecuado
-                          name: widget.nombreController.text,
-                          description: widget.descripcionController.text,
-                          method: selectedValue,
-                          date: widget.initialVariable!.date,
-                          instrumento: widget.instrumentoController.text);
+                      VariableResponseModel nuevaVariable =
+                          VariableResponseModel(
+                              id: widget
+                                  .initialVariable!.id, // Asigna el ID adecuado
+                              name: widget.nombreController.text,
+                              description: widget.descripcionController.text,
+                              measurement_method: selectedValue,
+                              date_init: widget.initialVariable!.date_init,
+                              measuring_instrument:
+                                  widget.instrumentoController.text);
                       widget.onSave!(nuevaVariable);
                     },
                     color: colors.green2,

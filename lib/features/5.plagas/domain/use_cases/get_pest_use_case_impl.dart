@@ -16,8 +16,8 @@ class GetPestUseCaseImpl extends GetPestUseCase {
   @override
   Future<List<PlagaResponseModel>> getListPest({required int idCrop}) async {
     try {
-      final pestData = await pestRepository.getPestsByCrop(idCrop);
-      List<PlagaResponseModel> listPlagas = [];
+      var pestData = await pestRepository.getPestsByCrop(idCrop);
+      List<PlagaResponseModel>? listPlagas = [];
 
       for (var entry in pestData['pests']) {
         listPlagas.add(PlagaResponseModel.fromJson(entry));

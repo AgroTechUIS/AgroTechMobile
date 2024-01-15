@@ -1,13 +1,12 @@
-import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
-import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
-import 'package:flutter/material.dart';
-import 'package:dropdown_button3/dropdown_button3.dart';
-import '../../domain/models/pest_model.dart';
-import 'dart:typed_data';
-import 'my_buttom.dart';
-
 // ignore: must_be_immutable
+import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
+import 'package:dropdown_button3/dropdown_button3.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../common_utilities/config/colors_theme.dart';
+import '../../../4.cultivos/presentation/widgets/my_buttom.dart';
+
 class NewPest extends StatefulWidget {
   void Function(PlagaResponseModel)? onSave;
   VoidCallback? onCancel;
@@ -252,8 +251,7 @@ class _NewPestState extends State<NewPest> {
                         observation: widget.observacionesController.text,
                         appareceDate: date,
                         pestFamily: widget.familiaController.text,
-                        stateTratment: null,
-                        adjuntoDto: null,
+                        //  adjuntoDto: null,
                       );
                       widget.onSave!(nuevaPlaga);
                     },
