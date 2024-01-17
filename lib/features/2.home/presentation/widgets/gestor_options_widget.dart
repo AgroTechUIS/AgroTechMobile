@@ -4,6 +4,8 @@ import 'package:agrotech/common_utilities/widgets/mini_option_widget.dart';
 import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
 import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
+import 'package:agrotech/features/4.discounts/presentation/discount_controller.dart';
+import 'package:agrotech/features/4.discounts/presentation/discount_page.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
 import 'package:agrotech/features/4.products/presentation/product_controller.dart';
 import 'package:agrotech/features/4.products/presentation/product_page.dart';
@@ -30,6 +32,7 @@ class GestorOptions extends ConsumerWidget {
 
     var controller2 = ref.read(productController.notifier);
     var controller3 = ref.read(shippingController.notifier);
+    var controller4 = ref.read(discountController.notifier);
 
     return Column(
       children: [
@@ -93,13 +96,12 @@ class GestorOptions extends ConsumerWidget {
                   title: 'Gestión de descuentos',
                   iconRoute: '/discount.svg',
                   onTap: () async {
-                    //await controller2.getListProduct(stateLogin.idEmpresa);
-                    //await controller2.getListCategories();
+                    await controller4.getListDiscount(stateLogin.idEmpresa);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              ProductPage(idEmpresa: stateLogin.idEmpresa)),
+                              DiscountPage(idEmpresa: stateLogin.idEmpresa)),
                     );
                   },
                 ),

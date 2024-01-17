@@ -1,19 +1,14 @@
 // ignore: must_be_immutable
-import 'package:agrotech/features/4.products/presentation/product_controller.dart';
-import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
-import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:agrotech/features/4.discounts/domain/models/discount_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductWidget extends StatelessWidget {
-  final ProductResponseModel producto;
+class DiscountWidget extends StatelessWidget {
+  final DiscountModel descuento;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  ProductWidget(
-      {required this.producto, required this.onEdit, required this.onDelete});
+  DiscountWidget(
+      {required this.descuento, required this.onEdit, required this.onDelete});
 
-  String? estado;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -31,7 +26,7 @@ class ProductWidget extends StatelessWidget {
           children: <Widget>[
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text(
-                'Nombre: ',
+                'Valor de descuento: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -40,7 +35,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.title ?? '',
+                  descuento.discount.toString(),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -52,7 +47,7 @@ class ProductWidget extends StatelessWidget {
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Resumen: ',
+                'Tipo de descuento: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -61,7 +56,11 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.summary ?? '',
+                  (descuento.typeDiscount == 1)
+                      ? 'Porcentaje'
+                      : (descuento.typeDiscount == 2)
+                          ? 'Moneda'
+                          : '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -72,7 +71,7 @@ class ProductWidget extends StatelessWidget {
             SizedBox(height: 8.0),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Precio: ',
+                'Fecha de inicio: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -81,7 +80,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${producto.price}',
+                  '${descuento.startDateNum!.year}-${descuento.startDateNum!.month}-${descuento.startDateNum!.day}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -89,10 +88,11 @@ class ProductWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            SizedBox(
+                height: 8.0), // Espacio entre el nombre y la descripción */
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Stock: ',
+                'Fecha de fin: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.stock.toString(),
+                  '${descuento.endDateNum!.year}-${descuento.endDateNum!.month}-${descuento.endDateNum!.day}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -121,7 +121,11 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  getEstadoText(producto.state),
+                  (descuento.state == 1)
+                      ? 'Activo'
+                      : (descuento.typeDiscount == 2)
+                          ? 'Inactivo'
+                          : '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -135,6 +139,7 @@ class ProductWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+                SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onEdit,
                   backgroundColor: Colors.green,
@@ -152,16 +157,5 @@ class ProductWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-String getEstadoText(int? estado) {
-  switch (estado) {
-    case 1:
-      return 'Activo';
-    case 2:
-      return 'Desactivado';
-    default:
-      return 'Activo';
   }
 }

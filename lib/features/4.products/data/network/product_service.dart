@@ -14,6 +14,13 @@ class ProductService {
         body: productModel.toJson());
   }
 
+  Future<HttpResponseModel> getCrops({required int idEmpresa}) async {
+    final response = await clienthttp.get(
+        url: '${RouteService.routeService}/api/crop/$idEmpresa');
+
+    return response;
+  }
+
   Future<HttpResponseModel> getProducts({required int idEmpresa}) async {
     final response = await clienthttp.get(
         url:

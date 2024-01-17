@@ -21,6 +21,8 @@ class ProductResponseModel {
   final String? description;
   final String? summary;
   final int? crop;
+  final String? image;
+
   ProductResponseModel(
       {this.id,
       this.title,
@@ -31,7 +33,8 @@ class ProductResponseModel {
       this.stock,
       this.description,
       this.summary,
-      this.crop});
+      this.crop,
+      this.image});
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -43,18 +46,19 @@ class ProductResponseModel {
         "stock": stock,
         "description": description,
         "resumen": summary,
+        "image": image
       };
 
   factory ProductResponseModel.fromJson(Map<String, dynamic> json) =>
       ProductResponseModel(
-        id: json["id"],
-        title: json["title"],
-        slug: json["slug"],
-        sku: json["sku"],
-        price: json["priceCop"]?.toDouble(), // Ajusta el nombre según tu JSON
-        state: json["state"],
-        stock: json["stock"],
-        description: json["description"],
-        summary: json["resumen"],
-      );
+          id: json["id"],
+          title: json["title"],
+          slug: json["slug"],
+          sku: json["sku"],
+          price: json["priceCop"]?.toDouble(), // Ajusta el nombre según tu JSON
+          state: json["state"],
+          stock: json["stock"],
+          description: json["description"],
+          summary: json["resumen"],
+          image: json["image"]);
 }

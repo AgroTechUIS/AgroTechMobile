@@ -1,3 +1,4 @@
+import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
 import 'package:agrotech/features/4.products/domain/models/categorie_model.dart';
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 
@@ -41,6 +42,21 @@ class GetProductUseCaseImpl extends GetProductUseCase {
       return listCategories;
     } catch (e) {
       throw ('Error al obtener la lista de categorias: $e');
+    }
+  }
+
+  Future<List<CropResponseModel>?> getListCrops(
+      {required int idEmpresa}) async {
+    try {
+      var cropData = await productRepository.getCrops(idEmpresa);
+      List<CropResponseModel>? listCrops = [];
+
+      for (var entry in cropData["crops"]) {
+        listCrops.add(CropResponseModel.fromJson(entry));
+      }
+      return listCrops;
+    } catch (e) {
+      throw ('Error al obtener la lista de cultivos: $e');
     }
   }
 

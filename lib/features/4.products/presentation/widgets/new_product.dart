@@ -271,6 +271,8 @@ class _NewProductState extends ConsumerState<NewProduct> {
                         stock: cantidad,
                         state: valor,
                         sku: createId(),
+                        image:
+                            "https://deviceimages.s3.amazonaws.com/folder1/e56bd98e-7bb8-41a9-bf87-9dc45696c5b6.jpg",
                       );
                       widget.onSave!(nuevoProducto);
                     },

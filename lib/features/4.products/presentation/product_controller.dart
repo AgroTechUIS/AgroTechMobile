@@ -1,3 +1,4 @@
+import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 import 'package:agrotech/features/4.products/presentation/product_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,13 +55,13 @@ class ProductController extends StateNotifier<ProductState> {
 
   void saveProducts(ProductResponseModel? savedProductos, int idEmpresa) async {
     ProductResponseModel savedProducto = ProductResponseModel(
-      id: savedProductos!.id,
-      title: savedProductos.title,
-      summary: savedProductos.summary,
-      state: savedProductos.state,
-      price: savedProductos.price,
-      stock: savedProductos.stock,
-    );
+        id: savedProductos!.id,
+        title: savedProductos.title,
+        summary: savedProductos.summary,
+        state: savedProductos.state,
+        price: savedProductos.price,
+        stock: savedProductos.stock,
+        image: savedProductos.image);
 
     var resp =
         await getProductUseCaseImpl.saveProduct(savedProducto, idEmpresa);
@@ -106,6 +107,14 @@ class ProductController extends StateNotifier<ProductState> {
   Future<List<CategoryModel>?> getListCategories() async {
     var resp = await getProductUseCaseImpl.getListCategories();
     state = state.copyWith(categorias: resp, clearCategory: true);
+    return resp;
+  }
+
+  Future<List<CropResponseModel>?> getListCrops(int idEmpresa) async {
+    // condicion: si hay internet consulte el servicio
+
+    var resp = await getProductUseCaseImpl.getListCrops(idEmpresa: idEmpresa);
+    state = state.copyWith(cultivos: resp, clearCrop: true);
     return resp;
   }
 }
