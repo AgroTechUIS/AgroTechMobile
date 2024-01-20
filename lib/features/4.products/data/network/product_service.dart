@@ -55,6 +55,13 @@ class ProductService {
     return response;
   }
 
+  Future<HttpResponseModel> getDiscounts({required int idEmpresa}) async {
+    final response = await clienthttp.get(
+        url: '${RouteService.routeService}/api/store/discount/$idEmpresa');
+
+    return response;
+  }
+
   Future<HttpDeleteModel> deleteProductData(int? idProduct) async {
     final response = await clienthttp.delete(
         url:

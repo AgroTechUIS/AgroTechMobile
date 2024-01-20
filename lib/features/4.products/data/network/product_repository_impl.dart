@@ -34,6 +34,21 @@ class ProductRepositoryImpl implements ProductRepository {
     }
   }
 
+  @override
+  Future<Map<String, dynamic>> getDiscountsByEmpresa(int idEmpresa) async {
+    try {
+      final discountData =
+          await productService.getDiscounts(idEmpresa: idEmpresa);
+      if (discountData.success) {
+        return discountData.body ?? {};
+      } else {
+        throw ('Error: Mal status');
+      }
+    } catch (e) {
+      throw ('Error al obtener datos de los descuentos: $e');
+    }
+  }
+
   Future<Map<String, dynamic>> getCrops(int idEmpresa) async {
     try {
       final cropData = await productService.getCrops(idEmpresa: idEmpresa);

@@ -3,6 +3,7 @@ import 'package:agrotech/features/4.products/domain/models/product_response_mode
 import 'package:agrotech/features/4.products/presentation/product_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../4.discounts/domain/models/discount_model.dart';
 import '../data/network/product_repository_impl.dart';
 import '../data/network/product_service.dart';
 import '../domain/models/categorie_model.dart';
@@ -115,6 +116,15 @@ class ProductController extends StateNotifier<ProductState> {
 
     var resp = await getProductUseCaseImpl.getListCrops(idEmpresa: idEmpresa);
     state = state.copyWith(cultivos: resp, clearCrop: true);
+    return resp;
+  }
+
+  Future<List<DiscountModel>?> getListDiscounts(int idEmpresa) async {
+    // condicion: si hay internet consulte el servicio
+
+    var resp =
+        await getProductUseCaseImpl.getListDiscounts(idEmpresa: idEmpresa);
+    state = state.copyWith(descuentos: resp, clearDiscount: true);
     return resp;
   }
 }

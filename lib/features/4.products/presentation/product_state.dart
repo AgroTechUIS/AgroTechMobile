@@ -1,6 +1,7 @@
 import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
 import 'package:agrotech/features/4.products/domain/models/categorie_model.dart';
 
+import '../../4.discounts/domain/models/discount_model.dart';
 import '../domain/models/product_response_model.dart';
 
 class ProductState {
@@ -10,24 +11,31 @@ class ProductState {
   CategoryModel? selectedCategorie;
   final List<CropResponseModel> cultivos;
   CropResponseModel? selectedCrop;
+  final List<DiscountModel> descuentos;
+  DiscountModel? selectedDiscount;
 
-  ProductState({
-    this.productos = const [],
-    this.categorias = const [],
-    this.cultivos = const [],
-    this.selectedCategorie,
-    this.selectedProductForEdit,
-    this.selectedCrop,
-  });
+  ProductState(
+      {this.productos = const [],
+      this.categorias = const [],
+      this.cultivos = const [],
+      this.descuentos = const [],
+      this.selectedCategorie,
+      this.selectedProductForEdit,
+      this.selectedCrop,
+      this.selectedDiscount});
 
-  ProductState copyWith(
-      {List<ProductResponseModel>? productos,
-      List<CategoryModel>? categorias,
-      List<CropResponseModel>? cultivos,
-      ProductResponseModel? selectedProductForEdit,
-      CategoryModel? selectedCategorie,
-      bool? clearCategory,
-      bool? clearCrop}) {
+  ProductState copyWith({
+    List<ProductResponseModel>? productos,
+    List<CategoryModel>? categorias,
+    List<CropResponseModel>? cultivos,
+    List<DiscountModel>? descuentos,
+    ProductResponseModel? selectedProductForEdit,
+    CategoryModel? selectedCategorie,
+    DiscountModel? selectedDiscount,
+    bool? clearCategory,
+    bool? clearCrop,
+    bool? clearDiscount,
+  }) {
     return ProductState(
         productos: productos ?? this.productos,
         categorias: categorias ?? this.categorias,
@@ -37,6 +45,9 @@ class ProductState {
             ? null
             : (selectedCategorie ?? this.selectedCategorie),
         selectedCrop:
-            (clearCrop ?? false) ? null : (selectedCrop ?? this.selectedCrop));
+            (clearCrop ?? false) ? null : (selectedCrop ?? this.selectedCrop),
+        selectedDiscount: (clearDiscount ?? false)
+            ? null
+            : (selectedDiscount ?? this.selectedDiscount));
   }
 }

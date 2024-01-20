@@ -2,6 +2,7 @@ import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.d
 import 'package:agrotech/features/4.products/domain/models/categorie_model.dart';
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 
+import '../../../4.discounts/domain/models/discount_model.dart';
 import '../../data/network/product_repository_impl.dart';
 
 abstract class GetProductUseCase {
@@ -9,7 +10,7 @@ abstract class GetProductUseCase {
 }
 
 class GetProductUseCaseImpl extends GetProductUseCase {
-  final ProductRepository productRepository;
+  final ProductRepositoryImpl productRepository;
 
   GetProductUseCaseImpl(
     this.productRepository,
@@ -89,6 +90,23 @@ class GetProductUseCaseImpl extends GetProductUseCase {
       return s;
     } catch (e) {
       throw ('Error al guardar el producto: $e');
+    }
+  }
+
+  @override
+  Future<List<DiscountModel>?> getListDiscounts(
+      {required int idEmpresa}) async {
+    try {
+      var discountData =
+          await productRepository.getDiscountsByEmpresa(idEmpresa);
+      List<DiscountModel>? listDiscounts = [];
+
+      for (var entry in discountData['discounts']) {
+        listDiscounts.add(DiscountModel.fromJson(entry));
+      }
+      return listDiscounts;
+    } catch (e) {
+      throw ('Error al obtener la lista de descuentos: $e');
     }
   }
 }
