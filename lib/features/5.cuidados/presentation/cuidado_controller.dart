@@ -22,7 +22,7 @@ class CareController extends StateNotifier<CuidadoState> {
     return resp;
   }
 
-  Future<Map<String, dynamic>> updatesPests(
+  Future<Map<String, dynamic>> updatesCares(
       CareResponseModel? updatedCares, CareResponseModel? initialCare) async {
     if (updatedCares == null || initialCare == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
