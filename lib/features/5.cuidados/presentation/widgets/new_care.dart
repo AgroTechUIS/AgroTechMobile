@@ -1,12 +1,12 @@
 import '../../../../common_utilities/config/colors_theme.dart';
-import '../../domain/models/cuidado_model.dart';
+import '../../domain/models/cuidado_response_model.dart';
 import 'my_buttom.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class NewCare extends StatefulWidget {
-  void Function(CareModel)? onSave;
+  void Function(CareResponseModel)? onSave;
   VoidCallback? onCancel;
 
   final TextEditingController nombreController = TextEditingController();
@@ -21,12 +21,12 @@ class NewCare extends StatefulWidget {
 class _NewCareState extends State<NewCare> {
   final List<String> itemsCare = [
     'Preparación del suelo',
-    'Riego',
+    'Riego ',
     'Control de malezas',
-    'Fertilización',
+    'Fertilización ',
     'Poda',
-    'Recolecion de frutos',
-    'Otros'
+    'Recolecion de cosecha',
+    'Otro'
   ];
   String? selectedValue;
 
@@ -66,7 +66,7 @@ class _NewCareState extends State<NewCare> {
               controller: widget.descripcionController,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
-                label: const Text("Descripcion "),
+                label: const Text("Acciones realizadas "),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -234,37 +234,19 @@ class _NewCareState extends State<NewCare> {
               ),
             ),
             SizedBox(height: 12),
-            TextField(
-              controller: widget.insumoController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: const Text("Insumo"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      CareModel nuevoCuidado = CareModel(
+                      CareResponseModel nuevoCuidado = CareResponseModel(
                         id: 0, // Asigna el ID adecuado
                         name: widget.nombreController.text,
-                        description: widget.descripcionController.text,
-                        type: selectedValue,
-                        initialDate: DateUtils.dateOnly(date1 as DateTime),
-                        finalDate: DateUtils.dateOnly(date2 as DateTime),
-                        insumo: widget.insumoController.text,
+                        action_performed: widget.descripcionController.text,
+                        care_type: selectedValue,
+                        date_init: DateUtils.dateOnly(date1 as DateTime),
+                        date_finish: DateUtils.dateOnly(date2 as DateTime),
                       );
                       widget.onSave!(nuevoCuidado);
                     },

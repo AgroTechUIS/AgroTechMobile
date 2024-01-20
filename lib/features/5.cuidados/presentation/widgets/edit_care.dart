@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:agrotech/features/5.cuidados/domain/models/cuidado_model.dart';
+import 'package:agrotech/features/5.cuidados/domain/models/cuidado_response_model.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +9,9 @@ import 'my_buttom.dart';
 
 // ignore: must_be_immutable
 class EditCare extends StatefulWidget {
-  void Function(CareModel)? onSave;
+  void Function(CareResponseModel)? onSave;
   VoidCallback? onCancel;
-  CareModel? initialCuidado;
+  CareResponseModel? initialCuidado;
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
@@ -20,8 +20,7 @@ class EditCare extends StatefulWidget {
   EditCare(
       {super.key, this.onSave, this.onCancel, required this.initialCuidado}) {
     nombreController.text = initialCuidado?.name ?? '';
-    descripcionController.text = initialCuidado?.description ?? '';
-    insumoController.text = initialCuidado?.insumo ?? '';
+    descripcionController.text = initialCuidado?.action_performed ?? '';
   }
 
   @override
@@ -44,7 +43,7 @@ class _editCareState extends State<EditCare> {
   void initState() {
     super.initState();
     selectedValue = widget.initialCuidado
-        ?.type; // Asigna el valor inicial de initialPlaga.state a selectedValue
+        ?.care_type; // Asigna el valor inicial de initialPlaga.state a selectedValue
   }
 
   late Future<DateTime?> fecha1;
@@ -83,7 +82,7 @@ class _editCareState extends State<EditCare> {
               controller: widget.descripcionController,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
-                label: const Text("Descripcion "),
+                label: const Text("Acciones a realizar "),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -143,14 +142,14 @@ class _editCareState extends State<EditCare> {
               onTap: () async {
                 fecha1 = showDatePicker(
                   context: context,
-                  initialDate: widget.initialCuidado!.initialDate as DateTime,
+                  initialDate: widget.initialCuidado!.date_init as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
                 final selectedDate1 = await fecha1;
                 if (selectedDate1 != null) {
                   setState(() {
-                    widget.initialCuidado!.initialDate = selectedDate1;
+                    widget.initialCuidado!.date_init = selectedDate1;
                   });
                 }
               },
@@ -182,7 +181,7 @@ class _editCareState extends State<EditCare> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${widget.initialCuidado!.initialDate!.day} / ${widget.initialCuidado!.initialDate!.month} / ${widget.initialCuidado!.initialDate!.year}',
+                          '${widget.initialCuidado!.date_init!.day} / ${widget.initialCuidado!.date_init!.month} / ${widget.initialCuidado!.date_init!.year}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
@@ -199,14 +198,14 @@ class _editCareState extends State<EditCare> {
               onTap: () async {
                 fecha2 = showDatePicker(
                   context: context,
-                  initialDate: widget.initialCuidado!.finalDate as DateTime,
+                  initialDate: widget.initialCuidado!.date_finish as DateTime,
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
                 final selectedDate2 = await fecha2;
                 if (selectedDate2 != null) {
                   setState(() {
-                    widget.initialCuidado!.finalDate = selectedDate2;
+                    widget.initialCuidado!.date_finish = selectedDate2;
                   });
                 }
               },
@@ -238,7 +237,7 @@ class _editCareState extends State<EditCare> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${widget.initialCuidado!.finalDate!.day} / ${widget.initialCuidado!.finalDate!.month} / ${widget.initialCuidado!.finalDate!.year}',
+                          '${widget.initialCuidado!.date_finish!.day} / ${widget.initialCuidado!.date_finish!.month} / ${widget.initialCuidado!.date_finish!.year}',
                           style: TextStyle(
                             color: colors
                                 .black, // Puedes personalizar el color del texto aquí
@@ -276,14 +275,14 @@ class _editCareState extends State<EditCare> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      CareModel nuevoCuidado = CareModel(
+                      CareResponseModel nuevoCuidado = CareResponseModel(
                         id: 0, // Asigna el ID adecuado
                         name: widget.nombreController.text,
-                        description: widget.descripcionController.text,
-                        type: selectedValue,
-                        initialDate: widget.initialCuidado!.initialDate,
-                        finalDate: widget.initialCuidado!.finalDate,
-                        insumo: widget.insumoController.text,
+                        action_performed: widget.descripcionController.text,
+                        care_type: selectedValue,
+                        date_init: widget.initialCuidado!.date_init,
+                        date_finish: widget.initialCuidado!.date_finish,
+                        crop: widget.initialCuidado!.crop,
                       );
                       widget.onSave!(nuevoCuidado);
                     },

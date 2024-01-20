@@ -1,3 +1,4 @@
+import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
 import 'package:agrotech/features/4.products/presentation/product_page.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_page.dart';
@@ -54,6 +55,19 @@ class VistaPlayOptions extends ConsumerWidget {
                             builder: (context) => VariablesPage(
                                   idCrop: idCrop,
                                 )),
+                      );
+                    }),
+                MiniOptionWidget(
+                    title: 'Cuidados',
+                    iconRoute: '/care.svg',
+                    onTap: () async {
+                      await ref
+                          .read(pestController.notifier) // ARREGLAR
+                          .getListPest(idCrop);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CuidadosPage(idCrop: idCrop)),
                       );
                     }),
               ],

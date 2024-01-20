@@ -1,30 +1,24 @@
-import 'package:agrotech/features/5.cuidados/domain/models/cuidado_model.dart';
 import 'package:agrotech/features/5.cuidados/presentation/widgets/care_widgets.dart';
 import 'package:agrotech/features/5.cuidados/presentation/widgets/edit_care.dart';
 import 'package:agrotech/features/5.cuidados/presentation/widgets/new_care.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
+import '../domain/models/cuidado_response_model.dart';
 
-class CuidadosPage extends StatefulWidget {
-  const CuidadosPage({super.key});
+class CuidadosPage extends ConsumerWidget {
+  int idCrop;
+  CuidadosPage({super.key, required this.idCrop});
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _CuidadosPageState createState() => _CuidadosPageState();
-}
+  List<CareResponseModel> listCares = [];
+  CareResponseModel? selectedCareForEdit;
 
-class _CuidadosPageState extends State<CuidadosPage> {
-  List<CareModel> listCares = [];
-  CareModel? selectedCareForEdit;
-
-  void saveNewCare(CareModel cuidado) {
-    setState(() {
-      listCares.add(cuidado);
-    });
+  void saveNewCare(CareResponseModel cuidado) {
+    listCares.add(cuidado);
   }
 
-  void editCare(CareModel cuidado) {
+  void editCare(BuildContext context, CareResponseModel cuidado) {
     selectedCareForEdit = cuidado;
     showDialog(
       context: context,
@@ -33,10 +27,9 @@ class _CuidadosPageState extends State<CuidadosPage> {
           initialCuidado: selectedCareForEdit,
           onSave: (EditCare) {
             // Actualizar la lista de plagas
-            setState(() {
-              listCares.remove(selectedCareForEdit);
-              listCares.add(EditCare);
-            });
+            listCares.remove(selectedCareForEdit);
+            listCares.add(EditCare);
+
             Navigator.of(context).pop();
           },
           onCancel: () {
@@ -50,13 +43,11 @@ class _CuidadosPageState extends State<CuidadosPage> {
     );
   }
 
-  void deleteCare(CareModel cuidado) {
-    setState(() {
-      listCares.remove(cuidado);
-    });
+  void deleteCare(CareResponseModel cuidado) {
+    listCares.remove(cuidado);
   }
 
-  void createNewCare() {
+  createNewCare(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -71,11 +62,12 @@ class _CuidadosPageState extends State<CuidadosPage> {
     );
   }
 
-  Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
-        onPressed: createNewCare,
+        onPressed: createNewCare(context),
         child: Icon(Icons.add),
       ),
       body: Column(
@@ -125,7 +117,7 @@ class _CuidadosPageState extends State<CuidadosPage> {
                     .map((e) => CareWidget(
                           cuidado: e,
                           onEdit: () {
-                            editCare(e);
+                            editCare(context, e);
                           },
                           onDelete: () {
                             deleteCare(e);
