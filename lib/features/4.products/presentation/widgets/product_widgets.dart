@@ -61,7 +61,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.summary ?? '',
+                  producto.resumen ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -81,7 +81,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${producto.price}',
+                  '${producto.priceCop}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],

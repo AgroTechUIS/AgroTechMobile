@@ -84,7 +84,7 @@ class GetProductUseCaseImpl extends GetProductUseCase {
   Future<Map<String, dynamic>> saveProduct(
       ProductResponseModel? savedProductos, int idEmpresa) async {
     try {
-      final productData = savedProductos!.toJson();
+      final productData = savedProductos!.toJsonPost();
       var s = await productRepository.saveProductDataRep(productData,
           idEmpresa: idEmpresa);
       return s;

@@ -40,6 +40,8 @@ class ProductState {
     return ProductState(
         productos: productos ?? this.productos,
         categorias: categorias ?? this.categorias,
+        cultivos: cultivos ?? this.cultivos,
+        descuentos: descuentos ?? this.descuentos,
         selectedProductForEdit:
             selectedProductForEdit ?? this.selectedProductForEdit,
         selectedCategorie: (clearCategory ?? false)
