@@ -1,4 +1,4 @@
-class OrderModel {
+class OfficeModel {
   int? id;
   String? product;
   String? product_title;
@@ -13,7 +13,7 @@ class OrderModel {
   String? telephone_delivery;
   double? total;
 
-  OrderModel(
+  OfficeModel(
       {this.id,
       this.product,
       this.product_title,
@@ -28,7 +28,7 @@ class OrderModel {
       this.telephone_delivery,
       this.total});
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+  factory OfficeModel.fromJson(Map<String, dynamic> json) => OfficeModel(
       id: json["id"],
       product: json["product"],
       product_title: json["product_title"],

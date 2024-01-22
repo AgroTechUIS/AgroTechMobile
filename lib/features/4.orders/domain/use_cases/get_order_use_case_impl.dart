@@ -1,5 +1,3 @@
-import 'package:agrotech/features/4.offices/domain/models/office_model.dart';
-
 import '../../data/order_repository_impl.dart';
 import '../models/order_model.dart';
 
@@ -34,7 +32,8 @@ class GetOrderUseCaseImpl extends GetOrderUseCase {
   Future<Map<String, dynamic>> updateOrder(OrderModel? updatedPedidos) async {
     try {
       final orderData = updatedPedidos!.toJson();
-      var r = await orderRepository.updateOrdersDataRep(orderData);
+      var r = await orderRepository.updateOrdersDataRep(
+          orderData, updatedPedidos.id!);
       return r;
     } catch (e) {
       throw ('Error al actualizar la lista de pedidos: $e');

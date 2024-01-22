@@ -4,7 +4,7 @@ abstract class OrderRepository {
   Future<Map<String, dynamic>> getOrdersByEmpresa(int idCrop); // ??
 
   Future<Map<String, dynamic>> updateOrdersDataRep(
-      Map<String, dynamic> orderData);
+      Map<String, dynamic> orderData, int idOrder);
 }
 
 class OrderRepositoryImpl implements OrderRepository {
@@ -27,9 +27,9 @@ class OrderRepositoryImpl implements OrderRepository {
   }
 
   Future<Map<String, dynamic>> updateOrdersDataRep(
-      Map<String, dynamic> orderData) async {
+      Map<String, dynamic> orderData, int idOrder) async {
     try {
-      final response = await orderService.updateOrderData(orderData);
+      final response = await orderService.updateOrderData(orderData, idOrder);
 
       if (response.success) {
         final responseData = response.body;

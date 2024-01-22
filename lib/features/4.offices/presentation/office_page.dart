@@ -1,37 +1,37 @@
-import 'package:agrotech/features/4.orders/presentation/widgets/edit_order.dart';
-import 'package:agrotech/features/4.orders/presentation/widgets/orders_widgets.dart';
+import 'package:agrotech/features/4.offices/presentation/widgets/edit_office.dart';
+import 'package:agrotech/features/4.offices/presentation/widgets/office_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../common_utilities/config/colors_theme.dart';
-import '../domain/models/order_model.dart';
-import 'order_controller.dart';
-import 'order_state.dart';
+import '../domain/models/office_model.dart';
+import 'office_controller.dart';
+import 'office_state.dart';
 
 final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
     GlobalKey<RefreshIndicatorState>();
 
-class OrderPage extends ConsumerWidget {
-  OrderPage({super.key, required this.idEmpresa});
+class OfficePage extends ConsumerWidget {
+  OfficePage({super.key, required this.idEmpresa});
 
   final int idEmpresa;
 
-  void editOrder(context, OrderModel pedido, OrderController controller,
-      OrderState state) {
-    state.selectedOrderForEdit = pedido;
+  void editOffice(context, OfficeModel despacho, OfficeController controller,
+      OfficeState state) {
+    state.selectedOfficeForEdit = despacho;
     showDialog(
       context: context,
       builder: (context) {
-        return EditOrder(
-          initialOrder: state.selectedOrderForEdit,
+        return EditOffice(
+          initialOffice: state.selectedOfficeForEdit,
           onSave: (nc) async {
-            final nca = await controller.updatesOrders(nc, pedido);
+            final nca = await controller.updatesOffices(nc, despacho);
 
-            controller.getListOrder(idEmpresa);
+            controller.getListOffice(idEmpresa);
             Fluttertoast.showToast(
-              msg: 'Pedido despachado correctamente.',
+              msg: 'Despacho despachado correctamente.',
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.TOP_RIGHT,
               backgroundColor:
@@ -51,8 +51,8 @@ class OrderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var state = ref.watch(orderController);
-    var controller = ref.read(orderController.notifier);
+    var state = ref.watch(officeController);
+    var controller = ref.read(officeController.notifier);
     return Scaffold(
       backgroundColor: colors.appbar,
       body: Column(
@@ -76,7 +76,7 @@ class OrderPage extends ConsumerWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 15.0),
                   child: Text(
-                    'Pedidos',
+                    'Despachos',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
@@ -98,11 +98,11 @@ class OrderPage extends ConsumerWidget {
                 ),
               ),
               child: ListView(
-                children: state.pedidos
-                    .map((e) => OrderWidget(
-                          pedido: e,
+                children: state.despachos
+                    .map((e) => OfficeWidget(
+                          despacho: e,
                           onEdit: () {
-                            editOrder(context, e, controller, state);
+                            editOffice(context, e, controller, state);
                           },
                         ))
                     .toList(),

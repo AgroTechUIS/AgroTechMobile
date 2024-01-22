@@ -1,12 +1,9 @@
-import 'package:agrotech/features/4.offices/domain/models/office_model.dart';
-import 'package:agrotech/features/4.offices/presentation/office_state.dart';
 import 'package:agrotech/features/4.orders/presentation/order_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/order_repository_impl.dart';
 import '../data/order_service.dart';
 import '../domain/models/order_model.dart';
-import '../domain/use_cases/get_office_use_case_impl.dart';
 import '../domain/use_cases/get_order_use_case_impl.dart';
 
 class OrderController extends StateNotifier<OrderState> {
@@ -34,9 +31,6 @@ class OrderController extends StateNotifier<OrderState> {
             updatedPedidos.telephone_delivery);
 
     var resp = await getOrderUseCaseImpl.updateOrder(updatedInitialPedido);
-
-    final selectedOrder = OrderModel.fromJson(resp);
-    state = state.copyWith(selectedOrderForEdit: selectedOrder);
 
     return resp;
   }

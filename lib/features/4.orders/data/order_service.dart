@@ -16,9 +16,10 @@ class OrderService {
   }
 
   Future<HttpResponseModel> updateOrderData(
-      Map<String, dynamic> orderData) async {
+      Map<String, dynamic> orderData, int idOrder) async {
     final response = await clienthttp.put(
-      url: '${RouteService.routeService}/api/crop', // Ruta sin el cropId
+      url:
+          '${RouteService.routeService}/api/store/saleDetail/update/orders', // Ruta sin el cropId
       body: orderData,
     );
     return response;
