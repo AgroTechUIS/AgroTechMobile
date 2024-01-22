@@ -122,6 +122,27 @@ class OfficeWidget extends StatelessWidget {
                 ),
               ),
             ]),
+
+            SizedBox(height: 8.0),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text(
+                'Telefono del repartidor: ',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                child: Text(
+                  despacho.telephone_delivery!,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
+            ]),
             SizedBox(height: 8.0),
 
             Row(
@@ -130,8 +151,8 @@ class OfficeWidget extends StatelessWidget {
                 SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onEdit,
-                  backgroundColor: Colors.yellow,
-                  child: Icon(Icons.send_and_archive_rounded),
+                  backgroundColor: Colors.green,
+                  child: Icon(Icons.add_task),
                 ),
               ],
             ),

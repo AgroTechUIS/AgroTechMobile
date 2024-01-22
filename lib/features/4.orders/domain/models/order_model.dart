@@ -7,7 +7,7 @@ class OrderModel {
   String? direccion;
   String? city;
   double? subtotal;
-  int? status;
+  String? status;
   String? telephone;
   String? name_delivery;
   String? telephone_delivery;

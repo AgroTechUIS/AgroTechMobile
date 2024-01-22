@@ -319,23 +319,6 @@ class _NewProductState extends ConsumerState<NewProduct> {
                 ),
               ),
             ),
-
-            /*DropdownButton<CategoryModel>(
-              value: state.selectedCategorie,
-              items: state.categorias.map((CategoryModel item) {
-                return DropdownMenuItem<CategoryModel>(
-                  value: item,
-                  child: Row(
-                    children: [
-                      Text('${item.title}'),
-                    ],
-                  ),
-                );
-              }).toList(),
-              onChanged: (CategoryModel? newValue) {
-                if (newValue != null) controller.updateCategory(newValue);
-              },
-            ),*/
             SizedBox(height: 12),
             Divider(),
             Row(

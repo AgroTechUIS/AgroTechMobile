@@ -25,10 +25,7 @@ class OfficeController extends StateNotifier<OfficeState> {
     }
     OfficeModel updatedInitialDespacho = OfficeModel(
         id: updatedDespachos.id ?? initialDespacho.id,
-        name_delivery:
-            updatedDespachos.name_delivery ?? initialDespacho.name_delivery,
-        telephone_delivery: updatedDespachos.telephone_delivery ??
-            updatedDespachos.telephone_delivery);
+        status: updatedDespachos.status ?? initialDespacho.status);
 
     var resp = await getOfficeUseCaseImpl.updateOffice(updatedInitialDespacho);
 

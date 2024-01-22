@@ -34,28 +34,11 @@ class _editOfficeState extends State<EditOffice> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Text("Despacha el despacho"),
+      title: Text("¿El cliente ya tiene su pedido?"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 12),
-            TextField(
-              controller: widget.nameController,
-              keyboardType: TextInputType.name,
-              decoration: InputDecoration(
-                label: const Text("Nombre del domiciliario "),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ),
             SizedBox(
               height: 12,
             ),
@@ -64,19 +47,18 @@ class _editOfficeState extends State<EditOffice> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MyButton(
-                    text: "Guardar",
+                    text: "Sí",
                     onPressed: () {
                       OfficeModel nuevoDescuento = OfficeModel(
                           id: widget.initialOffice?.id,
-                          name_delivery: widget.nameController.text,
-                          telephone_delivery: widget.phbneController.text);
+                          status: 'Pedido entregado');
 
                       widget.onSave!(nuevoDescuento);
                     },
                     color: colors.green2,
                     textColor: colors.white),
                 MyButton(
-                  text: "Cerrar",
+                  text: "No",
                   onPressed: widget.onCancel,
                   color: colors.white,
                   textColor: colors.textColor,

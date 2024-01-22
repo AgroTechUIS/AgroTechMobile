@@ -31,7 +31,7 @@ class OfficePage extends ConsumerWidget {
 
             controller.getListOffice(idEmpresa);
             Fluttertoast.showToast(
-              msg: 'Despacho despachado correctamente.',
+              msg: 'Despacho entregado exitosamente.',
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.TOP_RIGHT,
               backgroundColor:

@@ -7,7 +7,7 @@ class OfficeModel {
   String? direccion;
   String? city;
   double? subtotal;
-  int? status;
+  String? status;
   String? telephone;
   String? name_delivery;
   String? telephone_delivery;
@@ -45,7 +45,6 @@ class OfficeModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name_delivery": name_delivery,
-        "telephone_delivery": telephone_delivery
+        "status": status,
       };
 }
