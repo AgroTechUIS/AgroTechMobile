@@ -29,7 +29,7 @@ class CareController extends StateNotifier<CuidadoState> {
       throw Exception("Los argumentos no pueden ser nulos.");
     }
     CareResponseModel updatedInitialCare = CareResponseModel(
-      id: updatedCares.id ?? initialCare.id,
+      id: updatedCares.id,
       name: updatedCares.name ?? initialCare.name,
       action_performed:
           updatedCares.action_performed ?? initialCare.action_performed,

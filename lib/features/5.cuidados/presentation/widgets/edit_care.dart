@@ -30,22 +30,15 @@ class EditCare extends StatefulWidget {
 class _editCareState extends State<EditCare> {
   final List<String> itemsCare = [
     'Preparación del suelo',
-    'Riego',
+    'Riego ',
     'Control de malezas',
-    'Fertilización',
+    'Fertilización ',
     'Poda',
-    'Recolecion de frutos',
-    'Otros'
+    'Recolecion de cosecha',
+    'Otro'
   ];
 
   String? selectedValue;
-  @override
-  void initState() {
-    super.initState();
-    selectedValue = widget.initialCuidado
-        ?.care_type; // Asigna el valor inicial de initialPlaga.state a selectedValue
-  }
-
   late Future<DateTime?> fecha1;
   late Future<DateTime?> fecha2;
 
@@ -249,25 +242,6 @@ class _editCareState extends State<EditCare> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 8,
-            ),
-            TextField(
-              controller: widget.insumoController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: const Text("Insumo:"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -276,10 +250,11 @@ class _editCareState extends State<EditCare> {
                     text: "Guardar",
                     onPressed: () {
                       CareResponseModel nuevoCuidado = CareResponseModel(
-                        id: 0, // Asigna el ID adecuado
+                        id: widget.initialCuidado!.id, // Asigna el ID adecuado
                         name: widget.nombreController.text,
                         action_performed: widget.descripcionController.text,
-                        care_type: selectedValue,
+                        care_type:
+                            selectedValue ?? widget.initialCuidado!.care_type,
                         date_init: widget.initialCuidado!.date_init,
                         date_finish: widget.initialCuidado!.date_finish,
                         crop: widget.initialCuidado!.crop,

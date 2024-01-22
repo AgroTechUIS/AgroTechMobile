@@ -6,6 +6,8 @@ import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_pag
 import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
 import 'package:agrotech/features/4.discounts/presentation/discount_controller.dart';
 import 'package:agrotech/features/4.discounts/presentation/discount_page.dart';
+import 'package:agrotech/features/4.orders/presentation/order_controller.dart';
+import 'package:agrotech/features/4.orders/presentation/order_page.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
 import 'package:agrotech/features/4.products/presentation/product_controller.dart';
 import 'package:agrotech/features/4.products/presentation/product_page.dart';
@@ -33,7 +35,7 @@ class GestorOptions extends ConsumerWidget {
     var controller2 = ref.read(productController.notifier);
     var controller3 = ref.read(shippingController.notifier);
     var controller4 = ref.read(discountController.notifier);
-
+    var controller5 = ref.read(orderController.notifier);
     return Column(
       children: [
         const SubtitleWidget('Mis actividades:'),
@@ -71,6 +73,9 @@ class GestorOptions extends ConsumerWidget {
                   onTap: () async {
                     await controller2.getListProduct(stateLogin.idEmpresa);
                     await controller2.getListCategories();
+                    await controller2.getListDiscounts(stateLogin.idEmpresa);
+                    await controller2.getListCrops(stateLogin.idEmpresa);
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -109,11 +114,13 @@ class GestorOptions extends ConsumerWidget {
                   title: 'Gestión de pedidos',
                   iconRoute: '/orders.svg',
                   onTap: () async {
-                    await controller.getListCrop(stateLogin.idEmpresa);
-                    await controller.getListPlants();
+                    await controller5.getListOrder(stateLogin.idEmpresa);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CropPage()),
+                      MaterialPageRoute(
+                          builder: (context) => OrderPage(
+                                idEmpresa: stateLogin.idEmpresa,
+                              )),
                     );
                   },
                 )

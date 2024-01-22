@@ -19,7 +19,7 @@ class GetCareUseCaseImpl extends GetCareUseCase {
       var careData = await careRepository.getCareByCrop(idCrop);
       List<CareResponseModel>? listCares = [];
 
-      for (var entry in careData['cuidados']) {
+      for (var entry in careData['cares']) {
         listCares.add(CareResponseModel.fromJson(entry));
       }
       return listCares;

@@ -31,6 +31,7 @@ class ProductState {
     List<DiscountModel>? descuentos,
     ProductResponseModel? selectedProductForEdit,
     CategoryModel? selectedCategorie,
+    CropResponseModel? selectedCrop,
     DiscountModel? selectedDiscount,
     bool? clearCategory,
     bool? clearCrop,

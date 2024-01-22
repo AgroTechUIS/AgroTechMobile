@@ -49,7 +49,7 @@ class ProductService {
       Map<String, dynamic> productData) async {
     final response = await clienthttp.put(
       url:
-          '${RouteService.routeService}/api/store/product/productsOwn/', // Ruta sin el cropId
+          '${RouteService.routeService}/api/store/product/productsOwn', // Ruta sin el cropId
       body: productData,
     );
     return response;

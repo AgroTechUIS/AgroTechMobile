@@ -1,3 +1,4 @@
+import 'package:agrotech/features/5.cuidados/presentation/cuidado_controller.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
 import 'package:agrotech/features/4.products/presentation/product_page.dart';
@@ -62,8 +63,8 @@ class VistaPlayOptions extends ConsumerWidget {
                     iconRoute: '/care.svg',
                     onTap: () async {
                       await ref
-                          .read(pestController.notifier) // ARREGLAR
-                          .getListPest(idCrop);
+                          .read(careController.notifier) // ARREGLAR
+                          .getListCare(idCrop);
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -1,6 +1,8 @@
 // ignore: must_be_immutable
 import 'dart:math';
 
+import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
+import 'package:agrotech/features/4.discounts/domain/models/discount_model.dart';
 import 'package:agrotech/features/4.products/domain/models/categorie_model.dart';
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 import 'package:agrotech/features/4.products/presentation/product_controller.dart';
@@ -214,6 +216,110 @@ class _NewProductState extends ConsumerState<NewProduct> {
                 ),
               ),
             ),
+            SizedBox(height: 12),
+            Container(
+              width: double.infinity,
+              alignment: Alignment.centerLeft,
+              child: InputDecorator(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                )),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<DiscountModel>(
+                    isExpanded: true,
+                    hint: Text(
+                      'Descuento',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ),
+                    items: state.descuentos
+                        .map((DiscountModel item) =>
+                            DropdownMenuItem<DiscountModel>(
+                              value: item,
+                              child: Text(
+                                '${item.discount}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    value: state.selectedDiscount,
+                    onChanged: (DiscountModel? newValue2) {
+                      if (newValue2 != null)
+                        controller.updateDiscount(newValue2);
+                    },
+                    buttonHeight: 20,
+                    buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                    buttonWidth: 140,
+                    itemHeight: 40,
+                    /*buttonStyleData: const ButtonStyleData(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      height: 20,
+                      width: 140,
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                    ),*/
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 12),
+            Container(
+              width: double.infinity,
+              alignment: Alignment.centerLeft,
+              child: InputDecorator(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                )),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<CropResponseModel>(
+                    isExpanded: true,
+                    hint: Text(
+                      'Cultivo',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ),
+                    items: state.cultivos
+                        .map((CropResponseModel item) =>
+                            DropdownMenuItem<CropResponseModel>(
+                              value: item,
+                              child: Text(
+                                '${item.name}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    value: state.selectedCrop,
+                    onChanged: (CropResponseModel? newValue) {
+                      if (newValue != null) controller.updateCrop(newValue);
+                    },
+                    buttonHeight: 20,
+                    buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                    buttonWidth: 140,
+                    itemHeight: 40,
+                    /*buttonStyleData: const ButtonStyleData(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      height: 20,
+                      width: 140,
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                    ),*/
+                  ),
+                ),
+              ),
+            ),
+
             /*DropdownButton<CategoryModel>(
               value: state.selectedCategorie,
               items: state.categorias.map((CategoryModel item) {

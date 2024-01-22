@@ -54,6 +54,18 @@ class ProductController extends StateNotifier<ProductState> {
     state = state.copyWith(categorias: temp, selectedCategorie: categoria);
   }
 
+  void updateCrop(CropResponseModel? cultivo) {
+    var temp = state.cultivos;
+    state.selectedCrop = cultivo;
+    state = state.copyWith(cultivos: temp, selectedCrop: cultivo);
+  }
+
+  void updateDiscount(DiscountModel? descuento) {
+    var temp = state.descuentos;
+    state.selectedDiscount = descuento;
+    state = state.copyWith(descuentos: temp, selectedDiscount: descuento);
+  }
+
   void saveProducts(ProductResponseModel? savedProductos, int idEmpresa) async {
     ProductResponseModel savedProducto = ProductResponseModel(
         id: savedProductos!.id,
@@ -112,16 +124,12 @@ class ProductController extends StateNotifier<ProductState> {
   }
 
   Future<List<CropResponseModel>?> getListCrops(int idEmpresa) async {
-    // condicion: si hay internet consulte el servicio
-
     var resp = await getProductUseCaseImpl.getListCrops(idEmpresa: idEmpresa);
     state = state.copyWith(cultivos: resp, clearCrop: true);
     return resp;
   }
 
   Future<List<DiscountModel>?> getListDiscounts(int idEmpresa) async {
-    // condicion: si hay internet consulte el servicio
-
     var resp =
         await getProductUseCaseImpl.getListDiscounts(idEmpresa: idEmpresa);
     state = state.copyWith(descuentos: resp, clearDiscount: true);

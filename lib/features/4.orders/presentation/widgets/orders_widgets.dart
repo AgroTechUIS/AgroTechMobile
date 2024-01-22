@@ -1,13 +1,11 @@
 // ignore: must_be_immutable
-import 'package:agrotech/features/4.discounts/domain/models/discount_model.dart';
+import 'package:agrotech/features/4.orders/domain/models/order_model.dart';
 import 'package:flutter/material.dart';
 
-class DiscountWidget extends StatelessWidget {
-  final DiscountModel descuento;
+class OrderWidget extends StatelessWidget {
+  final OrderModel pedido;
   final VoidCallback onEdit; // Agrega este parámetro
-  final VoidCallback onDelete; // Agrega este parámetro
-  DiscountWidget(
-      {required this.descuento, required this.onEdit, required this.onDelete});
+  OrderWidget({required this.pedido, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class DiscountWidget extends StatelessWidget {
           children: <Widget>[
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text(
-                'Valor de descuento: ',
+                'Producto: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -35,7 +33,7 @@ class DiscountWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  descuento.discount.toString(),
+                  pedido.product_title!,
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -46,8 +44,8 @@ class DiscountWidget extends StatelessWidget {
 
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Tipo de descuento: ',
+              const Text(
+                'Cantidad: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -56,11 +54,7 @@ class DiscountWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  (descuento.typeDiscount == 1)
-                      ? 'Porcentaje'
-                      : (descuento.typeDiscount == 2)
-                          ? 'Moneda'
-                          : '',
+                  pedido.cantidad.toString(),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -70,8 +64,8 @@ class DiscountWidget extends StatelessWidget {
             ]),
             SizedBox(height: 8.0),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Fecha de inicio: ',
+              const Text(
+                'Dirección: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -80,7 +74,7 @@ class DiscountWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${descuento.startDateNum!.year}-${descuento.startDateNum!.month}-${descuento.startDateNum!.day}',
+                  pedido.direccion!,
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -88,11 +82,10 @@ class DiscountWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(
-                height: 8.0), // Espacio entre el nombre y la descripción */
+            SizedBox(height: 8.0),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Fecha de fin: ',
+              const Text(
+                'Ciudad: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -101,7 +94,7 @@ class DiscountWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${descuento.endDateNum!.year}-${descuento.endDateNum!.month}-${descuento.endDateNum!.day}',
+                  pedido.city!,
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -109,10 +102,10 @@ class DiscountWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            SizedBox(height: 8.0),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Estado: ',
+              const Text(
+                'Telefono de cliente: ',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -121,11 +114,7 @@ class DiscountWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  (descuento.state == 1)
-                      ? 'Activo'
-                      : (descuento.state != 1)
-                          ? 'Inactivo'
-                          : '',
+                  pedido.telephone!,
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -133,7 +122,6 @@ class DiscountWidget extends StatelessWidget {
                 ),
               ),
             ]),
-
             SizedBox(height: 8.0),
 
             Row(
@@ -142,14 +130,8 @@ class DiscountWidget extends StatelessWidget {
                 SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onEdit,
-                  backgroundColor: Colors.green,
-                  child: Icon(Icons.edit),
-                ),
-                SizedBox(width: 8.0),
-                FloatingActionButton(
-                  onPressed: onDelete,
-                  backgroundColor: Colors.red,
-                  child: Icon(Icons.delete),
+                  backgroundColor: Colors.yellow,
+                  child: Icon(Icons.send_and_archive_rounded),
                 ),
               ],
             ),

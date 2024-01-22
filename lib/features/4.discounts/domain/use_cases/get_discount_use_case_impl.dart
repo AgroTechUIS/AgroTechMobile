@@ -52,7 +52,7 @@ class GetDiscountUseCaseImpl extends GetDiscountUseCase {
   Future<Map<String, dynamic>> saveDiscount(
       DiscountModel? savedDescuentos) async {
     try {
-      final discountData = savedDescuentos!.toJson();
+      final discountData = savedDescuentos!.toJsonPost();
       var s = await discountRepository.saveDiscountDataRep(discountData);
       return s;
     } catch (e) {

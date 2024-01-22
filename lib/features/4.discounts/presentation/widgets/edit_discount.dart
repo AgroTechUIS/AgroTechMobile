@@ -50,7 +50,7 @@ class _editDiscountState extends State<EditDiscount> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Text("Edita el cultivo"),
+      title: Text("Edita el descuento"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -136,7 +136,7 @@ class _editDiscountState extends State<EditDiscount> {
                           color: Theme.of(context).hintColor,
                         ),
                       ),
-                      items: itemsState
+                      items: items
                           .map((String item) => DropdownMenuItem<String>(
                                 value: item,
                                 child: Text(
