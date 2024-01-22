@@ -63,7 +63,7 @@ class ProductService {
 
   Future<HttpDeleteModel> deleteProductData(int? idProduct) async {
     final response = await clienthttp.delete(
-        url: '${RouteService.routeService}/api/store/discount/$idProduct');
+        url: '${RouteService.routeService}/api/store/product/$idProduct');
     return response;
   }
 }

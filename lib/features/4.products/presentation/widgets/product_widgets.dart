@@ -101,7 +101,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.stock.toString(),
+                  (producto.stock! >= 0 ? producto.stock.toString() : '0'),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
