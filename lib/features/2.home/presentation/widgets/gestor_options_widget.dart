@@ -124,7 +124,7 @@ class GestorOptions extends ConsumerWidget {
             child: Row(
               children: [
                 MiniOptionWidget(
-                  title: 'Gestión de pedidos',
+                  title: 'Visualización de pedidos',
                   iconRoute: '/orders.svg',
                   onTap: () async {
                     await controller5.getListOrder(stateLogin.idEmpresa);
@@ -138,7 +138,7 @@ class GestorOptions extends ConsumerWidget {
                   },
                 ),
                 MiniOptionWidget(
-                  title: 'Gestión de despachos',
+                  title: 'Visualización de despachos',
                   iconRoute: '/package.svg',
                   onTap: () async {
                     await controller6.getListOffice(stateLogin.idEmpresa);
