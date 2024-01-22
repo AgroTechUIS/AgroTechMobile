@@ -1,4 +1,4 @@
-import '../../data/order_repository_impl.dart';
+import '../../data/office_repository_impl.dart';
 import '../models/office_model.dart';
 
 abstract class GetOfficeUseCase {
@@ -19,7 +19,7 @@ class GetOfficeUseCaseImpl extends GetOfficeUseCase {
       var officeData = await officeRepository.getOfficesByEmpresa(idEmpresa);
       List<OfficeModel>? listDespachos = [];
 
-      for (var entry in officeData['offices']) {
+      for (var entry in officeData['shipments']) {
         listDespachos.add(OfficeModel.fromJson(entry));
       }
       return listDespachos;

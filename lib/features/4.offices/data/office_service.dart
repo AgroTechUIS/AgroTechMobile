@@ -10,7 +10,7 @@ class OfficeService {
   Future<HttpResponseModel> getOffices({required int idEmpresa}) async {
     final response = await clienthttp.get(
         url:
-            '${RouteService.routeService}/api/store/saleDetail/offices/$idEmpresa');
+            '${RouteService.routeService}/api/store/saleDetail/shipment/$idEmpresa');
 
     return response;
   }
@@ -19,7 +19,7 @@ class OfficeService {
       Map<String, dynamic> officeData, int idOffice) async {
     final response = await clienthttp.put(
       url:
-          '${RouteService.routeService}/api/store/saleDetail/update/offices', // Ruta sin el cropId
+          '${RouteService.routeService}/api/store/saleDetail/update/shipment/$idOffice', // Ruta sin el cropId
       body: officeData,
     );
     return response;

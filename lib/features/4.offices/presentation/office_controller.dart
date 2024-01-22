@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/order_repository_impl.dart';
-import '../data/order_service.dart';
+import '../data/office_repository_impl.dart';
+import '../data/office_service.dart';
 import '../domain/models/office_model.dart';
 import '../domain/use_cases/get_office_use_case_impl.dart';
 import 'office_state.dart';

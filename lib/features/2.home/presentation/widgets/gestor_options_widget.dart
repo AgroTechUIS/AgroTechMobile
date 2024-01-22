@@ -6,6 +6,8 @@ import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_pag
 import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
 import 'package:agrotech/features/4.discounts/presentation/discount_controller.dart';
 import 'package:agrotech/features/4.discounts/presentation/discount_page.dart';
+import 'package:agrotech/features/4.offices/presentation/office_controller.dart';
+import 'package:agrotech/features/4.offices/presentation/office_page.dart';
 import 'package:agrotech/features/4.orders/presentation/order_controller.dart';
 import 'package:agrotech/features/4.orders/presentation/order_page.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
@@ -36,6 +38,7 @@ class GestorOptions extends ConsumerWidget {
     var controller3 = ref.read(shippingController.notifier);
     var controller4 = ref.read(discountController.notifier);
     var controller5 = ref.read(orderController.notifier);
+    var controller6 = ref.read(officeController.notifier);
     return Column(
       children: [
         const SubtitleWidget('Mis actividades:'),
@@ -110,6 +113,16 @@ class GestorOptions extends ConsumerWidget {
                     );
                   },
                 ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
                 MiniOptionWidget(
                   title: 'Gestión de pedidos',
                   iconRoute: '/orders.svg',
@@ -119,6 +132,20 @@ class GestorOptions extends ConsumerWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => OrderPage(
+                                idEmpresa: stateLogin.idEmpresa,
+                              )),
+                    );
+                  },
+                ),
+                MiniOptionWidget(
+                  title: 'Gestión de despachos',
+                  iconRoute: '/package.svg',
+                  onTap: () async {
+                    await controller6.getListOffice(stateLogin.idEmpresa);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OfficePage(
                                 idEmpresa: stateLogin.idEmpresa,
                               )),
                     );
