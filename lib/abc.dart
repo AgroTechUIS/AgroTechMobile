@@ -1,8 +1,16 @@
+// coverage:ignore-file
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+
+/*final randomNumberProvider = StreamProvider<int>((ref) {
+  final random = Random();
+  return Stream.periodic(const Duration(seconds: 30), (index) {
+    return random.nextInt(100);
+  });
+});*/
 
 class NotificationScreen extends StatelessWidget {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();

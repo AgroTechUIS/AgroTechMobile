@@ -1,17 +1,13 @@
-import 'package:agrotech/common_utilities/controllers/connection_controller.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:agrotech/common_utilities/context_extension.dart';
+import 'package:agrotech/common_utilities/controllers/offline_controller.dart';
 import 'package:agrotech/common_utilities/widgets/agrotech_button_widget.dart';
+import 'package:agrotech/features/1.login/presentation/widgets/Login_offline_view.dart';
 import 'package:agrotech/features/2.home/presentation/home_page.dart';
 import 'package:agrotech/features/1.login/presentation/login_controller.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-/*final randomNumberProvider = StreamProvider<int>((ref) {
-  final random = Random();
-  return Stream.periodic(const Duration(seconds: 30), (index) {
-    return random.nextInt(100);
-  });
-});*/
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
@@ -20,7 +16,6 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loginControllerIns = ref.read(loginController.notifier);
     final loginState = ref.watch(loginController);
-    final connectivityResult = ref.watch(connectivityProvider);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -54,82 +49,55 @@ class LoginPage extends ConsumerWidget {
                           "Login",
                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
                         ),
-                        connectivityResult.when(
-                          data: (value) {
-                            if (value == ConnectivityResult.none) {
-                              return Column(
-                                children: [
-                                  const SizedBox(height: 10),
-                                  const Text("Atencion no hay internet"),
-                                  AgrotechButton(
-                                    text: "Ingresar Offline",
-                                    onPressed: () async {
-                                      goToHome(context, 'obrero');
-                                    },
-                                  ),
-                                ],
-                              );
-                            } else {
-                              return Column(
-                                children: [
-                                  TextField(
-                                    keyboardType: TextInputType.emailAddress,
-                                    controller: loginControllerIns.emailController,
-                                    decoration: const InputDecoration(
-                                      hintText: "Correo electrónico",
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.green, width: 3),
-                                      ),
-                                    ),
-                                  ),
-                                  loginState.errorEmail.isNotEmpty
-                                      ? Row(
-                                          children: [
-                                            Text(
-                                              loginState.errorEmail,
-                                              style: TextStyle(color: Colors.orange, fontSize: 18),
-                                            ),
-                                          ],
-                                        )
-                                      : const SizedBox(),
-                                  const SizedBox(height: 20),
-                                  TextField(
-                                    controller: loginControllerIns.passwordController,
-                                    decoration: const InputDecoration(
-                                      hintText: "Contraseña",
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.green, width: 3),
-                                      ),
-                                    ),
-                                    obscureText: true,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  AgrotechButton(
-                                    text: "Iniciar Sesión",
-                                    onPressed: () async {
-                                      var isLoggedIn = await loginControllerIns.login();
-                                      if (isLoggedIn.error == null) {
-                                        goToHome(context, isLoggedIn.rol!);
-                                      } else {}
-                                    },
-                                  ),
-                                ],
-                              );
-                            }
-                          },
-                          loading: () => Column(
-                            children: [
-                              const SizedBox(height: 10),
-                              const Text("Atencion no hay internet"),
-                              AgrotechButton(
-                                text: "Ingresar Offline",
-                                onPressed: () async {
-                                  goToHome(context, 'obrero');
-                                },
+                        Column(
+                          children: [
+                            TextField(
+                              keyboardType: TextInputType.emailAddress,
+                              controller: loginControllerIns.emailController,
+                              decoration: const InputDecoration(
+                                hintText: "Correo electrónico",
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green, width: 3),
+                                ),
                               ),
-                            ],
-                          ),
-                          error: (error, stack) => Text('Error: $error'),
+                            ),
+                            loginState.errorEmail.isNotEmpty
+                                ? Row(
+                                    children: [
+                                      Text(
+                                        loginState.errorEmail,
+                                        style: const TextStyle(color: Colors.red, fontSize: 14),
+                                      ),
+                                    ],
+                                  )
+                                : const SizedBox(),
+                            const SizedBox(height: 20),
+                            TextField(
+                              controller: loginControllerIns.passwordController,
+                              decoration: const InputDecoration(
+                                hintText: "Contraseña",
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green, width: 3),
+                                ),
+                              ),
+                              obscureText: true,
+                            ),
+                            loginState.errorPassword.isNotEmpty
+                                ? Row(
+                                    children: [
+                                      Text(
+                                        loginState.errorPassword,
+                                        style: const TextStyle(color: Colors.red, fontSize: 14),
+                                      ),
+                                    ],
+                                  )
+                                : const SizedBox(),
+                            const SizedBox(height: 20),
+                            AgrotechButton(
+                              text: "Iniciar Sesión",
+                              onPressed: () => _tap(context, ref),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -143,7 +111,22 @@ class LoginPage extends ConsumerWidget {
     );
   }
 
-  void goToHome(BuildContext context, String rol) {
+  // coverage:ignore-start
+  _tap(BuildContext context, WidgetRef ref) async {
+    final offLineContr = ref.read(onlineProvider.notifier);
+    final loginControllerIns = ref.read(loginController.notifier);
+    var isLoggedIn = await loginControllerIns.login();
+    if (isLoggedIn.error == null) {
+      offLineContr.update((state) => true);
+      goToHome(context, isLoggedIn.response.rol!);
+    } else if (isLoggedIn.error == 'Latencia' || isLoggedIn.error == 'Sin internet') {
+      context.pushRoute(const LoginOfflineView());
+    } else {
+      loginControllerIns.passwordErrorAdd();
+    }
+  }
+
+  goToHome(BuildContext context, String rol) {
     UserRol rolType;
     switch (rol) {
       case 'supervisor':
@@ -152,15 +135,13 @@ class LoginPage extends ConsumerWidget {
       case 'obrero':
         rolType = UserRol.obrero;
         break;
-      case 'gestion_agricola':
+      case 'gestor':
         rolType = UserRol.gestor;
         break;
       default:
         rolType = UserRol.lock;
     }
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage(rol: rolType)),
-    );
+    context.remplaceRoute(HomePage(rol: rolType));
   }
+  // coverage:ignore-end
 }

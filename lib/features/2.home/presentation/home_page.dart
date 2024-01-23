@@ -1,8 +1,12 @@
+// coverage:ignore-file
+import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/common_utilities/widgets/background_body_widget.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/common_utilities/widgets/section_widget.dart';
 import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
+import 'package:agrotech/features/1.login/presentation/login_page.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/dni_widget.dart';
+import 'package:agrotech/features/2.home/presentation/widgets/gestor_options_widget.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/supervisor_options_widget.dart';
 import 'package:agrotech/features/2.home/presentation/widgets/obreros_options_widget.dart';
 import 'package:agrotech/features/1.login/presentation/login_controller.dart';
@@ -35,35 +39,59 @@ class HomePage extends ConsumerWidget {
       ),
       body: Stack(
         children: [
-          BackgroundBodyWidget(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.04,
-              ),
-              dragStartBehavior: DragStartBehavior.start,
-              reverse: false,
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  SectionWidget(children: [
+          BackgroundBodyWidget(child: Column()),
+          SingleChildScrollView(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.04,
+            ),
+            dragStartBehavior: DragStartBehavior.start,
+            reverse: false,
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                SectionWidget(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  children: [
                     const SubtitleWidget('Mis datos:'),
                     DniWidget(stateLogin: stateLogin),
-                  ]),
-                  SectionWidget(
-                    children: [
-                      const SubtitleWidget('Agrotech:'),
-                      SectionWidget(
+                  ],
+                ),
+                SectionWidget(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  children: [
+                    const SubtitleWidget('Agrotech:'),
+                    SectionWidget(
+                      background: colors.white,
+                      children: [
+                        if (rol == UserRol.supervisor) const SupervisorOptions(),
+                        if (rol == UserRol.obrero) const ObreroOptions(),
+                        if (rol == UserRol.gestor) const GestorOptions(),
+                      ],
+                    ),
+                  ],
+                ),
+                SectionWidget(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  children: [
+                    InkWell(
+                      onTap: () => context.remplaceRoute(const LoginPage()),
+                      child: SectionWidget(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         background: colors.white,
                         children: [
-                          if (rol == UserRol.supervisor) const SupervisorOptions(),
-                          if (rol == UserRol.obrero) const ObreroOptions(),
-                          //if (rol == UserRol.lock) FinancieroOptions(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              SubtitleWidget('Cerrar sesión'),
+                              Icon(Icons.logout_outlined),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
           Container(

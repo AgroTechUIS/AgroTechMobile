@@ -1,5 +1,6 @@
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:agrotech/features/3.opciones_supervisor/models/point_chart_model.dart';
+import 'package:agrotech/common_utilities/widgets/background_body_widget.dart';
+import 'package:agrotech/features/3.opciones_supervisor/domain/models/point_chart_model.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_widget.dart';
 import 'package:agrotech/common_utilities/widgets/infobox_wiget.dart';
 import 'package:agrotech/common_utilities/widgets/section_widget.dart';
@@ -16,8 +17,6 @@ class StadisticCultivoPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var screenSize = MediaQuery.of(context).size;
-
     List<PointChartModel> balance = [
       PointChartModel(x: 2012, y: 16, z: 1),
       PointChartModel(x: 2013, y: 13, z: 2),
@@ -37,19 +36,12 @@ class StadisticCultivoPage extends ConsumerWidget {
     String gastos = '\$1.200.000';
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 73, 166, 140),
       appBar: AppBar(
         title: const Text('Informe Agro Tech'),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 60, 141, 72),
+        backgroundColor: colors.green3,
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage('https://media.zicxa.com/5868297'),
-            fit: BoxFit.cover,
-          ),
-        ),
+      body: BackgroundBodyWidget(
         child: SingleChildScrollView(
             child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -67,18 +59,16 @@ class StadisticCultivoPage extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InfoBox(
-                    screenSize: screenSize,
                     title: 'Gastos:',
                     value: gastos,
-                    backgroundColor: colors.black,
+                    backgroundColor: colors.infoBox,
                     textColorFirst: colors.green,
                     textColorSecond: colors.white,
                   ),
                   InfoBox(
-                    screenSize: screenSize,
                     title: 'Ganancias:',
                     value: ganacias,
-                    backgroundColor: colors.black,
+                    backgroundColor: colors.infoBox,
                     textColorFirst: colors.green,
                     textColorSecond: colors.white,
                   ),

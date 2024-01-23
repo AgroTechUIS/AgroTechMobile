@@ -3,7 +3,7 @@ class ActivityModel {
   String? nombre;
   String? finca;
   String? zona;
-  String? fecha;
+  DateTime? fecha;
   String? estado;
   String? periodico;
 
@@ -22,7 +22,7 @@ class ActivityModel {
     nombre = json["nombre"];
     finca = json["finca"];
     zona = json["zona"];
-    fecha = json["fecha"];
+    fecha = DateTime.parse(json["fecha"]);
     estado = json["estado"];
     periodico = json["periodico"];
   }
@@ -33,7 +33,7 @@ class ActivityModel {
     data["nombre"] = nombre;
     data["finca"] = finca;
     data["zona"] = zona;
-    data["fecha"] = fecha;
+    data["fecha"] = fecha.toString();
     data["estado"] = estado;
     data["periodico"] = periodico;
     return data;

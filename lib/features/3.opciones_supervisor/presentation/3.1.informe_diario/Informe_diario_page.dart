@@ -1,12 +1,19 @@
+// ignore_for_file: file_names
+
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:agrotech/features/3.opciones_supervisor/models/point_chart_model.dart';
+import 'package:agrotech/common_utilities/tools.dart';
+import 'package:agrotech/common_utilities/widgets/background_body_widget.dart';
 import 'package:agrotech/common_utilities/widgets/bar_chart_widget.dart';
+import 'package:agrotech/common_utilities/widgets/error_screen.dart';
+import 'package:agrotech/common_utilities/widgets/filter_one_date.dart';
 import 'package:agrotech/common_utilities/widgets/header_page_widget.dart';
 import 'package:agrotech/common_utilities/widgets/infobox_wiget.dart';
 import 'package:agrotech/common_utilities/widgets/progress_bar_widget.dart';
 import 'package:agrotech/common_utilities/widgets/section_widget.dart';
 import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/common_utilities/widgets/title_widget.dart';
+import 'package:agrotech/features/3.opciones_obrero/presentation/widgets/loading_boxWidget.dart';
+import 'package:agrotech/features/3.opciones_supervisor/presentation/supervisor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,57 +22,22 @@ class InformeDiarioPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var screenSize = MediaQuery.of(context).size;
+    var loadState = ref.watch(informeDiario);
+    var state = ref.watch(supervisorController);
+    var controller = ref.read(supervisorController.notifier);
 
-    String ventas = '300';
-    String ganacias = '\$5.000.000';
-    String compras = '13';
-    String gastos = '\$1.200.000';
-
-    List<PointChartModel> balanceAM = [
-      PointChartModel(x: 1, y: 16, z: 1),
-      PointChartModel(x: 2, y: 10, z: 2),
-      PointChartModel(x: 3, y: 14, z: 3),
-      PointChartModel(x: 4, y: 15, z: 4),
-      PointChartModel(x: 5, y: 13, z: 5),
-      PointChartModel(x: 6, y: 14, z: 6),
-      PointChartModel(x: 7, y: 10, z: 7),
-      PointChartModel(x: 8, y: 15, z: 8),
-      PointChartModel(x: 9, y: 10, z: 7),
-      PointChartModel(x: 10, y: 16, z: 6),
-      PointChartModel(x: 11, y: 10, z: 5),
-      PointChartModel(x: 12, y: 15, z: 4),
-    ];
-
-    List<PointChartModel> balancePM = [
-      PointChartModel(x: 13, y: 10, z: 3),
-      PointChartModel(x: 14, y: 16, z: 3),
-      PointChartModel(x: 15, y: 10, z: 3),
-      PointChartModel(x: 16, y: 14, z: 3),
-      PointChartModel(x: 17, y: 15, z: 3),
-      PointChartModel(x: 18, y: 13, z: 3),
-      PointChartModel(x: 19, y: 10, z: 3),
-      PointChartModel(x: 18, y: 10, z: 3),
-      PointChartModel(x: 21, y: 10, z: 3),
-      PointChartModel(x: 22, y: 10, z: 3),
-      PointChartModel(x: 23, y: 10, z: 3),
-      PointChartModel(x: 24, y: 10, z: 3),
-    ];
+    if (loadState.hasError) {
+      return ErrorScreen(connectionError: loadState.asError.toString());
+    }
 
     return Scaffold(
-      backgroundColor: colors.backgroundwhite,
+      backgroundColor: colors.white,
       appBar: AppBar(
         title: const Text('Informe Agro Tech'),
         centerTitle: true,
         backgroundColor: colors.green3,
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage('https://img.freepik.com/free-vector/abstract-gray-stripes-background_1035-19089.jpg'),
-            fit: BoxFit.fill,
-          ),
-        ),
+      body: BackgroundBodyWidget(
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -75,104 +47,131 @@ class InformeDiarioPage extends ConsumerWidget {
               const HeaderPageWidget('Informe diario'),
               SectionWidget(
                 children: [
-                  const SubtitleWidget('Finanzas:'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Ventas:',
-                        value: ventas,
-                      ),
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Ganancias:',
-                        value: ganacias,
-                      ),
-                    ],
+                  FilterOneDate(
+                    onSelect: (date) => controller.filterDateDailyReport(date),
                   ),
-                  Row(
-                    children: [
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Compras:',
-                        value: compras,
-                      ),
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Gastos:',
-                        value: gastos,
-                      ),
-                    ],
-                  ),
-                  BarChartWidget(
-                    chartType: ChartType.hora,
-                    listPoints: balanceAM,
-                    title: 'Ventas vs gastos AM',
-                  ),
-                  BarChartWidget(
-                    chartType: ChartType.hora,
-                    listPoints: balancePM,
-                    title: 'Ventas vs gastos PM',
-                  ),
-                ],
-              ),
-              //const GenericDivider(),
-
-              SectionWidget(
-                children: [
-                  const SubtitleWidget('Actividades:'),
-                  Row(
-                    children: [
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Labranzas:',
-                        value: '9',
-                      ),
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Siembras:',
-                        value: '1',
-                      ),
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Riegos:',
-                        value: '9',
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Podas:',
-                        value: '1',
-                      ),
-                      InfoBox(
-                        screenSize: screenSize,
-                        title: 'Cosechas:',
-                        value: '1',
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      padding: const EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        color: colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          TitleWidget('Progreso en actividades'),
-                          ProgressBarWidget('Labranzas:'),
-                          ProgressBarWidget('Siembras:'),
-                          ProgressBarWidget('Riegos:'),
-                          ProgressBarWidget('Podas:'),
-                          ProgressBarWidget('Cosechas:'),
+                  loadState.when(
+                    data: (date) {
+                      var dataReport = state.informeDiario;
+                      return Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          const SubtitleWidget('Finanzas:'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InfoBox(
+                                title: 'Ventas:',
+                                value: '${dataReport!.ventaTotal}',
+                              ),
+                              InfoBox(
+                                title: 'Ganancias:',
+                                value: '\$ ${formatNumber(dataReport.ganaciaTotal)}',
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              InfoBox(
+                                title: 'Compras:',
+                                value: '${dataReport.compraTotal}',
+                              ),
+                              InfoBox(
+                                title: 'Gastos:',
+                                value: '\$ ${formatNumber(dataReport.gastoTotal)}',
+                              ),
+                            ],
+                          ),
+                          TableResumeWidget(
+                            title: 'Ingresos',
+                            titles: [
+                              'Ventas Agromarket:&\$${formatNumber(dataReport.gastoTotal)}',
+                              'Otras ventas:&\$0',
+                            ],
+                          ),
+                          TableResumeWidget(
+                            title: 'Egresos',
+                            titles: [
+                              'Labranzas:&\$${formatNumber(dataReport.costolabranzas)}',
+                              'Siembras:&\$${formatNumber(dataReport.costoSiembras)}',
+                              'Riegos:&\$${formatNumber(dataReport.costoRiegos)}',
+                              'Podas:&\$${formatNumber(dataReport.costoPodas)}',
+                              'Cosechas:&\$${formatNumber(dataReport.costoCosechas)}',
+                              'Insumos:&\$0',
+                            ],
+                          ),
+                          const SubtitleWidget('Graficas:'),
+                          BarChartWidget(
+                            chartType: ChartType.hora,
+                            listPoints: dataReport.grafica.sublist(0, 12),
+                            title: 'Ventas vs gastos AM',
+                          ),
+                          BarChartWidget(
+                            chartType: ChartType.hora,
+                            listPoints: dataReport.grafica.sublist(12),
+                            title: 'Ventas vs gastos PM',
+                          ),
+                          const SubtitleWidget('Actividades:'),
+                          Row(
+                            children: [
+                              InfoBox(
+                                title: 'Labranzas:',
+                                value: '${dataReport.labranzas}',
+                              ),
+                              InfoBox(
+                                title: 'Siembras:',
+                                value: '${dataReport.siembras}',
+                              ),
+                              InfoBox(
+                                title: 'Riegos:',
+                                value: '${dataReport.riegos}',
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              InfoBox(
+                                title: 'Podas:',
+                                value: '${dataReport.podas}',
+                              ),
+                              InfoBox(
+                                title: 'Cosechas:',
+                                value: '${dataReport.cosechas}',
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  TitleWidget('Progreso en actividades'),
+                                  ProgressBarWidget('Labranzas:'),
+                                  ProgressBarWidget('Siembras:'),
+                                  ProgressBarWidget('Riegos:'),
+                                  ProgressBarWidget('Podas:'),
+                                  ProgressBarWidget('Cosechas:'),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
+                      );
+                    },
+                    error: (error, stackTrace) => const SizedBox(),
+                    loading: () => LoadingBoxWidget(
+                      child: Container(
+                        width: double.infinity,
+                        color: colors.white,
+                        child: Column(
+                          children: const [SizedBox(height: 1000)],
+                        ),
                       ),
                     ),
                   ),
@@ -181,6 +180,79 @@ class InformeDiarioPage extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TableResumeWidget extends StatelessWidget {
+  const TableResumeWidget({
+    super.key,
+    required this.title,
+    required this.titles,
+  });
+
+  final String title;
+  final List<String> titles;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(10.0),
+      //padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              color: colors.green3,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TitleWidget(
+                  title,
+                  textColor: colors.white,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                for (var i = 0; i < titles.length; i++)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 190,
+                        child: Text(
+                          titles[i].split('&').first,
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 110,
+                        child: Text(
+                          titles[i].split('&').last,
+                          textAlign: TextAlign.end,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

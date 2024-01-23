@@ -17,12 +17,42 @@ class ObreroOptions extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: Row(
-            children: const [
+            children: [
               MiniOptionWidget(
                 title: 'Actividades asignadas',
                 iconRoute: 'assets/lista.svg',
-                goPage: GestionPersonalPage(),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const GestionPersonalPage()),
+                  );
+                },
               ),
+              /*MiniOptionWidget(
+                title: 'Gestión agrícola',
+                iconRoute: 'assets/agronomy.svg',
+                onTap: CropPage(),
+              ),
+              MiniOptionWidget(
+                title: 'Tratamientos',
+                iconRoute: 'assets/agronomy.svg',
+                //goPage: TratamientosPage(),
+              ),
+              MiniOptionWidget(
+                title: 'Variables',
+                iconRoute: 'assets/agronomy.svg',
+                //goPage: VariablesPage(),
+              ),
+              MiniOptionWidget(
+                title: 'Cuidados',
+                iconRoute: 'assets/agronomy.svg',
+                //goPage: CuidadosPage(),
+              ),
+              MiniOptionWidget(
+                title: 'Medidas',
+                iconRoute: 'assets/agronomy.svg',
+                //goPage: VariablesTPage(),
+              ),*/
             ],
           ),
         ),

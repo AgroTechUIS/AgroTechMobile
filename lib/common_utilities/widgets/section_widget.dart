@@ -6,19 +6,18 @@ class SectionWidget extends StatelessWidget {
 
   final List<Widget> children;
   final Color? background;
-  final double? padding;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
       margin: const EdgeInsets.all(10),
-      elevation: 0,
-      color: background ?? colors.blackTransparent,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+      decoration: BoxDecoration(
+        color: background ?? colors.blackTransparent,
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: padding ?? 0),
+        padding: padding ?? const EdgeInsets.all(0),
         child: Column(children: children),
       ),
     );

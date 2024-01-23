@@ -7,14 +7,12 @@ class MiniOptionWidget extends StatelessWidget {
     Key? key,
     required this.title,
     required this.iconRoute,
-    required this.goPage,
-    this.doTap,
+    required this.onTap,
   }) : super(key: key);
 
   final String title;
   final String iconRoute;
-  final Widget goPage;
-  final Future<void> Function()? doTap;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class MiniOptionWidget extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          height: 110,
+          height: 120,
           width: 90,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -36,7 +34,7 @@ class MiniOptionWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.all(5),
+                margin: const EdgeInsets.all(5),
                 height: 50,
                 child: SvgPicture.asset(
                   iconRoute,
@@ -52,12 +50,7 @@ class MiniOptionWidget extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => goPage),
-            );
-          },
+          onTap: () => onTap(),
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(

@@ -12,7 +12,6 @@ class BackgroundBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height + 100,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/background-page.png'),

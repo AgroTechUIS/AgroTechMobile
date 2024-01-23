@@ -21,27 +21,43 @@ class InformesOptions extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: const [
+              children: [
                 MiniOptionWidget(
-                  title: 'Informe \ndiario',
-                  iconRoute: 'assets/bill.svg',
-                  goPage: InformeDiarioPage(),
-                ),
+                    title: 'Informe \ndiario',
+                    iconRoute: 'assets/bill.svg',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const InformeDiarioPage()),
+                      );
+                    }),
                 MiniOptionWidget(
-                  title: 'Informe histórico',
-                  iconRoute: 'assets/file.svg',
-                  goPage: InformeHistoricoPage(),
-                ),
+                    title: 'Informe histórico',
+                    iconRoute: 'assets/file.svg',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const InformeHistoricoPage()),
+                      );
+                    }),
                 MiniOptionWidget(
-                  title: 'Balance financiero',
-                  iconRoute: 'assets/profits.svg',
-                  goPage: InformeFinancieroPage(),
-                ),
+                    title: 'Balance financiero',
+                    iconRoute: 'assets/profits.svg',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const InformeFinancieroPage()),
+                      );
+                    }),
                 MiniOptionWidget(
-                  title: 'Informe de cultivos',
-                  iconRoute: 'assets/agronomy.svg',
-                  goPage: InformeCultivosPage(),
-                ),
+                    title: 'Informe de cultivos',
+                    iconRoute: 'assets/agronomy.svg',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const InformeCultivosPage()),
+                      );
+                    }),
               ],
             ),
           ),
