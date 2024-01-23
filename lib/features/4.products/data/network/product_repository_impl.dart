@@ -9,6 +9,7 @@ abstract class ProductRepository {
   Future<Map<String, dynamic>> saveProductDataRep(Map<String, dynamic> productData, {required int idEmpresa});
   Future<Map<String, dynamic>> updateProductsDataRep(Map<String, dynamic> pestData);
   Future<Map<String, dynamic>> getCategories();
+  Future<Map<String, dynamic>> getCrops(int idEmpresa);
 }
 
 class ProductRepositoryImpl implements ProductRepository {
@@ -27,6 +28,34 @@ class ProductRepositoryImpl implements ProductRepository {
       }
     } catch (e) {
       throw ('Error al obtener datos de los productos: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> getDiscountsByEmpresa(int idEmpresa) async {
+    try {
+      final discountData =
+          await productService.getDiscounts(idEmpresa: idEmpresa);
+      if (discountData.success) {
+        return discountData.body ?? {};
+      } else {
+        throw ('Error: Mal status');
+      }
+    } catch (e) {
+      throw ('Error al obtener datos de los descuentos: $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> getCrops(int idEmpresa) async {
+    try {
+      final cropData = await productService.getCrops(idEmpresa: idEmpresa);
+      if (cropData.success) {
+        return cropData.body ?? {};
+      } else {
+        throw ('Error: Mal status');
+      }
+    } catch (e) {
+      throw ('Error al obtener datos de los cultivos: $e');
     }
   }
 

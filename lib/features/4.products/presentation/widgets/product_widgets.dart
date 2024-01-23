@@ -60,7 +60,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.summary ?? '',
+                  producto.resumen ?? '',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -80,7 +80,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${producto.price}',
+                  '${producto.priceCop}',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -100,7 +100,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  producto.stock.toString(),
+                  (producto.stock! >= 0 ? producto.stock.toString() : '0'),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -161,6 +161,6 @@ String getEstadoText(int? estado) {
     case 2:
       return 'Desactivado';
     default:
-      return 'Desconocido';
+      return 'Activo';
   }
 }

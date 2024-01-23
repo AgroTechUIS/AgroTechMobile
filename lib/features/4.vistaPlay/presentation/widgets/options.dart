@@ -1,4 +1,6 @@
 // coverage:ignore-file
+import 'package:agrotech/features/5.cuidados/presentation/cuidado_controller.dart';
+import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
 import 'package:agrotech/features/4.products/presentation/product_page.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_page.dart';
@@ -33,23 +35,41 @@ class VistaPlayOptions extends ConsumerWidget {
                     title: 'Plagas',
                     iconRoute: '/pest.svg',
                     onTap: () async {
-                      await ref.read(pestController.notifier).getListPest(idCrop);
+                      await ref
+                          .read(pestController.notifier)
+                          .getListPest(idCrop);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PlagasPage(idCrop: idCrop)),
+                        MaterialPageRoute(
+                            builder: (context) => PlagasPage(idCrop: idCrop)),
                       );
                     }),
                 MiniOptionWidget(
                     title: 'Variables',
                     iconRoute: 'assets/variable.svg',
                     onTap: () async {
-                      await ref.read(variableController.notifier).getListVariable(idCrop);
+                      await ref
+                          .read(variableController.notifier)
+                          .getListVariable(idCrop);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => VariablesPage(
                                   idCrop: idCrop,
                                 )),
+                      );
+                    }),
+                MiniOptionWidget(
+                    title: 'Cuidados',
+                    iconRoute: '/care.svg',
+                    onTap: () async {
+                      await ref
+                          .read(careController.notifier) // ARREGLAR
+                          .getListCare(idCrop);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CuidadosPage(idCrop: idCrop)),
                       );
                     }),
               ],

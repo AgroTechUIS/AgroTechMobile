@@ -5,11 +5,15 @@ import 'package:agrotech/features/4.products/domain/models/product_response_mode
 import 'package:dropdown_button3/dropdown_button3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
+import '../../../4.cultivos/domain/models/crop_response_model.dart';
+import '../../../4.discounts/domain/models/discount_model.dart';
+import '../product_controller.dart';
 import 'my_buttom.dart';
 
-class EditProduct extends StatefulWidget {
+class EditProduct extends ConsumerStatefulWidget {
   void Function(ProductResponseModel)? onSave;
   VoidCallback? onCancel;
   ProductResponseModel? initialProduct;
@@ -25,8 +29,8 @@ class EditProduct extends StatefulWidget {
     required this.initialProduct,
   }) {
     nombreController.text = initialProduct?.title ?? '';
-    resumenController.text = initialProduct?.summary ?? '';
-    precioController.text = initialProduct?.price?.toString() ?? '';
+    resumenController.text = initialProduct?.resumen ?? '';
+    precioController.text = initialProduct?.priceCop?.toString() ?? '';
     cantidadController.text = initialProduct?.stock.toString() ?? '';
   }
 
@@ -34,17 +38,15 @@ class EditProduct extends StatefulWidget {
   _editProductState createState() => _editProductState();
 }
 
-class _editProductState extends State<EditProduct> {
+class _editProductState extends ConsumerState<EditProduct> {
   @override
-  void initState() {
-    super.initState();
-  }
-
   String? selectedValue;
   final List<String> itemsState = ['Activo', 'Desactivado'];
 
   @override
   Widget build(BuildContext context) {
+    var state = ref.watch(productController);
+    var controller = ref.read(productController.notifier);
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Text("Edita el producto"),
@@ -162,6 +164,97 @@ class _editProductState extends State<EditProduct> {
                     buttonPadding: EdgeInsets.symmetric(horizontal: 16),
                     buttonWidth: 140,
                     itemHeight: 40,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              width: double.infinity,
+              alignment: Alignment.centerLeft,
+              child: InputDecorator(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                )),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<CropResponseModel>(
+                    isExpanded: true,
+                    hint: Text(
+                      'Cultivo',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ),
+                    items: state.cultivos
+                        .map((CropResponseModel item) =>
+                            DropdownMenuItem<CropResponseModel>(
+                              value: item,
+                              child: Text(
+                                '${item.name}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    value: state.selectedCrop,
+                    onChanged: (CropResponseModel? newValue) {
+                      if (newValue != null) controller.updateCrop(newValue);
+                    },
+                    buttonHeight: 20,
+                    buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                    buttonWidth: 140,
+                    itemHeight: 40,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              width: double.infinity,
+              alignment: Alignment.centerLeft,
+              child: InputDecorator(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                )),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<DiscountModel>(
+                    isExpanded: true,
+                    hint: Text(
+                      'Descuento',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ),
+                    items: state.descuentos
+                        .map((DiscountModel item) =>
+                            DropdownMenuItem<DiscountModel>(
+                              value: item,
+                              child: Text(
+                                '${item.discount}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    value: state.selectedDiscount,
+                    onChanged: (DiscountModel? newValue2) {
+                      if (newValue2 != null)
+                        controller.updateDiscount(newValue2);
+                    },
+                    buttonHeight: 20,
+                    buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                    buttonWidth: 140,
+                    itemHeight: 40,
                     /*buttonStyleData: const ButtonStyleData(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       height: 20,
@@ -201,9 +294,9 @@ class _editProductState extends State<EditProduct> {
                       ProductResponseModel nuevoProducto = ProductResponseModel(
                           id: widget.initialProduct?.id,
                           title: widget.nombreController.text,
-                          summary: widget.resumenController.text,
+                          resumen: widget.resumenController.text,
                           state: valor ?? widget.initialProduct!.state,
-                          price: precio,
+                          priceCop: precio,
                           stock: cantidad);
 
                       widget.onSave!(nuevoProducto);
