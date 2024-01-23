@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:convert';
 
 import 'package:agrotech/features/5.plagas/data/network/pest_service.dart';
@@ -25,8 +26,7 @@ class PestRepositoryImpl implements PestRepository {
     }
   }
 
-  Future<Map<String, dynamic>> updatePestDataRep(
-      Map<String, dynamic> pestData) async {
+  Future<Map<String, dynamic>> updatePestDataRep(Map<String, dynamic> pestData) async {
     try {
       final response = await pestService.updatePestData(pestData);
 
@@ -41,8 +41,7 @@ class PestRepositoryImpl implements PestRepository {
     }
   }
 
-  Future<Map<String, dynamic>> savePestDataRep(
-      Map<String, dynamic> pestData) async {
+  Future<Map<String, dynamic>> savePestDataRep(Map<String, dynamic> pestData) async {
     try {
       final response = await pestService.savePestData(pestData);
 

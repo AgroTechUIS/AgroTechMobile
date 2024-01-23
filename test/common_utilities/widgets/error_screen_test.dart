@@ -24,8 +24,8 @@ void main() {
     );
 
     // Verify that the error message and button are rendered correctly.
-    expect(find.text('Perdiste la conexion a internet'), findsOneWidget);
+    expect(find.text('Perdiste la conexión a internet'), findsOneWidget);
     expect(find.text('Intentalo mas tarde'), findsOneWidget);
-    expect(find.text('Vlover a login'), findsOneWidget);
+    expect(find.text('Volver a login'), findsOneWidget);
   });
 }

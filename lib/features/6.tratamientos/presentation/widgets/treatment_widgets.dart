@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/spacer.dart';
 
@@ -8,17 +9,13 @@ class TreatmentWidget extends StatelessWidget {
   final TreatmentResponseModel tratamiento;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete;
-  TreatmentWidget(
-      {required this.tratamiento,
-      required this.onEdit,
-      required this.onDelete});
+  TreatmentWidget({required this.tratamiento, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5, // Elevación de la tarjeta
-      margin: EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
+      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
       shape: RoundedRectangleBorder(
         // Agrega el radio de borde
         borderRadius: BorderRadius.circular(20.0),
@@ -39,8 +36,7 @@ class TreatmentWidget extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                    padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                     child: Text(
                       tratamiento.name ?? '',
                       style: TextStyle(

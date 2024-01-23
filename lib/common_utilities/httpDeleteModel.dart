@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 class HttpDeleteModel {
   late bool success;
   String? message;

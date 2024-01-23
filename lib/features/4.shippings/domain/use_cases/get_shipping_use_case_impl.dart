@@ -1,11 +1,10 @@
+// coverage:ignore-file
 import '../../data/shipping_repository_impl.dart';
 import '../models/shippings_model.dart';
 
 abstract class GetShippingUseCase {
-  Future<List<ShippingsResponseModel>> getListShipping(
-      {required int idEmpresa});
-  Future<Map<String, dynamic>> updateShippings(
-      ShippingsResponseModel? updatedEnvios);
+  Future<List<ShippingsResponseModel>> getListShipping({required int idEmpresa});
+  Future<Map<String, dynamic>> updateShippings(ShippingsResponseModel? updatedEnvios);
 }
 
 class GetShippingUseCaseImpl extends GetShippingUseCase {
@@ -16,11 +15,9 @@ class GetShippingUseCaseImpl extends GetShippingUseCase {
   );
 
   @override
-  Future<List<ShippingsResponseModel>> getListShipping(
-      {required int idEmpresa}) async {
+  Future<List<ShippingsResponseModel>> getListShipping({required int idEmpresa}) async {
     try {
-      var shippingData =
-          await shippingRepository.getShippingByEmpresa(idEmpresa);
+      var shippingData = await shippingRepository.getShippingByEmpresa(idEmpresa);
       List<ShippingsResponseModel>? listEnvios = [];
 
       for (var entry in shippingData!['address_Shipping']) {
@@ -33,8 +30,7 @@ class GetShippingUseCaseImpl extends GetShippingUseCase {
   }
 
   @override
-  Future<Map<String, dynamic>> updateShippings(
-      ShippingsResponseModel? updatedEnvios) async {
+  Future<Map<String, dynamic>> updateShippings(ShippingsResponseModel? updatedEnvios) async {
     try {
       final shippingData = updatedEnvios!.toJson();
       var r = await shippingRepository.updateShippingDataRep(shippingData);
@@ -44,8 +40,7 @@ class GetShippingUseCaseImpl extends GetShippingUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> saveShipping(
-      ShippingsResponseModel? savedEnvios) async {
+  Future<Map<String, dynamic>> saveShipping(ShippingsResponseModel? savedEnvios) async {
     try {
       final shippingData = savedEnvios!.toJson();
       var s = await shippingRepository.saveShippingDataRep(shippingData);

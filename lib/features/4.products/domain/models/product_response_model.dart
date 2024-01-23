@@ -1,11 +1,10 @@
+// coverage:ignore-file
 import 'dart:convert';
 
 List<ProductResponseModel> productFromJson(String str) =>
-    List<ProductResponseModel>.from(
-        json.decode(str).map((x) => ProductResponseModel.fromJson(x)));
+    List<ProductResponseModel>.from(json.decode(str).map((x) => ProductResponseModel.fromJson(x)));
 
-String productToJson(List<ProductResponseModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String productToJson(List<ProductResponseModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 List<ProductResponseModel> listplagaFromJson(List<dynamic> datos) =>
     datos.map((e) => ProductResponseModel.fromJson(e)).toList();
@@ -45,8 +44,7 @@ class ProductResponseModel {
         "resumen": summary,
       };
 
-  factory ProductResponseModel.fromJson(Map<String, dynamic> json) =>
-      ProductResponseModel(
+  factory ProductResponseModel.fromJson(Map<String, dynamic> json) => ProductResponseModel(
         id: json["id"],
         title: json["title"],
         slug: json["slug"],

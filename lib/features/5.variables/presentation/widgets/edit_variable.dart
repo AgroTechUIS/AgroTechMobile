@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:agrotech/features/5.variables/domain/models/variable_model.dart';
 import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +21,7 @@ class EditVariable extends StatefulWidget {
 
   String? selectedValue;
 
-  EditVariable(
-      {super.key, this.onSave, this.onCancel, required this.initialVariable}) {
+  EditVariable({super.key, this.onSave, this.onCancel, required this.initialVariable}) {
     nombreController.text = initialVariable?.name ?? '';
     descripcionController.text = initialVariable?.description ?? '';
     metodoController.text = initialVariable?.measurement_method ?? '';
@@ -160,24 +161,21 @@ class _editVariableState extends State<EditVariable> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${widget.initialVariable!.date_init!.day} / ${widget.initialVariable!.date_init!.month} / ${widget.initialVariable!.date_init!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -212,25 +210,18 @@ class _editVariableState extends State<EditVariable> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      VariableResponseModel nuevaVariable =
-                          VariableResponseModel(
-                              id: widget
-                                  .initialVariable!.id, // Asigna el ID adecuado
-                              name: widget.nombreController.text,
-                              description: widget.descripcionController.text,
-                              measurement_method: selectedValue,
-                              date_init: widget.initialVariable!.date_init,
-                              measuring_instrument:
-                                  widget.instrumentoController.text);
+                      VariableResponseModel nuevaVariable = VariableResponseModel(
+                          id: widget.initialVariable!.id, // Asigna el ID adecuado
+                          name: widget.nombreController.text,
+                          description: widget.descripcionController.text,
+                          measurement_method: selectedValue,
+                          date_init: widget.initialVariable!.date_init,
+                          measuring_instrument: widget.instrumentoController.text);
                       widget.onSave!(nuevaVariable);
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

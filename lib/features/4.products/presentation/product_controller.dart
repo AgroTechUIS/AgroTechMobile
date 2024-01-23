@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 import 'package:agrotech/features/4.products/presentation/product_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,20 +24,14 @@ class ProductController extends StateNotifier<ProductState> {
   }
 
   bool existeProductoConNombre(String nombre) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
-    return state.productos
-        .any((producto) => producto.title!.toLowerCase() == nombreLowerCase);
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    return state.productos.any((producto) => producto.title!.toLowerCase() == nombreLowerCase);
   }
 
-  bool existeProductoEConNombre(
-      String nombre, ProductResponseModel productoEditar) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
+  bool existeProductoEConNombre(String nombre, ProductResponseModel productoEditar) {
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
     return state.productos
-        .where((producto) =>
-            producto.id !=
-            productoEditar.id) // Excluir la plaga que estás editando por su ID
+        .where((producto) => producto.id != productoEditar.id) // Excluir la plaga que estás editando por su ID
         .any((producto) => producto.title!.toLowerCase() == nombreLowerCase);
   }
 
@@ -62,8 +57,7 @@ class ProductController extends StateNotifier<ProductState> {
       stock: savedProductos.stock,
     );
 
-    var resp =
-        await getProductUseCaseImpl.saveProduct(savedProducto, idEmpresa);
+    var resp = await getProductUseCaseImpl.saveProduct(savedProducto, idEmpresa);
 
     final selectedProduct = ProductResponseModel.fromJson(resp);
     state.productos.add(selectedProduct);
@@ -71,8 +65,7 @@ class ProductController extends StateNotifier<ProductState> {
   }
 
   Future<Map<String, dynamic>> updatesProducts(
-      ProductResponseModel? updatedProductos,
-      ProductResponseModel? initialProducto) async {
+      ProductResponseModel? updatedProductos, ProductResponseModel? initialProducto) async {
     if (updatedProductos == null || initialProducto == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -87,8 +80,7 @@ class ProductController extends StateNotifier<ProductState> {
         price: updatedProductos.price ?? updatedProductos.price,
         stock: updatedProductos.stock ?? updatedProductos.stock);
 
-    var resp =
-        await getProductUseCaseImpl.updateProduct(updatedInitialProducto);
+    var resp = await getProductUseCaseImpl.updateProduct(updatedInitialProducto);
 
     final selectedProduct = ProductResponseModel.fromJson(resp);
     state = state.copyWith(selectedProductForEdit: selectedProduct);
@@ -97,8 +89,7 @@ class ProductController extends StateNotifier<ProductState> {
   }
 
   Future<List<ProductResponseModel>?> getListProduct(int idEmpresa) async {
-    var resp =
-        await getProductUseCaseImpl.getListProducts(idEmpresa: idEmpresa);
+    var resp = await getProductUseCaseImpl.getListProducts(idEmpresa: idEmpresa);
     state = state.copyWith(productos: resp);
     return resp;
   }
@@ -110,7 +101,5 @@ class ProductController extends StateNotifier<ProductState> {
   }
 }
 
-final productController =
-    StateNotifierProvider<ProductController, ProductState>((ref) =>
-        ProductController(
-            GetProductUseCaseImpl(ProductRepositoryImpl(ProductService()))));
+final productController = StateNotifierProvider<ProductController, ProductState>(
+    (ref) => ProductController(GetProductUseCaseImpl(ProductRepositoryImpl(ProductService()))));

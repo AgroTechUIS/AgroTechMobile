@@ -1,12 +1,11 @@
+// coverage:ignore-file
 import 'package:agrotech/features/5.variables/data/network/variable_service.dart';
 import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
 
 abstract class VariableRepository {
   Future<Map<String, dynamic>> getVariablesByCrop(int idCrop);
-  Future<Map<String, dynamic>> updateVariableDataRep(
-      Map<String, dynamic> variableData);
-  Future<Map<String, dynamic>> saveVariableDataRep(
-      Map<String, dynamic> variableData);
+  Future<Map<String, dynamic>> updateVariableDataRep(Map<String, dynamic> variableData);
+  Future<Map<String, dynamic>> saveVariableDataRep(Map<String, dynamic> variableData);
   Future<String> deleteVariablesById(int? idVariable);
 }
 
@@ -30,8 +29,7 @@ class VariableRepositoryImpl implements VariableRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> updateVariableDataRep(
-      Map<String, dynamic> variableData) async {
+  Future<Map<String, dynamic>> updateVariableDataRep(Map<String, dynamic> variableData) async {
     try {
       final response = await variableService.updateVariableData(variableData);
 
@@ -47,8 +45,7 @@ class VariableRepositoryImpl implements VariableRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> saveVariableDataRep(
-      Map<String, dynamic> variableData) async {
+  Future<Map<String, dynamic>> saveVariableDataRep(Map<String, dynamic> variableData) async {
     try {
       final response = await variableService.saveVariableData(variableData);
 

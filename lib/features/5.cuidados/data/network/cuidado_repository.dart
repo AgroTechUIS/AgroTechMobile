@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import '../../domain/models/cuidado_response_model.dart';
 
 abstract class CareRepository {

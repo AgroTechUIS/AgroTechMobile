@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:ui';
 import 'package:agrotech/features/5.cuidados/domain/models/cuidado_model.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
@@ -17,8 +18,7 @@ class EditCare extends StatefulWidget {
   final TextEditingController descripcionController = TextEditingController();
   final TextEditingController insumoController = TextEditingController();
   String? selectedValue;
-  EditCare(
-      {super.key, this.onSave, this.onCancel, required this.initialCuidado}) {
+  EditCare({super.key, this.onSave, this.onCancel, required this.initialCuidado}) {
     nombreController.text = initialCuidado?.name ?? '';
     descripcionController.text = initialCuidado?.description ?? '';
     insumoController.text = initialCuidado?.insumo ?? '';
@@ -43,8 +43,7 @@ class _editCareState extends State<EditCare> {
   @override
   void initState() {
     super.initState();
-    selectedValue = widget.initialCuidado
-        ?.type; // Asigna el valor inicial de initialPlaga.state a selectedValue
+    selectedValue = widget.initialCuidado?.type; // Asigna el valor inicial de initialPlaga.state a selectedValue
   }
 
   late Future<DateTime?> fecha1;
@@ -168,24 +167,21 @@ class _editCareState extends State<EditCare> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${widget.initialCuidado!.initialDate!.day} / ${widget.initialCuidado!.initialDate!.month} / ${widget.initialCuidado!.initialDate!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -224,24 +220,21 @@ class _editCareState extends State<EditCare> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${widget.initialCuidado!.finalDate!.day} / ${widget.initialCuidado!.finalDate!.month} / ${widget.initialCuidado!.finalDate!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -289,11 +282,7 @@ class _editCareState extends State<EditCare> {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

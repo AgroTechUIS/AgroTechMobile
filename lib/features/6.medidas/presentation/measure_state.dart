@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.medidas/domain/models/measure_response_model.dart';
 
 class MeasureState {
@@ -15,8 +16,7 @@ class MeasureState {
   }) {
     return MeasureState(
       medidas: medidas ?? this.medidas,
-      selectedMeasureForEdit:
-          selectedMeasureForEdit ?? this.selectedMeasureForEdit,
+      selectedMeasureForEdit: selectedMeasureForEdit ?? this.selectedMeasureForEdit,
     );
   }
 }

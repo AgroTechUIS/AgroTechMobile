@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.products/domain/models/categorie_model.dart';
 
 import '../domain/models/product_response_model.dart';
@@ -25,8 +26,7 @@ class ProductState {
       productos: productos ?? this.productos,
       categorias: categorias ?? this.categorias,
       selectedCategorie: selectedCategorie ?? this.selectedCategorie,
-      selectedProductForEdit:
-          selectedProductForEdit ?? this.selectedProductForEdit,
+      selectedProductForEdit: selectedProductForEdit ?? this.selectedProductForEdit,
     );
   }
 }

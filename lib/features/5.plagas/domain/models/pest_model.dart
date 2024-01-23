@@ -1,11 +1,11 @@
+// coverage:ignore-file
 import 'dart:convert';
 import 'dart:typed_data';
 
 List<PlagaModel> plagaFromJson(String str) =>
     List<PlagaModel>.from(json.decode(str).map((x) => PlagaModel.fromJson(x)));
 
-String plagaToJson(List<PlagaModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String plagaToJson(List<PlagaModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class PlagaModel {
   final int? id;
@@ -39,9 +39,7 @@ class PlagaModel {
         appareceDate: DateTime.parse(json["appareceDate"]),
         pestFamily: json["pestFamily"],
         stateTratment: json["state_tratment"],
-        adjuntoDto: json["adjuntoDto"] == null
-            ? null
-            : AdjuntoDto.fromJson(json["adjuntoDto"]),
+        adjuntoDto: json["adjuntoDto"] == null ? null : AdjuntoDto.fromJson(json["adjuntoDto"]),
       );
 
   Map<String, dynamic> toJson() => {

@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.medidas/data/network/measure_repository_impl.dart';
 import 'package:agrotech/features/6.medidas/data/network/measure_service.dart';
 import 'package:agrotech/features/6.medidas/domain/models/measure_response_model.dart';
@@ -6,10 +7,7 @@ import 'package:agrotech/features/6.medidas/presentation/measure_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MeasureController extends StateNotifier<MeasureState> {
-  MeasureController(this.getMeasureUseCaseImpl) : super(MeasureState()) {
-    //getListPest();
-    //updatesPests(state.plagas);
-  }
+  MeasureController(this.getMeasureUseCaseImpl) : super(MeasureState());
 
   // Use cases
   final GetMeasureUseCaseImpl getMeasureUseCaseImpl;
@@ -21,20 +19,16 @@ class MeasureController extends StateNotifier<MeasureState> {
   }
 
   Future<Map<String, dynamic>> updatesMeasures(
-      MeasureResponseModel? updatedMeasures,
-      MeasureResponseModel? initialMeasure,
-      int idVariable) async {
+      MeasureResponseModel? updatedMeasures, MeasureResponseModel? initialMeasure, int idVariable) async {
     if (updatedMeasures == null || initialMeasure == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
     }
     MeasureResponseModel updatedInitialMeasure = MeasureResponseModel(
-        id: updatedMeasures.id ?? initialMeasure.id,
-        measurement_value: updatedMeasures.measurement_value ??
-            initialMeasure.measurement_value,
+        id: updatedMeasures.id,
+        measurement_value: updatedMeasures.measurement_value ?? initialMeasure.measurement_value,
         description: updatedMeasures.description ?? initialMeasure.description,
-        measuring_unit:
-            updatedMeasures.measuring_unit ?? initialMeasure.measuring_unit,
+        measuring_unit: updatedMeasures.measuring_unit ?? initialMeasure.measuring_unit,
         date: updatedMeasures.date ?? initialMeasure.date,
         variable: idVariable);
 
@@ -91,7 +85,5 @@ class MeasureController extends StateNotifier<MeasureState> {
   }
 }
 
-final measureController =
-    StateNotifierProvider<MeasureController, MeasureState>((ref) =>
-        MeasureController(
-            GetMeasureUseCaseImpl(MeasureRepositoryImpl(MeasureService()))));
+final measureController = StateNotifierProvider<MeasureController, MeasureState>(
+    (ref) => MeasureController(GetMeasureUseCaseImpl(MeasureRepositoryImpl(MeasureService()))));

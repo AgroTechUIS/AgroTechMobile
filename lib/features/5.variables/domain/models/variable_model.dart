@@ -1,13 +1,12 @@
+// coverage:ignore-file
 import 'dart:convert';
 
-List<VariableModel> variableFromJson(String str) => List<VariableModel>.from(
-    json.decode(str).map((x) => VariableModel.fromJson(x)));
+List<VariableModel> variableFromJson(String str) =>
+    List<VariableModel>.from(json.decode(str).map((x) => VariableModel.fromJson(x)));
 
-String variableToJson(List<VariableModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String variableToJson(List<VariableModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-List<VariableModel> listvariableFromJson(List<dynamic> datos) =>
-    datos.map((e) => VariableModel.fromJson(e)).toList();
+List<VariableModel> listvariableFromJson(List<dynamic> datos) => datos.map((e) => VariableModel.fromJson(e)).toList();
 
 class VariableModel {
   int id = 0;

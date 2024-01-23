@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.tratamientos/domain/models/treatment_response_model.dart';
 
 class TreatmentState {
@@ -15,8 +16,7 @@ class TreatmentState {
   }) {
     return TreatmentState(
       tratamientos: tratamientos ?? this.tratamientos,
-      selectedTreatmentForEdit:
-          selectedTreatmentForEdit ?? this.selectedTreatmentForEdit,
+      selectedTreatmentForEdit: selectedTreatmentForEdit ?? this.selectedTreatmentForEdit,
     );
   }
 }

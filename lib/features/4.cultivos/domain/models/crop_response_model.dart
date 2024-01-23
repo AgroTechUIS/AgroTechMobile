@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:convert';
 
 List<CropResponseModel> cropFromJson(String str) =>

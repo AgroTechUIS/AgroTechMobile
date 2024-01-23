@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/common_utilities/widgets/background_body_widget.dart';

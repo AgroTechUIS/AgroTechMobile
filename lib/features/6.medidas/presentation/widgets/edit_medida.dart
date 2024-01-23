@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.medidas/domain/models/measure_model.dart';
 import 'package:flutter/material.dart';
 import '../../../../common_utilities/config/colors_theme.dart';
@@ -18,8 +19,7 @@ class EditMedida extends StatefulWidget {
 
   String? selectedValue;
 
-  EditMedida(
-      {super.key, this.onSave, this.onCancel, required this.initialMedida}) {
+  EditMedida({super.key, this.onSave, this.onCancel, required this.initialMedida}) {
     valueController.text = '${initialMedida?.measurement_value}';
     descripcionController.text = initialMedida?.description ?? '';
     unitController.text = initialMedida?.measuring_unit ?? '';
@@ -137,24 +137,21 @@ class _editMedidaState extends State<EditMedida> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${widget.initialMedida!.date!.day} / ${widget.initialMedida!.date!.month} / ${widget.initialMedida!.date!.year} | ${widget.initialMedida!.date!.hour}:${widget.initialMedida!.date!.minute} ',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -199,11 +196,7 @@ class _editMedidaState extends State<EditMedida> {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

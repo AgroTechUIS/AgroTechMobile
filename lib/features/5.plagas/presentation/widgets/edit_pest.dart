@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:typed_data';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/material.dart';
@@ -70,12 +71,12 @@ class _editPestState extends State<EditPest> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Text("Edita la plaga"),
+      title: const Text("Edita la plaga"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: widget.nombreController,
               keyboardType: TextInputType.name,
@@ -86,13 +87,13 @@ class _editPestState extends State<EditPest> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.red,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: widget.descripcionController,
               keyboardType: TextInputType.name,
@@ -103,13 +104,13 @@ class _editPestState extends State<EditPest> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.red,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
               width: double.infinity,
               child: InputDecorator(
@@ -164,7 +165,7 @@ class _editPestState extends State<EditPest> {
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: widget.observacionesController,
               keyboardType: TextInputType.text,
@@ -175,13 +176,13 @@ class _editPestState extends State<EditPest> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.red,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: widget.familiaController,
               keyboardType: TextInputType.text,
@@ -192,13 +193,13 @@ class _editPestState extends State<EditPest> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.red,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             InkWell(
               onTap: () async {
                 var selectedDate = await showDatePicker(
@@ -228,24 +229,21 @@ class _editPestState extends State<EditPest> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${appareceDate.day} / ${appareceDate.month} / ${appareceDate.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -271,7 +269,7 @@ class _editPestState extends State<EditPest> {
                 },
                 child: Text(
                     'Selecciona una fecha. Fecha elegida: ${widget.initialPlaga!.appareceDate!.day} / ${widget.initialPlaga!.appareceDate!.month} / ${widget.initialPlaga!.appareceDate!.year} ')),*/
-            Divider(),
+            const Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

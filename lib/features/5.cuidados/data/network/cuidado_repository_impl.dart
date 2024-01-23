@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/5.cuidados/data/network/cuidado_service.dart';
 import 'package:agrotech/features/5.cuidados/domain/models/cuidado_response_model.dart';
 

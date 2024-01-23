@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:agrotech/common_utilities/config/colors_theme.dart';

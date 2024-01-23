@@ -1,4 +1,4 @@
-import 'package:agrotech/common_utilities/config/colors_theme.dart';
+/*import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:agrotech/common_utilities/widgets/background_body_widget.dart';
 import 'package:agrotech/common_utilities/widgets/header_page_widget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/widgets/loading_boxWidget.dart';
@@ -41,4 +41,4 @@ class LoadingBodyView extends StatelessWidget {
       ),
     );
   }
-}
+}*/

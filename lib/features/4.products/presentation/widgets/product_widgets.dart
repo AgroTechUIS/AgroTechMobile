@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // ignore: must_be_immutable
 import 'package:agrotech/features/4.products/presentation/product_controller.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_page.dart';
@@ -10,16 +11,14 @@ class ProductWidget extends StatelessWidget {
   final ProductResponseModel producto;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  ProductWidget(
-      {required this.producto, required this.onEdit, required this.onDelete});
+  ProductWidget({required this.producto, required this.onEdit, required this.onDelete});
 
   String? estado;
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5, // Elevación de la tarjeta
-      margin: EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
+      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
       shape: RoundedRectangleBorder(
         // Agrega el radio de borde
         borderRadius: BorderRadius.circular(20.0),

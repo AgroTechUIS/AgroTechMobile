@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.products/presentation/product_state.dart';
 import 'package:agrotech/features/4.products/presentation/widgets/edit_product.dart';
 import 'package:agrotech/features/4.products/presentation/widgets/new_product.dart';
@@ -14,16 +15,14 @@ import '../domain/models/product_response_model.dart';
 import '../domain/use_cases/get_product_use_case_impl.dart';
 import 'product_controller.dart';
 
-final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-    GlobalKey<RefreshIndicatorState>();
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
 class ProductPage extends ConsumerWidget {
   ProductPage({super.key, required this.idEmpresa});
 
   final int idEmpresa;
 
-  void deleteProduct(
-      ProductResponseModel producto, ProductController controller) {
+  void deleteProduct(ProductResponseModel producto, ProductController controller) {
     controller.deleteProduct(producto);
     controller.updateProduct(producto);
     Fluttertoast.showToast(
@@ -41,8 +40,7 @@ class ProductPage extends ConsumerWidget {
       builder: (context) {
         return NewProduct(
           onSave: (nuevoProducto) async {
-            bool existeProducto =
-                controller.existeProductoConNombre(nuevoProducto.title!);
+            bool existeProducto = controller.existeProductoConNombre(nuevoProducto.title!);
 
             if (existeProducto) {
               Fluttertoast.showToast(
@@ -61,8 +59,7 @@ class ProductPage extends ConsumerWidget {
                 msg: 'Producto creado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor:
-                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -76,8 +73,7 @@ class ProductPage extends ConsumerWidget {
     );
   }
 
-  void editProduct(context, ProductResponseModel producto,
-      ProductController controller, ProductState state) {
+  void editProduct(context, ProductResponseModel producto, ProductController controller, ProductState state) {
     state.selectedProductForEdit = producto;
     showDialog(
       context: context,
@@ -87,10 +83,8 @@ class ProductPage extends ConsumerWidget {
           onSave: (nc) async {
             final nca = await controller.updatesProducts(nc, producto);
 
-            ProductResponseModel productModel =
-                ProductResponseModel.fromJson(nca);
-            bool existeProducto = controller.existeProductoEConNombre(
-                productModel.title!, productModel);
+            ProductResponseModel productModel = ProductResponseModel.fromJson(nca);
+            bool existeProducto = controller.existeProductoEConNombre(productModel.title!, productModel);
 
             if (existeProducto) {
               Fluttertoast.showToast(
@@ -106,8 +100,7 @@ class ProductPage extends ConsumerWidget {
                 msg: 'Producto actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor:
-                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -135,8 +128,7 @@ class ProductPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
-                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(

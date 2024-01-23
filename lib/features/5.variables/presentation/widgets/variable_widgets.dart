@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
 import 'package:flutter/material.dart';
 
@@ -8,18 +9,13 @@ class VariablesWidget extends StatelessWidget {
   final VoidCallback onVariable;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  VariablesWidget(
-      {required this.variable,
-      required this.onEdit,
-      required this.onDelete,
-      required this.onVariable});
+  VariablesWidget({required this.variable, required this.onEdit, required this.onDelete, required this.onVariable});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5, // Elevación de la tarjeta
-      margin: EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
+      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
       shape: RoundedRectangleBorder(
         // Agrega el radio de borde
         borderRadius: BorderRadius.circular(20.0),

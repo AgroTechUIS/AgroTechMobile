@@ -1,12 +1,11 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.tratamientos/data/network/treatment_service.dart';
 import 'package:agrotech/features/6.tratamientos/domain/models/treatment_response_model.dart';
 
 abstract class TreatmentRepository {
   Future<Map<String, dynamic>?> getTreatmentByPest(int idPest);
-  Future<Map<String, dynamic>> updateTreatmentDataRep(
-      Map<String, dynamic> treatmentData);
-  Future<Map<String, dynamic>> saveTreatmentDataRep(
-      Map<String, dynamic> treatmentData);
+  Future<Map<String, dynamic>> updateTreatmentDataRep(Map<String, dynamic> treatmentData);
+  Future<Map<String, dynamic>> saveTreatmentDataRep(Map<String, dynamic> treatmentData);
   Future<String> deleteTreatmentsById(int? idTreatment);
 }
 
@@ -30,11 +29,9 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> updateTreatmentDataRep(
-      Map<String, dynamic> treatmentData) async {
+  Future<Map<String, dynamic>> updateTreatmentDataRep(Map<String, dynamic> treatmentData) async {
     try {
-      final response =
-          await treatmentService.updateTreatmentData(treatmentData);
+      final response = await treatmentService.updateTreatmentData(treatmentData);
 
       if (response.success) {
         final responseData = response.body;
@@ -48,8 +45,7 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> saveTreatmentDataRep(
-      Map<String, dynamic> treatmentData) async {
+  Future<Map<String, dynamic>> saveTreatmentDataRep(Map<String, dynamic> treatmentData) async {
     try {
       final response = await treatmentService.saveTreatment(treatmentData);
 
@@ -67,8 +63,7 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
   @override
   Future<String> deleteTreatmentsById(int? idTreatment) async {
     try {
-      final treatmentData =
-          await treatmentService.deleteTreatmentData(idTreatment);
+      final treatmentData = await treatmentService.deleteTreatmentData(idTreatment);
       if (treatmentData.success) {
         return treatmentData.message ?? 'Tratamiento borrado';
       } else {

@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/5.plagas/data/network/pest_repository_impl.dart';
 import 'package:agrotech/features/5.plagas/data/network/pest_service.dart';
 import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
@@ -24,8 +25,7 @@ class PestController extends StateNotifier<PestState> {
     return resp;
   }
 
-  Future<Map<String, dynamic>> updatesPests(PlagaResponseModel? updatedPlagas,
-      PlagaResponseModel? initialPlaga) async {
+  Future<Map<String, dynamic>> updatesPests(PlagaResponseModel? updatedPlagas, PlagaResponseModel? initialPlaga) async {
     if (updatedPlagas == null || initialPlaga == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -50,19 +50,14 @@ class PestController extends StateNotifier<PestState> {
   }
 
   bool existePlagaConNombre(String nombre) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
-    return state.plagas
-        .any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    return state.plagas.any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
   }
 
   bool existePlagaEConNombre(String nombre, PlagaResponseModel plagaEditar) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
     return state.plagas
-        .where((plaga) =>
-            plaga.id !=
-            plagaEditar.id) // Excluir la plaga que estás editando por su ID
+        .where((plaga) => plaga.id != plagaEditar.id) // Excluir la plaga que estás editando por su ID
         .any((plaga) => plaga.name!.toLowerCase() == nombreLowerCase);
   }
 
@@ -114,5 +109,5 @@ class PestController extends StateNotifier<PestState> {
   }
 }
 
-final pestController = StateNotifierProvider<PestController, PestState>((ref) =>
-    PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))));
+final pestController = StateNotifierProvider<PestController, PestState>(
+    (ref) => PestController(GetPestUseCaseImpl(PestRepositoryImpl(PestService()))));

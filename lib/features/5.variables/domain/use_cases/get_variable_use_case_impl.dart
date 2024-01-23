@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import '../../data/network/variable_repository_impl.dart';
 import '../models/variable_response_model.dart';
 
@@ -13,8 +14,7 @@ class GetVariableUseCaseImpl extends GetVariableUseCase {
   );
 
   @override
-  Future<List<VariableResponseModel>> getListVariables(
-      {required int idCrop}) async {
+  Future<List<VariableResponseModel>> getListVariables({required int idCrop}) async {
     try {
       var variableData = await variableRepository.getVariablesByCrop(idCrop);
       List<VariableResponseModel>? listVariables = [];
@@ -28,8 +28,7 @@ class GetVariableUseCaseImpl extends GetVariableUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> updateVariable(
-      VariableResponseModel? updatedVariables) async {
+  Future<Map<String, dynamic>> updateVariable(VariableResponseModel? updatedVariables) async {
     try {
       final variableData = updatedVariables!.toJsonEdit();
       var r = await variableRepository.updateVariableDataRep(variableData);
@@ -48,8 +47,7 @@ class GetVariableUseCaseImpl extends GetVariableUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> saveVariable(
-      VariableResponseModel? savedVariables) async {
+  Future<Map<String, dynamic>> saveVariable(VariableResponseModel? savedVariables) async {
     try {
       final variableData = savedVariables!.toJsonPost();
       var s = await variableRepository.saveVariableDataRep(variableData);

@@ -21,7 +21,7 @@ class MiniOptionWidget extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          height: 110,
+          height: 120,
           width: 90,
           decoration: BoxDecoration(
               color: Colors.white,

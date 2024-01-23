@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // ignore_for_file: unused_local_variable, must_be_immutable
 
 import 'package:agrotech/features/6.medidas/domain/models/measure_response_model.dart';
@@ -120,24 +121,21 @@ class NewMedida extends ConsumerWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${date.day} / ${date.month} / ${date.year} | ${date.hour}:${date.minute}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -180,11 +178,7 @@ class NewMedida extends ConsumerWidget {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

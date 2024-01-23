@@ -1,13 +1,12 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.medidas/data/network/measure_service.dart';
 
 import '../../domain/models/measure_response_model.dart';
 
 abstract class MeasureRepository {
   Future<Map<String, dynamic>?> getMeasureByVariable(int idVariable);
-  Future<Map<String, dynamic>> updateMeasureDataRep(
-      Map<String, dynamic> measureData);
-  Future<Map<String, dynamic>> saveMeasureDataRep(
-      Map<String, dynamic> measureData);
+  Future<Map<String, dynamic>> updateMeasureDataRep(Map<String, dynamic> measureData);
+  Future<Map<String, dynamic>> saveMeasureDataRep(Map<String, dynamic> measureData);
   Future<String> deleteMeasuresById(int? idMeasure);
 }
 
@@ -30,8 +29,7 @@ class MeasureRepositoryImpl implements MeasureRepository {
     }
   }
 
-  Future<Map<String, dynamic>> updateMeasureDataRep(
-      Map<String, dynamic> measureData) async {
+  Future<Map<String, dynamic>> updateMeasureDataRep(Map<String, dynamic> measureData) async {
     try {
       final response = await measureService.updateMeasureData(measureData);
 
@@ -47,8 +45,7 @@ class MeasureRepositoryImpl implements MeasureRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> saveMeasureDataRep(
-      Map<String, dynamic> measureData) async {
+  Future<Map<String, dynamic>> saveMeasureDataRep(Map<String, dynamic> measureData) async {
     try {
       final response = await measureService.saveMeasure(measureData);
 

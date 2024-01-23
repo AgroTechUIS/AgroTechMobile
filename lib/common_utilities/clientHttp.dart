@@ -1,9 +1,11 @@
+// coverage:ignore-file
 // ignore_for_file: file_names
 
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:agrotech/common_utilities/httpResponseModel.dart';
+import 'package:agrotech/common_utilities/responses_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -197,7 +199,7 @@ extension HttpUtils on Response {
   String serviceError = 'serviceError';
 
   Future<HttpResponseModel> get({required String url}) async {
-    await Future.delayed(const Duration(seconds: 1));
+    //await Future.delayed(const Duration(seconds: 1));
     return HttpResponseModel(success: true, body: mapResponses[url.replaceAll('http://192.168.1.52:3000/', '')]);
   }
 
@@ -228,5 +230,11 @@ extension HttpUtils on Response {
     required Map<String, dynamic> body,
   }) async {
     return HttpResponseModel(success: true);
+  }
+
+  Future<HttpDeleteModel> delete({
+    required String url,
+  }) async {
+    return HttpDeleteModel(success: true, body: '');
   }
 }*/

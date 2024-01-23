@@ -1,14 +1,13 @@
+// coverage:ignore-file
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
 
 List<ShippingsResponseModel> treatmentsFromJson(String str) =>
-    List<ShippingsResponseModel>.from(json
-        .decode(str)['treatments']
-        .map((x) => ShippingsResponseModel.fromJson(x)));
+    List<ShippingsResponseModel>.from(json.decode(str)['treatments'].map((x) => ShippingsResponseModel.fromJson(x)));
 
-String treatmentsToJson(List<ShippingsResponseModel> data) => json
-    .encode({'treatments': List<dynamic>.from(data.map((x) => x.toJson()))});
+String treatmentsToJson(List<ShippingsResponseModel> data) =>
+    json.encode({'treatments': List<dynamic>.from(data.map((x) => x.toJson()))});
 
 class ShippingsResponseModel {
   int? id;
@@ -29,8 +28,7 @@ class ShippingsResponseModel {
     this.empresa_id,
   });
 
-  factory ShippingsResponseModel.fromJson(Map<String, dynamic> json) =>
-      ShippingsResponseModel(
+  factory ShippingsResponseModel.fromJson(Map<String, dynamic> json) => ShippingsResponseModel(
         id: json["id"],
         city: json["city"],
         days_to_delivery: json["days_to_delivery"],

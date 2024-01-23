@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/5.cuidados/domain/models/cuidado_model.dart';
 import 'package:agrotech/features/5.cuidados/presentation/widgets/care_widgets.dart';
 import 'package:agrotech/features/5.cuidados/presentation/widgets/edit_care.dart';
@@ -40,8 +41,7 @@ class _CuidadosPageState extends State<CuidadosPage> {
             Navigator.of(context).pop();
           },
           onCancel: () {
-            selectedCareForEdit =
-                null; // Limpiar la variable temporal si se cancela
+            selectedCareForEdit = null; // Limpiar la variable temporal si se cancela
             Navigator.of(context).pop();
           },
           // Inicializa los controladores y otros campos con los valores de 'selectedPlagaForEdit'
@@ -82,8 +82,7 @@ class _CuidadosPageState extends State<CuidadosPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
-                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(

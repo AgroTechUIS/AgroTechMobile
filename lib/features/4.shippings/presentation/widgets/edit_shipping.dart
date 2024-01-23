@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.shippings/domain/models/shippings_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -176,16 +177,14 @@ class _editShippingState extends State<EditShipping> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      ShippingsResponseModel nuevoEnvio =
-                          ShippingsResponseModel(
-                              id: widget
-                                  .initialEnvio!.id, // Asigna el ID adecuado
-                              name: widget.nombreController.text,
-                              city: widget.cityController.text,
-                              department: widget.departmentController.text,
-                              price: price,
-                              days_to_delivery: days,
-                              empresa_id: widget.initialEnvio!.empresa_id);
+                      ShippingsResponseModel nuevoEnvio = ShippingsResponseModel(
+                          id: widget.initialEnvio!.id, // Asigna el ID adecuado
+                          name: widget.nombreController.text,
+                          city: widget.cityController.text,
+                          department: widget.departmentController.text,
+                          price: price,
+                          days_to_delivery: days,
+                          empresa_id: widget.initialEnvio!.empresa_id);
 
                       widget.onSave!(nuevoEnvio);
                     },

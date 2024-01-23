@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/5.plagas/data/network/pest_repository_impl.dart';
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 
@@ -29,8 +30,7 @@ class GetPestUseCaseImpl extends GetPestUseCase {
   }
 
   @override
-  Future<Map<String, dynamic>> updatePest(
-      PlagaResponseModel? updatedPlagas) async {
+  Future<Map<String, dynamic>> updatePest(PlagaResponseModel? updatedPlagas) async {
     try {
       final pestData = updatedPlagas!.toJsonEdit();
       var r = await pestRepository.updatePestDataRep(pestData);

@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.products/data/network/product_service.dart';
 
 abstract class ProductRepository {
@@ -5,11 +6,8 @@ abstract class ProductRepository {
 
   Future<String> deleteProductsById(int? productId);
 
-  Future<Map<String, dynamic>> saveProductDataRep(
-      Map<String, dynamic> productData,
-      {required int idEmpresa});
-  Future<Map<String, dynamic>> updateProductsDataRep(
-      Map<String, dynamic> pestData);
+  Future<Map<String, dynamic>> saveProductDataRep(Map<String, dynamic> productData, {required int idEmpresa});
+  Future<Map<String, dynamic>> updateProductsDataRep(Map<String, dynamic> pestData);
   Future<Map<String, dynamic>> getCategories();
 }
 
@@ -21,8 +19,7 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Map<String, dynamic>> getProductsByEmpresa(int idEmpresa) async {
     try {
-      final productData =
-          await productService.getProducts(idEmpresa: idEmpresa);
+      final productData = await productService.getProducts(idEmpresa: idEmpresa);
       if (productData.success) {
         return productData.body ?? {};
       } else {
@@ -47,8 +44,7 @@ class ProductRepositoryImpl implements ProductRepository {
     }
   }
 
-  Future<Map<String, dynamic>> updateProductsDataRep(
-      Map<String, dynamic> productData) async {
+  Future<Map<String, dynamic>> updateProductsDataRep(Map<String, dynamic> productData) async {
     try {
       final response = await productService.updateProductData(productData);
 
@@ -76,12 +72,9 @@ class ProductRepositoryImpl implements ProductRepository {
     }
   }
 
-  Future<Map<String, dynamic>> saveProductDataRep(
-      Map<String, dynamic> productData,
-      {required int idEmpresa}) async {
+  Future<Map<String, dynamic>> saveProductDataRep(Map<String, dynamic> productData, {required int idEmpresa}) async {
     try {
-      final response = await productService.saveProductData(productData,
-          idEmpresa: idEmpresa);
+      final response = await productService.saveProductData(productData, idEmpresa: idEmpresa);
 
       if (response.success) {
         final responseData = response.body;

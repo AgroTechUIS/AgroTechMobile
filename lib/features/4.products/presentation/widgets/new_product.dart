@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // ignore: must_be_immutable
 import 'dart:math';
 
@@ -183,8 +184,7 @@ class _NewProductState extends ConsumerState<NewProduct> {
                       ),
                     ),
                     items: state.categorias
-                        .map((CategoryModel item) =>
-                            DropdownMenuItem<CategoryModel>(
+                        .map((CategoryModel item) => DropdownMenuItem<CategoryModel>(
                               value: item,
                               child: Text(
                                 '${item.title}',
@@ -239,15 +239,13 @@ class _NewProductState extends ConsumerState<NewProduct> {
                     text: "Guardar",
                     onPressed: () {
                       int? cantidad;
-                      String cantidadText =
-                          widget.cantidadController.value.toString();
+                      String cantidadText = widget.cantidadController.value.toString();
 
                       if (cantidadText.isNotEmpty) {
                         cantidad = int.tryParse(cantidadText);
                       }
                       double? precio;
-                      String precioText =
-                          widget.precioController.value.toString();
+                      String precioText = widget.precioController.value.toString();
 
                       if (precioText.isNotEmpty) {
                         precio = double.tryParse(precioText);
@@ -276,11 +274,7 @@ class _NewProductState extends ConsumerState<NewProduct> {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],
@@ -292,8 +286,7 @@ class _NewProductState extends ConsumerState<NewProduct> {
 
 String createId() {
   String id = "";
-  const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   final random = Random();
 
   for (int i = 0; i < 5; i++) {

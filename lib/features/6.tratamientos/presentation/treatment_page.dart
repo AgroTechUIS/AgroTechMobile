@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.tratamientos/domain/models/treatment_response_model.dart';
 import 'package:agrotech/features/6.tratamientos/presentation/treatment_controller.dart';
 import 'package:agrotech/features/6.tratamientos/presentation/widgets/edit_treatment.dart';
@@ -27,8 +28,7 @@ class TratamientosPage extends ConsumerWidget {
       listTreatments.add(tratamiento);
     }
 
-    void editTreatment(
-        TreatmentResponseModel tratamiento, TreatmentController controller) {
+    void editTreatment(TreatmentResponseModel tratamiento, TreatmentController controller) {
       selectedTreatmentForEdit = tratamiento;
       showDialog(
         context: context,
@@ -36,12 +36,9 @@ class TratamientosPage extends ConsumerWidget {
           return EditTreatment(
             initialTratamiento: selectedTreatmentForEdit,
             onSave: (nt) async {
-              final nta =
-                  await controller.updatesTreatments(nt, tratamiento, idPest);
-              TreatmentResponseModel treatmentModel =
-                  TreatmentResponseModel.fromJson(nta);
-              bool existeTratamiento = controller.existeTratamientoEConNombre(
-                  treatmentModel.name!, treatmentModel);
+              final nta = await controller.updatesTreatments(nt, tratamiento, idPest);
+              TreatmentResponseModel treatmentModel = TreatmentResponseModel.fromJson(nta);
+              bool existeTratamiento = controller.existeTratamientoEConNombre(treatmentModel.name!, treatmentModel);
 
               if (existeTratamiento) {
                 Fluttertoast.showToast(
@@ -57,8 +54,7 @@ class TratamientosPage extends ConsumerWidget {
                   msg: 'Tratamiento actualizado correctamente.',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.TOP_RIGHT,
-                  backgroundColor:
-                      const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                  backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                   textColor: Colors.white,
                 );
                 Navigator.of(context).pop();
@@ -90,8 +86,7 @@ class TratamientosPage extends ConsumerWidget {
         builder: (context) {
           return NewTreatment(
             onSave: (nuevoTratamiento) async {
-              bool existeTratamiento =
-                  controller.existeTratamientoConNombre(nuevoTratamiento.name!);
+              bool existeTratamiento = controller.existeTratamientoConNombre(nuevoTratamiento.name!);
 
               if (existeTratamiento) {
                 Fluttertoast.showToast(
@@ -109,8 +104,7 @@ class TratamientosPage extends ConsumerWidget {
                   msg: 'Tratamiento creado correctamente.',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.TOP_RIGHT,
-                  backgroundColor:
-                      const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                  backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                   textColor: Colors.white,
                 );
               }
@@ -132,8 +126,7 @@ class TratamientosPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(
-                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: const EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(

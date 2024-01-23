@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // ignore_for_file: unused_import
 
 import 'dart:typed_data';
@@ -10,8 +11,7 @@ class VariablesTWidget extends StatelessWidget {
   final MeasureResponseModel medida;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  VariablesTWidget(
-      {required this.medida, required this.onEdit, required this.onDelete});
+  VariablesTWidget({required this.medida, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {

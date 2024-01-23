@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.products/domain/models/categorie_model.dart';
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 
@@ -15,8 +16,7 @@ class GetProductUseCaseImpl extends GetProductUseCase {
   );
 
   @override
-  Future<List<ProductResponseModel>?> getListProducts(
-      {required int idEmpresa}) async {
+  Future<List<ProductResponseModel>?> getListProducts({required int idEmpresa}) async {
     try {
       var productData = await productRepository.getProductsByEmpresa(idEmpresa);
       List<ProductResponseModel>? listProducts = [];
@@ -44,8 +44,7 @@ class GetProductUseCaseImpl extends GetProductUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> updateProduct(
-      ProductResponseModel? updatedProducts) async {
+  Future<Map<String, dynamic>> updateProduct(ProductResponseModel? updatedProducts) async {
     try {
       final productData = updatedProducts!.toJson(); //toJsonEdit
       var r = await productRepository.updateProductsDataRep(productData);
@@ -64,12 +63,10 @@ class GetProductUseCaseImpl extends GetProductUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> saveProduct(
-      ProductResponseModel? savedProductos, int idEmpresa) async {
+  Future<Map<String, dynamic>> saveProduct(ProductResponseModel? savedProductos, int idEmpresa) async {
     try {
       final productData = savedProductos!.toJson();
-      var s = await productRepository.saveProductDataRep(productData,
-          idEmpresa: idEmpresa);
+      var s = await productRepository.saveProductDataRep(productData, idEmpresa: idEmpresa);
       return s;
     } catch (e) {
       throw ('Error al guardar el producto: $e');

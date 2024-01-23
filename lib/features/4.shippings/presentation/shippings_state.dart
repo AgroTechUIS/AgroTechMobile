@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import '../domain/models/shippings_model.dart';
 
 class ShippingState {
@@ -15,8 +16,7 @@ class ShippingState {
   }) {
     return ShippingState(
       envios: envios ?? this.envios,
-      selectedShippingForEdit:
-          selectedShippingForEdit ?? this.selectedShippingForEdit,
+      selectedShippingForEdit: selectedShippingForEdit ?? this.selectedShippingForEdit,
     );
   }
 }

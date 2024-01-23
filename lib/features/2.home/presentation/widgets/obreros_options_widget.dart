@@ -1,9 +1,6 @@
 import 'package:agrotech/common_utilities/widgets/mini_option_widget.dart';
 import 'package:agrotech/common_utilities/widgets/subtitleWidget.dart';
 import 'package:agrotech/features/3.opciones_obrero/presentation/actividades_page.dart';
-import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
-import 'package:agrotech/features/5.cuidados/presentation/cuidado_page.dart';
-import 'package:agrotech/features/6.medidas/presentation/measure_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
