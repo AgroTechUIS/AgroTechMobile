@@ -64,7 +64,7 @@ class GetProductUseCaseImpl extends GetProductUseCase {
   Future<Map<String, dynamic>> updateProduct(
       ProductResponseModel? updatedProducts) async {
     try {
-      final productData = updatedProducts!.toJson(); //toJsonEdit
+      final productData = updatedProducts!.toJsonPut(); //toJsonEdit
       var r = await productRepository.updateProductsDataRep(productData);
       return r;
     } catch (e) {

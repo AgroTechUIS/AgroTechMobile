@@ -22,6 +22,8 @@ class ProductResponseModel {
   final String? resumen;
   final int? crop;
   final int? categorie;
+  final int? discount;
+
   final String? store;
   final String? image;
   final String? email;
@@ -39,6 +41,7 @@ class ProductResponseModel {
       this.crop,
       this.categorie,
       this.store,
+      this.discount,
       this.image,
       this.email});
 
@@ -59,7 +62,6 @@ class ProductResponseModel {
       };
 
   Map<String, dynamic> toJsonPost() => {
-        "id": id,
         "title": title,
         "sku": sku,
         "priceCop": priceCop,
@@ -72,6 +74,19 @@ class ProductResponseModel {
         "store": store,
         "image": image
       };
+
+  Map<String, dynamic> toJsonPut() => {
+        "id": id,
+        "title": title,
+        "sku": sku,
+        "priceCop": priceCop,
+        "email": email,
+        "stock": stock,
+        "description": description,
+        "resumen": resumen,
+        "categorie": categorie,
+        "discount": discount,
+      };
   factory ProductResponseModel.fromJson(Map<String, dynamic> json) =>
       ProductResponseModel(
         id: json["id"],
@@ -83,6 +98,7 @@ class ProductResponseModel {
         stock: json["stock"],
         description: json["description"],
         resumen: json["resumen"],
-        // image: json["image"]
+        //categorie: json["categorie"],
+        //  image: json["image"]
       );
 }

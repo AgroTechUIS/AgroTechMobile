@@ -5,6 +5,7 @@ import 'package:agrotech/features/4.products/domain/models/product_response_mode
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProductWidget extends StatelessWidget {
   final ProductResponseModel producto;
@@ -48,7 +49,11 @@ class ProductWidget extends StatelessWidget {
                 ),
               ),
             ]),
-
+            Spacer(),
+            CircleAvatar(
+              radius: 40,
+              backgroundImage: AssetImage('images/treatmentCircle.png'),
+            ),
             SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
@@ -81,7 +86,7 @@ class ProductWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
-                  '${producto.priceCop}',
+                  '${producto.priceCop} COP',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[600],
@@ -89,7 +94,8 @@ class ProductWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            SizedBox(height: 8.0),
+
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 'Stock: ',
@@ -159,9 +165,33 @@ String getEstadoText(int? estado) {
   switch (estado) {
     case 1:
       return 'Activo';
-    case 2:
+    case null:
       return 'Desactivado';
     default:
       return 'Activo';
+  }
+}
+
+String getCategoryText(int? id) {
+  switch (id) {
+    case 1:
+      return 'Hortalizas';
+    case 2:
+      return 'Frutas';
+    case 3:
+      return 'Cereales y Granos';
+    case 4:
+      return 'Legumbres y Frutos Secos';
+    case 5:
+      return 'Hierbas y Especias';
+    case 6:
+      return 'Productos Orgánicos';
+    case 7:
+      return 'Productos Procesados';
+    case 8:
+      return 'Plantas';
+    // Agrega más casos según sea necesario
+    default:
+      return 'Categoría desconocida';
   }
 }

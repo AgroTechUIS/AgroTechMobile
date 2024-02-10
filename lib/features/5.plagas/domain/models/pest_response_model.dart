@@ -19,6 +19,9 @@ class PlagaResponseModel {
   String? observation;
   DateTime? appareceDate;
   String? pestFamily;
+  String? adjuntoDto;
+  String? state_tratment;
+  String? url;
   // AdjuntoDto? adjuntoDto;
   int? crop;
   PlagaResponseModel(
@@ -29,6 +32,9 @@ class PlagaResponseModel {
       this.observation,
       this.appareceDate,
       this.pestFamily,
+      this.adjuntoDto,
+      this.state_tratment,
+      this.url,
       //  this.adjuntoDto,
       this.crop});
 
@@ -77,6 +83,10 @@ class PlagaResponseModel {
         "appareceDate":
             "${appareceDate?.year.toString().padLeft(4, '0')}-${appareceDate?.month.toString().padLeft(2, '0')}-${appareceDate?.day.toString().padLeft(2, '0')}",
         "pestFamily": pestFamily,
+        "state_tratment": state_tratment,
+        "adjuntoDto": adjuntoDto,
+        "url": url,
+        "crop": crop.toString()
         //- "url": adjuntoDto?.url ?? "",
       };
 }

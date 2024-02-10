@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 List<CropResponseModel> cropFromJson(String str) =>
-    List<CropResponseModel>.from(json.decode(str).map((x) => CropResponseModel.fromJson(x)));
+    List<CropResponseModel>.from(
+        json.decode(str).map((x) => CropResponseModel.fromJson(x)));
 
-String cropToJson(List<CropResponseModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String cropToJson(List<CropResponseModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 List<CropResponseModel> listplagaFromJson(List<dynamic> datos) =>
     datos.map((e) => CropResponseModel.fromJson(e)).toList();
@@ -57,7 +59,8 @@ class CropResponseModel {
         //      "${plantingDate?.year.toString().padLeft(4, '0')}-${plantingDate?.month.toString().padLeft(2, '0')}-${plantingDate?.day.toString().padLeft(2, '0')}",
         //"usuario": usuario?.email
       };
-  factory CropResponseModel.fromJson(Map<String, dynamic> json) => CropResponseModel(
+  factory CropResponseModel.fromJson(Map<String, dynamic> json) =>
+      CropResponseModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],

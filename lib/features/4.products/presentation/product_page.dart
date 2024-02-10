@@ -54,6 +54,8 @@ class ProductPage extends ConsumerWidget {
               );
             } else {
               controller.saveProducts(nuevoProducto, idEmpresa);
+              controller.updateProduct(nuevoProducto);
+
               Future.delayed(const Duration(milliseconds: 500));
               await controller.getListProduct(idEmpresa);
 

@@ -76,6 +76,7 @@ class ProductController extends StateNotifier<ProductState> {
         stock: savedProductos.stock,
         sku: savedProductos.sku,
         image: savedProductos.image,
+        state: savedProductos.state,
         categorie: savedProductos.categorie,
         crop: savedProductos.crop,
         store: idEmpresa.toString());
@@ -97,14 +98,16 @@ class ProductController extends StateNotifier<ProductState> {
     }
     ProductResponseModel updatedInitialProducto = ProductResponseModel(
         id: updatedProductos.id ?? initialProducto.id,
-        title: updatedProductos.title ?? updatedProductos.title,
-        resumen: updatedProductos.resumen ?? updatedProductos.resumen,
-        state: updatedProductos.state ?? updatedProductos.state,
-
-        // category: updatedProductos.category ?? updatedProductos.category,
-        priceCop: updatedProductos.priceCop ?? updatedProductos.priceCop,
-        stock: updatedProductos.stock ?? updatedProductos.stock);
-
+        title: updatedProductos.title ?? initialProducto.title,
+        description:
+            updatedProductos.description ?? initialProducto.description,
+        resumen: updatedProductos.resumen ?? initialProducto.resumen,
+        state: updatedProductos.state,
+        categorie: updatedProductos.categorie ?? initialProducto.categorie,
+        priceCop: updatedProductos.priceCop ?? initialProducto.priceCop,
+        stock: updatedProductos.stock ?? initialProducto.stock,
+        sku: updatedProductos.sku ?? initialProducto.sku,
+        discount: updatedProductos.discount ?? initialProducto.discount);
     var resp =
         await getProductUseCaseImpl.updateProduct(updatedInitialProducto);
 

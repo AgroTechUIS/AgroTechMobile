@@ -25,7 +25,7 @@ class PestController extends StateNotifier<PestState> {
   }
 
   Future<Map<String, dynamic>> updatesPests(PlagaResponseModel? updatedPlagas,
-      PlagaResponseModel? initialPlaga) async {
+      PlagaResponseModel? initialPlaga, int idCrop) async {
     if (updatedPlagas == null || initialPlaga == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -38,6 +38,10 @@ class PestController extends StateNotifier<PestState> {
       observation: updatedPlagas.observation ?? initialPlaga.observation,
       appareceDate: updatedPlagas.appareceDate ?? initialPlaga.appareceDate,
       pestFamily: updatedPlagas.pestFamily ?? initialPlaga.pestFamily,
+      state_tratment: null,
+      adjuntoDto: null,
+      url: "",
+      crop: idCrop,
       //  adjuntoDto: updatedPlagas.adjuntoDto ?? initialPlaga.adjuntoDto,
     );
 

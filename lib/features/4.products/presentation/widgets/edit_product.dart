@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../../4.cultivos/domain/models/crop_response_model.dart';
 import '../../../4.discounts/domain/models/discount_model.dart';
+import '../../domain/models/categorie_model.dart';
 import '../product_controller.dart';
 import 'my_buttom.dart';
 
@@ -20,7 +21,7 @@ class EditProduct extends ConsumerStatefulWidget {
   final TextEditingController resumenController = TextEditingController();
   final TextEditingController precioController = TextEditingController();
   final TextEditingController cantidadController = TextEditingController();
-
+  final TextEditingController descriptionController = TextEditingController();
   EditProduct({
     super.key,
     this.onSave,
@@ -29,6 +30,7 @@ class EditProduct extends ConsumerStatefulWidget {
   }) {
     nombreController.text = initialProduct?.title ?? '';
     resumenController.text = initialProduct?.resumen ?? '';
+    descriptionController.text = initialProduct?.description ?? '';
     precioController.text = initialProduct?.priceCop?.toString() ?? '';
     cantidadController.text = initialProduct?.stock.toString() ?? '';
   }
@@ -179,30 +181,30 @@ class _editProductState extends ConsumerState<EditProduct> {
                   borderRadius: BorderRadius.circular(8),
                 )),
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton2<CropResponseModel>(
+                  child: DropdownButton2<CategoryModel>(
                     isExpanded: true,
                     hint: Text(
-                      'Cultivo',
+                      'Categoría',
                       style: TextStyle(
                         fontSize: 14,
                         color: Theme.of(context).hintColor,
                       ),
                     ),
-                    items: state.cultivos
-                        .map((CropResponseModel item) =>
-                            DropdownMenuItem<CropResponseModel>(
+                    items: state.categorias
+                        .map((CategoryModel item) =>
+                            DropdownMenuItem<CategoryModel>(
                               value: item,
                               child: Text(
-                                '${item.name}',
+                                '${item.title}',
                                 style: const TextStyle(
                                   fontSize: 14,
                                 ),
                               ),
                             ))
                         .toList(),
-                    value: state.selectedCrop,
-                    onChanged: (CropResponseModel? newValue) {
-                      if (newValue != null) controller.updateCrop(newValue);
+                    value: state.selectedCategorie,
+                    onChanged: (CategoryModel? newValue) {
+                      if (newValue != null) controller.updateCategory(newValue);
                     },
                     buttonHeight: 20,
                     buttonPadding: EdgeInsets.symmetric(horizontal: 16),
@@ -246,22 +248,14 @@ class _editProductState extends ConsumerState<EditProduct> {
                             ))
                         .toList(),
                     value: state.selectedDiscount,
-                    onChanged: (DiscountModel? newValue2) {
-                      if (newValue2 != null)
-                        controller.updateDiscount(newValue2);
+                    onChanged: (DiscountModel? newValue3) {
+                      if (newValue3 != null)
+                        controller.updateDiscount(newValue3);
                     },
                     buttonHeight: 20,
                     buttonPadding: EdgeInsets.symmetric(horizontal: 16),
                     buttonWidth: 140,
                     itemHeight: 40,
-                    /*buttonStyleData: const ButtonStyleData(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      height: 20,
-                      width: 140,
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                    ),*/
                   ),
                 ),
               ),
@@ -287,18 +281,23 @@ class _editProductState extends ConsumerState<EditProduct> {
                           valor = 1;
                           break;
                         case 'Desactivado':
-                          valor = 2;
+                          valor = null;
                           break;
                         default:
-                          valor = null;
+                          valor = 1;
                       }
                       ProductResponseModel nuevoProducto = ProductResponseModel(
-                          id: widget.initialProduct?.id,
-                          title: widget.nombreController.text,
-                          resumen: widget.resumenController.text,
-                          state: valor ?? widget.initialProduct!.state,
-                          priceCop: precio,
-                          stock: cantidad);
+                        id: widget.initialProduct?.id,
+                        title: widget.nombreController.text,
+                        description: widget.descriptionController.text,
+                        resumen: widget.resumenController.text,
+                        categorie: state.selectedCategorie!.id,
+                        discount: state.selectedDiscount?.id,
+                        state: valor,
+                        priceCop: precio,
+                        stock: cantidad,
+                        sku: widget.initialProduct!.sku,
+                      );
 
                       widget.onSave!(nuevoProducto);
                     },

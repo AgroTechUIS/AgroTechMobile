@@ -60,12 +60,9 @@ class CropPage extends ConsumerWidget {
               // ignore: curly_braces_in_flow_control_structures
 
               controller.saveCrops(nuevoCultivo, stateLogin.idEmpresa);
-              /*Future.delayed(const Duration(milliseconds: 100));
-
+              controller.updateCrop(nuevoCultivo);
+              Future.delayed(const Duration(milliseconds: 500));
               await controller.getListCrop(stateLogin.idEmpresa);
-              await controller.getListPlants();
-              controller.updateCrop(nuevoCultivo);*/
-
               Fluttertoast.showToast(
                 msg: 'Cultivo creado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,

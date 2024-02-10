@@ -286,6 +286,8 @@ class _editPestState extends State<EditPest> {
                         observation: widget.observacionesController.text,
                         pestFamily: widget.familiaController.text,
                         appareceDate: appareceDate,
+                        adjuntoDto: null,
+                        state_tratment: null,
                         //  adjuntoDto: widget.initialPlaga!.adjuntoDto,
                       );
 

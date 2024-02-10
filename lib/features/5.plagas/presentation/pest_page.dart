@@ -61,7 +61,7 @@ class PlagasPage extends ConsumerWidget {
         return EditPest(
           initialPlaga: state.selectedPlagaForEdit,
           onSave: (np) async {
-            final npa = await controller.updatesPests(np, plaga);
+            final npa = await controller.updatesPests(np, plaga, idCrop);
 
             PlagaResponseModel plagaModel = PlagaResponseModel.fromJson(npa);
             bool existePlaga =
