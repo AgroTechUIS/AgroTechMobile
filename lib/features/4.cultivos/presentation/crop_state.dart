@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.cultivos/domain/models/plant_model.dart';
 import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
 

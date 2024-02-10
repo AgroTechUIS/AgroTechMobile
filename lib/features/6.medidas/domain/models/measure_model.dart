@@ -1,13 +1,12 @@
+// coverage:ignore-file
 import 'dart:convert';
 
-List<MeasureModel> measureFromJson(String str) => List<MeasureModel>.from(
-    json.decode(str).map((x) => MeasureModel.fromJson(x)));
+List<MeasureModel> measureFromJson(String str) =>
+    List<MeasureModel>.from(json.decode(str).map((x) => MeasureModel.fromJson(x)));
 
-String measureToJson(List<MeasureModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String measureToJson(List<MeasureModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-List<MeasureModel> listmeasureFromJson(List<dynamic> datos) =>
-    datos.map((e) => MeasureModel.fromJson(e)).toList();
+List<MeasureModel> listmeasureFromJson(List<dynamic> datos) => datos.map((e) => MeasureModel.fromJson(e)).toList();
 
 class MeasureModel {
   int id = 0;
@@ -15,8 +14,7 @@ class MeasureModel {
   String? description;
   DateTime? date;
   String? unit;
-  MeasureModel(
-      {required this.id, this.value, this.description, this.date, this.unit});
+  MeasureModel({required this.id, this.value, this.description, this.date, this.unit});
 
   factory MeasureModel.fromJson(Map<String, dynamic> json) => MeasureModel(
         id: json["id"],

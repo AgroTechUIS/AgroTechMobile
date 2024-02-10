@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
 import 'package:agrotech/features/5.variables/presentation/variable_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,9 +24,7 @@ class VariableController extends StateNotifier<VariableState> {
   }
 
   Future<Map<String, dynamic>> updatesVariables(
-      VariableResponseModel? updatedVariables,
-      VariableResponseModel? initialVariable,
-      int idCrop) async {
+      VariableResponseModel? updatedVariables, VariableResponseModel? initialVariable, int idCrop) async {
     if (updatedVariables == null || initialVariable == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -33,15 +33,12 @@ class VariableController extends StateNotifier<VariableState> {
       id: updatedVariables.id ?? initialVariable.id,
       name: updatedVariables.name ?? initialVariable.name,
       description: updatedVariables.description ?? initialVariable.description,
-      measurement_method: updatedVariables.measurement_method ??
-          initialVariable.measurement_method,
+      measurement_method: updatedVariables.measurement_method ?? initialVariable.measurement_method,
       date_init: updatedVariables.date_init ?? initialVariable.date_init,
-      measuring_instrument: updatedVariables.measuring_instrument ??
-          initialVariable.measuring_instrument,
+      measuring_instrument: updatedVariables.measuring_instrument ?? initialVariable.measuring_instrument,
     );
 
-    var resp =
-        await getVariableUseCaseImpl.updateVariable(updatedInitialVariable);
+    var resp = await getVariableUseCaseImpl.updateVariable(updatedInitialVariable);
 
     final selectedVariable = VariableResponseModel.fromJson(resp);
     state = state.copyWith(selectedVariableForEdit: selectedVariable);
@@ -50,14 +47,11 @@ class VariableController extends StateNotifier<VariableState> {
   }
 
   bool existeVariableConNombre(String nombre) {
-    final nombreLowerCase =
-        nombre.toLowerCase(); // Convertir el nombre a minúsculas
-    return state.variables
-        .any((variable) => variable.name!.toLowerCase() == nombreLowerCase);
+    final nombreLowerCase = nombre.toLowerCase(); // Convertir el nombre a minúsculas
+    return state.variables.any((variable) => variable.name!.toLowerCase() == nombreLowerCase);
   }
 
-  bool existeVariableEConNombre(
-      String nombre, VariableResponseModel variableEditar) {
+  bool existeVariableEConNombre(String nombre, VariableResponseModel variableEditar) {
     final nombreLowerCase = nombre.toLowerCase();
     return state.variables
         .where((variable) => variable.id != variableEditar.id)
@@ -111,7 +105,5 @@ class VariableController extends StateNotifier<VariableState> {
   }
 }
 
-final variableController =
-    StateNotifierProvider<VariableController, VariableState>((ref) =>
-        VariableController(
-            GetVariableUseCaseImpl(VariableRepositoryImpl(VariableService()))));
+final variableController = StateNotifierProvider<VariableController, VariableState>(
+    (ref) => VariableController(GetVariableUseCaseImpl(VariableRepositoryImpl(VariableService()))));

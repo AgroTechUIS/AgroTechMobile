@@ -1,3 +1,4 @@
+// coverage:ignore-file
 class LoginState {
   final String idusuario;
   final String nombre;

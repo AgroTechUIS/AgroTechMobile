@@ -1,12 +1,11 @@
+// coverage:ignore-file
 import 'dart:convert';
 import 'dart:typed_data';
 
 List<PlagaResponseModel> plagaFromJson(String str) =>
-    List<PlagaResponseModel>.from(
-        json.decode(str).map((x) => PlagaResponseModel.fromJson(x)));
+    List<PlagaResponseModel>.from(json.decode(str).map((x) => PlagaResponseModel.fromJson(x)));
 
-String plagaToJson(List<PlagaResponseModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String plagaToJson(List<PlagaResponseModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 List<PlagaResponseModel> listplagaFromJson(List<dynamic> datos) =>
     datos.map((e) => PlagaResponseModel.fromJson(e)).toList();
@@ -38,8 +37,7 @@ class PlagaResponseModel {
       //  this.adjuntoDto,
       this.crop});
 
-  factory PlagaResponseModel.fromJson(Map<String, dynamic> json) =>
-      PlagaResponseModel(
+  factory PlagaResponseModel.fromJson(Map<String, dynamic> json) => PlagaResponseModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],

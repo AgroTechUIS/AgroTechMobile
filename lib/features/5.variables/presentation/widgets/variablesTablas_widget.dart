@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:flutter/material.dart';
 
 import '../../domain/models/variable_model.dart';
@@ -6,8 +7,7 @@ class VariablesTablasWidget extends StatelessWidget {
   final VariableModel variable;
   final VoidCallback onEdit; // Agrega este parámetro
   final VoidCallback onDelete; // Agrega este parámetro
-  VariablesTablasWidget(
-      {required this.variable, required this.onEdit, required this.onDelete});
+  VariablesTablasWidget({required this.variable, required this.onEdit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {

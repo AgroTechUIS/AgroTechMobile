@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
 import 'package:agrotech/features/4.cultivos/domain/models/plant_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,4 +1,4 @@
-import 'dart:convert';
+/*import 'dart:convert';
 
 class CentroPobladoModel {
   int? id;
@@ -40,4 +40,4 @@ class CentroPobladoModel {
     data["departamente"] = departamente;
     return jsonEncode(data);
   }
-}
+}*/

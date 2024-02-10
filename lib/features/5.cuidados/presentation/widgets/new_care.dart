@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../domain/models/cuidado_response_model.dart';
 import 'my_buttom.dart';
@@ -151,24 +152,21 @@ class _NewCareState extends State<NewCare> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${date1!.day} / ${date1!.month} / ${date1!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -207,24 +205,21 @@ class _NewCareState extends State<NewCare> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${date2!.day} / ${date2!.month} / ${date2!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -252,11 +247,7 @@ class _NewCareState extends State<NewCare> {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

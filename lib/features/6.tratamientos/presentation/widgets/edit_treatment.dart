@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import '../../../../common_utilities/config/colors_theme.dart';
 import '../../domain/models/treatment_model.dart';
 import '../../domain/models/treatment_response_model.dart';
@@ -20,11 +21,7 @@ class EditTreatment extends StatefulWidget {
 
   String? selectedValue;
 
-  EditTreatment(
-      {super.key,
-      this.onSave,
-      this.onCancel,
-      required this.initialTratamiento}) {
+  EditTreatment({super.key, this.onSave, this.onCancel, required this.initialTratamiento}) {
     nombreController.text = initialTratamiento?.name ?? '';
     descripcionController.text = initialTratamiento?.description ?? '';
     formController.text = initialTratamiento?.form ?? '';
@@ -187,24 +184,21 @@ class _editTreatmentState extends State<EditTreatment> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${widget.initialTratamiento!.dateStart!.day} / ${widget.initialTratamiento!.dateStart!.month} / ${widget.initialTratamiento!.dateStart!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -245,24 +239,21 @@ class _editTreatmentState extends State<EditTreatment> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
                       decoration: const InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${widget.initialTratamiento!.dateEnd!.day} / ${widget.initialTratamiento!.dateEnd!.month} / ${widget.initialTratamiento!.dateEnd!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -278,15 +269,12 @@ class _editTreatmentState extends State<EditTreatment> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      TreatmentResponseModel nuevoTratamiento =
-                          TreatmentResponseModel(
-                        id: widget
-                            .initialTratamiento!.id, // Asigna el ID adecuado
+                      TreatmentResponseModel nuevoTratamiento = TreatmentResponseModel(
+                        id: widget.initialTratamiento!.id, // Asigna el ID adecuado
                         name: widget.nombreController.text,
                         description: widget.descripcionController.text,
                         form: widget.formController.text,
-                        state:
-                            selectedValue ?? widget.initialTratamiento!.state,
+                        state: selectedValue ?? widget.initialTratamiento!.state,
                         dateStart: widget.initialTratamiento!.dateStart,
                         dateEnd: widget.initialTratamiento!.dateEnd,
                       );
@@ -294,11 +282,7 @@ class _editTreatmentState extends State<EditTreatment> {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

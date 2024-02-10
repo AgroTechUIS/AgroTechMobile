@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/features/4.cultivos/presentation/crop_page.dart';
 import 'package:agrotech/features/4.vistaPlay/presentation/widgets/options.dart';

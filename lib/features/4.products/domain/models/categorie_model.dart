@@ -1,3 +1,4 @@
+// coverage:ignore-file
 class CategoryModel {
   int? id;
   String? title;

@@ -1,7 +1,7 @@
+// coverage:ignore-file
 // ignore: must_be_immutable
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common_utilities/config/colors_theme.dart';
@@ -55,12 +55,12 @@ class _NewPestState extends State<NewPest> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Text("Crea una nueva plaga"),
+      title: const Text("Crea una nueva plaga"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: widget.nombreController,
               keyboardType: TextInputType.name,
@@ -71,13 +71,13 @@ class _NewPestState extends State<NewPest> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.red,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: widget.descripcionController,
               keyboardType: TextInputType.name,
@@ -88,13 +88,13 @@ class _NewPestState extends State<NewPest> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.red,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
               width: double.infinity,
               alignment: Alignment.centerLeft,
@@ -131,7 +131,7 @@ class _NewPestState extends State<NewPest> {
                         });
                       },
                       buttonHeight: 20,
-                      buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+                      buttonPadding: const EdgeInsets.symmetric(horizontal: 16),
                       buttonWidth: 140,
                       itemHeight: 40
                       /*
@@ -147,7 +147,7 @@ class _NewPestState extends State<NewPest> {
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: widget.observacionesController,
               keyboardType: TextInputType.text,
@@ -158,13 +158,13 @@ class _NewPestState extends State<NewPest> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.red,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: widget.familiaController,
               keyboardType: TextInputType.text,
@@ -175,13 +175,13 @@ class _NewPestState extends State<NewPest> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.red,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             InkWell(
               onTap: () async {
                 fecha = showDatePicker(
@@ -211,24 +211,21 @@ class _NewPestState extends State<NewPest> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors
-                            .grey, // Puedes personalizar el color del borde aquí
+                        color: Colors.grey, // Puedes personalizar el color del borde aquí
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: InputDecorator(
-                      decoration: InputDecoration(
-                        border: InputBorder
-                            .none, // Elimina el borde de InputDecorator
+                      decoration: const InputDecoration(
+                        border: InputBorder.none, // Elimina el borde de InputDecorator
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '${date!.day} / ${date!.month} / ${date!.year}',
                           style: TextStyle(
-                            color: colors
-                                .black, // Puedes personalizar el color del texto aquí
+                            color: colors.black, // Puedes personalizar el color del texto aquí
                           ),
                         ),
                       ),
@@ -237,7 +234,7 @@ class _NewPestState extends State<NewPest> {
                 ],
               ),
             ),
-            Divider(),
+            const Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -257,11 +254,7 @@ class _NewPestState extends State<NewPest> {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

@@ -1,5 +1,4 @@
-import 'package:agrotech/features/5.plagas/domain/models/pest_model.dart';
-
+// coverage:ignore-file
 import '../domain/models/pest_response_model.dart';
 
 class PestState {

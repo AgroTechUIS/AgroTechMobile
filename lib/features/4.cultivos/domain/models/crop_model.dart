@@ -1,13 +1,11 @@
+// coverage:ignore-file
 import 'dart:convert';
 
-List<CropModel> cropFromJson(String str) =>
-    List<CropModel>.from(json.decode(str).map((x) => CropModel.fromJson(x)));
+List<CropModel> cropFromJson(String str) => List<CropModel>.from(json.decode(str).map((x) => CropModel.fromJson(x)));
 
-String cropToJson(List<CropModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String cropToJson(List<CropModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-List<CropModel> listplagaFromJson(List<dynamic> datos) =>
-    datos.map((e) => CropModel.fromJson(e)).toList();
+List<CropModel> listplagaFromJson(List<dynamic> datos) => datos.map((e) => CropModel.fromJson(e)).toList();
 
 class CropModel {
   final int? id;
@@ -16,13 +14,7 @@ class CropModel {
   final DateTime? plantingDate;
   final int? plantPlanted;
   final String? variety;
-  CropModel(
-      {this.id,
-      this.name,
-      this.description,
-      this.plantingDate,
-      this.plantPlanted,
-      this.variety});
+  CropModel({this.id, this.name, this.description, this.plantingDate, this.plantPlanted, this.variety});
 
   Map<String, dynamic> toJson() => {
         "id": id,

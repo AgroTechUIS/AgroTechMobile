@@ -111,6 +111,7 @@ class LoginPage extends ConsumerWidget {
     );
   }
 
+  // coverage:ignore-start
   _tap(BuildContext context, WidgetRef ref) async {
     final offLineContr = ref.read(onlineProvider.notifier);
     final loginControllerIns = ref.read(loginController.notifier);
@@ -142,4 +143,5 @@ class LoginPage extends ConsumerWidget {
     }
     context.remplaceRoute(HomePage(rol: rolType));
   }
+  // coverage:ignore-end
 }

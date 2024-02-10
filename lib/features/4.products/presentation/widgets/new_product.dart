@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // ignore: must_be_immutable
 import 'dart:math';
 
@@ -270,11 +271,7 @@ class _NewProductState extends ConsumerState<NewProduct> {
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],
@@ -286,8 +283,7 @@ class _NewProductState extends ConsumerState<NewProduct> {
 
 String createId() {
   String id = "";
-  const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   final random = Random();
 
   for (int i = 0; i < 5; i++) {

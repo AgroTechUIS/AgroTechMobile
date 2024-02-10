@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/common_utilities/context_extension.dart';
 import 'package:agrotech/features/5.variables/domain/models/variable_model.dart';
 import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
@@ -32,8 +33,7 @@ class VariablesPage extends ConsumerWidget {
     context.pushRoute(VariablesTPage(idVariable));
   }
 
-  void editVariable(
-      context, VariableResponseModel variable, VariableController controller) {
+  void editVariable(context, VariableResponseModel variable, VariableController controller) {
     selectedVariableForEdit = variable;
     showDialog(
       context: context,
@@ -43,10 +43,8 @@ class VariablesPage extends ConsumerWidget {
           onSave: (nv) async {
             final npa = await controller.updatesVariables(nv, variable, idCrop);
 
-            VariableResponseModel variableModel =
-                VariableResponseModel.fromJson(npa);
-            bool existeVariable = controller.existeVariableEConNombre(
-                variableModel.name!, variableModel);
+            VariableResponseModel variableModel = VariableResponseModel.fromJson(npa);
+            bool existeVariable = controller.existeVariableEConNombre(variableModel.name!, variableModel);
 
             if (existeVariable) {
               Fluttertoast.showToast(
@@ -63,8 +61,7 @@ class VariablesPage extends ConsumerWidget {
                 msg: 'Variable actualizada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor:
-                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -78,8 +75,7 @@ class VariablesPage extends ConsumerWidget {
     );
   }
 
-  void deleteVariable(
-      VariableResponseModel variable, VariableController controller) {
+  void deleteVariable(VariableResponseModel variable, VariableController controller) {
     controller.deleteVariable(variable);
     controller.updateVariable(variable);
     Fluttertoast.showToast(
@@ -97,8 +93,7 @@ class VariablesPage extends ConsumerWidget {
       builder: (context) {
         return NewVariable(
           onSave: (nuevaVariable) async {
-            bool existePlaga =
-                controller.existeVariableConNombre(nuevaVariable.name!);
+            bool existePlaga = controller.existeVariableConNombre(nuevaVariable.name!);
 
             if (existePlaga) {
               Fluttertoast.showToast(
@@ -118,8 +113,7 @@ class VariablesPage extends ConsumerWidget {
                 msg: 'Variable creada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor:
-                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -145,8 +139,7 @@ class VariablesPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
-                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(

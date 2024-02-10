@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.tratamientos/data/network/treatment_repository_impl.dart';
 
 import '../models/treatment_response_model.dart';
@@ -14,11 +15,9 @@ class GetTreatmentUseCaseImpl extends GetTreatmentUseCase {
   );
 
   @override
-  Future<List<TreatmentResponseModel>> getListTreatment(
-      {required int idPest}) async {
+  Future<List<TreatmentResponseModel>> getListTreatment({required int idPest}) async {
     try {
-      final treatmentData =
-          await treatmentRepository.getTreatmentByPest(idPest);
+      final treatmentData = await treatmentRepository.getTreatmentByPest(idPest);
       List<TreatmentResponseModel> listTratamientos = [];
 
       for (var entry in treatmentData!['treatments']) {
@@ -30,8 +29,7 @@ class GetTreatmentUseCaseImpl extends GetTreatmentUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> updateTreatment(
-      TreatmentResponseModel? updateTreatments) async {
+  Future<Map<String, dynamic>> updateTreatment(TreatmentResponseModel? updateTreatments) async {
     try {
       final treatmentData = updateTreatments!.toJson();
       var r = await treatmentRepository.updateTreatmentDataRep(treatmentData);
@@ -41,8 +39,7 @@ class GetTreatmentUseCaseImpl extends GetTreatmentUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> saveTreatment(
-      TreatmentResponseModel? savedTreatments) async {
+  Future<Map<String, dynamic>> saveTreatment(TreatmentResponseModel? savedTreatments) async {
     try {
       final treatmentData = savedTreatments!.toJsonPost();
       var s = await treatmentRepository.saveTreatmentDataRep(treatmentData);

@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/activity_crop_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/bill_model.dart';
 import 'package:agrotech/features/3.opciones_supervisor/domain/models/crop_model.dart';

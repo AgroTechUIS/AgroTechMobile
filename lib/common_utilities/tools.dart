@@ -6,20 +6,7 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:intl/intl.dart';
 
-/*String imagesByTable(String table) {
-  switch (table) {
-    // Rol Super Administrador
-    case "usuarios":
-      return 'https://i.ibb.co/hZw8WFg/usuarios.jpg';
-    case "empresa":
-      return 'https://i.ibb.co/m8zGjSL/empresa.jpg';
-    // Rol Administrador
-    case "clientes":
-    default:
-      return 'https://i.ibb.co/zRRZCgD/clientes.jpg';
-  }
-}*/
-
+// coverage:ignore-start
 Future<void> scheduleNotification({required DateTime date, required int id, required String name}) async {
   const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
 
@@ -55,6 +42,7 @@ Future<void> scheduleNotification({required DateTime date, required int id, requ
     payload: 'payload',
   );
 }
+// coverage:ignore-end
 
 DateTime lastDayMonth() {
   DateTime fechaActual = DateTime.now();

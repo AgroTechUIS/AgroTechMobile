@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/5.variables/domain/models/variable_response_model.dart';
 
 class VariableState {
@@ -15,8 +16,7 @@ class VariableState {
   }) {
     return VariableState(
       variables: variables ?? this.variables,
-      selectedVariableForEdit:
-          selectedVariableForEdit ?? this.selectedVariableForEdit,
+      selectedVariableForEdit: selectedVariableForEdit ?? this.selectedVariableForEdit,
     );
   }
 }

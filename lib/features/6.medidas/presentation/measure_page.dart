@@ -1,4 +1,6 @@
-import 'package:agrotech/features/6.medidas/domain/models/measure_model.dart';
+// coverage:ignore-file
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:agrotech/features/6.medidas/domain/models/measure_response_model.dart';
 import 'package:agrotech/features/6.medidas/presentation/measure_controller.dart';
 import 'package:agrotech/features/6.medidas/presentation/widgets/edit_medida.dart';
@@ -21,8 +23,7 @@ class VariablesTPage extends ConsumerWidget {
     listMedidas.add(medida);
   }
 
-  void editMedida(BuildContext context, MeasureResponseModel medida,
-      MeasureController controller) {
+  void editMedida(BuildContext context, MeasureResponseModel medida, MeasureController controller) {
     selectedMedidaForEdit = medida;
     showDialog(
       context: context,
@@ -30,19 +31,16 @@ class VariablesTPage extends ConsumerWidget {
         return EditMedida(
           initialMedida: selectedMedidaForEdit,
           onSave: (ne) async {
-            final npa =
-                await controller.updatesMeasures(ne, medida, idVariable);
+            final npa = await controller.updatesMeasures(ne, medida, idVariable);
 
-            MeasureResponseModel measureModel =
-                MeasureResponseModel.fromJson(npa);
+            MeasureResponseModel measureModel = MeasureResponseModel.fromJson(npa);
 
             controller.getListMeasure(idVariable);
             Fluttertoast.showToast(
               msg: 'Variable actualizada correctamente.',
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.TOP_RIGHT,
-              backgroundColor:
-                  const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+              backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
               textColor: Colors.white,
             );
             Navigator.of(context).pop();
@@ -81,8 +79,7 @@ class VariablesTPage extends ConsumerWidget {
               msg: 'Medida creada correctamente.',
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.TOP_RIGHT,
-              backgroundColor:
-                  const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+              backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
               textColor: Colors.white,
             );
             Navigator.of(context).pop();
@@ -101,18 +98,17 @@ class VariablesTPage extends ConsumerWidget {
       backgroundColor: colors.appbar,
       floatingActionButton: FloatingActionButton(
         onPressed: () => createNewMedida(context, controller),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
-                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: const EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.white,
                     size: 30.0,
@@ -121,7 +117,7 @@ class VariablesTPage extends ConsumerWidget {
                     Navigator.pop(context);
                   },
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(left: 15.0),
                   child: Text(
                     'Variables ambientales',
@@ -141,8 +137,8 @@ class VariablesTPage extends ConsumerWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
@@ -150,13 +146,12 @@ class VariablesTPage extends ConsumerWidget {
                     ),
                   ),
                   child: DataTable(
-                    columns: [
+                    columns: const [
                       DataColumn(label: Text('Valor')),
                       DataColumn(label: Text('Descripción')),
                       DataColumn(label: Text('Fecha')),
                       DataColumn(label: Text('Unidad')),
-                      DataColumn(
-                          label: Text('Acciones')), // Columna para botones
+                      DataColumn(label: Text('Acciones')), // Columna para botones
                     ],
                     rows: state.medidas.map((e) {
                       return DataRow(

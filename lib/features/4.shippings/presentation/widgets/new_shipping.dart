@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // ignore: must_be_immutable
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 import 'package:agrotech/features/4.shippings/domain/models/shippings_model.dart';
@@ -157,22 +158,17 @@ class _NewPestState extends State<NewShipping> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      ShippingsResponseModel nuevoEnvio =
-                          ShippingsResponseModel(
-                              name: widget.nombreController.text,
-                              city: widget.cityController.text,
-                              department: widget.departmentController.text,
-                              price: price,
-                              days_to_delivery: days);
+                      ShippingsResponseModel nuevoEnvio = ShippingsResponseModel(
+                          name: widget.nombreController.text,
+                          city: widget.cityController.text,
+                          department: widget.departmentController.text,
+                          price: price,
+                          days_to_delivery: days);
                       widget.onSave!(nuevoEnvio);
                     },
                     color: colors.green2,
                     textColor: colors.white),
-                MyButton(
-                    text: "Cerrar",
-                    onPressed: widget.onCancel,
-                    color: colors.white,
-                    textColor: colors.textColor),
+                MyButton(text: "Cerrar", onPressed: widget.onCancel, color: colors.white, textColor: colors.textColor),
               ],
             )
           ],

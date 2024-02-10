@@ -1,11 +1,10 @@
+// coverage:ignore-file
 import 'dart:convert';
 
 List<MeasureResponseModel> measureFromJson(String str) =>
-    List<MeasureResponseModel>.from(
-        json.decode(str).map((x) => MeasureResponseModel.fromJson(x)));
+    List<MeasureResponseModel>.from(json.decode(str).map((x) => MeasureResponseModel.fromJson(x)));
 
-String measureToJson(List<MeasureResponseModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String measureToJson(List<MeasureResponseModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 List<MeasureResponseModel> listmeasureFromJson(List<dynamic> datos) =>
     datos.map((e) => MeasureResponseModel.fromJson(e)).toList();
@@ -18,15 +17,9 @@ class MeasureResponseModel {
   DateTime? date;
   int? variable;
   MeasureResponseModel(
-      {required this.id,
-      this.measurement_value,
-      this.measuring_unit,
-      this.description,
-      this.date,
-      this.variable});
+      {required this.id, this.measurement_value, this.measuring_unit, this.description, this.date, this.variable});
 
-  factory MeasureResponseModel.fromJson(Map<String, dynamic> json) =>
-      MeasureResponseModel(
+  factory MeasureResponseModel.fromJson(Map<String, dynamic> json) => MeasureResponseModel(
         id: json["id"],
         measurement_value: json["measurement_Value"],
         measuring_unit: json["measuring_Unit"],

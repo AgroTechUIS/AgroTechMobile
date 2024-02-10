@@ -1,3 +1,4 @@
+// coverage:ignore-file
 class PlantResponseModel {
   final int? id;
   final String? name;

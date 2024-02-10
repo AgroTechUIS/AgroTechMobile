@@ -1,4 +1,4 @@
-import 'dart:convert';
+/*import 'dart:convert';
 
 import 'package:agrotech/features/2.home/data/Models/centro_poblado_model.dart';
 import 'package:agrotech/features/2.home/data/Models/empresa_model.dart';
@@ -34,4 +34,4 @@ class ParcelaModel {
     data["empresa"] = empresa;
     return jsonEncode(data);
   }
-}
+}*/

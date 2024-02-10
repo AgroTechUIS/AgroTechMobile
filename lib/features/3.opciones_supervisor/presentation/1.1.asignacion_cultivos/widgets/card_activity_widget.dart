@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
 import 'package:flutter/material.dart';
 

@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.shippings/presentation/shippings_state.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';

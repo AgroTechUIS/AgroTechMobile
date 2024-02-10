@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:ui';
 
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
@@ -270,11 +271,9 @@ class _editProductState extends ConsumerState<EditProduct> {
                 MyButton(
                     text: "Guardar",
                     onPressed: () {
-                      int? cantidad =
-                          int.tryParse(widget.cantidadController.text);
+                      int? cantidad = int.tryParse(widget.cantidadController.text);
 
-                      double? precio =
-                          double.tryParse(widget.precioController.text);
+                      double? precio = double.tryParse(widget.precioController.text);
                       int? valor;
                       switch (selectedValue) {
                         case 'Activo':

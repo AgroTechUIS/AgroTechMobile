@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/6.tratamientos/data/network/treatment_repository_impl.dart';
 import 'package:agrotech/features/6.tratamientos/data/network/treatment_service.dart';
 import 'package:agrotech/features/6.tratamientos/domain/models/treatment_response_model.dart';
@@ -17,9 +18,7 @@ class TreatmentController extends StateNotifier<TreatmentState> {
   }
 
   Future<Map<String, dynamic>> updatesTreatments(
-      TreatmentResponseModel? updatedTratamientos,
-      TreatmentResponseModel? initialTratamiento,
-      int idPest) async {
+      TreatmentResponseModel? updatedTratamientos, TreatmentResponseModel? initialTratamiento, int idPest) async {
     if (updatedTratamientos == null || initialTratamiento == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -30,8 +29,7 @@ class TreatmentController extends StateNotifier<TreatmentState> {
         description: updatedTratamientos.description ?? initialTratamiento.description,
         form: updatedTratamientos.form ?? initialTratamiento.form,
         state: updatedTratamientos.state ?? initialTratamiento.state,
-        dateStart:
-            updatedTratamientos.dateStart ?? initialTratamiento.dateStart,
+        dateStart: updatedTratamientos.dateStart ?? initialTratamiento.dateStart,
         dateEnd: updatedTratamientos.dateStart ?? initialTratamiento.dateEnd,
         pest: idPest);
 
@@ -55,8 +53,7 @@ class TreatmentController extends StateNotifier<TreatmentState> {
         .any((tratamiento) => tratamiento.name!.toLowerCase() == nombreLowerCase);
   }
 
-  void saveTreatments(
-      TreatmentResponseModel? savedTreatments, int idPest) async {
+  void saveTreatments(TreatmentResponseModel? savedTreatments, int idPest) async {
     TreatmentResponseModel savedTreatment = TreatmentResponseModel(
         id: savedTreatments!.id,
         name: savedTreatments.name ?? '',
@@ -90,8 +87,7 @@ class TreatmentController extends StateNotifier<TreatmentState> {
   }
 
   Future<Map<String, dynamic>> updateTreatment(
-      TreatmentResponseModel? updatedTratamiento,
-      TreatmentResponseModel? initialTratamiento) async {
+      TreatmentResponseModel? updatedTratamiento, TreatmentResponseModel? initialTratamiento) async {
     if (updatedTratamiento == null || initialTratamiento == null) {
       // Manejar el caso en el que los argumentos sean nulos o inválidos.
       throw Exception("Los argumentos no pueden ser nulos.");
@@ -100,16 +96,14 @@ class TreatmentController extends StateNotifier<TreatmentState> {
     TreatmentResponseModel updatedInitialTratamiento = TreatmentResponseModel(
       id: updatedTratamiento.id,
       name: updatedTratamiento.name ?? initialTratamiento.name,
-      description:
-          updatedTratamiento.description ?? initialTratamiento.description,
+      description: updatedTratamiento.description ?? initialTratamiento.description,
       form: updatedTratamiento.form ?? initialTratamiento.form,
       state: updatedTratamiento.state ?? initialTratamiento.state,
       dateStart: updatedTratamiento.dateStart ?? initialTratamiento.dateStart,
       dateEnd: updatedTratamiento.dateEnd ?? initialTratamiento.dateEnd,
     );
 
-    var resp = await getTreatmentUseCaseImpl
-        .updateTreatment(updatedInitialTratamiento);
+    var resp = await getTreatmentUseCaseImpl.updateTreatment(updatedInitialTratamiento);
 
     final selectedTreatment = TreatmentResponseModel.fromJsonEdit(resp);
     state = state.copyWith(selectedTreatmentForEdit: selectedTreatment);

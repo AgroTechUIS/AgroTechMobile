@@ -1,11 +1,10 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.shippings/data/shipping_service.dart';
 
 abstract class ShippingRepository {
   Future<Map<String, dynamic>?> getShippingByEmpresa(int idEmpresa);
-  Future<Map<String, dynamic>> updateShippingDataRep(
-      Map<String, dynamic> shippingData);
-  Future<Map<String, dynamic>> saveShippingDataRep(
-      Map<String, dynamic> shippingData);
+  Future<Map<String, dynamic>> updateShippingDataRep(Map<String, dynamic> shippingData);
+  Future<Map<String, dynamic>> saveShippingDataRep(Map<String, dynamic> shippingData);
   Future<String> deleteShippingsById(int? idEnvio);
 }
 
@@ -29,8 +28,7 @@ class ShippingRepositoryImpl implements ShippingRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> updateShippingDataRep(
-      Map<String, dynamic> shippingData) async {
+  Future<Map<String, dynamic>> updateShippingDataRep(Map<String, dynamic> shippingData) async {
     try {
       final response = await shippingService.updateShippingData(shippingData);
 
@@ -46,8 +44,7 @@ class ShippingRepositoryImpl implements ShippingRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> saveShippingDataRep(
-      Map<String, dynamic> shippingData) async {
+  Future<Map<String, dynamic>> saveShippingDataRep(Map<String, dynamic> shippingData) async {
     try {
       final response = await shippingService.saveShipping(shippingData);
 

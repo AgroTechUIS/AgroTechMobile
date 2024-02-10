@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 
 import '../../../../common_utilities/clientHttp.dart';

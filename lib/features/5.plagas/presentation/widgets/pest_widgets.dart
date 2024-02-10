@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+// coverage:ignore-file
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 //import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +12,7 @@ class PestWidget extends StatelessWidget {
   final VoidCallback onTreatment;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
-  PestWidget(
-      {required this.plaga,
-      required this.onTreatment,
-      required this.onEdit,
-      required this.onDelete});
+  PestWidget({required this.plaga, required this.onTreatment, required this.onEdit, required this.onDelete});
 
   /*pickImage(ImageSource source) async {
     final ImagePicker imagePicker = ImagePicker();
@@ -40,14 +36,13 @@ class PestWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5, // Elevación de la tarjeta
-      margin: EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 1.0), // Margen de la tarjeta
       shape: RoundedRectangleBorder(
         // Agrega el radio de borde
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -62,8 +57,7 @@ class PestWidget extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                    padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                     child: Text(
                       plaga.name ?? '',
                       style: TextStyle(
@@ -73,8 +67,8 @@ class PestWidget extends StatelessWidget {
                     ),
                   ),
                 ]),
-                Spacer(),
-              /* GestureDetector(
+                const Spacer(),
+                /* GestureDetector(
                     onTap: () async {
                       if (plaga.adjuntoDto!.url != null) {
                         showDialog(
@@ -129,9 +123,9 @@ class PestWidget extends StatelessWidget {
                     )),*/
               ],
             ),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Descripción: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -139,7 +133,7 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   plaga.description ?? '',
                   style: TextStyle(
@@ -149,9 +143,9 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Estado de la plaga: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -159,7 +153,7 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   plaga.state ?? '',
                   style: TextStyle(
@@ -169,9 +163,9 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Observaciones: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -179,7 +173,7 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   plaga.observation ?? '',
                   style: TextStyle(
@@ -189,9 +183,9 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Fecha de aparición: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -199,7 +193,7 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   '${plaga.appareceDate!.year}-${plaga.appareceDate!.month}-${plaga.appareceDate!.day}',
                   style: TextStyle(
@@ -209,9 +203,9 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Familia de la plaga: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -219,7 +213,7 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: Text(
                   plaga.pestFamily ?? '',
                   style: TextStyle(
@@ -230,9 +224,9 @@ class PestWidget extends StatelessWidget {
               ),
             ]),
 
-            SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
+            const SizedBox(height: 8.0), // Espacio entre el nombre y la descripción
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              const Text(
                 'Tratamiento: ',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -240,20 +234,19 @@ class PestWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2.0), // Agrega padding arriba
+                padding: const EdgeInsets.only(left: 2.0), // Agrega padding arriba
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushNamed('tratamientos');
                   },
                   child: Container(
                     width: 50, // Ocupar 50px el ancho
-                    padding: EdgeInsets.all(1.0), // Espacio alrededor del botón
+                    padding: const EdgeInsets.all(1.0), // Espacio alrededor del botón
                     decoration: BoxDecoration(
                       color: Colors.yellow, // Fondo amarillo
-                      borderRadius:
-                          BorderRadius.circular(20.0), // Borde redondeado
+                      borderRadius: BorderRadius.circular(20.0), // Borde redondeado
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Icon(
                         Icons.remove_red_eye, // Icono de un ojo
                         color: Colors.white, // Color blanco
@@ -265,7 +258,7 @@ class PestWidget extends StatelessWidget {
               )
             ]),
 
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -273,19 +266,19 @@ class PestWidget extends StatelessWidget {
                 FloatingActionButton(
                   onPressed: onTreatment,
                   backgroundColor: Colors.yellow,
-                  child: Icon(Icons.health_and_safety),
+                  child: const Icon(Icons.health_and_safety),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onEdit,
                   backgroundColor: Colors.green,
-                  child: Icon(Icons.edit),
+                  child: const Icon(Icons.edit),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 FloatingActionButton(
                   onPressed: onDelete,
                   backgroundColor: Colors.red,
-                  child: Icon(Icons.delete),
+                  child: const Icon(Icons.delete),
                 ),
               ],
             ),

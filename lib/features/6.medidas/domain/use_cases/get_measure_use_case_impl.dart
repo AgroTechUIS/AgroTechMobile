@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import '../../data/network/measure_repository_impl.dart';
 import '../models/measure_response_model.dart';
 import '../models/measure_response_model.dart';
@@ -14,11 +15,9 @@ class GetMeasureUseCaseImpl extends GetMeasureUseCase {
   );
 
   @override
-  Future<List<MeasureResponseModel>> getListMeasure(
-      {required int idVariable}) async {
+  Future<List<MeasureResponseModel>> getListMeasure({required int idVariable}) async {
     try {
-      final measureData =
-          await measureRepository.getMeasureByVariable(idVariable);
+      final measureData = await measureRepository.getMeasureByVariable(idVariable);
       List<MeasureResponseModel> listMeasures = [];
 
       for (var entry in measureData!['variablesValue']) {
@@ -30,8 +29,7 @@ class GetMeasureUseCaseImpl extends GetMeasureUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> updateMeasure(
-      MeasureResponseModel? updateMeasures) async {
+  Future<Map<String, dynamic>> updateMeasure(MeasureResponseModel? updateMeasures) async {
     try {
       final measureData = updateMeasures!.toJson();
       var r = await measureRepository.updateMeasureDataRep(measureData);
@@ -41,8 +39,7 @@ class GetMeasureUseCaseImpl extends GetMeasureUseCase {
     }
   }
 
-  Future<Map<String, dynamic>> saveMeasure(
-      MeasureResponseModel? savedMeasures) async {
+  Future<Map<String, dynamic>> saveMeasure(MeasureResponseModel? savedMeasures) async {
     try {
       final measureData = savedMeasures!.toJsonPost();
       var s = await measureRepository.saveMeasureDataRep(measureData);

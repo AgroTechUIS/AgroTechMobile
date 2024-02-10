@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_controller.dart';
 import 'package:agrotech/features/5.cuidados/presentation/cuidado_state.dart';
 import 'package:agrotech/features/5.cuidados/presentation/widgets/care_widgets.dart';

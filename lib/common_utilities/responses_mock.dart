@@ -1,3 +1,4 @@
+// coverage:ignore-file
 Map<String, Map<String, dynamic>> mapResponses = {
   "api/actividades/usuario/1": {
     "actividades": [

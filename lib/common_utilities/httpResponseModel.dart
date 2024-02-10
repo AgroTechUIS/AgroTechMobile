@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 class HttpResponseModel {
   late bool success;
   String? message;

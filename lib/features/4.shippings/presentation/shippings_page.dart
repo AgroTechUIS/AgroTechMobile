@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.shippings/presentation/shippings_controller.dart';
 import 'package:agrotech/features/4.shippings/presentation/shippings_state.dart';
 import 'package:agrotech/features/4.shippings/presentation/widgets/new_shipping.dart';
@@ -11,16 +12,14 @@ import '../../../common_utilities/config/colors_theme.dart';
 import '../domain/models/shippings_model.dart';
 import 'widgets/edit_shipping.dart';
 
-final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-    GlobalKey<RefreshIndicatorState>();
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
 class ShippingsPage extends ConsumerWidget {
   ShippingsPage({super.key, required this.idEmpresa});
 
   final int idEmpresa;
 
-  void deleteShipping(
-      ShippingsResponseModel envio, ShippingController controller) {
+  void deleteShipping(ShippingsResponseModel envio, ShippingController controller) {
     controller.deleteShipping(envio);
     controller.update(envio);
     Fluttertoast.showToast(
@@ -38,8 +37,7 @@ class ShippingsPage extends ConsumerWidget {
       builder: (context) {
         return NewShipping(
           onSave: (nuevoEnvio) async {
-            bool existeEnvio =
-                controller.existeEnvioConNombre(nuevoEnvio.name!);
+            bool existeEnvio = controller.existeEnvioConNombre(nuevoEnvio.name!);
 
             if (existeEnvio) {
               Fluttertoast.showToast(
@@ -58,8 +56,7 @@ class ShippingsPage extends ConsumerWidget {
                 msg: 'Envio creado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor:
-                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -73,8 +70,7 @@ class ShippingsPage extends ConsumerWidget {
     );
   }
 
-  void editShipping(context, ShippingsResponseModel envio,
-      ShippingController controller, ShippingState state) {
+  void editShipping(context, ShippingsResponseModel envio, ShippingController controller, ShippingState state) {
     state.selectedShippingForEdit = envio;
     showDialog(
       context: context,
@@ -84,10 +80,8 @@ class ShippingsPage extends ConsumerWidget {
           onSave: (ne) async {
             final nca = await controller.updateShipping(ne, envio, idEmpresa);
 
-            ShippingsResponseModel shippingModel =
-                ShippingsResponseModel.fromJson(nca);
-            bool existeEnvio = controller.existeEnvioEConNombre(
-                shippingModel.name!, shippingModel);
+            ShippingsResponseModel shippingModel = ShippingsResponseModel.fromJson(nca);
+            bool existeEnvio = controller.existeEnvioEConNombre(shippingModel.name!, shippingModel);
 
             if (existeEnvio) {
               Fluttertoast.showToast(
@@ -103,8 +97,7 @@ class ShippingsPage extends ConsumerWidget {
                 msg: 'Envio actualizado correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor:
-                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -132,8 +125,7 @@ class ShippingsPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
-                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(

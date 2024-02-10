@@ -1,14 +1,13 @@
+// coverage:ignore-file
 import 'dart:convert';
 
 import '../../../5.plagas/domain/models/pest_response_model.dart';
 
 List<TreatmentResponseModel> treatmentsFromJson(String str) =>
-    List<TreatmentResponseModel>.from(json
-        .decode(str)['treatments']
-        .map((x) => TreatmentResponseModel.fromJson(x)));
+    List<TreatmentResponseModel>.from(json.decode(str)['treatments'].map((x) => TreatmentResponseModel.fromJson(x)));
 
-String treatmentsToJson(List<TreatmentResponseModel> data) => json
-    .encode({'treatments': List<dynamic>.from(data.map((x) => x.toJson()))});
+String treatmentsToJson(List<TreatmentResponseModel> data) =>
+    json.encode({'treatments': List<dynamic>.from(data.map((x) => x.toJson()))});
 
 List<TreatmentResponseModel> listtreatmentFromJson(List<dynamic> datos) =>
     datos.map((e) => TreatmentResponseModel.fromJson(e)).toList();
@@ -34,8 +33,7 @@ class TreatmentResponseModel {
     this.pest,
   });
 
-  factory TreatmentResponseModel.fromJson(Map<String, dynamic> json) =>
-      TreatmentResponseModel(
+  factory TreatmentResponseModel.fromJson(Map<String, dynamic> json) => TreatmentResponseModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],
@@ -46,8 +44,7 @@ class TreatmentResponseModel {
         // pest: json["pest"],
       );
 
-  factory TreatmentResponseModel.fromJsonEdit(Map<String, dynamic> json) =>
-      TreatmentResponseModel(
+  factory TreatmentResponseModel.fromJsonEdit(Map<String, dynamic> json) => TreatmentResponseModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],

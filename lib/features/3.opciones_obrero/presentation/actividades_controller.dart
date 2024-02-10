@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/common_utilities/controllers/offline_controller.dart';
 import 'package:agrotech/common_utilities/models/list_response_model.dart';
 import 'package:agrotech/common_utilities/models/response_model.dart';

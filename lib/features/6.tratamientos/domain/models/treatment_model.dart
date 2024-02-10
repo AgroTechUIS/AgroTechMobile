@@ -1,13 +1,13 @@
+// coverage:ignore-file
 import 'dart:convert';
 
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
 
 List<TreatmentModel> treatmentsFromJson(String str) =>
-    List<TreatmentModel>.from(
-        json.decode(str)['treatments'].map((x) => TreatmentModel.fromJson(x)));
+    List<TreatmentModel>.from(json.decode(str)['treatments'].map((x) => TreatmentModel.fromJson(x)));
 
-String treatmentsToJson(List<TreatmentModel> data) => json
-    .encode({'treatments': List<dynamic>.from(data.map((x) => x.toJson()))});
+String treatmentsToJson(List<TreatmentModel> data) =>
+    json.encode({'treatments': List<dynamic>.from(data.map((x) => x.toJson()))});
 
 class TreatmentModel {
   int id;

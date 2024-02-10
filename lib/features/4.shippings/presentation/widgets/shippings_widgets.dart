@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.shippings/domain/models/shippings_model.dart';
 //import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';

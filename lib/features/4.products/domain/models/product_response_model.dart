@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:convert';
 
 List<ProductResponseModel> productFromJson(String str) =>

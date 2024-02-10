@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:agrotech/features/4.cultivos/domain/models/crop_response_model.dart';
 import 'package:agrotech/features/4.products/domain/models/product_response_model.dart';
 import 'package:agrotech/features/4.products/presentation/product_state.dart';

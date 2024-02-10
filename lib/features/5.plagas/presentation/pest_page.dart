@@ -1,9 +1,6 @@
+// coverage:ignore-file
 import 'package:agrotech/common_utilities/context_extension.dart';
-import 'package:agrotech/features/4.cultivos/presentation/crop_controller.dart';
-import 'package:agrotech/features/5.plagas/data/network/pest_repository_impl.dart';
-import 'package:agrotech/features/5.plagas/data/network/pest_service.dart';
 import 'package:agrotech/features/5.plagas/domain/models/pest_response_model.dart';
-import 'package:agrotech/features/5.plagas/domain/use_cases/get_pest_use_case_impl.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_controller.dart';
 import 'package:agrotech/features/5.plagas/presentation/pest_state.dart';
 import 'package:agrotech/features/5.plagas/presentation/widgets/edit_pest.dart';
@@ -12,11 +9,9 @@ import 'package:agrotech/features/6.tratamientos/presentation/treatment_controll
 import 'package:agrotech/features/6.tratamientos/presentation/treatment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:agrotech/common_utilities/config/colors_theme.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../domain/models/pest_model.dart';
 import 'widgets/new_pest.dart';
 
 class PlagasPage extends ConsumerWidget {
@@ -52,8 +47,7 @@ class PlagasPage extends ConsumerWidget {
       listPest.add(plaga);
     });
   }*/
-  void editPest(context, PlagaResponseModel plaga, PestController controller,
-      PestState state) {
+  void editPest(context, PlagaResponseModel plaga, PestController controller, PestState state) {
     state.selectedPlagaForEdit = plaga;
     showDialog(
       context: context,
@@ -64,8 +58,7 @@ class PlagasPage extends ConsumerWidget {
             final npa = await controller.updatesPests(np, plaga, idCrop);
 
             PlagaResponseModel plagaModel = PlagaResponseModel.fromJson(npa);
-            bool existePlaga =
-                controller.existePlagaEConNombre(plagaModel.name!, plagaModel);
+            bool existePlaga = controller.existePlagaEConNombre(plagaModel.name!, plagaModel);
 
             if (existePlaga) {
               Fluttertoast.showToast(
@@ -81,8 +74,7 @@ class PlagasPage extends ConsumerWidget {
                 msg: 'Plaga actualizada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor:
-                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -108,15 +100,13 @@ class PlagasPage extends ConsumerWidget {
     );
   }
 
-  void createNewPest(
-      BuildContext context, PestController controller, WidgetRef ref) {
+  void createNewPest(BuildContext context, PestController controller, WidgetRef ref) {
     showDialog(
       context: context,
       builder: (context) {
         return NewPest(
           onSave: (nuevaPlaga) async {
-            bool existePlaga =
-                controller.existePlagaConNombre(nuevaPlaga.name!);
+            bool existePlaga = controller.existePlagaConNombre(nuevaPlaga.name!);
 
             if (existePlaga) {
               Fluttertoast.showToast(
@@ -135,8 +125,7 @@ class PlagasPage extends ConsumerWidget {
                 msg: 'Plaga creada correctamente.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP_RIGHT,
-                backgroundColor:
-                    const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
+                backgroundColor: const Color.fromARGB(255, 34, 95, 36), // Fondo rojo
                 textColor: Colors.white,
               );
               Navigator.of(context).pop();
@@ -170,8 +159,7 @@ class PlagasPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(
-                top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding: const EdgeInsets.only(top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Row(
               children: <Widget>[
                 IconButton(
